@@ -1,6 +1,6 @@
 # Caurium
 
-The public website for **Caurium** — a managed infrastructure practice for teams going global. Caurium operates environments in Frankfurt, Virginia, Singapore, Tokyo, and Sydney, and covers hosting, synthetic monitoring, and recovery.
+The public website for **Caurium** — a managed infrastructure practice for teams going global. Caurium operates environments in Germany, the United States, Singapore, Japan, and Australia, and covers hosting, synthetic monitoring, and recovery.
 
 - **Caurium Base** — managed multi-region hosting.
 - **Caurium Probe** — synthetic checks, alerting, and status pages.

@@ -11,7 +11,7 @@ metadata:
   title:
     default: Caurium — Managed infrastructure for teams going global
     template: '%s — Caurium'
-  description: 'Caurium deploys, monitors, and recovers services across five regions — Frankfurt, Virginia, Singapore, Tokyo, and Sydney — with one team to call.'
+  description: 'Caurium deploys, monitors, and recovers services across five regions — Germany, the United States, Singapore, Japan, and Australia — with one team to call.'
   robots:
     index: true
     follow: true

@@ -716,6 +716,122 @@ ol {
   color: var(--c-muted);
 }
 
+/* Globe card -------------------------------------------------------------- */
+
+.globe-card {
+  background: var(--c-ink);
+  color: #e9ecf5;
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem 1.15rem;
+  box-shadow: var(--shadow-float);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.globe-card__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(233, 236, 245, 0.66);
+}
+
+.globe-card__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 9.25rem;
+  align-items: center;
+  gap: 0.9rem;
+  padding-block: 0.6rem 0.35rem;
+}
+
+.globe-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  min-width: 0;
+}
+
+.globe-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.globe-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.globe-legend li {
+  display: grid;
+  grid-template-columns: 0.4rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.globe-legend li:last-child {
+  border-bottom: 0;
+}
+
+.globe-legend__dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--c-lime);
+  box-shadow: 0 0 0 3px rgba(201, 226, 101, 0.14);
+}
+
+.globe-legend__name {
+  color: #f3f5fa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.globe-legend__code {
+  color: rgba(233, 236, 245, 0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.globe-card__foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(233, 236, 245, 0.55);
+}
+
+@media (max-width: 520px) {
+  .globe-card__body {
+    grid-template-columns: 1fr;
+  }
+
+  .globe-wrap {
+    max-width: 15.5rem;
+    margin-inline: auto;
+  }
+
+  .globe-legend {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+}
+
 @media (max-width: 900px) {
   .hero__grid {
     grid-template-columns: 1fr;
