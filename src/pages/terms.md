@@ -25,7 +25,7 @@ Marketing pages are indicative and do not override the signed scope.
 
 You may not use Caurium services to:
 
-- provide VPN, proxy, or circumvention services, or host anonymous tunnel endpoints;
+- use the service to conceal the origin of unlawful or abusive activity;
 - send unsolicited bulk email, host phishing content, or distribute malware;
 - attack, scan, or overload systems you do not own or have permission to test;
 - store or process data you are not lawfully entitled to process;

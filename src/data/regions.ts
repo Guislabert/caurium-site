@@ -1,7 +1,6 @@
 export interface Region {
   code: string;
-  city: string;
-  country: string;
+  name: string;
   continent: string;
   status: 'live' | 'on-request';
   note: string;
@@ -9,50 +8,44 @@ export interface Region {
 
 export const regions: Region[] = [
   {
-    code: 'eu-central',
-    city: 'Frankfurt',
-    country: 'Germany',
+    code: 'de',
+    name: 'Germany',
     continent: 'Europe',
     status: 'live',
     note: 'EU data residency and GDPR-friendly handling.',
   },
   {
-    code: 'us-east',
-    city: 'Virginia',
-    country: 'United States',
+    code: 'us',
+    name: 'United States',
     continent: 'North America',
     status: 'live',
-    note: 'East-coast entry point for US and transatlantic traffic.',
+    note: 'Entry point for US and transatlantic traffic.',
   },
   {
-    code: 'ap-southeast',
-    city: 'Singapore',
-    country: 'Singapore',
+    code: 'sg',
+    name: 'Singapore',
     continent: 'Asia Pacific',
     status: 'live',
     note: 'Southeast Asia and India-facing workloads.',
   },
   {
-    code: 'ap-northeast',
-    city: 'Tokyo',
-    country: 'Japan',
+    code: 'jp',
+    name: 'Japan',
     continent: 'Asia Pacific',
     status: 'live',
     note: 'Low-latency entry point for Japan and Korea.',
   },
   {
-    code: 'ap-southeast-2',
-    city: 'Sydney',
-    country: 'Australia',
+    code: 'au',
+    name: 'Australia',
     continent: 'Oceania',
     status: 'live',
     note: 'Australia and New Zealand coverage.',
   },
   {
     code: 'on-request',
-    city: 'Your region',
-    country: 'On request',
-    continent: 'Anywhere',
+    name: 'Your region',
+    continent: 'On request',
     status: 'on-request',
     note: 'New regions are assessed and delivered in 2–4 weeks.',
   },
