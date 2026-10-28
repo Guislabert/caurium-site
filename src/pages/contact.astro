@@ -1,81 +1,63 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
   title: 'Contact',
-  description:
-    'Contact page demo built with AstroWind: a form, contact details and support links in one accessible layout.',
+  description: 'Contact AsterLyn about access, regional setup, security reports, and partnerships.',
 };
+
+const email = 'hello' + '@' + 'asterlyn' + '.io';
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
-
-  <HeroText tagline="Contact" title="Let's Connect!" />
-
-  <ContactUs
-    id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
-    }}
-    description="Our support team typically responds within 24 business hours."
+  <HeroText
+    tagline="Contact"
+    title="Talk to us"
+    subtitle="Tell us what you run today, where your users are, and what you need from an edge layer. A short note is enough to start."
   />
 
-  <!-- Features2 Widget ************** -->
-
   <Features2
-    title="We are here to help!"
+    title="Where to reach us"
+    subtitle="We read every message. Expect a reply within two business days."
+    columns={2}
     items={[
       {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
+        title: 'Access and onboarding',
+        description: `Questions about availability, regions, or migrating an existing API: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
         icon: 'tabler:mail',
       },
       {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
+        title: 'Security',
+        description: `Report a vulnerability or request our security contact details: <a class="text-primary underline" href="mailto:${email}">${email}</a>. Please do not include exploit details in a first message.`,
+        icon: 'tabler:shield-lock',
+      },
+      {
+        title: 'Partnerships',
+        description: `Infrastructure, integration, or reseller questions: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
+        icon: 'tabler:users',
+      },
+      {
+        title: 'Everything else',
+        description: `Press, careers, or general questions: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
+        icon: 'tabler:message-circle',
       },
     ]}
+  />
+
+  <CallToAction
+    title="Send us a note"
+    subtitle="Include your current setup, the regions you care about, and roughly how much traffic you move."
+    actions={[
+      {
+        variant: 'primary',
+        text: 'Email AsterLyn',
+        href: `mailto:${email}`,
+        icon: 'tabler:mail',
+      },
+    ]}
+    layout="banner"
   />
 </Layout>
