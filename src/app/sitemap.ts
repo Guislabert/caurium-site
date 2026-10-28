@@ -8,6 +8,8 @@ const PATHS = [
   '/',
   '/products/',
   ...PRODUCTS.map((product) => `/products/${product.slug}/`),
+  '/pricing/',
+  '/start/',
   '/architecture/',
   '/docs/',
   '/docs/overview/',

@@ -36,7 +36,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
   <channel>
     <title>Caurium build log</title>
     <link>${base}/build-log/</link>
-    <description>A dated record of changes to the Caurium public site. No product is available.</description>
+    <description>A dated record of changes to the Caurium public site. Probe is in private preview; Gate, Guard and Box are planned.</description>
     <language>en</language>
     <lastBuildDate>${pubDate(latest)}</lastBuildDate>
 ${items}

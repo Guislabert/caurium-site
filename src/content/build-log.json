@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-10-29",
+    "type": "release",
+    "title": "Probe private preview deployed",
+    "detail": "A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.",
+    "href": "/products/probe/",
+    "linkLabel": "Read the Probe boundary"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "content",
+    "title": "Probe pricing and application flow published",
+    "detail": "Three monthly plans at €19, €49 and €99 with fixed endpoint, interval and retention limits. The application form posts to the Probe service; no payment is taken on this site.",
+    "href": "/pricing/",
+    "linkLabel": "See pricing"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "docs",
+    "title": "Probe record moves from Planned to private preview",
+    "detail": "Implemented checks, incident rule, webhook, SSRF rejection and stale-state handling are now listed as implemented. TLS expiry and the split between collector and publisher remain planned.",
+    "href": "/products/probe/",
+    "linkLabel": "Open the Probe record"
+  },
+  {
     "date": "2026-10-28",
     "type": "content",
     "title": "Public copy rewritten around reader questions",

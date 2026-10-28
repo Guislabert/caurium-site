@@ -106,16 +106,16 @@ export function MobileNavigation() {
 
             <div className="mt-6">
               <Link
-                href="/docs/"
+                href="/pricing/"
                 className="btn btn-primary w-full"
                 onClick={() => setOpen(false)}
               >
-                Read the docs
+                See Probe pricing
               </Link>
             </div>
 
             <p className="mt-6 border-t border-border pt-4 text-xs leading-5 text-muted">
-              Caurium is in early development. Planned features are not available for use.
+              Probe is in private preview. Gate, Guard and Box are planned.
             </p>
           </nav>
         </div>

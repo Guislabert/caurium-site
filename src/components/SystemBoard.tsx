@@ -15,9 +15,9 @@ export function SystemBoard() {
     <figure className="figure corner-marks">
       <div className="figure__head">
         <p className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted">
-          Fig. 01 — Roadmap architecture
+          Fig. 01 — Module map
         </p>
-        <ProductStageBadge stage="planned" />
+        <ProductStageBadge stage="private-preview" />
       </div>
 
       <div className="figure__body grid-paper">
@@ -70,9 +70,9 @@ export function SystemBoard() {
 
       <div className="figure__foot flex flex-wrap items-center justify-between gap-2">
         <p className="text-[10.5px] leading-5 text-muted">
-          Illustrative example — not a live service.
+          Probe is live in private preview. The other three boxes are illustrative.
         </p>
-        <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">Rev. 2026-10-28</p>
+        <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">Rev. 2026-10-29</p>
       </div>
     </figure>
   );

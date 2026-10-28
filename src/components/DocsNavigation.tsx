@@ -33,7 +33,7 @@ export function DocsNavigation({ current }: { current: string }) {
       <div className="mt-6 hidden rounded-[16px] border border-border bg-paper p-3 lg:block">
         <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">Current state</p>
         <p className="mt-1.5 text-[11.5px] leading-5 text-muted">
-          All four modules are Planned. Monitoring is not connected.
+          Probe is in private preview. Gate, Guard and Box are planned.
         </p>
       </div>
     </nav>

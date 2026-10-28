@@ -7,12 +7,12 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Is Caurium available today?',
     answer:
-      'No. Gate, Probe, Guard and Box are all Planned. There is no callable endpoint, console, account or API key.',
+      'Probe is available in private preview with manual activation. Gate, Guard and Box are Planned and are not for sale.',
   },
   {
     question: 'Can I create an account, key or paid plan?',
     answer:
-      'No. The public site has no sign-up, login, payment flow or key generation. No price is published.',
+      'You can apply for Probe. There is no self-serve signup, console or API key issuance: we confirm endpoint ownership, send a payment request and activate the account by hand. Gate, Guard and Box have no accounts or prices.',
   },
   {
     question: 'What does “Planned” mean?',
@@ -20,19 +20,19 @@ export const FAQ: FaqItem[] = [
       'A specification or design exists, but availability has not been verified. A stage changes only after its release criteria are met and recorded.',
   },
   {
-    question: 'Why are there no prices?',
+    question: 'What does Probe cost?',
     answer:
-      'No plan is sold. A price without a service would be a claim the project cannot support.',
+      '€19, €49 or €99 per month depending on endpoint count, check interval and check-history retention. The pricing page lists the exact limits. Gate, Guard and Box have no price because they are not sold.',
   },
   {
     question: 'Do you publish regions, SLAs or uptime?',
     answer:
-      'No. A region label appears only after a deployment exists and a check has run there. An SLA requires a measured service. No uptime history is published.',
+      'No. A region label appears only after a deployment exists and a check has run there. Probe has no SLA, and no uptime percentage is published for this site or for customer accounts.',
   },
   {
     question: 'Is there a status page?',
     answer:
-      'Yes. It reports that monitoring is not connected. Until a sanitized feed exists, every component is Unknown by design.',
+      'Yes, two different things. Activated Probe accounts get a live status page and JSON feed built from their own checks. The Caurium site-wide feed is not connected, so that page reports Unknown rather than a green summary.',
   },
   {
     question: 'How do I report a security issue?',
@@ -42,7 +42,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Can I build against the API from the documentation?',
     answer:
-      'No. The examples are proposed contracts, not callable endpoints. There is no quickstart because there is no service to start.',
+      'Only the Probe status feed is callable, and only for an activated account. The Gate, Guard and Box examples are proposed contracts. There is no public quickstart for those products.',
   },
   {
     question: 'Why four modules instead of one platform?',
@@ -52,6 +52,16 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Who is Caurium for?',
     answer:
-      'Small engineering teams that need scoped API access, endpoint checks, and recovery they can prove — once those modules exist.',
+      'Small teams that own public endpoints and want a status page and a webhook alert without running the checker — and, later, teams that need scoped API access and recovery they can prove.',
+  },
+  {
+    question: 'How do I cancel a Probe account?',
+    answer:
+      'Tell us before the next monthly payment. Monitoring continues until the end of the paid month and then stops. There is no automatic renewal or stored card on this site.',
+  },
+  {
+    question: 'What happens when Probe cannot run a check?',
+    answer:
+      'The component is marked Unknown, not healthy. Probe never carries a previous green state forward when data is missing or stale.',
   },
 ];

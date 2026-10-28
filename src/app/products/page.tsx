@@ -14,10 +14,10 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Products — roadmap and stages',
   description:
-    'Four Caurium modules: Gate for scoped API access, Probe for service monitoring, Guard for operational safeguards, and Box for invitation-only development environments.',
+    'Probe is in private preview for endpoint monitoring. Gate for scoped API access, Guard for operational safeguards, and Box for invitation-only development environments remain planned.',
   path: '/products/',
   ogImage: '/og/products.png',
-  ogAlt: 'Caurium products — four planned modules on one focused roadmap.',
+  ogAlt: 'Caurium products — Probe in private preview, three planned modules.',
 });
 
 const STAGES = Object.keys(STAGE_LABELS) as ProductStage[];
@@ -29,15 +29,15 @@ export default function ProductsPage() {
         crumbs={[{ label: 'Products' }]}
         eyebrow="Products"
         title="A focused roadmap, one module at a time."
-        description="Caurium is building four narrow modules. Each page states the intended workflow, the limits, and the evidence required before its stage can change. None of them is available for use today."
+        description="Caurium has four narrow modules. Probe is in private preview with manual activation. Gate, Guard and Box are planned. Each page states the workflow, the limits, and the evidence required before its stage can change."
         meta={
           <>
-            <span className="badge-stage" data-stage="planned">
+            <span className="badge-stage" data-stage="private-preview">
               <span className="badge-dot" aria-hidden="true" />
-              All modules Planned
+              Probe in private preview
             </span>
             <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
-              Reviewed 28 Oct 2026
+              Reviewed 29 Oct 2026
             </span>
           </>
         }
@@ -57,7 +57,7 @@ export default function ProductsPage() {
           </div>
 
           <p className="mt-5 text-xs leading-5 text-muted">
-            All four modules are Planned. No module is available for use today.
+            Probe is in private preview. Gate, Guard and Box are planned and not for sale.
           </p>
         </div>
       </section>
@@ -139,7 +139,7 @@ export default function ProductsPage() {
             <div className="min-w-0">
               <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
                 {STAGES.map((stage, index) => {
-                  const current = stage === 'planned';
+                  const current = stage === 'private-preview';
                   return (
                     <li
                       key={stage}
@@ -219,8 +219,8 @@ export default function ProductsPage() {
           <ul className="border-t border-border-strong">
             {[
               'A release schedule. Stage order shows dependency and priority, not dates.',
-              'A price list. No plan, checkout or free tier is published.',
-              'A console. There is no account, API key or login to create.',
+              'A full price list. Probe has three plans; Gate, Guard and Box are not sold and have no price.',
+              'A self-serve console. Probe activation is manual; no account or API key is created online.',
               'A platform claim. Each module stands on its own verified scope.',
             ].map((item, index) => (
               <li key={item} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">

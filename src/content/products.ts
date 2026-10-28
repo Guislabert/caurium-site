@@ -84,7 +84,8 @@ export const STAGE_DESCRIPTIONS: Record<ProductStage, string> = {
   planned: 'A specification or design exists. Availability has not been verified.',
   'in-development': 'An implementation can be inspected, but it is not available to external users.',
   internal: 'Running internally, with a known scope and evidence.',
-  'private-preview': 'Core acceptance passed. Open only to invited users through a real intake process.',
+  'private-preview':
+    'Core acceptance passed. Open through a reviewed intake; accounts are activated by hand.',
   'public-beta': 'Open intake, limits, support and monitoring are in place.',
   available: 'Stable within the documented scope after a formal release review.',
 };
@@ -284,93 +285,115 @@ export const PRODUCTS: ProductRecord[] = [
     role: 'Observe',
     title: 'Know when your services need attention.',
     summary:
-      'Planned: scheduled availability and TLS checks for endpoints you own or are authorized to monitor.',
-    stage: 'planned',
+      'Private preview: scheduled HTTP checks, a three-failure incident rule, one webhook, and a sanitized status page. Accounts are activated by hand.',
+    stage: 'private-preview',
     metaDescription:
-      'Explore the planned availability and TLS monitoring workflow, data boundaries, and release criteria for Caurium Probe.',
+      'Probe checks owner-authorized endpoints every 30–60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month.',
     audience:
-      'Teams responsible for endpoints they own or are explicitly authorized to monitor.',
-    forLine: 'Teams responsible for endpoints they own or are authorized to monitor.',
+      'Small teams that own public HTTP endpoints and want a status page and a webhook alert without operating the checker themselves.',
+    forLine: 'Teams responsible for public endpoints they own or are authorized to monitor.',
     problem:
-      'A service is slow from only one region, or a certificate expires on a Sunday, and the first report comes from a customer.',
+      'A deploy breaks the checkout endpoint at night. The first report is a customer message, and the status page is a green page nobody remembered to update.',
     workflow: [
       {
-        title: 'Check on a schedule',
+        title: 'Send the endpoints you own',
         detail:
-          'A probe requests a fixed endpoint and records HTTP status, time to response headers, TLS certificate validity and the time of the check.',
+          'Apply with the URLs and aliases you want checked. We confirm ownership, agree the interval and activate the account by hand before monitoring starts.',
       },
       {
-        title: 'Evaluate a short window',
+        title: 'Checks run on a fixed schedule',
         detail:
-          'Three consecutive failures open an event. A recovery closes it. Missing or stale data is shown as Unknown, never as success.',
+          'Probe requests each target on its interval, records the status code and latency, follows at most three redirects and re-validates every hop. Response bodies are discarded.',
       },
       {
-        title: 'Publish a sanitized state',
+        title: 'Three failures open an incident',
         detail:
-          'A separate publisher exposes only an alias, coarse region, state and timestamps. It has no scanning capability or management credentials.',
+          'The status page turns Outage and the account webhook receives one message. The first successful check closes the incident and sends one recovery message.',
       },
     ],
-    workflowCaption: 'A fixed target is measured, evaluated over a window, and reduced to sanitized state.',
+    workflowCaption:
+      'You send a fixed target list; Probe checks it, reduces it to state, and alerts one webhook on change.',
     scopeNote:
-      'No Probe capability is verified yet. The first release is limited to a fixed endpoint list and does not accept anonymous arbitrary URLs.',
+      'Probe is running in private preview. Every account is reviewed and activated by hand. There is no self-serve console, and no endpoint is checked until ownership is confirmed.',
     features: [
       {
         id: 'checks',
-        label: 'HTTP(S) and TLS checks',
+        label: 'HTTP status and latency',
         detail:
-          'Status code, response time and certificate expiry, each recorded with its collection time.',
-        stage: 'planned',
+          'Expected status, actual status and time to response, recorded with the check time. Response bodies and headers are not stored.',
+        stage: 'implemented',
       },
       {
         id: 'fixed-targets',
-        label: 'Fixed endpoint list',
+        label: 'Fixed, owner-authorized targets',
         detail:
-          'Only endpoints you own or are authorized to monitor. No public URL scanner.',
-        stage: 'planned',
+          'Only endpoints you own or are authorized to monitor. There is no anonymous URL scanner.',
+        stage: 'implemented',
       },
       {
         id: 'cadence',
-        label: 'Explicit initial cadence',
+        label: '30–3600 second cadence',
         detail:
-          'Every 60 seconds, 10 second total timeout, event after three consecutive failures. These are initial values, not an SLA.',
-        stage: 'planned',
+          'Each target has its own interval and timeout. The scheduler runs every minute. Starter accounts check at 60 seconds; Team and Business can use 30 seconds.',
+        stage: 'implemented',
+      },
+      {
+        id: 'incidents',
+        label: 'Three-failure incident rule',
+        detail:
+          'Three consecutive failures open one incident. One success closes it. Duplicate open or recovery messages are suppressed.',
+        stage: 'implemented',
+      },
+      {
+        id: 'alerts',
+        label: 'One HTTPS webhook per account',
+        detail:
+          'Incident opened and recovered messages post to a Slack-compatible or custom HTTPS endpoint. Email alerts are not available.',
+        stage: 'implemented',
       },
       {
         id: 'public-status',
         label: 'Sanitized public status',
         detail:
-          'Public data excludes origin IPs, internal hostnames, full check URLs and raw error stacks.',
-        stage: 'planned',
+          'A JSON feed and an HTML page show alias, state, check time and latency. Origin URLs and raw errors are never published.',
+        stage: 'implemented',
       },
       {
         id: 'ssrf',
-        label: 'SSRF boundaries',
+        label: 'Private-network rejection',
         detail:
-          'DNS resolution, redirects and connect boundaries block localhost, private ranges, link-local addresses and cloud metadata endpoints.',
+          'Localhost, private IPv4 literals, metadata hostnames, .local and .internal names are rejected before a request is made. Every redirect hop is checked again.',
+        stage: 'implemented',
+      },
+      {
+        id: 'staleness',
+        label: 'Unknown when a check is stale',
+        detail:
+          'A missing or out-of-date check renders Unknown. The threshold is three missed slots plus a minute, with at least three minutes of slack.',
+        stage: 'implemented',
+      },
+      {
+        id: 'tls',
+        label: 'TLS expiry checks',
+        detail:
+          'Certificate expiry is not read yet. It stays out of the offer until it is implemented and verified.',
         stage: 'planned',
       },
       {
         id: 'separation',
-        label: 'Collector and publisher separated',
+        label: 'Separate collector and publisher',
         detail:
-          'The publishing side has no ability to scan and no management credentials.',
-        stage: 'planned',
-      },
-      {
-        id: 'staleness',
-        label: 'Unknown when data is stale',
-        detail:
-          'More than 180 seconds without a successful update shows Unknown, including when the publisher itself fails.',
+          'The status endpoint currently shares a Worker with collection. Splitting them is required before a stronger compromise boundary is claimed.',
         stage: 'planned',
       },
     ],
     releaseCriteria: [
-      'A test endpoint returns normal, timeout, error-code and TLS-warning results correctly.',
-      'Three consecutive failures open one event; recovery closes it; duplicate alerts are suppressed.',
+      'Normal, timeout, error-code and redirect results are recorded correctly.',
+      'Three consecutive failures open one incident; recovery closes it; duplicate alerts are suppressed.',
       'Missing or stale data renders Unknown instead of carrying forward a previous green state.',
-      'SSRF boundaries block localhost, private ranges, link-local and metadata endpoints.',
-      'One probe runs in a real region before any single-region claim; two before any multi-region claim.',
-      'The public publisher is verified to have no scan capability or management credentials.',
+      'Private IP literals, localhost, metadata hosts and unsafe redirect hops are rejected.',
+      'A customer status page exposes no origin URL, internal hostname or raw error.',
+      'Payment, activation and cancellation complete end to end for a paying account.',
     ],
     designDecisions: [
       {
@@ -384,88 +407,119 @@ export const PRODUCTS: ProductRecord[] = [
           'One missed request is noise. Three consecutive failures are a state change worth waking someone for.',
       },
       {
-        title: 'Why a separate publisher',
+        title: 'Why a sanitized publisher',
         detail:
-          'The public status path must not be able to scan or hold management credentials, even if it is compromised.',
+          'The public status path must not expose origin addresses, internal hostnames or raw errors, even to the account owner’s visitors.',
       },
     ],
     openQuestions: [
-      'Which regions will run the first probe, and who measures them?',
-      'What is the default check interval for the first release?',
-      'How long are raw checks kept before redaction?',
-      'Which alert channels are supported first?',
+      'Should TLS expiry ship before public beta, or stay a later release?',
+      'Which check regions will run first, and how will their results be compared?',
+      'When does the collector split from the status publisher into a separate deployment?',
+      'Which alert channels follow the first HTTPS webhook?',
+      'What is the right refund window for a monthly account?',
     ],
     faq: [
       {
+        question: 'Can I use Probe today?',
+        answer:
+          'Yes, in private preview. Send the endpoints you own; we confirm ownership, agree the interval and activate the account by hand. There is no self-serve signup.',
+      },
+      {
+        question: 'What does Probe cost?',
+        answer:
+          '€19, €49 or €99 per month depending on endpoint count and check interval. The pricing page lists the exact limits.',
+      },
+      {
         question: 'Can I monitor any URL?',
         answer:
-          'No. Only endpoints you own or are authorized to monitor are eligible.',
+          'No. Only endpoints you own or are authorized to monitor are eligible. We confirm ownership before activation.',
       },
       {
-        question: 'Does Probe replace application tracing?',
+        question: 'How do alerts work?',
         answer:
-          'No. It is synthetic availability and TLS checking, not traces, logs or profiles.',
+          'One HTTPS webhook per account receives a message when an incident opens and another when it recovers. Email alerts are not available yet.',
       },
       {
-        question: 'What happens when a check cannot run?',
+        question: 'Is there a public status page?',
         answer:
-          'The state is Unknown, not green. Missing or stale data is never carried forward as success.',
+          'Yes. Each account gets a sanitized status page and a JSON feed at a stable address on the Probe host.',
       },
       {
-        question: 'Is there a public status page today?',
+        question: 'What happens when checks stop?',
         answer:
-          'The page exists and reports exactly that monitoring is not connected.',
+          'The component renders Unknown, not green. Missing or stale data is never carried forward as success.',
       },
       {
-        question: 'Can I self-serve a check?',
-        answer: 'No. There is no account, console or self-serve setup.',
+        question: 'Do you store response bodies?',
+        answer:
+          'No. Probe records status code, latency, check time and a short error class. Bodies and response headers are discarded.',
       },
     ],
     notThis: [
       'An anonymous URL scanner.',
-      'A replacement for internal application tracing.',
-      'A guarantee that a third-party service will stay online.',
+      'A replacement for application tracing or log aggregation.',
+      'An uptime guarantee or a promise that a third party will stay online.',
     ],
     boundaries: [
       {
-        label: 'Regions',
-        value: 'A region label appears only after a probe actually runs there and the result is reviewed.',
+        label: 'Targets',
+        value: 'Only owner-authorized public endpoints. No anonymous scanning.',
+      },
+      {
+        label: 'Checks',
+        value: 'HTTP status and latency. Bodies are not stored. TLS expiry is not checked yet.',
+      },
+      {
+        label: 'Alerts',
+        value: 'One HTTPS webhook per account. No email, SMS or pager integration.',
       },
       {
         label: 'Public data',
-        value: 'Component alias, coarse region, state and timestamps. No origin IP, internal hostname, full URL or raw error.',
+        value: 'Alias, state, check time and latency. No origin URL, internal hostname or raw error.',
       },
-      { label: 'Retention', value: 'Raw checks 30 days, redacted events 90 days (proposed).' },
-      { label: 'Targets', value: 'Only endpoints you own or are authorized to monitor.' },
-      { label: 'Availability', value: 'Planned. No monitoring is connected on this site.' },
-      { label: 'Uptime', value: 'No verified uptime history exists yet, so no percentage is published.' },
+      {
+        label: 'Retention',
+        value: 'Check history: 7 days on Starter, 30 on Team, 90 on Business.',
+      },
+      {
+        label: 'Availability',
+        value: 'Private preview. Manual activation. No SLA and no uptime percentage is published.',
+      },
+      {
+        label: 'Pricing',
+        value: '€19 / €49 / €99 per month. Cancel at the end of the current month.',
+      },
     ],
-    boundaryTarget: 'Authorized endpoints',
+    boundaryTarget: 'Owner-authorized endpoints',
     example: {
-      title: 'Proposed public status shape',
-      language: 'ts',
-      code: `interface PublicStatus {
-  schemaVersion: 1;
-  generatedAt: string;
-  components: {
-    id: string;
-    health: 'operational' | 'degraded' | 'outage'
-          | 'maintenance' | 'unknown';
-    checkedAt: string | null;
-    publishedAt: string;
-    sourceRegion: string | null;
-    coverageNote: string;
-  }[];
+      title: 'Live status contract',
+      language: 'json',
+      code: `{
+  "schemaVersion": 1,
+  "customer": { "slug": "acme", "name": "Acme" },
+  "generatedAt": "2026-10-28T09:00:00.000Z",
+  "components": [
+    {
+      "id": "COMPONENT_ID",
+      "alias": "Checkout API",
+      "state": "operational",
+      "checkedAt": "2026-10-28T08:59:40.000Z",
+      "latencyMs": 88,
+      "statusCode": 200,
+      "error": null
+    }
+  ]
 }`,
-      note: 'Proposed schema — subject to change. The live status page currently reports that monitoring is not connected.',
+      note: 'This is the deployed schema. IDs, customer names and timestamps are illustrative placeholders, not a live account.',
     },
     nextStep: {
-      label: 'Read the status page',
-      href: '/status/',
+      label: 'See Probe pricing',
+      href: '/pricing/',
       detail:
-        'The status page states exactly what is and is not connected today.',
+        'Three monthly plans with fixed endpoint limits, a 30–60 second cadence and manual activation.',
     },
-    cta: { label: 'View the roadmap', href: '/products/' },
+    cta: { label: 'See pricing', href: '/pricing/' },
     reviewedAt: REVIEWED_AT,
   },
   {

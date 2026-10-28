@@ -112,9 +112,11 @@ export default function OverviewPage() {
 
       <h2 id="availability">Current availability</h2>
       <p>
-        All four modules are <strong>Planned</strong>. There is no callable API, console, account,
-        API key or payment flow. The public monitoring feed is not connected, so the status page
-        says so instead of showing a green state.
+        Probe is in <strong>private preview</strong>. Accounts are reviewed and activated by hand,
+        paid monthly, and get a live status page and JSON feed. There is no self-serve console or
+        public API key issuance. Gate, Guard and Box are <strong>Planned</strong> and are not for
+        sale. The Caurium site-wide monitoring feed is not connected, so that page says so instead
+        of showing a green state.
       </p>
       <p>
         Read the <Link href="/docs/product-stages/">stage dictionary</Link> for the exact meaning of
@@ -126,7 +128,7 @@ export default function OverviewPage() {
         <li><strong>Module.</strong> One of Gate, Probe, Guard or Box.</li>
         <li><strong>Stage.</strong> A lifecycle label backed by evidence, not a marketing tier.</li>
         <li><strong>Health.</strong> A runtime state such as Operational or Unknown, separate from the lifecycle stage.</li>
-        <li><strong>Sanitized status.</strong> A public record with an alias, coarse region, state and timestamps only.</li>
+        <li><strong>Sanitized status.</strong> A public record with an alias, state, check time and latency only — no origin URL or raw error.</li>
         <li><strong>Allow-listed upstream.</strong> A specific API destination the operator has authorized Gate to reach.</li>
       </ul>
 
