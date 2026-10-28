@@ -1,75 +1,108 @@
-# Caurium
+# Caurium website
 
-The public website for **Caurium** — a managed infrastructure practice for teams going global. Caurium operates environments in Germany, the United States, Singapore, Japan, and Australia, and covers hosting, synthetic monitoring, and recovery.
+Static brand and roadmap site for Caurium — developer infrastructure and AI connectivity.
 
-- **Caurium Base** — managed multi-region hosting.
-- **Caurium Probe** — synthetic checks, alerting, and status pages.
-- **Caurium Guard** — encrypted backups, a warm standby, and failover drills.
+Built with Next.js App Router (static export), TypeScript and Tailwind CSS. The first delivery
+target is a previewable, honest website MVP: every product is `Planned`, and no page implies a
+service that does not exist.
 
-## Pages
+## Requirements
 
-| Route | Purpose |
-| --- | --- |
-| `/` | Brand home: positioning, products, operating model, regions, pricing preview, FAQ |
-| `/base` | Managed hosting product page |
-| `/probe` | Monitoring product page |
-| `/guard` | Backup and recovery product page |
-| `/pricing` | Plans and exclusions |
-| `/regions` | The five live regions and expansion process |
-| `/about` | Principles, how we work, and what Caurium is not |
-| `/contact` | What to include in a first message |
-| `/trust` | Security controls and data handling |
-| `/privacy`, `/terms` | Legal pages |
-| `/404` | Not-found page |
-
-## Stack
-
-- [Astro 7](https://astro.build/) with the [AstroWind](https://github.com/arthelokyo/astrowind) integration for config and SEO metadata (MIT licensed).
-- Tailwind CSS v4 is present through AstroWind; the Caurium visual system lives in `src/styles/caurium.css` and does not depend on theme widgets.
-- Astro's native Fonts API self-hosts Inter, Roboto Slab, and JetBrains Mono.
-- Fully static output — no adapter, no server runtime.
+- Node.js 22.23.4 or newer (verified with Node 26.9.0)
+- pnpm 12.15.0 (`corepack enable` if pnpm is not installed)
 
 ## Local development
 
 ```bash
-npm install
-npm run dev        # http://localhost:4321
-npm run build      # static output in dist/
-npm run preview
+pnpm install
+cp .env.example .env.local
+pnpm dev
 ```
 
-Node 22.23.4 or newer is required by Astro 7.
+Open `http://localhost:3000`.
 
-## Deploying to Cloudflare
-
-### Pages
-
-1. Create a Pages project from the `Guislabert/caurium-site` repository.
-2. Framework preset: **Astro**.
-3. Build command: `npm run build`.
-4. Build output directory: `dist`.
-5. Environment variable: `NODE_VERSION=22.23.4`.
-6. Add the custom domain `caurium.tech` (and `www` if required) in **Custom domains**.
-
-### Workers static assets
-
-`wrangler.jsonc` is also included, with `assets.directory` set to `./dist`, for deploying the same build as a Worker:
+## Checks
 
 ```bash
-npm run build
-npx wrangler deploy
+pnpm typecheck     # TypeScript
+pnpm lint          # ESLint
+pnpm test          # Content and status-contract tests
+pnpm build         # Static export to out/
+pnpm check:links   # Internal links and forbidden strings in out/
+pnpm check         # All of the above
 ```
+
+`pnpm build` writes a static site to `out/`. There is no server runtime, database, login,
+subscription or API route.
+
+## Preview the exported site
+
+```bash
+pnpm build
+pnpm start
+```
+
+`pnpm start` serves `out/` locally with `serve`. For a Cloudflare Pages preview, follow
+[`docs/deployment.md`](docs/deployment.md).
+
+## Environment
+
+| Variable | Purpose | Default |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots | `https://caurium.tech` (unverified) |
+| `NEXT_PUBLIC_SITE_ENV` | `preview` emits noindex + disallow-all robots; `production` enables indexing | `preview` |
+| `NEXT_PUBLIC_STATUS_URL` | Optional sanitized read-only status endpoint | empty (status shows “not connected”) |
+
+`NEXT_PUBLIC_*` values are embedded in the build. Change one, rebuild, redeploy.
+
+Do not put secrets in `NEXT_PUBLIC_*` or in this repository. The website build requires no product,
+management or network credentials.
 
 ## Editing content
 
-- Brand and SEO defaults: `src/config.yaml`.
-- Navigation and footer: `src/navigation.ts`.
-- Region list: `src/data/regions.ts`.
-- Visual tokens: `src/styles/caurium.css`.
-- Layout shell: `src/layouts/CauriumLayout.astro`, `src/layouts/CauriumMarkdownLayout.astro`.
+- `src/content/site.ts` — brand, navigation, hero copy, footer groups, canonical URL.
+- `src/content/products.ts` — the single source of truth for Gate, Probe, Guard and Box stages,
+  scope, boundaries, release criteria, explicit exclusions and examples. Home, product pages,
+  docs and metadata all read from here.
+- `scripts/generate-brand.mjs` — generates the four-node mark, favicons, app icons and the
+  per-page Open Graph cards in `public/og/`. Run `pnpm brand` after changing the mark geometry;
+  keep it in sync with `src/components/Logo.tsx`.
+- `src/app/docs/*` — substantive documentation pages.
+- `docs/content-audit.md` — claim-to-evidence mapping. Update it with any content change.
+- Internal promotion evidence and the brand/business plan are retained outside this public
+  repository and are never copied to `public/` or `out/`.
 
-Keep the content factual. The site deliberately does not claim customers, certifications, uptime percentages, or a public API that do not exist. The console on the home page is labelled as illustrative and is not live data.
+A product stage may only change when its acceptance evidence is recorded. A feature that ships
+does not promote sibling features or the module itself.
 
-## License and attribution
+## Design and boundaries
 
-The AstroWind integration is MIT licensed; see `LICENSE.md`. The Caurium design, copy, and visual assets in this repository are original work.
+- Visual direction: technical drafting — warm paper and white surfaces, hairline grids, numbered
+  figures, mono metadata, a four-node segmented C mark and one cobalt signal colour.
+- Type: Geist Sans for text, Geist Mono for metadata, self-hosted through the `geist` package.
+- Design tokens live in `src/app/globals.css`; the reasoning is recorded in
+  [`docs/design-system.md`](docs/design-system.md).
+- No fabricated customers, logos, testimonials, metrics, uptime, SLAs, prices, certifications or
+  live consoles.
+- The public site has no path to management, product APIs or separately operated network services.
+- All illustrative diagrams and example APIs are labelled. Every product example carries a
+  “Proposed … subject to change” note; diagrams carry an “Illustrative example” note.
+- The brand and business plan is an internal document and is not published in this repository.
+
+## Structure
+
+```text
+src/app/            routes (home, products, architecture, docs, status, legal, 404)
+src/components/     shell, navigation, diagrams, product records, docs and legal layout
+src/content/        site and product records
+src/lib/            metadata and status-contract validation
+public/             four-node mark, icons, per-page OG cards, _headers, manifest
+docs/               brand, design, deployment, content audit, acceptance, release evidence
+scripts/            brand generation and build-output link checks
+tests/              content invariants and status-contract tests
+```
+
+## Current state
+
+All four products are `Planned`. Monitoring is not connected. No account, console, API key,
+payment flow or contact form exists. See `docs/acceptance.md` for the verification record.
