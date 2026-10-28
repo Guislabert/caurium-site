@@ -39,7 +39,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-3 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Caurium. All rights reserved.</p>
             <p className="mono text-[10px] uppercase tracking-[0.1em]">
-              Static site · No account · No first-party tracking
+              Static site · Manual activation · No first-party tracking
             </p>
           </div>
           <p className="mt-4 max-w-2xl text-xs leading-5 text-muted">
@@ -47,7 +47,7 @@ export function SiteFooter() {
             unless a product page says so.
           </p>
           <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-muted">
-            Content reviewed 28 Oct 2026 ·{' '}
+            Content reviewed 29 Oct 2026 ·{' '}
             <Link href="/build-log/" className="underline decoration-border-strong underline-offset-2 hover:text-accent">
               Build log
             </Link>

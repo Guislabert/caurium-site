@@ -9,9 +9,9 @@ import { HERO } from '@/content/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Caurium — planned API access, monitoring and recovery',
+  title: 'Caurium — endpoint monitoring in private preview',
   description:
-    'Caurium is building four narrow infrastructure modules: Gate for scoped API access, Probe for endpoint checks, Guard for recovery, and Box for invited development environments. All four are Planned.',
+    'Probe checks the endpoints you own, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month. Gate, Guard and Box are planned.',
   path: '/',
   absoluteTitle: true,
   ogImage: '/og/home.png',
@@ -28,8 +28,8 @@ const PROBLEMS = [
   },
   {
     code: '02',
-    title: 'A certificate that expires on a Sunday.',
-    detail: 'The first report comes from a customer, not from a check.',
+    title: 'An endpoint that is down while the status page stays green.',
+    detail: 'Someone remembered to deploy. Nobody remembered to update the page.',
     product: 'Probe',
     href: '/products/probe/',
   },
@@ -62,7 +62,7 @@ const WORKFLOW = [
     label: 'Observe',
     title: 'Observe',
     detail:
-      'Probe requests a fixed endpoint on a schedule and records status, latency, TLS expiry and the check time. Three consecutive failures open an event; stale data shows Unknown.',
+      'Probe requests a fixed, owner-authorized endpoint on a schedule and records status, latency and the check time. Three consecutive failures open an incident; stale data shows Unknown.',
   },
   {
     step: '03',
@@ -109,7 +109,7 @@ const TRUST_LINKS = [
   {
     href: '/trust/#not-claimed',
     title: 'What we do not claim',
-    detail: 'No certification, SLA, uptime history, customer reference or price list.',
+    detail: 'No certification, SLA, uptime percentage or customer reference.',
   },
   {
     href: '/trust/#gaps',
@@ -142,10 +142,10 @@ const DOC_LINKS = [
 ] as const;
 
 const STATUS_STRIP = [
-  { label: 'Modules', value: 'Four, all Planned' },
-  { label: 'Live endpoints', value: 'None' },
-  { label: 'Status feeds', value: 'Not connected' },
-  { label: 'Last review', value: '28 Oct 2026' },
+  { label: 'Modules', value: 'One live, three planned' },
+  { label: 'Probe', value: 'Private preview' },
+  { label: 'Activation', value: 'Manual, by hand' },
+  { label: 'Last review', value: '29 Oct 2026' },
 ] as const;
 
 export default function HomePage() {
@@ -232,7 +232,8 @@ export default function HomePage() {
           </div>
 
           <p className="mt-5 text-xs leading-5 text-muted">
-            Design targets, not observed incidents. No module is available.
+            Design targets, not observed incidents. Probe is in private preview; Gate, Guard and Box
+            are planned.
           </p>
         </div>
       </section>
@@ -254,7 +255,7 @@ export default function HomePage() {
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
             <p className="text-xs leading-5 text-muted">
-              All four modules are Planned. No module is available for use today.
+              Probe is available in private preview. Gate, Guard and Box are planned.
             </p>
             <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
               Fig. 02–05 · Module records
@@ -276,13 +277,13 @@ export default function HomePage() {
               </h2>
             </div>
             <div className="flex flex-col items-start gap-2 sm:items-end">
-              <span className="badge-stage" data-stage="planned">
+              <span className="badge-stage" data-stage="private-preview">
                 <span className="badge-dot" aria-hidden="true" />
-                Planned workflow
+                Observe is live
               </span>
               <p className="max-w-xs text-right text-xs leading-5 text-muted">
-                One intended sequence across three modules. It is a design, not a live product
-                experience.
+                Probe handles the Observe step today. Connect and Operate remain designs for Gate and
+                Guard.
               </p>
             </div>
           </div>
@@ -303,8 +304,9 @@ export default function HomePage() {
           </div>
 
           <p className="mt-10 max-w-2xl text-xs leading-5 text-muted">
-            What you would see: one key, one status with a timestamp, one restore record. None of
-            this is live today.
+            What Probe gives you today: a status page with a timestamp, one webhook message when an
+            incident opens and one when it recovers. A Gate key and a Guard restore record are still
+            designs.
           </p>
         </div>
       </section>
@@ -396,8 +398,8 @@ export default function HomePage() {
               Read what exists before you rely on it.
             </h2>
             <p className="mt-6 max-w-sm text-sm leading-6 text-muted">
-              There is no quickstart, because there is no callable service. Start with the overview,
-              then the stage dictionary, then the boundaries.
+              Start with the overview and the stage dictionary. The Probe page documents its live
+              status contract and the limits it does not promise.
             </p>
             <Link href="/docs/" className="btn btn-secondary mt-7">
               Open documentation
@@ -443,8 +445,9 @@ export default function HomePage() {
               Service status
             </h2>
             <p className="mt-6 max-w-sm text-sm leading-6 text-muted">
-              Public status is published only from sanitized checks with a recorded collection
-              time. Until monitoring is connected, this section reports exactly that.
+              Each Probe account gets a status page built from its own checks. Caurium’s own
+              site-wide feed is not connected yet, so this section reports that instead of a green
+              summary.
             </p>
             <Link href="/status/" className="link-arrow mt-6">
               View status page
@@ -456,7 +459,7 @@ export default function HomePage() {
             <div className="status-panel">
               <div className="status-panel__head">
                 <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
-                  Public status · Schema v1
+                  Caurium site feed · Schema v1
                 </p>
                 <span className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
                   Not connected
@@ -464,10 +467,10 @@ export default function HomePage() {
               </div>
               <div className="status-panel__body">
                 <p className="text-[15px] font-medium leading-6">
-                  Monitoring is not connected yet.
+                  The site-wide feed is not connected.
                 </p>
                 <p className="mt-1.5 max-w-lg text-[13.5px] leading-6 text-muted">
-                  No live service status or uptime history is available on this page.
+                  Probe customer pages are live. This page does not claim a Caurium uptime history.
                 </p>
                 <div className="mt-4 flex items-center gap-2">
                   <span
@@ -475,7 +478,7 @@ export default function HomePage() {
                     aria-hidden="true"
                   />
                   <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
-                    No component is reported as operational
+                    No site-wide component is reported as operational
                   </span>
                 </div>
               </div>

@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Architecture — clear service boundaries',
   description:
-    'How the public Caurium website, planned product services, management access and public status are separated.',
+    'How the static Caurium website, the deployed Probe service, planned modules and management access are separated.',
   path: '/architecture/',
   ogImage: '/og/architecture.png',
   ogAlt: 'Caurium architecture — public, product and management domains separated.',
@@ -16,9 +16,9 @@ export const metadata: Metadata = pageMetadata({
 
 const FACTS = [
   { value: '01', label: 'Static public site', detail: 'Cloudflare Workers static assets' },
-  { value: '00', label: 'Accounts or logins', detail: 'No console, API key or session' },
-  { value: '04', label: 'Planned modules', detail: 'Gate, Probe, Guard, Box' },
-  { value: '00', label: 'Connected feeds', detail: 'Monitoring is not connected' },
+  { value: '01', label: 'Live product', detail: 'Probe, private preview' },
+  { value: '03', label: 'Planned modules', detail: 'Gate, Guard, Box' },
+  { value: '01', label: 'Live status path', detail: 'Per-account Probe pages' },
 ] as const;
 
 const WHY = [
@@ -28,9 +28,9 @@ const WHY = [
       'A static build needs no product, management or network secret. Publishing a page does not create a connection to what it describes.',
   },
   {
-    title: 'The status path cannot scan your endpoints.',
+    title: 'The public status output cannot reveal a target.',
     detail:
-      'The publisher receives sanitized state. It has no scan capability and no management credentials, even if it is compromised.',
+      'The status response contains an alias, state, check time and latency only. Origin URLs and raw errors never leave the service. Collection and publication still share one Worker.',
   },
   {
     title: 'A management session is not on the public site.',
@@ -43,7 +43,7 @@ const INVARIANTS = [
   {
     title: 'Independent deployment',
     detail:
-      'The public website is a static build on Cloudflare Workers Static Assets. Product APIs and the management panel are separate deployments with their own credentials and failure domains.',
+      'The public website is a static build on Cloudflare Workers Static Assets. Probe is a separate Worker with its own D1 database and secret. Future product APIs and the management panel are separate deployments with their own credentials and failure domains.',
   },
   {
     title: 'Authorized management',
@@ -53,7 +53,7 @@ const INVARIANTS = [
   {
     title: 'Sanitized public status',
     detail:
-      'The public status publisher emits only an alias, coarse region, state and timestamps. It has no scan capability and no management credentials.',
+      'Probe status responses contain only an alias, state, check time and latency. Origin URLs, internal hostnames and raw errors are excluded.',
   },
   {
     title: 'No shared runtime credentials',
@@ -79,9 +79,9 @@ export default function ArchitecturePage() {
         description="The public site explains the system; it does not operate it. Product APIs, management access and public status are separate services with separate credentials and separate failure modes."
         meta={
           <>
-            <span className="badge-stage" data-stage="planned">
+            <span className="badge-stage" data-stage="private-preview">
               <span className="badge-dot" aria-hidden="true" />
-              Product domain Planned
+              Probe live · three planned
             </span>
             <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
               Public site · Current
@@ -100,8 +100,8 @@ export default function ArchitecturePage() {
               </h2>
             </div>
             <p className="max-w-sm text-xs leading-5 text-muted">
-              These are properties of the intended design. They are not claims of a completed
-              security certification.
+              These combine deployed boundaries with intended design. They are not claims of a
+              completed security certification.
             </p>
           </div>
 
@@ -183,22 +183,23 @@ export default function ArchitecturePage() {
       <section className="section border-b border-border bg-paper" aria-labelledby="planned-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
           <div>
-            <p className="section-index">04 / Planned</p>
+            <p className="section-index">04 / Live and planned</p>
             <h2 id="planned-heading" className="h2 mt-4">
-              What is being designed.
+              What runs, and what is designed.
             </h2>
           </div>
           <div className="space-y-6">
-            <Callout title="Planned architecture — not deployed." tone="warning">
-              The product and management domains in the diagram are designs. They do not exist as
-              running services, and no endpoint or console is available.
+            <Callout title="Probe is deployed; Gate, Guard and Box are not." tone="note">
+              Probe runs as its own Cloudflare Worker with a D1 database and a one-minute scheduler.
+              The management domain and the other product boxes in the diagram are designs.
             </Callout>
             <p className="text-[14px] leading-7 text-muted">
+              Probe checks a fixed list of owner-authorized endpoints, opens one incident after
+              three consecutive failures, posts to one HTTPS webhook and publishes sanitized state.
               Gate would accept a caller credential, enforce scope and limits, and forward only to
-              an allow-listed upstream. Probe would check a fixed list of authorized endpoints and
-              pass sanitized results to a publisher that cannot scan. Guard would keep backups,
-              recovery procedures and access records for Caurium operations. Box would provide
-              invitation-only development instances with documented limits.
+              an allow-listed upstream. Guard would keep backups, recovery procedures and access
+              records for Caurium operations. Box would provide invitation-only development
+              instances with documented limits.
             </p>
             <p className="text-[14px] leading-7 text-muted">
               Each module has its own release criteria. Passing one criterion does not promote the

@@ -11,7 +11,7 @@ import { OG_IMAGE, SITE } from '@/content/site';
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Caurium — API access, monitoring and recovery',
+    default: 'Caurium — endpoint monitoring in private preview',
     template: '%s — Caurium',
   },
   description: SITE.description,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE.name,
-    title: 'Caurium — API access, monitoring and recovery',
+    title: 'Caurium — endpoint monitoring in private preview',
     description: SITE.description,
     url: `${SITE.url.replace(/\/$/, '')}/`,
     locale: 'en_US',
@@ -41,13 +41,13 @@ export const metadata: Metadata = {
         url: `${SITE.url.replace(/\/$/, '')}${OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: 'Caurium — API access, monitoring and recovery.',
+        alt: 'Caurium — endpoint monitoring in private preview.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Caurium — API access, monitoring and recovery',
+    title: 'Caurium — endpoint monitoring in private preview',
     description: SITE.description,
     images: [`${SITE.url.replace(/\/$/, '')}${OG_IMAGE}`],
   },

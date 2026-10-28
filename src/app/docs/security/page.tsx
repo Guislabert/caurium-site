@@ -34,16 +34,16 @@ export default function SecurityPage() {
     >
       <h2 id="scope">Scope of this page</h2>
       <p>
-        This page covers the public website and the intended security boundaries of Gate, Probe,
-        Guard and Box. The products are <strong>Planned</strong>; no product endpoint, console or
-        credential exists. Nothing here is a certification, an audit result or a compliance
-        attestation.
+        This page covers the public website, the deployed Probe service and the intended security
+        boundaries of Gate, Guard and Box. Probe is in <strong>private preview</strong>. Gate, Guard
+        and Box are <strong>Planned</strong>; no endpoint, console or credential exists for them.
+        Nothing here is a certification, an audit result or a compliance attestation.
       </p>
 
       <h2 id="website">Public website</h2>
       <ul>
         <li>The site is a static export served from Cloudflare Workers Static Assets. It has no application server, database or login.</li>
-        <li>There is no contact form, account creation, payment flow or API key generation on this site.</li>
+        <li>The site has one application form that posts to the Probe service. It has no account creation, payment processing or API key generation.</li>
         <li>The site does not set first-party cookies for analytics, advertising or personalization.</li>
         <li>The hosting provider processes technical request logs under its own configuration. The privacy page describes this without claiming that no data is processed.</li>
         <li>Builds do not require product, management or separately operated network credentials.</li>
@@ -131,14 +131,14 @@ export default function SecurityPage() {
             <tr>
               <th scope="row">Probe target</th>
               <td>An attacker using the checker to reach internal networks</td>
-              <td>Fixed target list, SSRF blocks for private and link-local ranges, bounded response size and duration.</td>
-              <td>Planned</td>
+              <td>Fixed target list, rejects localhost, private IPv4 literals, metadata hosts and unsafe redirect hops; bounded timeout; response bodies discarded.</td>
+              <td>Current</td>
             </tr>
             <tr>
               <th scope="row">Status publisher</th>
               <td>Compromise of the public status path</td>
-              <td>Sanitized schema; no scan capability; no management credentials.</td>
-              <td>Planned</td>
+              <td>Sanitized schema only; no origin URLs or raw errors. Collection and publication still share one Worker and must be split before a stronger boundary is claimed.</td>
+              <td>Current, with a known gap</td>
             </tr>
             <tr>
               <th scope="row">Backup copy</th>
@@ -159,8 +159,8 @@ export default function SecurityPage() {
 
       <h2 id="reporting">Reporting gap</h2>
       <Callout title="No public security contact is published yet." tone="warning">
-        A reporting channel and response expectations will be published before any product becomes
-        available. Until then, do not send credentials, tokens, private addresses or other sensitive
+        A reporting channel and response expectations will be published before paid activation
+        opens. Until then, do not send credentials, tokens, private addresses or other sensitive
         material through any public channel. This gap is recorded as a production blocker in the
         content audit.
       </Callout>

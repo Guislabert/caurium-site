@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
+import { PLANS } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
 import { SITE } from '../src/content/site';
 
@@ -21,14 +22,23 @@ test('every product has a unique id and slug', () => {
   assert.equal(new Set(PRODUCTS.map((p) => p.slug)).size, PRODUCTS.length);
 });
 
-test('every product is Planned and every feature is Planned', () => {
+test('only Probe is offered; Gate, Guard and Box remain Planned', () => {
   for (const product of PRODUCTS) {
-    assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
-    for (const feature of product.features) {
-      assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
+    if (product.id === 'probe') {
+      assert.equal(product.stage, 'private-preview');
+      assert.ok(
+        product.features.some((feature) => feature.stage === 'implemented'),
+        'Probe must record its implemented capabilities',
+      );
+    } else {
+      assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
+      for (const feature of product.features) {
+        assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
+      }
     }
   }
   assert.equal(STAGE_LABELS.planned, 'Planned');
+  assert.equal(STAGE_LABELS['private-preview'], 'Private preview');
 });
 
 test('every product answers audience, problem, workflow, limits and next step', () => {
@@ -112,13 +122,36 @@ test('retired positioning is not reintroduced', () => {
   }
 });
 
-test('no contact address or price is published without a verified channel', () => {
+test('no contact address is published without a verified mailbox', () => {
   assert.equal(
     /[a-z0-9._%+-]+@caurium\.(tech|com)/i.test(sourceText),
     false,
     'contact address present',
   );
-  assert.equal(/[€£]\s?\d/.test(sourceText), false, 'price present');
+});
+
+test('prices are published only for the Probe plans', () => {
+  assert.deepEqual(
+    PLANS.map((plan) => [plan.id, plan.price]),
+    [
+      ['starter', 19],
+      ['team', 49],
+      ['business', 99],
+    ],
+  );
+  for (const plan of PLANS) {
+    assert.ok(plan.endpoints > 0);
+    assert.ok(plan.minIntervalSeconds >= 30);
+    assert.ok(plan.retentionDays >= 7);
+  }
+  for (const product of PRODUCTS) {
+    const text = JSON.stringify(product.boundaries) + JSON.stringify(product.faq);
+    if (product.id === 'probe') {
+      assert.match(text, /€19/);
+    } else {
+      assert.equal(/[€£]\s?\d/.test(text), false, `${product.name} must not publish a price`);
+    }
+  }
 });
 
 test('no unverified marketing claims or invented metrics', () => {

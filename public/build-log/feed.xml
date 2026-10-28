@@ -3,9 +3,30 @@
   <channel>
     <title>Caurium build log</title>
     <link>https://caurium.tech/build-log/</link>
-    <description>A dated record of changes to the Caurium public site. No product is available.</description>
+    <description>A dated record of changes to the Caurium public site. Probe is in private preview; Gate, Guard and Box are planned.</description>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Probe private preview deployed</title>
+      <link>https://caurium.tech/products/probe/</link>
+      <guid isPermaLink="false">2026-10-29-Probe private preview deployed</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <description>A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.</description>
+    </item>
+    <item>
+      <title>Probe pricing and application flow published</title>
+      <link>https://caurium.tech/pricing/</link>
+      <guid isPermaLink="false">2026-10-29-Probe pricing and application flow published</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Three monthly plans at €19, €49 and €99 with fixed endpoint, interval and retention limits. The application form posts to the Probe service; no payment is taken on this site.</description>
+    </item>
+    <item>
+      <title>Probe record moves from Planned to private preview</title>
+      <link>https://caurium.tech/products/probe/</link>
+      <guid isPermaLink="false">2026-10-29-Probe record moves from Planned to private preview</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Implemented checks, incident rule, webhook, SSRF rejection and stale-state handling are now listed as implemented. TLS expiry and the split between collector and publisher remain planned.</description>
+    </item>
     <item>
       <title>Public copy rewritten around reader questions</title>
       <link>https://caurium.tech/products/</link>

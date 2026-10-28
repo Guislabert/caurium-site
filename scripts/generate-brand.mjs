@@ -16,6 +16,7 @@ const MUTED = '#5C6784';
 const BORDER = '#E2DED2';
 const BORDER_STRONG = '#C7C1B0';
 const ACCENT = '#6C4CF1';
+const ACCENT_SOFT = '#ECE7FD';
 const LIME = '#C9E265';
 
 const SERIF = 'DejaVu Serif, Liberation Serif, Georgia, serif';
@@ -109,28 +110,30 @@ function wrap(text, maxChars) {
 
 const PAGES = {
   home: {
-    kicker: 'Caurium · Early development',
+    kicker: 'Caurium · Probe private preview',
     title: 'Infrastructure with boundaries you can check.',
     description:
-      'Four narrow modules for the parts of infrastructure that are easy to leave unverified. All four are Planned.',
-    footer: 'ROADMAP · ALL PRODUCTS PLANNED',
+      'Probe checks the endpoints you own, alerts a webhook and publishes a sanitized status page. Gate, Guard and Box remain planned.',
+    footer: 'PROBE PRIVATE PREVIEW · €19–€99/MONTH',
+    badge: 'PRIVATE PREVIEW',
     chips: [
-      ['Gate', 'Access'],
-      ['Probe', 'Observe'],
-      ['Guard', 'Safeguard'],
-      ['Box', 'Environments'],
+      ['Gate', 'Access', 'Planned'],
+      ['Probe', 'Observe', 'Preview'],
+      ['Guard', 'Safeguard', 'Planned'],
+      ['Box', 'Environments', 'Planned'],
     ],
   },
   products: {
-    kicker: 'Products · Roadmap',
+    kicker: 'Products · One live, three planned',
     title: 'Four narrow modules. One boundary each.',
-    description: 'Gate, Probe, Guard and Box are Planned. Each stage is a claim about evidence.',
-    footer: 'ROADMAP · ALL PRODUCTS PLANNED',
+    description: 'Probe is live in private preview. Gate, Guard and Box remain planned.',
+    footer: 'PROBE LIVE · THREE PLANNED',
+    badge: 'ONE LIVE',
     chips: [
-      ['Gate', 'Access'],
-      ['Probe', 'Observe'],
-      ['Guard', 'Safeguard'],
-      ['Box', 'Environments'],
+      ['Gate', 'Access', 'Planned'],
+      ['Probe', 'Observe', 'Private preview'],
+      ['Guard', 'Safeguard', 'Planned'],
+      ['Box', 'Environments', 'Planned'],
     ],
   },
   gate: {
@@ -141,11 +144,12 @@ const PAGES = {
     footer: 'PLANNED · NO CALLABLE ENDPOINT',
   },
   probe: {
-    kicker: 'Probe · Planned',
-    title: 'See the state of a service.',
+    kicker: 'Probe · Private preview',
+    title: 'Know when a service needs attention.',
     description:
-      'Checks authorized endpoints, turns results into component state, and publishes only sanitized data.',
-    footer: 'PLANNED · NO MONITORING CONNECTED',
+      'Checks owner-authorized endpoints, opens one incident after three failures, alerts a webhook and publishes sanitized state.',
+    footer: 'PRIVATE PREVIEW · MANUAL ACTIVATION',
+    badge: 'PRIVATE PREVIEW',
   },
   guard: {
     kicker: 'Guard · Planned',
@@ -165,28 +169,32 @@ const PAGES = {
     title: 'Designed around clear service boundaries.',
     description:
       'Public site, product services and management access are separate deployments with separate credentials.',
-    footer: 'ILLUSTRATIVE · PRODUCT DOMAIN PLANNED',
+    footer: 'PROBE LIVE · MANAGEMENT PLANNED',
+    badge: 'PARTIAL',
   },
   docs: {
     kicker: 'Documentation',
     title: 'Understand the system before you use it.',
     description:
-      'System overview, the product-stage dictionary and security boundaries — written to stay true while modules are Planned.',
-    footer: 'DOCUMENTATION · REVIEWED 2026-10-28',
+      'System overview, the product-stage dictionary and security boundaries — recorded with the stage each claim actually holds.',
+    footer: 'DOCUMENTATION · REVIEWED 2026-10-29',
+    badge: 'REVIEWED 29 OCT',
   },
   status: {
     kicker: 'Service status',
-    title: 'Monitoring is not connected yet.',
+    title: 'Status pages from sanitized checks.',
     description:
-      'Public status is published only from sanitized checks with a recorded collection time. Without valid data, the state is Unknown.',
-    footer: 'STATUS · NO FEED CONNECTED',
+      'Probe customer status pages are live. The site-wide feed is not connected. Without valid data, the state is Unknown.',
+    footer: 'PROBE CUSTOMER PAGES LIVE · SITE FEED NOT CONNECTED',
+    badge: 'PARTIAL',
   },
   trust: {
     kicker: 'Trust · Claims',
     title: 'Trust is a boundary, not a badge.',
     description:
-      'Every public claim labelled with its stage and its evidence. No customers, prices, regions, SLAs or certifications.',
-    footer: 'CLAIMS REVIEWED 2026-10-28',
+      'Every public claim labelled with its stage and its evidence. No customer references, regions, SLAs or certifications. Prices apply to Probe only.',
+    footer: 'CLAIMS REVIEWED 2026-10-29',
+    badge: 'REVIEWED 29 OCT',
   },
   'build-log': {
     kicker: 'Build log',
@@ -223,13 +231,16 @@ function ogSvg(key, page) {
   const chips = page.chips ?? [];
   const chipWidth = chips.length ? (1056 - (chips.length - 1) * 16) / chips.length : 0;
   const chipMarkup = chips
-    .map(([name, role], index) => {
+    .map(([name, role, status = 'Planned'], index) => {
       const x = 72 + index * (chipWidth + 16);
+      const live = status !== 'Planned';
+      const note = `${role.toUpperCase()} · ${status.toUpperCase()}`;
+      const noteSize = note.length > 22 ? 8.6 : 10.5;
       return `
-    <rect x="${x}" y="506" width="${chipWidth}" height="72" rx="18" fill="${SURFACE}" stroke="${BORDER}"/>
-    <circle cx="${x + 20}" cy="531" r="4" fill="${ACCENT}"/>
+    <rect x="${x}" y="506" width="${chipWidth}" height="72" rx="18" fill="${live ? ACCENT_SOFT : SURFACE}" stroke="${live ? ACCENT : BORDER}"/>
+    <circle cx="${x + 20}" cy="531" r="4" fill="${live ? ACCENT : MUTED}"/>
     <text x="${x + 34}" y="537" font-family="${SERIF}" font-size="19" font-weight="600" fill="${INK}">${escapeXml(name)}</text>
-    <text x="${x + 20}" y="561" font-family="${MONO}" font-size="10.5" fill="${MUTED}" letter-spacing="1.4">${escapeXml(role.toUpperCase())} · PLANNED</text>`;
+    <text x="${x + 20}" y="561" font-family="${MONO}" font-size="${noteSize}" fill="${live ? ACCENT : MUTED}" letter-spacing="1.2">${escapeXml(note)}</text>`;
     })
     .join('');
 
@@ -249,9 +260,15 @@ function ogSvg(key, page) {
   <text x="110" y="73" font-family="${SERIF}" font-size="23" font-weight="600" letter-spacing="-0.3" fill="${INK}">Caurium</text>
   <text x="72" y="118" font-family="${MONO}" font-size="11" fill="${MUTED}" letter-spacing="1.8">${escapeXml(page.kicker.toUpperCase())}</text>
 
-  <rect x="1004" y="48" width="132" height="30" rx="15" fill="none" stroke="${BORDER_STRONG}"/>
-  <circle cx="1021" cy="63" r="3.4" fill="none" stroke="${MUTED}" stroke-width="1.4"/>
-  <text x="1032" y="67" font-family="${MONO}" font-size="9.5" fill="${MUTED}" letter-spacing="1.2">PLANNED</text>
+  ${(() => {
+    const badge = (page.badge ?? 'PLANNED').toUpperCase();
+    const live = badge !== 'PLANNED';
+    const width = Math.max(132, 52 + badge.length * 7.1);
+    const x = 1136 - width;
+    return `<rect x="${x}" y="48" width="${width}" height="30" rx="15" fill="${live ? ACCENT_SOFT : 'none'}" stroke="${live ? ACCENT : BORDER_STRONG}"/>
+  <circle cx="${x + 17}" cy="63" r="3.4" fill="${live ? ACCENT : 'none'}" stroke="${live ? ACCENT : MUTED}" stroke-width="1.4"/>
+  <text x="${x + 28}" y="67" font-family="${MONO}" font-size="9.5" fill="${live ? ACCENT : MUTED}" letter-spacing="1.2">${escapeXml(badge)}</text>`;
+  })()}
 
   ${titleMarkup}
   ${descMarkup}

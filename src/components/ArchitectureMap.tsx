@@ -45,7 +45,7 @@ function DomainHeader({
   id,
 }: {
   title: string;
-  state: 'Current' | 'Planned';
+  state: 'Current' | 'Partial' | 'Planned';
   id: string;
 }) {
   return (
@@ -114,7 +114,7 @@ export function ArchitectureMap() {
               aria-labelledby="arch-product"
               className="rounded-[16px] border border-dashed border-border-strong bg-background p-4"
             >
-              <DomainHeader id="arch-product" title="Product domain" state="Planned" />
+              <DomainHeader id="arch-product" title="Product domain" state="Partial" />
               <div className="mt-4">
                 <Node title="Authorized callers" detail="Per-caller credentials" />
                 <Arrow />
@@ -122,9 +122,9 @@ export function ArchitectureMap() {
                 <Arrow />
                 <Node title="Allowed upstream" detail="Authorized by the operator" />
                 <div className="my-4 border-t border-dashed border-border" />
-                <Node title="Fixed endpoints" detail="Probe, operator-authorized only" accent />
+                <Node title="Fixed endpoints" detail="Probe, operator-authorized only" state="current" accent />
                 <Arrow />
-                <Node title="Sanitized publisher" detail="No scan capability" />
+                <Node title="Sanitized publisher" detail="No scan capability" state="current" />
                 <div className="my-4 border-t border-dashed border-border" />
                 <div className="grid grid-cols-2 gap-2">
                   <Node title="Guard" detail="Internal operations" accent />
@@ -160,15 +160,15 @@ export function ArchitectureMap() {
               published.
             </p>
             <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
-              Public status is the only planned cross-domain output
+              Probe publishes the only live cross-domain output
             </p>
           </div>
         </div>
 
         <div className="figure__foot">
           <p className="text-[10.5px] leading-5 text-muted">
-            Planned architecture — illustrative, not a deployed system. Solid boxes are current;
-            dashed boxes are planned.
+            Reference architecture. Probe runs on the product side today; the dashed boxes and the
+            management domain remain planned.
           </p>
         </div>
       </div>

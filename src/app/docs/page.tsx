@@ -46,7 +46,7 @@ export default function DocsPage() {
     <DocsShell
       current="/docs/"
       title="Understand the system before you use it."
-      description="These documents describe what Caurium is building, what exists today, and where the boundaries are. They are written to stay useful when a product is still Planned."
+      description="These documents describe what Caurium runs today, what is planned, and where the boundaries are. They are written to stay useful when part of the system is still planned."
       toc={[
         { id: 'documents', label: 'Documents' },
         { id: 'reading-paths', label: 'Reading paths' },
@@ -57,14 +57,16 @@ export default function DocsPage() {
     >
       <p>
         Caurium is a small set of infrastructure modules: Gate for controlled API access, Probe for
-        service monitoring, Guard for operational safeguards, and Box for invitation-only
-        development environments. At the time of writing, all four are <strong>Planned</strong>.
-        The public website is the only part that exists as a running build.
+        endpoint monitoring, Guard for operational safeguards, and Box for invitation-only
+        development environments. Probe is in <strong>private preview</strong> with manual
+        activation. Gate, Guard and Box are <strong>Planned</strong>. The public website and the
+        Probe service exist as running builds.
       </p>
 
-      <Callout title="There is no quickstart." tone="warning">
-        There is no callable API, console, account or API key. A quickstart would imply a service
-        that does not exist. The documents below explain concepts, scope and boundaries instead.
+      <Callout title="There is no public quickstart." tone="warning">
+        Probe accounts are activated by hand. There is no self-serve console or public API key
+        issuance. The documents below explain the live status contract, scope and boundaries; the{' '}
+        <Link href="/start/">application form</Link> is the only intake path.
       </Callout>
 
       <h2 id="documents">Documents</h2>
@@ -143,14 +145,19 @@ export default function DocsPage() {
               <td>Brand, roadmap, documentation, legal pages and status page.</td>
             </tr>
             <tr>
-              <th scope="row">Gate, Probe, Guard, Box</th>
-              <td>Planned</td>
-              <td>No module is available for use.</td>
+              <th scope="row">Probe</th>
+              <td>Private preview</td>
+              <td>Manual activation, monthly plans and live customer status pages.</td>
             </tr>
             <tr>
-              <th scope="row">Public monitoring</th>
+              <th scope="row">Gate, Guard, Box</th>
+              <td>Planned</td>
+              <td>Not for sale. No deployment exists.</td>
+            </tr>
+            <tr>
+              <th scope="row">Caurium site-wide feed</th>
               <td>Not connected</td>
-              <td>No live service status or uptime history is published.</td>
+              <td>No Caurium uptime history is published.</td>
             </tr>
           </tbody>
         </table>

@@ -18,16 +18,16 @@ const NOT_CLAIMED = [
   'No penetration-test result, bug-bounty program or audit report.',
   'No availability guarantee, SLA or response-time commitment.',
   'No customer, logo, testimonial or case study.',
-  'No price, plan, free tier or checkout.',
+  'No free tier, and no checkout on this site. Probe prices and limits are listed.',
   'No region label for a product or probe that has not run there.',
   'No uptime percentage or performance benchmark.',
 ] as const;
 
 const GAPS = [
   {
-    title: 'No legal entity or governing law',
+    title: 'No public legal entity or governing law',
     detail:
-      'The privacy notice and terms say so explicitly. They cannot be treated as final legal notices until an entity is published.',
+      'The privacy notice and terms say so explicitly. Paid service cannot be treated as final until the contracting entity is published.',
   },
   {
     title: 'No public security reporting channel',
@@ -35,19 +35,19 @@ const GAPS = [
       'A verified intake process is a release blocker. Until then, do not send credentials or sensitive material through any public channel.',
   },
   {
-    title: 'Domain and deployment ownership unverified',
+    title: 'No dedicated support mailbox',
     detail:
-      'The public site stays in preview mode until domain ownership and the Cloudflare project are confirmed.',
+      'Applications are answered from an operator mailbox that is not yet published. A dedicated address is required before public launch.',
   },
   {
-    title: 'No Lighthouse or browser acceptance record for the current build',
+    title: 'Apex domain is not serving the site',
     detail:
-      'Acceptance runs are recorded in the repository, not presented as an external certification.',
+      'The public build is deployed on workers.dev while caurium.tech is unresolved. The site stays in preview mode until the domain is verified.',
   },
   {
-    title: 'No operating entity or support path',
+    title: 'Payment and activation are manual',
     detail:
-      'There is no account, contract, invoice or support commitment. No product is available.',
+      'No checkout runs on this site. A Stripe link is sent after ownership is confirmed, and accounts are created by hand.',
   },
 ] as const;
 
@@ -60,7 +60,7 @@ const SEPARATION = [
   {
     title: 'Product services',
     detail:
-      'Planned modules with their own credentials, limits and failure domains. None is deployed.',
+      'Probe runs as a separate Worker with its own D1 database, scheduler and customer records. Gate, Guard and Box are planned.',
   },
   {
     title: 'Management access',
@@ -79,9 +79,9 @@ export default function TrustPage() {
         description="Caurium has no certifications, customer references or uptime history to publish. This page records every public claim, what supports it, and what is still missing."
         meta={
           <>
-            <span className="badge-stage" data-stage="planned">
+            <span className="badge-stage" data-stage="private-preview">
               <span className="badge-dot" aria-hidden="true" />
-              Claims reviewed 28 Oct 2026
+              Claims reviewed 29 Oct 2026
             </span>
             <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
               No certification claimed
@@ -99,9 +99,9 @@ export default function TrustPage() {
 
           <dl className="mt-10 grid gap-px overflow-hidden rounded-[18px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { value: '04', label: 'Modules', detail: 'All Planned' },
-              { value: '00', label: 'Live endpoints', detail: 'No account or key' },
-              { value: '00', label: 'Status feeds', detail: 'Monitoring not connected' },
+              { value: '04', label: 'Modules', detail: 'Probe live, three planned' },
+              { value: '01', label: 'Live product', detail: 'Probe, private preview' },
+              { value: '00', label: 'Published customers', detail: 'No reference is claimed' },
               { value: '00', label: 'Certifications', detail: 'None claimed' },
             ].map((fact) => (
               <div key={fact.label} className="bg-paper p-6">
@@ -126,8 +126,8 @@ export default function TrustPage() {
               </h2>
             </div>
             <p className="max-w-sm text-xs leading-5 text-muted">
-              Fact means it describes the current public site. Planned and Intended design describe
-              what does not exist yet. Known gap is a blocker, not a promise.
+              Fact means it describes the deployed site or Probe service. Planned and Intended
+              design describe what does not exist yet. Known gap is a blocker, not a promise.
             </p>
           </div>
 

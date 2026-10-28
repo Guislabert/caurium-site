@@ -20,7 +20,7 @@ import { pageMetadata } from '@/lib/seo';
 
 const META_TITLES: Record<string, string> = {
   gate: 'Caurium Gate — API Access Roadmap',
-  probe: 'Caurium Probe — Service Monitoring Roadmap',
+  probe: 'Caurium Probe — Endpoint Monitoring',
   guard: 'Caurium Guard — Operational Safeguards Roadmap',
   box: 'Caurium Box — Private Development Environments Roadmap',
 };
@@ -46,7 +46,7 @@ export async function generateMetadata({
     path: `/products/${product.slug}/`,
     absoluteTitle: true,
     ogImage: `/og/${product.slug}.png`,
-    ogAlt: `Caurium ${product.name} — ${product.title} Planned module record.`,
+    ogAlt: `Caurium ${product.name} — ${product.title} ${STAGE_LABELS[product.stage]} module record.`,
   });
 }
 
@@ -124,15 +124,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="section-index">02 / Intended workflow</p>
+              <p className="section-index">02 / Workflow</p>
               <h2 id="workflow-heading" className="h2 mt-4">
                 Input, handling, output.
               </h2>
             </div>
-            <span className="badge-stage" data-stage="planned">
-              <span className="badge-dot" aria-hidden="true" />
-              Planned
-            </span>
+            <ProductStageBadge stage={product.stage} />
           </div>
 
           <ol className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
@@ -367,10 +364,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <ProductStageBadge stage={product.stage} />
             </div>
             <p className="mt-4 text-[15px] leading-6">
-              {product.name} is not available for use. There is no console, sign-up, API key or
-              paid plan. The stage will change only after the release criteria are met and recorded
-              with evidence.
+              {product.stage === 'planned'
+                ? `${product.name} is not available for use. There is no console, sign-up, API key or paid plan. The stage will change only after the release criteria are met and recorded with evidence.`
+                : `${product.name} is available in private preview. Accounts are reviewed, paid monthly and activated by hand; there is no self-serve console. The stage will change again only after the remaining release criteria are met and recorded.`}
             </p>
+            {product.stage !== 'planned' ? (
+              <Link href="/pricing/" className="btn btn-primary mt-4">
+                See pricing
+                <span aria-hidden="true">→</span>
+              </Link>
+            ) : null}
             <div className="mt-5 border-t border-border pt-4">
               <p className="eyebrow">Next step</p>
               <p className="mt-2 max-w-lg text-[13.5px] leading-6 text-muted">
