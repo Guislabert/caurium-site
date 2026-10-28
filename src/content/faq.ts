@@ -22,12 +22,17 @@ export const FAQ: FaqItem[] = [
   {
     question: 'What does Probe cost?',
     answer:
-      '€19, €49 or €99 per month depending on endpoint count, check interval and check-history retention. The pricing page lists the exact limits. Gate, Guard and Box have no price because they are not sold.',
+      '€19, €49 or €99 per month depending on endpoint count and check-history retention. Every plan checks at 60 seconds. The pricing page lists the exact limits. Gate, Guard and Box have no price because they are not sold.',
   },
   {
     question: 'Do you publish regions, SLAs or uptime?',
     answer:
-      'No. A region label appears only after a deployment exists and a check has run there. Probe has no SLA, and no uptime percentage is published for this site or for customer accounts.',
+      'No, and each absence is deliberate. Checks run from Cloudflare\'s network rather than a region you can select, and no region label, residency commitment or failover promise is published. Probe is a private preview with no SLA, availability target, service credit or response-time commitment. No uptime percentage is published for this site or for customer accounts; status pages show current state and check time, not a historical percentage.',
+  },
+  {
+    question: 'Are you certified?',
+    answer:
+      'No. Caurium holds no SOC 2, ISO 27001, HIPAA or equivalent certification and has not been audited. It runs on Cloudflare, whose own compliance covers Cloudflare\'s platform, not the service built on top of it. A hosting provider\'s certificate is not a certificate for this service.',
   },
   {
     question: 'Is there a status page?',
