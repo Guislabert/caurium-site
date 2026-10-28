@@ -1,46 +1,63 @@
 ---
-title: 'Privacy Policy'
-layout: '~/layouts/MarkdownLayout.astro'
+layout: ~/layouts/CauriumMarkdownLayout.astro
+title: Privacy policy
+description: How Caurium handles personal data on this website and in the services it operates.
 ---
 
-_Last updated: October 28, 2026_
+**Last updated: 28 October 2026**
 
-This policy explains what AsterLyn collects when you visit `asterlyn.io`,
-`docs.asterlyn.io`, or contact us.
+Caurium is an independent infrastructure practice that deploys, monitors, and recovers services for business
+customers. This policy covers this website and the personal data we handle while operating those services.
 
 ## What we collect
 
-- **Server logs.** IP address, user agent, requested URL, referrer, and
-  timestamp. We keep these for 30 days for security, abuse prevention, and
-  aggregate traffic analysis.
-- **Messages you send us.** Your name, email address, and the content of your
-  message. We use them to reply and to keep a record of the conversation.
-- **No advertising cookies.** The site does not set advertising or tracking
-  cookies. If we add analytics later, this policy will be updated first.
+- **Contact details** you send us by email or during onboarding: name, work email, company, and the content of your
+  message.
+- **Billing details** for customers: company name, billing contact, and invoice records. Payment card data is handled
+  by our payment provider and is not stored by Caurium.
+- **Operational data** needed to run a customer environment: service metadata, access logs, and monitoring results.
+  This may include IP addresses and request paths.
 
-## How we use information
+We do not use advertising cookies, tracking pixels, or third-party analytics on this website.
 
-We use the information above to operate the site, respond to inquiries, protect
-the service from abuse, and understand aggregate usage. We do not sell personal
-information.
+## Why we process it
 
-## Sharing
+We process personal data to respond to enquiries, prepare proposals, provide contracted services, meet legal and
+accounting obligations, and keep the infrastructure secure. Where consent is required, it is requested separately and
+can be withdrawn.
 
-We share information only with service providers that help us run the site
-(hosting, email), and only to the extent needed for that purpose. We may
-disclose information if required by law or to protect the service and its users.
+## Who we share it with
 
-## Retention
+We share data only with service providers needed to run the business: cloud infrastructure providers in the region
+selected for a customer, email and invoicing providers, and professional advisers where required by law. The
+infrastructure provider for each region is named in the customer's plan and data-processing agreement. We do not sell
+personal data.
 
-Server logs are retained for 30 days. Correspondence is retained for up to 24
-months unless a longer period is needed to resolve an ongoing matter.
+## Where it is stored
 
-## Your choices
+Customer environments are deployed in the region selected by the customer. Backups may be written to a second region
+unless a data-residency requirement forbids it; that trade-off is documented in the customer's plan.
 
-You can ask us to access, correct, or delete the information you have sent us by
-emailing the address below. We may need to verify your request before acting on
-it.
+## How long we keep it
+
+- Enquiry emails: up to 24 months after the last contact.
+- Customer and billing records: for the period required by applicable accounting and tax law.
+- Operational logs: 30 days by default, unless a different retention period is agreed in writing.
+- Backups: according to the customer's plan, with deletion completed within 30 days of a valid request.
+
+## Your rights
+
+Depending on your jurisdiction, you may request access, correction, deletion, restriction, or portability of your
+personal data, or object to processing. Write to the address below. We will respond within the period required by
+applicable law.
+
+## Security
+
+Access to customer environments uses named accounts and per-customer credentials. Backups are encrypted at rest.
+Public endpoints use TLS. No system is perfectly secure, and we do not claim otherwise.
 
 ## Contact
 
-hello&#64;asterlyn.io
+Caurium — privacy enquiries: **hello&#64;caurium.tech**
+
+If you are a customer and need a data-processing agreement, mention it in your first message.

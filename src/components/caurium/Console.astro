@@ -1,0 +1,34 @@
+---
+const rows = [
+  { city: 'Frankfurt', code: 'eu-central' },
+  { city: 'Virginia', code: 'us-east' },
+  { city: 'Singapore', code: 'ap-southeast' },
+  { city: 'Tokyo', code: 'ap-northeast' },
+  { city: 'Sydney', code: 'ap-southeast-2' },
+];
+---
+
+<div class="console" role="img" aria-label="Illustrative Caurium console showing five healthy regions">
+  <div class="console__bar">
+    <span>caurium / regions</span>
+    <span class="console__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+  </div>
+
+  <div class="console__rows">
+    {
+      rows.map((row) => (
+        <div class="console__row">
+          <span class="console__region">{row.city}</span>
+          <span class="console__code">{row.code}</span>
+          <span class="console__status">healthy</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="console__foot">
+    <span>5 / 5 regions healthy</span>
+    <span>checks every 60s</span>
+  </div>
+</div>
+<p class="console-note">Illustrative console · not live data</p>

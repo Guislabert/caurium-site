@@ -1,0 +1,178 @@
+---
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import FeatureGrid from '~/components/caurium/FeatureGrid.astro';
+import Plan from '~/components/caurium/Plan.astro';
+import FAQ from '~/components/caurium/FAQ.astro';
+import CTA from '~/components/caurium/CTA.astro';
+
+const metadata = {
+  title: 'Caurium Probe — synthetic monitoring and status pages',
+  description:
+    'Synthetic checks from five regions, with alert routing and public or white-label status pages. Know before your customers do.',
+};
+
+const features = [
+  {
+    title: 'Checks from five regions',
+    text: 'HTTP(S), TCP, and DNS checks run from Frankfurt, Virginia, Singapore, Tokyo, and Sydney — the same places your service runs.',
+  },
+  {
+    title: 'Status pages that load',
+    text: 'A public or white-label status page on your own subdomain, written for customers rather than engineers.',
+  },
+  {
+    title: 'Alerts that reach a person',
+    text: 'Email, Slack, and webhook routing with a simple escalation rule. No alert goes to a void.',
+  },
+  {
+    title: 'Regional baselines',
+    text: 'Latency and error rates by region, so a degradation in Singapore is visible before it becomes a global incident.',
+  },
+  {
+    title: 'History you can export',
+    text: '7, 30, or 90 days of results depending on plan, with CSV export from the dashboard.',
+  },
+  {
+    title: 'A runbook behind every alert',
+    text: 'Each alert links to the runbook entry and the person who owns it, so the first responder is not guessing.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Is Probe a replacement for application monitoring?',
+    a: 'No. Probe answers “is this endpoint reachable and responding correctly from these regions?” It does not provide tracing, logs, or application performance profiling.',
+  },
+  {
+    q: 'Where does the status page live?',
+    a: 'On a subdomain you control, for example status.example.com. Paid plans support white-label styling. The page is served independently of your origin.',
+  },
+  {
+    q: 'What happens if Probe itself is down?',
+    a: 'We monitor Probe with the same infrastructure and publish our own status page. If the checker cannot run, the status page shows an unknown state rather than a false green.',
+  },
+  {
+    q: 'Can I check internal services?',
+    a: 'Yes, with an agent or a private check endpoint. Internal checks are available on Team and above and require a short network review.',
+  },
+  {
+    q: 'Do you offer a free plan?',
+    a: 'Yes: one check from five regions at a five-minute interval, email alerts, and seven days of history. It is a real plan, not a trial that expires.',
+  },
+];
+---
+
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="Caurium Probe"
+    title="Know before your customers do."
+    text="Synthetic monitoring from the same five regions where we host. Simple checks, readable status pages, and alerts that reach a person."
+    actions={[
+      { text: 'Start free', href: '/contact' },
+      { text: 'See pricing', href: '#pricing', variant: 'ghost' },
+    ]}
+    aside={[
+      { label: 'Regions', value: '5 check locations' },
+      { label: 'Minimum interval', value: '30 seconds' },
+      { label: 'Protocols', value: 'HTTP(S), TCP, DNS' },
+      { label: 'Alerts', value: 'Email, Slack, webhook' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="What you get"
+        title="A small monitor with a clear job."
+        text="Probe is deliberately narrow: external checks, regional signal, and a status page. It is not an observability suite and does not pretend to be."
+        split
+      />
+      <FeatureGrid items={features} />
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Fit" title="When Probe is the right tool." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>Good fit</h3>
+          <p>
+            A customer-facing API or site with users in more than one region; a team that needs a status page but does
+            not want to run one; an agency that wants white-label checks for client sites.
+          </p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>Poor fit</h3>
+          <p>
+            Deep application tracing, log search, real-user monitoring, or load testing. Those are different products,
+            and we will say so rather than stretch Probe to cover them.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav" id="pricing">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Probe pricing"
+        title="Pay for checks, not seats."
+        text="Prices exclude tax. Every plan includes checks from all five regions. White-label and high-volume plans are available on request."
+      />
+      <div class="plans">
+        <Plan
+          title="Free"
+          price="€0"
+          note="A real free tier for a single endpoint."
+          features={['1 check', '5-minute interval', 'Email alerts', '7-day history']}
+          href="/contact"
+          cta="Start free"
+        />
+        <Plan
+          title="Starter"
+          price="€19"
+          featured
+          badge="Recommended"
+          note="For a small product with a few critical endpoints."
+          features={['10 checks', '60-second interval', '30-day history', '1 status page', 'Slack and webhook alerts']}
+          href="/contact"
+          cta="Choose Starter"
+        />
+        <Plan
+          title="Team"
+          price="€49"
+          note="For teams running multiple services or client sites."
+          features={['50 checks', '30-second interval', '90-day history', '5 status pages', 'Priority support']}
+          href="/contact"
+          cta="Choose Team"
+        />
+      </div>
+      <p class="u-mono u-muted" style="margin-top: 1.5rem" data-reveal>
+        Agency / white-label from €99 per month · 200 checks and 25 status pages · contact us for scope.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="FAQ" title="Probe, in practice." />
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Point Probe at one endpoint and see what it says."
+        text="Tell us the URL and the regions that matter. We will set up a free check and show you the first results before you decide on a paid plan."
+        primary={{ text: 'Talk to us', href: '/contact' }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>

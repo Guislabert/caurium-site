@@ -1,0 +1,30 @@
+---
+import { regions } from '~/data/regions';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+const list = typeof limit === 'number' ? regions.slice(0, limit) : regions;
+---
+
+<div class="regions">
+  {
+    list.map((region) => (
+      <div class:list={['region', region.status === 'on-request' && 'region--request']}>
+        <div class="region__top">
+          <span class="region__city">{region.city}</span>
+          <span class:list={['status', region.status === 'on-request' && 'status--request']}>
+            {region.status === 'live' ? 'Live' : 'On request'}
+          </span>
+        </div>
+        <span class="region__code">{region.code}</span>
+        <span class="region__country">
+          {region.country} · {region.continent}
+        </span>
+        <p class="region__country">{region.note}</p>
+      </div>
+    ))
+  }
+</div>

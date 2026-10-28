@@ -1,0 +1,97 @@
+---
+import '~/styles/caurium.css';
+
+import { Font } from 'astro:assets';
+
+import { SITE, METADATA, I18N } from 'astrowind:config';
+
+import CommonMeta from '~/components/common/CommonMeta.astro';
+import Favicons from '~/components/Favicons.astro';
+import Metadata from '~/components/common/Metadata.astro';
+import SiteVerification from '~/components/common/SiteVerification.astro';
+import Header from '~/components/caurium/Header.astro';
+import Footer from '~/components/caurium/Footer.astro';
+
+import type { MetaData } from '~/types';
+
+export interface Props {
+  metadata?: MetaData;
+}
+
+const { metadata = {} } = Astro.props;
+
+const organizationId = `${SITE?.site}/#organization`;
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': organizationId,
+    name: SITE?.name,
+    url: SITE?.site,
+    description: METADATA?.description,
+    areaServed: ['Europe', 'North America', 'Asia Pacific', 'Oceania'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE?.site}/#website`,
+    name: SITE?.name,
+    url: SITE?.site,
+    inLanguage: I18N?.language,
+    publisher: { '@id': organizationId },
+  },
+];
+---
+
+<!doctype html>
+<html lang={I18N?.language || 'en'} dir={I18N?.textDirection || 'ltr'}>
+  <head>
+    <CommonMeta />
+    <Favicons />
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-roboto-slab" preload />
+    <Font cssVariable="--font-jetbrains-mono" />
+    <Metadata {...metadata} />
+    <SiteVerification />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      document.addEventListener('DOMContentLoaded', function () {
+        var items = document.querySelectorAll('[data-reveal]');
+        if (!('IntersectionObserver' in window)) {
+          items.forEach(function (item) {
+            item.classList.add('is-in');
+          });
+          return;
+        }
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+        );
+        items.forEach(function (item) {
+          observer.observe(item);
+        });
+      });
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

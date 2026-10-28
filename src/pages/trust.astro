@@ -1,0 +1,164 @@
+---
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import FeatureGrid from '~/components/caurium/FeatureGrid.astro';
+import CTA from '~/components/caurium/CTA.astro';
+
+const email = 'hello' + '@' + 'caurium' + '.tech';
+
+const metadata = {
+  title: 'Trust and security',
+  description:
+    'How Caurium handles access, patching, encryption, backups, data residency, and incidents — including what we do not claim.',
+};
+
+const security = [
+  {
+    title: 'Least-privilege access',
+    text: 'Named accounts, per-customer credentials, and no shared administrator logins. Access is removed when an engagement ends.',
+  },
+  {
+    title: 'Patching on a cadence',
+    text: 'A weekly patch window with security fixes applied out of band, and a tested rollback path for every change.',
+  },
+  {
+    title: 'Encryption in transit and at rest',
+    text: 'TLS on every public endpoint. Backups are encrypted at rest and stored in a second region.',
+  },
+  {
+    title: 'Restore-tested backups',
+    text: 'Backups are restored into an isolated environment on a schedule. The test result is written down, not assumed.',
+  },
+  {
+    title: 'Monitoring that reaches a person',
+    text: 'External checks plus host-level signals, routed to a named channel with a defined escalation path.',
+  },
+  {
+    title: 'Per-customer separation',
+    text: 'Separate environments, credentials, and backup paths. One customer’s failure should not become another’s incident.',
+  },
+];
+
+const incidents = [
+  {
+    title: 'Acknowledge',
+    text: 'Critical incidents are acknowledged within one business hour during the support window defined in your plan.',
+  },
+  {
+    title: 'Communicate',
+    text: 'Status, impact, and the next update time. We do not wait for a perfect root cause before telling you what we know.',
+  },
+  {
+    title: 'Resolve and review',
+    text: 'A written post-incident summary within five business days, including what changed to prevent a repeat.',
+  },
+];
+---
+
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="Trust"
+    title="Trust is documented, not claimed."
+    text="This page describes how Caurium handles access, data, backups, and incidents. It also states what we do not have, so you can decide before a contract instead of after."
+    actions={[{ text: 'Ask for a DPA', href: `mailto:${email}` }]}
+    aside={[
+      { label: 'DPA', value: 'Available on request' },
+      { label: 'EU residency', value: 'Frankfurt region' },
+      { label: 'Certifications', value: 'None claimed' },
+      { label: 'Security contact', value: email },
+    ]}
+  />
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Security posture"
+        title="Six controls we operate by default."
+        text="Not a certification checklist. The practices that actually keep a small environment predictable."
+        split
+      />
+      <FeatureGrid items={security} />
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Data handling" title="What we hold, where, and for how long." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>What we collect</h3>
+          <p>Contact and billing details, service metadata, and operational logs needed to run and support the service. We do not process your application’s customer data beyond what is required to operate the environment.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>Where it sits</h3>
+          <p>In the region you select. Backups are written to a second region unless a data-residency requirement forbids it, in which case the trade-off is documented in your plan.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>How long</h3>
+          <p>Operational logs default to 30 days. Backup retention is defined by your Guard plan and written into the DPA. Deletion requests are handled within 30 days.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 180ms">
+          <h3>Subprocessors</h3>
+          <p>The underlying cloud provider for each region is listed in your plan and in the DPA. We do not describe infrastructure vendors as a generic “cloud” without naming them to you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Incidents"
+        title="A defined response, not a promise of perfection."
+        text="The support window and response targets are part of your plan. Outside that window, on-call is a separate agreement."
+      />
+      <div class="steps steps--3">
+        {
+          incidents.map((step, index) => (
+            <div class="step" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="step__num">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="step__title">{step.title}</h3>
+              <p class="step__text">{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Compliance" title="What we do not claim." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>No certifications today</h3>
+          <p>Caurium does not hold SOC 2, ISO 27001, or PCI DSS. If a certification is a hard requirement, we will tell you before contracting rather than imply it.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>GDPR and DPAs</h3>
+          <p>A data-processing agreement is available for business customers. EU data residency is available in Frankfurt, with backup and replication scope agreed in writing.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>No borrowed logos</h3>
+          <p>We do not display customer logos, security badges, or partner marks we have not earned. The absence is intentional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Need the details in writing?"
+        text="Ask for the DPA, the subprocessor list, or the security section of a proposal. We will send the actual document, not a marketing summary."
+        primary={{ text: 'Email us', href: `mailto:${email}` }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>

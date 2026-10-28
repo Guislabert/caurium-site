@@ -1,60 +1,147 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import FeatureGrid from '~/components/caurium/FeatureGrid.astro';
+import CTA from '~/components/caurium/CTA.astro';
 
 const metadata = {
   title: 'About',
-  description: 'AsterLyn builds edge routing and API infrastructure for teams that serve users across regions.',
+  description:
+    'Caurium is a small infrastructure practice that deploys, monitors, and recovers services for teams operating across regions.',
 };
+
+const principles = [
+  {
+    title: 'Boring by design.',
+    text: 'We use standard runtimes, standard protocols, and infrastructure you can leave. Novelty is not a feature when the pager goes off.',
+  },
+  {
+    title: 'Evidence over adjectives.',
+    text: 'Restore tests, drill reports, and written runbooks. Not “world-class”, not “seamless”, not a logo wall we did not earn.',
+  },
+  {
+    title: 'One throat to choke.',
+    text: 'Deployment, monitoring, backups, and escalation sit with the same small team. You do not coordinate three vendors to get one answer.',
+  },
+  {
+    title: 'Exit-friendly.',
+    text: 'Credentials, backups, and documentation belong to you. A vendor you can leave is a vendor worth staying with.',
+  },
+];
+
+const howWeWork = [
+  {
+    title: 'Small by intent',
+    text: 'A limited number of customers, each with a named engineer. We would rather say no than dilute the operating standard.',
+  },
+  {
+    title: 'Written scope',
+    text: 'Architecture, price, exclusions, and support window are agreed before provisioning. Verbal promises do not survive an incident.',
+  },
+  {
+    title: 'No invented credibility',
+    text: 'No fake customers, no borrowed certifications, no “trusted by” logos. If we have not done it, we do not claim it.',
+  },
+  {
+    title: 'Direct communication',
+    text: 'During an incident you get status, impact, and the next update time. We do not disappear behind a ticket queue.',
+  },
+];
 ---
 
-<Layout metadata={metadata}>
-  <HeroText
-    tagline="About"
-    title="Infrastructure for teams that run APIs everywhere."
-    subtitle="AsterLyn is an edge network and API platform. We focus on the layer between your origin and your users: routing, access, and the telemetry that tells you what actually happened."
-  />
-
-  <Features2
-    title="What we optimize for"
-    subtitle="Three principles shape the platform. They are also the questions we ask before adding a feature."
-    columns={2}
-    items={[
-      {
-        title: 'Keep the origin boring',
-        description:
-          'Your application should not need to know which region served a request. Routing, health checks, and failover belong in the platform, not in every service.',
-        icon: 'tabler:server',
-      },
-      {
-        title: 'Make behavior observable',
-        description:
-          'A route without traces is a guess. Every request should produce enough telemetry to explain latency, errors, and regional shifts without a separate pipeline.',
-        icon: 'tabler:activity',
-      },
-      {
-        title: 'Prefer explicit policy',
-        description:
-          'Access rules, rate limits, and regional preferences should be written down and versioned, not inferred from a dashboard click.',
-        icon: 'tabler:file-code',
-      },
-      {
-        title: 'Design for failure',
-        description:
-          'Regions fail. Networks partition. The control plane should make the next eligible path obvious and keep the failure contained.',
-        icon: 'tabler:shield-check',
-      },
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="About"
+    title="A small practice for teams that operate abroad."
+    text="Caurium exists because “deploy it in another region” is easy to say and surprisingly hard to run well. We take the unglamorous layer: hosts, certificates, backups, alerts, and the runbook."
+    actions={[{ text: 'Talk to us', href: '/contact' }]}
+    aside={[
+      { label: 'Model', value: 'Small, named customers' },
+      { label: 'Regions', value: '5 live' },
+      { label: 'Products', value: 'Base, Probe, Guard' },
+      { label: 'Public signup', value: 'Not offered' },
     ]}
   />
 
-  <CallToAction
-    title="Work with us"
-    subtitle="If your API traffic crosses regions, we would like to hear how you run it today."
-    actions={[
-      { variant: 'primary', text: 'Contact us', href: '/contact', icon: 'tabler:arrow-right' },
-      { text: 'Read the docs', href: 'https://docs.asterlyn.io' },
-    ]}
-  />
-</Layout>
+  <section class="section">
+    <div class="u-container intro-grid">
+      <h2 class="u-display-lg" data-reveal>
+        Most infrastructure problems are ownership problems.
+      </h2>
+      <div data-reveal style="--reveal-delay: 80ms">
+        <p class="u-body">
+          A service can be deployed in five regions and still have nobody who knows whether the backup restores. Caurium
+          is built around the opposite assumption: every environment we run has a named owner, a written recovery path,
+          and a monitoring signal that reaches a person.
+        </p>
+        <p class="u-body" style="margin-top: 1rem">
+          We are deliberately small. That limits how many customers we can take, and it is the reason the support channel
+          is not a queue.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container">
+      <SectionHead eyebrow="Principles" title="Four rules we do not bend." />
+      <div class="statements">
+        {
+          principles.map((principle, index) => (
+            <div class="statement" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="statement__index">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="statement__title">{principle.title}</h3>
+              <p class="statement__text">{principle.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Boundaries" title="What Caurium is not." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>Not a VPN or proxy provider</h3>
+          <p>Caurium does not sell VPN, proxy, or circumvention services, and does not host anonymous tunnel endpoints. We host applications for named customers.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>Not a CDN</h3>
+          <p>We do not claim a global edge network or hundreds of points of presence. Five regions, operated properly, is the product.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>Not a consultancy</h3>
+          <p>We do not sell architecture decks or staff augmentation. If a project is not something we can operate afterwards, we will refer it elsewhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="How we work"
+        title="The operating model, in four lines."
+        text="No account managers, no discovery marathon, no six-month platform programme."
+        split
+      />
+      <FeatureGrid items={howWeWork} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="If this sounds like the right size, say hello."
+        text="Tell us what you run and where your customers are. If Caurium is not a fit, we will say so and point you somewhere more useful."
+        primary={{ text: 'Talk to us', href: '/contact' }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>

@@ -1,0 +1,232 @@
+---
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import Plan from '~/components/caurium/Plan.astro';
+import FAQ from '~/components/caurium/FAQ.astro';
+import CTA from '~/components/caurium/CTA.astro';
+
+const metadata = {
+  title: 'Pricing',
+  description:
+    'Indicative monthly pricing for Caurium Base, Probe, and Guard. Written down, with exclusions and pass-through costs stated.',
+};
+
+const faqs = [
+  {
+    q: 'Why is pricing indicative rather than instant?',
+    a: 'Because the scope changes the cost: number of regions, data volume, support window, and whether a recovery plan is involved. We confirm a fixed monthly price in writing after a short assessment.',
+  },
+  {
+    q: 'Are cloud costs included?',
+    a: 'Base and Guard prices cover our management fee. Cloud compute, storage, and egress are billed at cost with your approval. Probe includes its own check infrastructure.',
+  },
+  {
+    q: 'Is there a minimum term?',
+    a: 'Monthly plans have a one-month notice period. Annual prepayment is available at a discount, but it is optional.',
+  },
+  {
+    q: 'Do you charge for the initial assessment?',
+    a: 'No. The first call and written assessment are free. A €500 setup fee applies when a Base environment is provisioned.',
+  },
+  {
+    q: 'Can we combine products?',
+    a: 'Yes. Base plus Probe is the usual starting point; Guard is added when a service has a recovery requirement. Combined plans are quoted together.',
+  },
+];
+---
+
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="Pricing"
+    title="Prices written down, scope written down."
+    text="No usage-based surprises and no “contact sales” for a number. The figures below are the starting point; the final quote depends on regions, data, and support window."
+    actions={[{ text: 'Talk to us', href: '/contact' }]}
+    aside={[
+      { label: 'Billing', value: 'Monthly, EUR, excl. tax' },
+      { label: 'Notice', value: 'One month' },
+      { label: 'Setup (Base)', value: '€500 one-time' },
+      { label: 'Cloud costs', value: 'Pass-through at cost' },
+    ]}
+  />
+
+  <section class="section" id="base">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Caurium Base"
+        title="Managed hosting"
+        text="One region to start, more when your customers need them. All plans include patching, backups, monitoring, and a named support channel."
+        split
+      />
+      <div class="plans">
+        <Plan
+          title="Single"
+          price="€149"
+          note="One region, one environment. For an internal tool or a first deployment abroad."
+          features={['1 region, 1 environment', 'Daily backups, 7-day retention', 'Business-hours support', 'Monthly health report']}
+          href="/contact"
+          cta="Start with Single"
+        />
+        <Plan
+          title="Multi"
+          price="€299"
+          featured
+          badge="Recommended"
+          note="Two regions, two environments. The usual shape for a customer-facing service."
+          features={[
+            '2 regions, 2 environments',
+            'Daily backups, 30-day retention',
+            '4-business-hour response',
+            'Quarterly restore test',
+          ]}
+          href="/contact"
+          cta="Start with Multi"
+        />
+        <Plan
+          title="Scale"
+          price="€499"
+          note="Three regions, up to five environments, named engineer."
+          features={[
+            '3 regions, up to 5 environments',
+            'Daily backups, 30-day retention',
+            '1-business-hour response',
+            'Monthly restore test',
+          ]}
+          href="/contact"
+          cta="Start with Scale"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav" id="probe">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Caurium Probe"
+        title="Synthetic monitoring"
+        text="Every plan checks from all five regions. Pay for the number of checks and the history window, not for seats."
+        split
+      />
+      <div class="plans">
+        <Plan
+          title="Free"
+          price="€0"
+          note="A real free tier for a single endpoint."
+          features={['1 check', '5-minute interval', 'Email alerts', '7-day history']}
+          href="/contact"
+          cta="Start free"
+        />
+        <Plan
+          title="Starter"
+          price="€19"
+          featured
+          badge="Recommended"
+          note="For a small product with a few critical endpoints."
+          features={['10 checks', '60-second interval', '30-day history', '1 status page', 'Slack and webhook alerts']}
+          href="/contact"
+          cta="Choose Starter"
+        />
+        <Plan
+          title="Team"
+          price="€49"
+          note="For teams running multiple services or client sites."
+          features={['50 checks', '30-second interval', '90-day history', '5 status pages', 'Priority support']}
+          href="/contact"
+          cta="Choose Team"
+        />
+      </div>
+      <p class="u-mono u-muted" style="margin-top: 1.5rem" data-reveal>
+        Agency / white-label from €99 per month · 200 checks and 25 status pages · contact us for scope.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="guard">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Caurium Guard"
+        title="Recovery"
+        text="Priced per protected service. Storage and egress are included up to a documented fair-use limit."
+        split
+      />
+      <div class="plans">
+        <Plan
+          title="Backup"
+          price="€99"
+          note="Cross-region backups with a monthly restore test."
+          features={['Cross-region encrypted backups', '30-day retention', 'Monthly restore test', 'Written recovery runbook']}
+          href="/contact"
+          cta="Choose Backup"
+        />
+        <Plan
+          title="Standby"
+          price="€199"
+          featured
+          badge="Recommended"
+          note="Warm standby plus a quarterly failover drill."
+          features={[
+            'Everything in Backup',
+            'Warm standby in a second region',
+            'DNS failover with rollback',
+            'Quarterly failover drill',
+          ]}
+          href="/contact"
+          cta="Choose Standby"
+        />
+        <Plan
+          title="Critical"
+          price="€349"
+          note="For services where an hour of downtime is a business event."
+          features={[
+            'Everything in Standby',
+            'Monthly failover drill',
+            'Priority recovery window',
+            'Named engineer on the runbook',
+          ]}
+          href="/contact"
+          cta="Choose Critical"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Exclusions" title="What the price does not cover." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>Application work</h3>
+          <p>Code changes, feature development, and application-level debugging are separate. We keep the platform running; your team owns the product.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>Cloud pass-through</h3>
+          <p>Compute, storage, and egress from the underlying provider are billed at cost. You see the provider invoice line and our management fee separately.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>Out-of-hours on-call</h3>
+          <p>Business-hours support is included. 24/7 on-call is a separate agreement with a defined escalation path and response window.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="FAQ" title="Pricing questions." />
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Get a quote for your actual stack."
+        text="Send the regions, the service count, and the support window you need. We will reply with a fixed monthly number and the exclusions in writing."
+        primary={{ text: 'Talk to us', href: '/contact' }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>
