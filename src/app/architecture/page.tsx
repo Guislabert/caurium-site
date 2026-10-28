@@ -107,7 +107,7 @@ export default function ArchitecturePage() {
           </div>
 
           <div>
-            <dl className="grid gap-px overflow-hidden rounded-[8px] border border-border bg-border sm:grid-cols-2">
+            <dl className="grid gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-2">
               {FACTS.map((fact) => (
                 <div key={fact.label} className="bg-background p-5">
                   <dt className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
@@ -176,7 +176,7 @@ export default function ArchitecturePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-[8px] border border-border bg-border md:grid-cols-2">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[16px] border border-border bg-border md:grid-cols-2">
             {INVARIANTS.map((item, index) => (
               <div key={item.title} className="bg-background p-6">
                 <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
@@ -205,7 +205,7 @@ export default function ArchitecturePage() {
                   <span className="mono text-[9px] tracking-[0.1em] text-muted">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="text-[13.5px] leading-6 text-[#34342f]">{item}</span>
+                  <span className="text-[13.5px] leading-6 text-ink-2">{item}</span>
                 </li>
               ))}
             </ul>

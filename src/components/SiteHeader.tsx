@@ -12,8 +12,8 @@ export function SiteHeader() {
             <Logo />
           </Link>
           <span className="hidden items-center gap-2 border-l border-border pl-4 xl:inline-flex">
-            <span className="h-1 w-1 rounded-full bg-border-strong" aria-hidden="true" />
-            <span className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-lime" aria-hidden="true" />
+            <span className="mono text-[9.5px] uppercase tracking-[0.14em] text-muted">
               Early development
             </span>
           </span>
@@ -24,7 +24,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/docs/"
-            className="btn btn-secondary hidden h-10 min-h-10 px-4 text-[13px] md:inline-flex"
+            className="btn btn-primary hidden h-10 min-h-10 px-5 text-[13.5px] md:inline-flex"
           >
             Read the docs
           </Link>

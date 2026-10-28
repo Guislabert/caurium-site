@@ -1,10 +1,3 @@
-const NODES = [
-  { cx: 22.43, cy: 23.66 },
-  { cx: 9.57, cy: 23.66 },
-  { cx: 7.34, cy: 11 },
-  { cx: 22.43, cy: 8.34 },
-] as const;
-
 export function CauriumMark({
   className = 'h-6 w-6',
   inverse = false,
@@ -14,7 +7,9 @@ export function CauriumMark({
   inverse?: boolean;
   mono?: boolean;
 }) {
-  const accent = mono ? 'currentColor' : inverse ? '#8FB0FF' : '#1d4ed8';
+  const background = inverse ? '#F6F4EE' : '#0B1B3F';
+  const arc = mono ? 'currentColor' : inverse ? '#0B1B3F' : '#F6F4EE';
+  const dot = mono ? 'currentColor' : '#C9E265';
 
   return (
     <svg
@@ -24,21 +19,23 @@ export function CauriumMark({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <rect
+        x="1"
+        y="1"
+        width="30"
+        height="30"
+        rx="9"
+        fill={mono ? 'none' : background}
+        stroke={mono ? 'currentColor' : 'none'}
+        strokeWidth={mono ? 1.5 : 0}
+      />
       <path
-        d="M22.43 23.66A10 10 0 0 1 9.57 23.66A10 10 0 0 1 7.34 11A10 10 0 0 1 22.43 8.34"
-        stroke="currentColor"
-        strokeWidth="1.6"
+        d="M21.4 9.9a8.2 8.2 0 1 0 0 12.2"
+        stroke={arc}
+        strokeWidth="3"
         strokeLinecap="round"
       />
-      {NODES.map((node, index) => (
-        <circle
-          key={`${node.cx}-${node.cy}`}
-          cx={node.cx}
-          cy={node.cy}
-          r="1.9"
-          fill={index === 0 ? accent : 'currentColor'}
-        />
-      ))}
+      <circle cx="23.6" cy="16" r="2.2" fill={dot} />
     </svg>
   );
 }
@@ -53,12 +50,12 @@ export function Logo({
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <CauriumMark
-        className={`h-[25px] w-[25px] ${inverse ? 'text-[#f4f3ee]' : 'text-foreground'}`}
+        className="h-7 w-7 shrink-0"
         inverse={inverse}
       />
       <span
-        className={`text-[15.5px] font-semibold tracking-[-0.015em] ${
-          inverse ? 'text-[#f4f3ee]' : 'text-foreground'
+        className={`font-display text-[18px] font-semibold leading-none tracking-[-0.02em] ${
+          inverse ? 'text-[#F6F4EE]' : 'text-ink'
         }`}
       >
         Caurium

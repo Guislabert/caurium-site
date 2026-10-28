@@ -28,7 +28,7 @@ export function ProductGlyph({
           <path d="M13 21.5v5M35 21.5v5" />
           <circle cx="9" cy="24" r="1.5" fill="currentColor" stroke="none" />
           <circle cx="39" cy="24" r="1.5" fill="currentColor" stroke="none" />
-          <rect x="21.5" y="21.5" width="5" height="5" fill="#1d4ed8" stroke="none" />
+          <rect x="21.5" y="21.5" width="5" height="5" fill="#6C4CF1" stroke="none" />
         </g>
       ) : null}
 
@@ -38,7 +38,7 @@ export function ProductGlyph({
           <path d="M14 34a18 18 0 0 1 18-18" opacity="0.7" />
           <path d="M18 34a14 14 0 0 1 14-14" />
           <path d="M10 34h28" opacity="0.55" />
-          <circle cx="36" cy="12" r="2" fill="#1d4ed8" stroke="none" />
+          <circle cx="36" cy="12" r="2" fill="#6C4CF1" stroke="none" />
           <circle cx="24" cy="34" r="1.6" fill="currentColor" stroke="none" />
           <path d="M36 14.5v4M34 12h-4" opacity="0.6" />
         </g>
@@ -48,7 +48,7 @@ export function ProductGlyph({
         <g stroke="currentColor" strokeWidth="1.3">
           <rect x="8" y="8" width="32" height="32" />
           <rect x="15" y="15" width="18" height="18" opacity="0.7" />
-          <rect x="22" y="22" width="4" height="4" fill="#1d4ed8" stroke="none" />
+          <rect x="22" y="22" width="4" height="4" fill="#6C4CF1" stroke="none" />
           <path d="M8 28h7M33 20h7M24 8v7M24 33v7" opacity="0.55" />
         </g>
       ) : null}
@@ -58,7 +58,7 @@ export function ProductGlyph({
           <path d="M24 7l15 8.5v17L24 41 9 32.5v-17L24 7z" />
           <path d="M9 15.5L24 24l15-8.5M24 24v17" opacity="0.7" />
           <path d="M16.5 11.5L31.5 20" opacity="0.5" />
-          <circle cx="24" cy="7" r="2" fill="#1d4ed8" stroke="none" />
+          <circle cx="24" cy="7" r="2" fill="#6C4CF1" stroke="none" />
         </g>
       ) : null}
     </svg>
