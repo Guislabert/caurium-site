@@ -17,7 +17,7 @@ export function pageMetadata({
   path,
   absoluteTitle = false,
   ogImage = OG_IMAGE,
-  ogAlt = 'Caurium — developer infrastructure and AI connectivity.',
+  ogAlt = 'Caurium — API access, monitoring and recovery.',
 }: {
   title: string;
   description: string;

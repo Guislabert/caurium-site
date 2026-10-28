@@ -33,6 +33,10 @@ export function ProductCard({
 
         <p className="mt-4 text-[15.5px] font-medium leading-6">{product.title}</p>
         <p className="mt-2 text-[13.5px] leading-6 text-muted">{product.summary}</p>
+        <p className="mt-4 text-[12.5px] leading-5 text-ink-2">
+          <span className="mono mr-2 text-[8.5px] uppercase tracking-[0.12em] text-muted">For</span>
+          {product.forLine}
+        </p>
 
         <div className="mt-7 flex-1" />
 

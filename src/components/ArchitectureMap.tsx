@@ -96,7 +96,7 @@ export function ArchitectureMap() {
                 <Arrow />
                 <Node
                   title="Caurium website"
-                  detail="Cloudflare Pages, static HTML"
+                  detail="Cloudflare Workers, static HTML"
                   state="current"
                 />
                 <Arrow />

@@ -69,6 +69,58 @@ test('every product states release criteria, exclusions and a labelled example',
   }
 });
 
+test('every product publishes a use case, design decisions, open questions and FAQ', () => {
+  for (const product of PRODUCTS) {
+    assert.ok(product.forLine.length > 20, `${product.name} use case`);
+
+    assert.ok(
+      product.designDecisions.length >= 3,
+      `${product.name} needs at least three design decisions`,
+    );
+    for (const decision of product.designDecisions) {
+      assert.ok(decision.title && decision.detail.length > 20, `${product.name} decision`);
+    }
+
+    assert.ok(
+      product.openQuestions.length >= 4,
+      `${product.name} needs at least four open questions`,
+    );
+    assert.ok(product.openQuestions.every((question) => question.endsWith('?')));
+
+    assert.ok(product.faq.length >= 4, `${product.name} needs at least four FAQ entries`);
+    for (const item of product.faq) {
+      assert.ok(item.question.endsWith('?'), `${product.name} FAQ question`);
+      assert.ok(item.answer.length > 20, `${product.name} FAQ answer`);
+    }
+  }
+});
+
+test('retired positioning is not reintroduced', () => {
+  const retired = [
+    'AI connectivity',
+    'Infrastructure for a connected world',
+    'Developer Infrastructure & AI',
+    'Trusted by',
+  ];
+
+  for (const phrase of retired) {
+    assert.equal(
+      sourceText.toLowerCase().includes(phrase.toLowerCase()),
+      false,
+      `retired positioning present: ${phrase}`,
+    );
+  }
+});
+
+test('no contact address or price is published without a verified channel', () => {
+  assert.equal(
+    /[a-z0-9._%+-]+@caurium\.(tech|com)/i.test(sourceText),
+    false,
+    'contact address present',
+  );
+  assert.equal(/[€£]\s?\d/.test(sourceText), false, 'price present');
+});
+
 test('no unverified marketing claims or invented metrics', () => {
   const forbidden = [
     'enterprise-grade',

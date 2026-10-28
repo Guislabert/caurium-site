@@ -74,7 +74,7 @@ export default function OverviewPage() {
       </p>
       <ul>
         <li>
-          <strong>Public website domain.</strong> The static site on Cloudflare Pages: brand,
+          <strong>Public website domain.</strong> The static site on Cloudflare Workers Static Assets: brand,
           roadmap, documentation, legal pages and a status view. No login, no console and no
           management API.
         </li>

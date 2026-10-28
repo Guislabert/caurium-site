@@ -29,6 +29,16 @@ const DOCS = [
     title: 'Security boundaries',
     detail: 'Public, product and management separation, credentials, logging and reporting.',
   },
+  {
+    href: '/docs/faq/',
+    title: 'FAQ',
+    detail: 'Availability, prices, regions, status data, examples and reporting.',
+  },
+  {
+    href: '/docs/glossary/',
+    title: 'Glossary',
+    detail: 'Module, stage, health, sanitized status, evidence and the other terms used here.',
+  },
 ] as const;
 
 export default function DocsPage() {
@@ -39,6 +49,7 @@ export default function DocsPage() {
       description="These documents describe what Caurium is building, what exists today, and where the boundaries are. They are written to stay useful when a product is still Planned."
       toc={[
         { id: 'documents', label: 'Documents' },
+        { id: 'reading-paths', label: 'Reading paths' },
         { id: 'current-state', label: 'Current state' },
         { id: 'not-contained', label: 'What is not here' },
         { id: 'next', label: 'Where to go next' },
@@ -77,6 +88,39 @@ export default function DocsPage() {
             </span>
             <span aria-hidden="true" className="pt-1 text-muted transition-transform group-hover:translate-x-1">
               →
+            </span>
+          </Link>
+        ))}
+      </div>
+
+      <h2 id="reading-paths">Reading paths</h2>
+      <div className="grid gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3">
+        {[
+          {
+            title: 'Evaluating Caurium',
+            detail: 'Overview → Product stages → Security boundaries → FAQ',
+            href: '/docs/overview/',
+          },
+          {
+            title: 'Designing against a contract',
+            detail: 'Product page → Example → Limits → Open questions',
+            href: '/products/',
+          },
+          {
+            title: 'Checking a claim',
+            detail: 'Claims register → Build log → Status',
+            href: '/trust/',
+          },
+        ].map((path) => (
+          <Link
+            key={path.title}
+            href={path.href}
+            className="group bg-background p-5 transition-colors hover:bg-paper"
+          >
+            <p className="text-[14.5px] font-medium leading-5">{path.title}</p>
+            <p className="mt-2 text-[12px] leading-5 text-muted">{path.detail}</p>
+            <span className="mono mt-4 inline-block text-[9px] uppercase tracking-[0.1em] text-accent">
+              Start →
             </span>
           </Link>
         ))}
@@ -125,7 +169,9 @@ export default function DocsPage() {
         Start with the <Link href="/docs/overview/">system overview</Link>, then read the{' '}
         <Link href="/docs/product-stages/">stage dictionary</Link> before interpreting any product
         label. The <Link href="/docs/security/">security boundaries</Link> page explains how
-        public, product and management access are separated.
+        public, product and management access are separated. For short answers, read the{' '}
+        <Link href="/docs/faq/">FAQ</Link>; for the status of each public claim, read the{' '}
+        <Link href="/trust/">claims register</Link>.
       </p>
     </DocsShell>
   );

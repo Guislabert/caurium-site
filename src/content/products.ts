@@ -32,6 +32,16 @@ export interface ProductExample {
   note: string;
 }
 
+export interface DesignDecision {
+  title: string;
+  detail: string;
+}
+
+export interface ProductFaq {
+  question: string;
+  answer: string;
+}
+
 export interface ProductRecord {
   id: 'gate' | 'probe' | 'guard' | 'box';
   slug: string;
@@ -42,12 +52,16 @@ export interface ProductRecord {
   stage: ProductStage;
   metaDescription: string;
   audience: string;
+  forLine: string;
   problem: string;
   workflow: WorkflowStep[];
   workflowCaption: string;
   scopeNote: string;
   features: ScopeFeature[];
   releaseCriteria: string[];
+  designDecisions: DesignDecision[];
+  openQuestions: string[];
+  faq: ProductFaq[];
   notThis: string[];
   boundaries: Boundary[];
   boundaryTarget: string;
@@ -100,6 +114,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Learn about the planned scope, access controls, and release criteria for Caurium Gate.',
     audience:
       'Small engineering teams that call third-party APIs from more than one service, and need to know which caller did what.',
+    forLine: 'Teams calling one third-party API from several services.',
     problem:
       'API keys spread across services. Nobody can revoke one caller without breaking the others, and a spent quota is discovered only after the bill arrives.',
     workflow: [
@@ -181,6 +196,55 @@ export const PRODUCTS: ProductRecord[] = [
       'Spend protection triggers before the configured ceiling.',
       'The published contract is reproducible from documentation alone.',
     ],
+    designDecisions: [
+      {
+        title: 'Why one upstream',
+        detail:
+          'An open proxy is a security and billing liability. One allow-listed upstream makes the contract testable end to end.',
+      },
+      {
+        title: 'Why per-caller keys',
+        detail:
+          'Revocation has to be local. Rotating a shared key breaks every caller at once.',
+      },
+      {
+        title: 'Why metadata-only logs',
+        detail:
+          'Request bodies create retention and leakage risk without improving routing. The log answers “who called what”, not “what did they say”.',
+      },
+    ],
+    openQuestions: [
+      'Which upstream ships first, and who authorizes it?',
+      'Is streaming supported on the target runtime, or does the first release buffer?',
+      'What is the default metadata retention: 7, 14 or 30 days?',
+      'Which region, if any, will the first deployment run in?',
+    ],
+    faq: [
+      {
+        question: 'Can I call Gate today?',
+        answer: 'No. Gate is Planned. There is no endpoint, key or console.',
+      },
+      {
+        question: 'What happens when quota is exhausted?',
+        answer:
+          'The intended behavior is a 429 before the request reaches the upstream.',
+      },
+      {
+        question: 'Are request bodies logged?',
+        answer:
+          'Not by default. The intended record is metadata only: request ID, endpoint, status, latency and usage.',
+      },
+      {
+        question: 'Is Gate an open proxy?',
+        answer:
+          'No. Callers cannot supply a destination URL; one allow-listed upstream is configured per deployment.',
+      },
+      {
+        question: 'Is streaming supported?',
+        answer:
+          'Not claimed. It must be tested on the target runtime before it is offered.',
+      },
+    ],
     notThis: [
       'An open proxy for arbitrary URLs.',
       'A model or API reseller.',
@@ -226,6 +290,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Explore the planned availability and TLS monitoring workflow, data boundaries, and release criteria for Caurium Probe.',
     audience:
       'Teams responsible for endpoints they own or are explicitly authorized to monitor.',
+    forLine: 'Teams responsible for endpoints they own or are authorized to monitor.',
     problem:
       'A service is slow from only one region, or a certificate expires on a Sunday, and the first report comes from a customer.',
     workflow: [
@@ -307,6 +372,55 @@ export const PRODUCTS: ProductRecord[] = [
       'One probe runs in a real region before any single-region claim; two before any multi-region claim.',
       'The public publisher is verified to have no scan capability or management credentials.',
     ],
+    designDecisions: [
+      {
+        title: 'Why fixed targets',
+        detail:
+          'An anonymous URL scanner invites abuse and SSRF. A fixed target list makes every check accountable to an owner.',
+      },
+      {
+        title: 'Why three failures',
+        detail:
+          'One missed request is noise. Three consecutive failures are a state change worth waking someone for.',
+      },
+      {
+        title: 'Why a separate publisher',
+        detail:
+          'The public status path must not be able to scan or hold management credentials, even if it is compromised.',
+      },
+    ],
+    openQuestions: [
+      'Which regions will run the first probe, and who measures them?',
+      'What is the default check interval for the first release?',
+      'How long are raw checks kept before redaction?',
+      'Which alert channels are supported first?',
+    ],
+    faq: [
+      {
+        question: 'Can I monitor any URL?',
+        answer:
+          'No. Only endpoints you own or are authorized to monitor are eligible.',
+      },
+      {
+        question: 'Does Probe replace application tracing?',
+        answer:
+          'No. It is synthetic availability and TLS checking, not traces, logs or profiles.',
+      },
+      {
+        question: 'What happens when a check cannot run?',
+        answer:
+          'The state is Unknown, not green. Missing or stale data is never carried forward as success.',
+      },
+      {
+        question: 'Is there a public status page today?',
+        answer:
+          'The page exists and reports exactly that monitoring is not connected.',
+      },
+      {
+        question: 'Can I self-serve a check?',
+        answer: 'No. There is no account, console or self-serve setup.',
+      },
+    ],
     notThis: [
       'An anonymous URL scanner.',
       'A replacement for internal application tracing.',
@@ -367,6 +481,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records.',
     audience:
       'Caurium operators first. External teams only after a real permission boundary, interface and support path exist.',
+    forLine: 'Operators who need a restore they can prove.',
     problem:
       'Configuration, credentials and recovery steps live in different places. Nobody knows whether the last backup can actually be restored until it is needed.',
     workflow: [
@@ -448,6 +563,54 @@ export const PRODUCTS: ProductRecord[] = [
       'The management panel is outside the connection path of separately operated services.',
       'Public status remains limited to components the operator has verified and chosen to publish.',
     ],
+    designDecisions: [
+      {
+        title: 'Why restore drills',
+        detail:
+          'An untested backup is a hypothesis. The restore record is the evidence, including the duration and any data gap.',
+      },
+      {
+        title: 'Why manual runbooks first',
+        detail:
+          'Automatic failover without a proven recovery path creates a second failure mode.',
+      },
+      {
+        title: 'Why separate recovery keys',
+        detail:
+          'A stolen backup should not also contain the key that decrypts it.',
+      },
+    ],
+    openQuestions: [
+      'Which asset classes are in the first release?',
+      'What restore duration counts as acceptable?',
+      'Where are recovery keys held, and who can use them?',
+      'Which failures justify automatic action rather than a page?',
+    ],
+    faq: [
+      {
+        question: 'Is Guard a backup product I can buy?',
+        answer:
+          'No. Guard is Planned and starts as an internal operational capability.',
+      },
+      {
+        question: 'Does Guard guarantee a recovery time?',
+        answer:
+          'No. Recovery duration is recorded per restore test, not promised in advance.',
+      },
+      {
+        question: 'Are backups encrypted?',
+        answer:
+          'The intended design encrypts before transfer. No backup has been produced.',
+      },
+      {
+        question: 'Is Guard a compliance certification?',
+        answer: 'No. It is an operational capability, not an audit or a certificate.',
+      },
+      {
+        question: 'Can I access a Guard console?',
+        answer: 'No. No public Guard API or console exists.',
+      },
+    ],
     notThis: [
       'A public secrets API or customer KMS.',
       'A compliance certification.',
@@ -503,6 +666,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments.',
     audience:
       'Known users and trusted projects, admitted by invitation rather than anonymous sign-up.',
+    forLine: 'Invited projects that need a bounded development environment.',
     problem:
       'A shared development server blurs ownership, spreads credentials and cannot be reclaimed cleanly when a project ends.',
     workflow: [
@@ -583,6 +747,53 @@ export const PRODUCTS: ProductRecord[] = [
       'Export, deletion and reclaim steps are tested and recorded.',
       'Isolation is described as container-based shared kernel, never as a microVM.',
       'The instance has no route into management systems or separately operated networks.',
+    ],
+    designDecisions: [
+      {
+        title: 'Why invitation only',
+        detail:
+          'Anonymous code execution changes the threat model. Manual review keeps the trust boundary explicit.',
+      },
+      {
+        title: 'Why isolation is stated plainly',
+        detail:
+          'Shared-kernel containers are not microVMs. The page should not imply an isolation property it does not have.',
+      },
+      {
+        title: 'Why per-instance credentials',
+        detail:
+          'Reclaiming one project must not require rotating every other project.',
+      },
+    ],
+    openQuestions: [
+      'What is the first supported runtime and image format?',
+      'Which egress destinations are allowed by default?',
+      'How long can an instance live before review?',
+      'What does export look like at the end of a project?',
+    ],
+    faq: [
+      {
+        question: 'Can I sign up for Box?',
+        answer: 'No. Box is invitation-only and not open.',
+      },
+      {
+        question: 'Is Box a public code sandbox?',
+        answer: 'No. It does not accept anonymous or unknown workloads.',
+      },
+      {
+        question: 'Is Box a microVM?',
+        answer:
+          'No. Environments are container-based and share a kernel. They are not VM-level isolation.',
+      },
+      {
+        question: 'Can Box reach other Caurium networks?',
+        answer:
+          'No. Egress is defined per instance, and Box is not a route to other networks.',
+      },
+      {
+        question: 'Is there a Box console?',
+        answer: 'No. No public console exists.',
+      },
     ],
     notThis: [
       'A public arbitrary-code sandbox.',

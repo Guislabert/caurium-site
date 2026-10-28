@@ -62,11 +62,71 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="section border-b border-border bg-paper" aria-labelledby="stages-heading">
+      <section
+        className="section border-b border-border bg-paper"
+        aria-labelledby="choose-heading"
+      >
+        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+          <div>
+            <p className="section-index">02 / Choose by problem</p>
+            <h2 id="choose-heading" className="h2 mt-4 max-w-[15ch]">
+              Start from the failure, not the product name.
+            </h2>
+            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+              Each module exists because one failure mode is easy to leave unverified. Pick the
+              sentence that sounds familiar.
+            </p>
+          </div>
+
+          <div className="border-t border-border-strong">
+            {[
+              {
+                problem: 'You cannot revoke one caller without breaking another.',
+                product: 'Gate',
+                href: '/products/gate/',
+              },
+              {
+                problem: 'You learn about downtime from a customer, not from a check.',
+                product: 'Probe',
+                href: '/products/probe/',
+              },
+              {
+                problem: 'You cannot prove that the last backup can be restored.',
+                product: 'Guard',
+                href: '/products/guard/',
+              },
+              {
+                problem: 'A shared development environment has outlived its project.',
+                product: 'Box',
+                href: '/products/box/',
+              },
+              {
+                problem: 'You are deciding whether to rely on any of this.',
+                product: 'Product stages',
+                href: '/docs/product-stages/',
+              },
+            ].map((row) => (
+              <Link
+                key={row.href}
+                href={row.href}
+                className="group flex items-start justify-between gap-6 border-b border-border py-5 transition-colors hover:bg-background"
+              >
+                <span className="max-w-xl text-[14px] leading-6 text-ink-2">{row.problem}</span>
+                <span className="link-arrow shrink-0">
+                  {row.product}
+                  <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section border-b border-border" aria-labelledby="stages-heading">
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
             <div>
-              <p className="section-index">02 / Stages</p>
+              <p className="section-index">03 / Stages</p>
               <h2 id="stages-heading" className="h2 mt-4 max-w-[14ch]">
                 A label is a statement of evidence.
               </h2>
@@ -148,10 +208,10 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="section" aria-labelledby="not-heading">
+      <section className="section bg-paper" aria-labelledby="not-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
           <div>
-            <p className="section-index">03 / Boundaries</p>
+            <p className="section-index">04 / Boundaries</p>
             <h2 id="not-heading" className="h2 mt-4 max-w-[14ch]">
               What this roadmap is not.
             </h2>

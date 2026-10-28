@@ -42,7 +42,7 @@ pnpm build
 pnpm start
 ```
 
-`pnpm start` serves `out/` locally with `serve`. For a Cloudflare Pages preview, follow
+`pnpm start` serves `out/` locally with `serve`. For a Cloudflare Workers Static Assets preview, follow
 [`docs/deployment.md`](docs/deployment.md).
 
 ## Environment
