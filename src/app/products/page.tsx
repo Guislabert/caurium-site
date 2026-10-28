@@ -77,7 +77,7 @@ export default function ProductsPage() {
             </div>
 
             <div className="min-w-0">
-              <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-[8px] border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
+              <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
                 {STAGES.map((stage, index) => {
                   const current = stage === 'planned';
                   return (
@@ -167,7 +167,7 @@ export default function ProductsPage() {
                 <span className="mono text-[9px] tracking-[0.1em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-[#34342f]">{item}</span>
+                <span className="text-[13.5px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>

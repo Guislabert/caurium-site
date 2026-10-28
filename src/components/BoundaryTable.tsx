@@ -17,7 +17,7 @@ export function BoundaryTable({
           <dt className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted md:pt-1">
             {boundary.label}
           </dt>
-          <dd className="text-[13.5px] leading-6 text-[#34342f]">{boundary.value}</dd>
+          <dd className="text-[13.5px] leading-6 text-ink-2">{boundary.value}</dd>
         </div>
       ))}
     </dl>

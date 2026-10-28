@@ -90,14 +90,10 @@ export default function HomePage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-border">
-        <div className="container-page relative grid gap-12 py-14 md:py-20 lg:grid-cols-[1.16fr_0.84fr] lg:items-center lg:gap-14 lg:py-24">
+        <div className="hero-glow" aria-hidden="true" />
+        <div className="container-page relative z-10 grid gap-12 py-14 md:py-20 lg:grid-cols-[1.16fr_0.84fr] lg:items-center lg:gap-14 lg:py-24">
           <div>
-            <div className="flex items-center gap-3">
-              <span className="mono text-[9.5px] uppercase tracking-[0.14em] text-muted">
-                {HERO.eyebrow}
-              </span>
-              <span className="h-px w-10 bg-border-strong" aria-hidden="true" />
-            </div>
+            <p className="eyebrow">{HERO.eyebrow}</p>
 
             <h1 className="display mt-6 max-w-[17ch] text-balance">{HERO.title}</h1>
             <p className="lede mt-7 max-w-[34rem]">{HERO.description}</p>
@@ -117,14 +113,17 @@ export default function HomePage() {
             </p>
           </div>
 
-          <SystemBoard />
+          <div className="relative lg:rotate-[-1.2deg]">
+            <SystemBoard />
+          </div>
         </div>
 
-        <div className="border-t border-border">
+        <div className="relative z-10 border-t border-border">
           <div className="container-page grid grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {STATUS_STRIP.map((item) => (
               <div key={item.label} className="flex items-baseline justify-between gap-4 py-3 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0">
-                <p className="mono text-[8.5px] uppercase tracking-[0.12em] text-muted">
+                <p className="mono flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.12em] text-muted">
+                  <span className="h-1 w-1 rounded-full bg-olive" aria-hidden="true" />
                   {item.label}
                 </p>
                 <p className="text-[11.5px] text-muted sm:mt-1">{item.value}</p>
@@ -161,7 +160,7 @@ export default function HomePage() {
       </section>
 
       <section
-        className="section border-b border-border bg-paper"
+        className="section section-paper border-b border-border"
         aria-labelledby="workflow-heading"
       >
         <div className="container-page">
@@ -185,13 +184,12 @@ export default function HomePage() {
 
           <div className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
             {WORKFLOW.map((item) => (
-              <div key={item.step} className="relative border-t border-border-strong pt-5">
-                <span
-                  aria-hidden="true"
-                  className="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full border border-border-strong bg-paper"
-                />
-                <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
-                  {item.step} / {item.label}
+              <div key={item.step} className="border-t border-border-strong pt-5">
+                <span className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink font-mono text-[11px] text-paper">
+                  {item.step}
+                </span>
+                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                  {item.label}
                 </p>
                 <h3 className="h3 mt-3">{item.title}</h3>
                 <p className="mt-2 max-w-sm text-[13.5px] leading-6 text-muted">{item.detail}</p>
@@ -205,7 +203,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section border-b border-border" aria-labelledby="principles-heading">
+      <section className="section section-lav border-b border-border" aria-labelledby="principles-heading">
         <div className="container-page grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
           <div>
             <p className="section-index">03 / Principles</p>
@@ -220,7 +218,7 @@ export default function HomePage() {
 
           <div className="grid gap-8 sm:grid-cols-3 sm:gap-6">
             {PRINCIPLES.map((principle) => (
-              <div key={principle.code} className="border-t border-foreground pt-4">
+              <div key={principle.code} className="border-t border-ink pt-4">
                 <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
                   {principle.code}
                 </p>
@@ -279,7 +277,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section border-b border-border" aria-labelledby="status-heading">
+      <section className="section section-paper border-b border-border" aria-labelledby="status-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
           <div>
             <p className="section-index">05 / Status</p>
@@ -337,19 +335,19 @@ export default function HomePage() {
       <section className="section-ink relative overflow-hidden" aria-labelledby="closing-heading">
         <div className="grid-ink pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
         <CauriumMark
-          className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 text-white opacity-[0.06]"
+          className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 text-[#f6f4ee] opacity-[0.08]"
           mono
         />
         <div className="container-page relative py-16 md:py-24">
-          <p className="mono text-[9.5px] uppercase tracking-[0.14em] text-[#a8a69d]">
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-[#f6f4ee]/60">
             06 / Follow the build
           </p>
           <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
             <div>
-              <h2 id="closing-heading" className="display max-w-[12ch] text-[#f4f3ee]">
+              <h2 id="closing-heading" className="display max-w-[12ch] text-[#f6f4ee]">
                 Follow the build.
               </h2>
-              <p className="mt-5 max-w-md text-sm leading-6 text-[#b7b5ac]">
+              <p className="mt-5 max-w-md text-sm leading-6 text-[#f6f4ee]/70">
                 The roadmap is public. The claims stay checkable. Each stage changes only when its
                 evidence does.
               </p>

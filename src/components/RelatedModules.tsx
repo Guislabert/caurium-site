@@ -11,7 +11,7 @@ export function RelatedModules({ currentId }: { currentId: string }) {
         <li key={product.id}>
           <Link
             href={`/products/${product.slug}/`}
-            className="group flex h-full items-start justify-between gap-4 rounded-[10px] border border-border bg-background p-5 transition-colors hover:border-border-strong"
+            className="group flex h-full items-start justify-between gap-4 rounded-[16px] border border-border bg-background p-5 transition-colors hover:border-border-strong"
           >
             <span>
               <ProductGlyph id={product.id} className="h-8 w-8" />

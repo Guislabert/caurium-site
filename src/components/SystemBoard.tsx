@@ -62,7 +62,7 @@ export function SystemBoard() {
           </div>
 
           <CauriumMark
-            className="pointer-events-none absolute -bottom-10 -right-8 h-36 w-36 text-border-strong opacity-30"
+            className="pointer-events-none absolute -bottom-10 -right-8 h-36 w-36 text-border-strong opacity-[0.12]"
             mono
           />
         </div>
