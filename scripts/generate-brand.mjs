@@ -4,35 +4,25 @@ import sharp from 'sharp';
 /**
  * Brand asset generator.
  *
- * The mark is the four-node segmented C used by src/components/Logo.tsx.
+ * The mark is the v1 rounded-square C used by src/components/Logo.tsx.
  * Keep the geometry here in sync with that component if the mark changes.
  */
 
-const INK = '#111110';
-const MUTED = '#5b5b55';
-const BORDER = '#e4e2db';
-const BORDER_STRONG = '#c9c7bf';
-const ACCENT = '#1d4ed8';
-const INVERSE_INK = '#f4f3ee';
-const INVERSE_ACCENT = '#8FB0FF';
+const INK = '#0B1B3F';
+const INK_2 = '#26365F';
+const CREAM = '#F6F4EE';
+const SURFACE = '#FFFDF8';
+const MUTED = '#5C6784';
+const BORDER = '#E2DED2';
+const BORDER_STRONG = '#C7C1B0';
+const ACCENT = '#6C4CF1';
+const LIME = '#C9E265';
 
-const ARC = 'M22.43 23.66A10 10 0 0 1 9.57 23.66A10 10 0 0 1 7.34 11A10 10 0 0 1 22.43 8.34';
-const NODES = [
-  [22.43, 23.66],
-  [9.57, 23.66],
-  [7.34, 11],
-  [22.43, 8.34],
-];
-
-const SANS = 'DejaVu Sans, Liberation Sans, Arial, sans-serif';
+const SERIF = 'DejaVu Serif, Liberation Serif, Georgia, serif';
 const MONO = 'DejaVu Sans Mono, Liberation Mono, monospace';
 
-function mark(color, accent, { strokeWidth = 1.6, nodeRadius = 1.9 } = {}) {
-  const circles = NODES.map(
-    ([cx, cy], index) =>
-      `<circle cx="${cx}" cy="${cy}" r="${nodeRadius}" fill="${index === 0 ? accent : color}"/>`,
-  ).join('');
-  return `<path d="${ARC}" fill="none" stroke="${color}" stroke-width="${strokeWidth}" stroke-linecap="round"/>${circles}`;
+function mark({ bg = INK, fg = CREAM, dot = LIME } = {}) {
+  return `<rect x="1" y="1" width="30" height="30" rx="9" fill="${bg}"/><path d="M21.4 9.9a8.2 8.2 0 1 0 0 12.2" fill="none" stroke="${fg}" stroke-width="3" stroke-linecap="round"/><circle cx="23.6" cy="16" r="2.2" fill="${dot}"/>`;
 }
 
 function escapeXml(value) {
@@ -43,17 +33,11 @@ function escapeXml(value) {
     .replaceAll('"', '&quot;');
 }
 
-function iconSvg(size, background, fg, accent) {
-  const radius = Math.round(size * 0.22);
-  const scale = size * 0.56;
-  const offset = (size - 32 * (scale / 32)) / 2;
-  const s = scale / 32;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
-  <rect width="${size}" height="${size}" rx="${radius}" fill="${background}"/>
-  <g transform="translate(${offset} ${offset}) scale(${s})">${mark(fg, accent, {
-    strokeWidth: size <= 32 ? 2.1 : 1.6,
-    nodeRadius: size <= 32 ? 2.3 : 1.9,
-  })}</g>
+function iconSvg(size, bg, fg, dot) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="${bg}"/>
+  <path d="M44.5 19.5a17.5 17.5 0 1 0 0 25" fill="none" stroke="${fg}" stroke-width="7.5" stroke-linecap="round"/>
+  <circle cx="48.5" cy="32" r="4.8" fill="${dot}"/>
 </svg>`;
 }
 
@@ -77,7 +61,7 @@ function icoEntry(pngBuffer, size, offset) {
 async function buildIco(sizes) {
   const pngs = await Promise.all(
     sizes.map((size) =>
-      sharp(Buffer.from(iconSvg(size, INK, INVERSE_INK, INVERSE_ACCENT)))
+      sharp(Buffer.from(iconSvg(size, INK, CREAM, LIME)))
         .resize(size, size)
         .png()
         .toBuffer(),
@@ -98,11 +82,11 @@ async function buildIco(sizes) {
   return Buffer.concat([header, ...entries, ...pngs]);
 }
 
-function wordmark(width, fg) {
-  const scale = 32 / 26;
+function wordmark(width, fg, inverse = false) {
+  const markup = inverse ? mark({ bg: CREAM, fg: INK }) : mark();
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="40" viewBox="0 0 ${width} 40">
-  <g transform="translate(0 7) scale(${scale})">${mark(fg, ACCENT)}</g>
-  <text x="44" y="27.5" font-family="${SANS}" font-size="21" font-weight="700" letter-spacing="-0.4" fill="${fg}">Caurium</text>
+  <g transform="translate(0 4)">${markup}</g>
+  <text x="44" y="28" font-family="${SERIF}" font-size="23" font-weight="600" letter-spacing="-0.4" fill="${fg}">Caurium</text>
 </svg>`;
 }
 
@@ -200,23 +184,23 @@ const PAGES = {
 };
 
 function ogSvg(key, page) {
-  const titleLines = wrap(page.title, 22);
-  const descLines = wrap(page.description, 74).slice(0, 3);
-  const titleStartY = titleLines.length > 1 ? 318 : 352;
-  const titleSize = titleLines.length > 1 ? 70 : 76;
+  const titleLines = wrap(page.title, 20);
+  const descLines = wrap(page.description, 66).slice(0, 3);
+  const titleStartY = titleLines.length > 1 ? 300 : 342;
+  const titleSize = titleLines.length > 2 ? 58 : 68;
 
   const titleMarkup = titleLines
     .map(
       (line, index) =>
-        `<text x="72" y="${titleStartY + index * (titleSize + 6)}" font-family="${SANS}" font-size="${titleSize}" font-weight="700" letter-spacing="-2.6" fill="${INK}">${escapeXml(line)}</text>`,
+        `<text x="72" y="${titleStartY + index * (titleSize + 8)}" font-family="${SERIF}" font-size="${titleSize}" font-weight="600" letter-spacing="-1.8" fill="${INK}">${escapeXml(line)}</text>`,
     )
     .join('');
 
-  const descStartY = titleStartY + (titleLines.length - 1) * (titleSize + 6) + 52;
+  const descStartY = titleStartY + (titleLines.length - 1) * (titleSize + 8) + 54;
   const descMarkup = descLines
     .map(
       (line, index) =>
-        `<text x="74" y="${descStartY + index * 32}" font-family="${SANS}" font-size="22" fill="${MUTED}">${escapeXml(line)}</text>`,
+        `<text x="74" y="${descStartY + index * 32}" font-family="${SERIF}" font-size="21" fill="${INK_2}">${escapeXml(line)}</text>`,
     )
     .join('');
 
@@ -226,9 +210,9 @@ function ogSvg(key, page) {
     .map(([name, role], index) => {
       const x = 72 + index * (chipWidth + 16);
       return `
-    <rect x="${x}" y="506" width="${chipWidth}" height="72" rx="6" fill="#ffffff" stroke="${BORDER}"/>
-    <circle cx="${x + 20}" cy="531" r="3.2" fill="${ACCENT}"/>
-    <text x="${x + 32}" y="537" font-family="${SANS}" font-size="18" font-weight="700" fill="${INK}">${escapeXml(name)}</text>
+    <rect x="${x}" y="506" width="${chipWidth}" height="72" rx="18" fill="${SURFACE}" stroke="${BORDER}"/>
+    <circle cx="${x + 20}" cy="531" r="4" fill="${ACCENT}"/>
+    <text x="${x + 34}" y="537" font-family="${SERIF}" font-size="19" font-weight="600" fill="${INK}">${escapeXml(name)}</text>
     <text x="${x + 20}" y="561" font-family="${MONO}" font-size="10.5" fill="${MUTED}" letter-spacing="1.4">${escapeXml(role.toUpperCase())} · PLANNED</text>`;
     })
     .join('');
@@ -241,15 +225,15 @@ function ogSvg(key, page) {
       <path d="M 40 0 L 0 0 0 40" fill="none" stroke="${INK}" stroke-opacity="0.05" stroke-width="1"/>
     </pattern>
   </defs>
-  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect width="1200" height="630" fill="${CREAM}"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
   <rect x="0.5" y="0.5" width="1199" height="629" fill="none" stroke="${BORDER}"/>
 
-  <g transform="translate(64 46) scale(1.05)">${mark(INK, ACCENT)}</g>
-  <text x="108" y="72" font-family="${SANS}" font-size="21" font-weight="700" letter-spacing="-0.3" fill="${INK}">Caurium</text>
+  <g transform="translate(64 44) scale(1.1)">${mark()}</g>
+  <text x="110" y="73" font-family="${SERIF}" font-size="23" font-weight="600" letter-spacing="-0.3" fill="${INK}">Caurium</text>
   <text x="72" y="118" font-family="${MONO}" font-size="11" fill="${MUTED}" letter-spacing="1.8">${escapeXml(page.kicker.toUpperCase())}</text>
 
-  <rect x="1004" y="48" width="132" height="30" rx="4" fill="none" stroke="${BORDER_STRONG}"/>
+  <rect x="1004" y="48" width="132" height="30" rx="15" fill="none" stroke="${BORDER_STRONG}"/>
   <circle cx="1021" cy="63" r="3.4" fill="none" stroke="${MUTED}" stroke-width="1.4"/>
   <text x="1032" y="67" font-family="${MONO}" font-size="9.5" fill="${MUTED}" letter-spacing="1.2">PLANNED</text>
 
@@ -271,24 +255,21 @@ await mkdir('public/og', { recursive: true });
 // Vector marks
 await writeFile(
   'public/brand/caurium-mark.svg',
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">${mark(INK, ACCENT)}</svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">${mark()}</svg>\n`,
 );
 await writeFile(
   'public/brand/caurium-mark-inverse.svg',
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">${mark(INVERSE_INK, INVERSE_ACCENT)}</svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">${mark({ bg: CREAM, fg: INK })}</svg>\n`,
 );
 await writeFile('public/brand/caurium-wordmark.svg', `${wordmark(150, INK)}\n`);
-await writeFile('public/brand/caurium-wordmark-inverse.svg', `${wordmark(150, INVERSE_INK)}\n`);
-await writeFile(
-  'public/brand/favicon.svg',
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><rect width="32" height="32" rx="7" fill="${INK}"/>${mark(INVERSE_INK, INVERSE_ACCENT, { strokeWidth: 2.1, nodeRadius: 2.3 })}</svg>\n`,
-);
+await writeFile('public/brand/caurium-wordmark-inverse.svg', `${wordmark(150, CREAM, true)}\n`);
+await writeFile('public/brand/favicon.svg', `${iconSvg(32, INK, CREAM, LIME)}\n`);
 
 // Raster icons
-await png(iconSvg(64, INK, INVERSE_INK, INVERSE_ACCENT), 64, 'public/brand/icon-64.png');
-await png(iconSvg(180, INK, INVERSE_INK, INVERSE_ACCENT), 180, 'public/brand/apple-touch-icon.png');
-await png(iconSvg(192, INK, INVERSE_INK, INVERSE_ACCENT), 192, 'public/brand/icon-192.png');
-await png(iconSvg(512, INK, INVERSE_INK, INVERSE_ACCENT), 512, 'public/brand/icon-512.png');
+await png(iconSvg(64, INK, CREAM, LIME), 64, 'public/brand/icon-64.png');
+await png(iconSvg(180, INK, CREAM, LIME), 180, 'public/brand/apple-touch-icon.png');
+await png(iconSvg(192, INK, CREAM, LIME), 192, 'public/brand/icon-192.png');
+await png(iconSvg(512, INK, CREAM, LIME), 512, 'public/brand/icon-512.png');
 
 const ico = await buildIco([16, 24, 32, 48]);
 await writeFile('public/favicon.ico', ico);

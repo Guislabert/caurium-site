@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/roboto-slab';
+import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#ffffff',
+  themeColor: '#f6f4ee',
   colorScheme: 'light',
 };
 
@@ -70,7 +71,7 @@ const websiteJsonLd = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en">
       <body>
         <a href="#main" className="skip-link">
           Skip to content

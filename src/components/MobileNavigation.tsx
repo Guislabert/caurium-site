@@ -47,7 +47,7 @@ export function MobileNavigation() {
       <button
         ref={buttonRef}
         type="button"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-[6px] border border-border-strong bg-background text-foreground"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong bg-background text-foreground"
         aria-expanded={open}
         aria-controls="mobile-navigation"
         aria-label={open ? 'Close menu' : 'Open menu'}

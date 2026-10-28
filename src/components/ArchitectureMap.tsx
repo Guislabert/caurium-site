@@ -11,7 +11,7 @@ function Node({
 }) {
   return (
     <div
-      className={`rounded-[6px] border bg-background px-3 py-2.5 ${
+      className={`rounded-full border bg-background px-3 py-2.5 ${
         state === 'current'
           ? 'border-border-strong'
           : 'border-dashed border-border-strong'
@@ -88,7 +88,7 @@ export function ArchitectureMap() {
           <div className="grid gap-4 lg:grid-cols-3">
             <section
               aria-labelledby="arch-public"
-              className="rounded-[10px] border border-border-strong bg-background p-4"
+              className="rounded-[16px] border border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-public" title="Public website domain" state="Current" />
               <div className="mt-4">
@@ -112,7 +112,7 @@ export function ArchitectureMap() {
 
             <section
               aria-labelledby="arch-product"
-              className="rounded-[10px] border border-dashed border-border-strong bg-background p-4"
+              className="rounded-[16px] border border-dashed border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-product" title="Product domain" state="Planned" />
               <div className="mt-4">
@@ -135,7 +135,7 @@ export function ArchitectureMap() {
 
             <section
               aria-labelledby="arch-management"
-              className="rounded-[10px] border border-dashed border-border-strong bg-background p-4"
+              className="rounded-[16px] border border-dashed border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-management" title="Management domain" state="Planned" />
               <div className="mt-4">
@@ -153,7 +153,7 @@ export function ArchitectureMap() {
             </section>
           </div>
 
-          <div className="mt-4 flex flex-col gap-2 rounded-[10px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-4 flex flex-col gap-2 rounded-[16px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[10.5px] leading-5 text-muted">
               <span className="mono uppercase tracking-[0.1em]">Outside this diagram:</span>{' '}
               separately operated networks. No topology, addresses, ports or credentials are

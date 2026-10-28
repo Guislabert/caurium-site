@@ -19,8 +19,9 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="border-b border-border">
-      <div className="container-page py-10 md:py-14 lg:py-16">
+    <section className="relative overflow-hidden border-b border-border">
+      <div className="hero-glow opacity-80" aria-hidden="true" />
+      <div className="container-page relative z-10 py-10 md:py-14 lg:py-16">
         <Breadcrumbs items={crumbs} />
 
         <div

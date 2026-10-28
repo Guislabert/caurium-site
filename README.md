@@ -64,8 +64,8 @@ management or network credentials.
 - `src/content/products.ts` — the single source of truth for Gate, Probe, Guard and Box stages,
   scope, boundaries, release criteria, explicit exclusions and examples. Home, product pages,
   docs and metadata all read from here.
-- `scripts/generate-brand.mjs` — generates the four-node mark, favicons, app icons and the
-  per-page Open Graph cards in `public/og/`. Run `pnpm brand` after changing the mark geometry;
+- `scripts/generate-brand.mjs` — generates the v1 rounded-square C mark, favicons, app icons and
+  the per-page Open Graph cards in `public/og/`. Run `pnpm brand` after changing the mark geometry;
   keep it in sync with `src/components/Logo.tsx`.
 - `src/app/docs/*` — substantive documentation pages.
 - `docs/content-audit.md` — claim-to-evidence mapping. Update it with any content change.
@@ -77,9 +77,11 @@ does not promote sibling features or the module itself.
 
 ## Design and boundaries
 
-- Visual direction: technical drafting — warm paper and white surfaces, hairline grids, numbered
-  figures, mono metadata, a four-node segmented C mark and one cobalt signal colour.
-- Type: Geist Sans for text, Geist Mono for metadata, self-hosted through the `geist` package.
+- Visual direction: v1 editorial engineering — warm paper and off-white surfaces, navy ink,
+  violet as the action colour, lime as the evidence marker, rounded figure cards, mono metadata
+  and the v1 rounded-square C mark.
+- Type: Roboto Slab for display, Inter for text, JetBrains Mono for metadata; self-hosted through
+  the `@fontsource-variable/*` packages.
 - Design tokens live in `src/app/globals.css`; the reasoning is recorded in
   [`docs/design-system.md`](docs/design-system.md).
 - No fabricated customers, logos, testimonials, metrics, uptime, SLAs, prices, certifications or

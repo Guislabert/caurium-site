@@ -133,7 +133,7 @@ export default function StatusPage() {
                 <span className="mono text-[9px] tracking-[0.1em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-[#34342f]">{rule}</span>
+                <span className="text-[13.5px] leading-6 text-ink-2">{rule}</span>
               </li>
             ))}
           </ol>
@@ -178,7 +178,7 @@ export default function StatusPage() {
             </h2>
           </div>
           <div className="space-y-5">
-            <p className="text-[13.5px] leading-6 text-[#34342f]">
+            <p className="text-[13.5px] leading-6 text-ink-2">
               Origin addresses, internal hostnames, full check URLs, raw error stacks, probe
               addresses and management credentials. The status endpoint accepts no arbitrary target
               parameters; it publishes a fixed, sanitized component list.

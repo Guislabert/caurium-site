@@ -243,7 +243,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </p>
           </div>
 
-          <div className="rounded-[10px] border border-border bg-paper p-5 md:p-6">
+          <div className="rounded-[16px] border border-border bg-paper p-5 md:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="eyebrow">Current stage</span>
               <ProductStageBadge stage={product.stage} />
