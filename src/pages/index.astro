@@ -1,200 +1,321 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import Features from '~/components/widgets/Features.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import StructuredData from '~/components/common/StructuredData.astro';
-
-import { SITE, METADATA, I18N } from 'astrowind:config';
-import favIconSvg from '~/assets/favicons/favicon.svg';
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import Button from '~/components/caurium/Button.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import Marquee from '~/components/caurium/Marquee.astro';
+import Console from '~/components/caurium/Console.astro';
+import RegionGrid from '~/components/caurium/RegionGrid.astro';
+import Plan from '~/components/caurium/Plan.astro';
+import FAQ from '~/components/caurium/FAQ.astro';
+import CTA from '~/components/caurium/CTA.astro';
 
 const metadata = {
-  title: 'Edge network and API platform',
-  description: 'AsterLyn routes, secures, and observes API traffic across regions from a single control plane.',
-  openGraph: { type: 'website' },
+  title: 'Managed infrastructure for teams going global',
+  description:
+    'Caurium deploys, monitors, and recovers services across five regions — Frankfurt, Virginia, Singapore, Tokyo, and Sydney — with one team to call.',
 };
 
-const organizationId = `${SITE?.site}/#organization`;
-const structuredData = [
+const products = [
   {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${SITE?.site}/#website`,
-    name: SITE?.name,
-    url: SITE?.site,
-    inLanguage: I18N?.language,
-    publisher: { '@id': organizationId },
+    index: '01',
+    tag: 'Hosting',
+    name: 'Caurium Base',
+    href: '/base',
+    text: 'Managed hosting for the services you run abroad. We provision, patch, back up, and monitor — you keep shipping.',
+    features: [
+      'Single or multi-region deployment',
+      'Weekly patching and daily backups',
+      'Monitoring and a named support channel',
+      'Data residency notes and DPA on request',
+    ],
   },
   {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': organizationId,
-    name: SITE?.name,
-    url: SITE?.site,
-    logo: new URL(favIconSvg.src, SITE?.site).toString(),
-    ...(METADATA?.twitter?.handle ? { sameAs: [`https://x.com/${METADATA.twitter.handle.replace(/^@/, '')}`] } : {}),
+    index: '02',
+    tag: 'Monitoring',
+    name: 'Caurium Probe',
+    href: '/probe',
+    text: 'Synthetic checks from all five regions, with public or white-label status pages your customers can actually read.',
+    features: [
+      'HTTP, TCP, and DNS checks',
+      '60-second intervals on paid plans',
+      'Email, Slack, and webhook alerts',
+      'Status pages on your own subdomain',
+    ],
   },
+  {
+    index: '03',
+    tag: 'Recovery',
+    name: 'Caurium Guard',
+    href: '/guard',
+    text: 'Backups, warm standby, and failover drills. The recovery plan is tested before you need it.',
+    features: [
+      'Cross-region backups and restore tests',
+      'Warm standby in a second region',
+      'DNS failover with documented runbooks',
+      'Quarterly drill report',
+    ],
+  },
+];
+
+const steps = [
+  {
+    title: 'Assess',
+    text: 'A short call and a written scope: stack, regions, data, and what happens if a region goes down.',
+  },
+  {
+    title: 'Deploy',
+    text: 'We provision the environment, certificates, DNS, and backups in the regions you actually need.',
+  },
+  {
+    title: 'Monitor',
+    text: 'Checks from five regions, alert routing, and a status page. You see the same signals we do.',
+  },
+  {
+    title: 'Recover',
+    text: 'Backups are restored on a schedule, and failover is rehearsed before it is real.',
+  },
+];
+
+const statements = [
+  {
+    title: 'Boring by design.',
+    text: 'No proprietary runtime, no lock-in layer. Your app stays a normal HTTP service on infrastructure you can leave.',
+  },
+  {
+    title: 'Evidence over adjectives.',
+    text: 'We publish what we run, where it runs, and what we do not do. No invented customers, certifications, or uptime numbers.',
+  },
+  {
+    title: 'One throat to choke.',
+    text: 'One team owns deployment, monitoring, backups, and the 3am page. You do not coordinate three vendors to get an answer.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What does Caurium actually run?',
+    a: 'Caurium operates application hosting, synthetic monitoring, and backup/failover services in five regions. We do not provide VPN, proxy, or circumvention services, and we do not host anonymous or public tunnel endpoints.',
+  },
+  {
+    q: 'Do you offer a public signup?',
+    a: 'Not yet. Every engagement starts with a short assessment so we can confirm the stack, regions, and support expectations before taking responsibility for a service.',
+  },
+  {
+    q: 'Which regions are live today?',
+    a: 'Frankfurt, Virginia, Singapore, Tokyo, and Sydney. Additional regions are assessed on request and typically delivered in two to four weeks.',
+  },
+  {
+    q: 'Can you sign a DPA?',
+    a: 'Yes, for business customers. We document where data is stored, which subprocessors are involved, and how long logs are retained.',
+  },
+  {
+    q: 'What happens when something breaks?',
+    a: 'You get a named channel and a written escalation path. During an incident we communicate status, impact, and the next update time rather than waiting for a perfect answer.',
+  },
+];
+
+const marqueeItems = [
+  'Frankfurt',
+  'Virginia',
+  'Singapore',
+  'Tokyo',
+  'Sydney',
+  'More regions on request',
+  'Managed hosting',
+  'Synthetic monitoring',
+  'Backup and failover',
 ];
 ---
 
-<Layout metadata={metadata}>
-  <StructuredData slot="head" schema={structuredData} />
+<CauriumLayout metadata={metadata}>
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="u-container hero__grid">
+      <div class="hero__copy">
+        <p class="u-eyebrow" data-reveal>Managed infrastructure · Five regions</p>
+        <h1 class="u-display-xl" data-reveal style="--reveal-delay: 60ms">Infrastructure<br />that holds.</h1>
+        <p class="u-lead" data-reveal style="--reveal-delay: 120ms">
+          Caurium deploys, monitors, and recovers the services your team runs abroad — from Frankfurt to Sydney, with
+          one team to call.
+        </p>
+        <div class="hero__actions" data-reveal style="--reveal-delay: 180ms">
+          <Button href="/contact" arrow>Talk to us</Button>
+          <Button href="/base" variant="ghost">Explore Base</Button>
+        </div>
+        <div class="hero__meta" data-reveal style="--reveal-delay: 240ms">
+          <span>Frankfurt</span>
+          <span>Virginia</span>
+          <span>Singapore</span>
+          <span>Tokyo</span>
+          <span>Sydney</span>
+        </div>
+      </div>
 
-  <Hero
-    badge="AsterLyn Edge"
-    tagline="Edge network & API platform"
-    title="The edge network for modern APIs."
-    subtitle="Route, secure, and observe API traffic across regions — from a single control plane."
-    actions={[
-      { variant: 'primary', text: 'Talk to us', href: '/contact', icon: 'tabler:arrow-right' },
-      { text: 'Read the docs', href: 'https://docs.asterlyn.io' },
-    ]}
-  />
+      <div class="hero__console" data-reveal style="--reveal-delay: 160ms">
+        <Console />
+      </div>
+    </div>
+  </section>
 
-  <Features
-    id="platform"
-    tagline="Platform"
-    title="One control plane. Three layers."
-    subtitle="AsterLyn sits between your origin and your users, so routing, access, and telemetry are configured once instead of in every region."
-    columns={2}
-    items={[
-      {
-        title: 'Edge routing',
-        description:
-          'Send each request to the nearest healthy region, with policy-based failover when a region degrades.',
-        icon: 'tabler:route',
-      },
-      {
-        title: 'API gateway',
-        description:
-          'Terminate TLS, validate credentials, apply rate limits, and enforce request policies at the edge.',
-        icon: 'tabler:api',
-      },
-      {
-        title: 'Observability',
-        description:
-          'Traces, structured logs, and request metrics for every route, without shipping a separate agent to each origin.',
-        icon: 'tabler:activity',
-      },
-      {
-        title: 'Identity & access',
-        description: 'Scoped API keys, per-environment credentials, and an audit trail for every control-plane change.',
-        icon: 'tabler:key',
-      },
-    ]}
-  />
+  <Marquee items={marqueeItems} />
 
-  <Steps
-    id="how-it-works"
-    tagline="How it works"
-    title="From origin to edge in three steps"
-    subtitle="Keep your existing HTTP services. AsterLyn becomes the front door."
-    items={[
-      {
-        title: 'Connect your origin',
-        description: 'Point AsterLyn at an existing HTTP service. No rewrite, no SDK, no sidecar.',
-        icon: 'tabler:plug-connected',
-      },
-      {
-        title: 'Define routes and policies',
-        description:
-          'Declare regions, health checks, authentication, and rate limits in the dashboard or through the API.',
-        icon: 'tabler:adjustments-horizontal',
-      },
-      {
-        title: 'Ship and observe',
-        description: 'Traffic is served from the nearest healthy region. Traces and logs stream back to one place.',
-        icon: 'tabler:chart-line',
-      },
-    ]}
-    callToAction={{
-      text: 'Read the quickstart',
-      href: 'https://docs.asterlyn.io/guides/getting-started/',
-      icon: 'tabler:arrow-right',
-    }}
-  />
+  <section class="section">
+    <div class="u-container intro-grid">
+      <h2 class="u-display-lg" data-reveal>
+        You don't need another dashboard. You need someone who owns the pager.
+      </h2>
+      <p data-reveal style="--reveal-delay: 80ms">
+        Caurium is a small infrastructure practice for teams that have customers in more than one country. We deploy the
+        stack, keep the backups honest, and answer when something breaks. No public signup, no self-serve maze — every
+        engagement starts with a short assessment.
+      </p>
+    </div>
+  </section>
 
-  <Features2
-    id="regions"
-    tagline="Global footprint"
-    title="Regional routing without regional silos"
-    subtitle="AsterLyn is built around independent regional points of presence, with a shared control plane above them."
-    columns={2}
-    items={[
-      {
-        title: 'North America',
-        description: 'Edge presence for teams serving users across the US and Canada.',
-        icon: 'tabler:map-pin',
-      },
-      {
-        title: 'Europe',
-        description: 'Regional routing and data handling for European traffic.',
-        icon: 'tabler:map-pin',
-      },
-      {
-        title: 'Asia Pacific',
-        description: 'Low-latency entry points for users across East and Southeast Asia.',
-        icon: 'tabler:map-pin',
-      },
-      {
-        title: 'Oceania',
-        description: 'Regional coverage for Australia and New Zealand.',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+  <section class="section section--paper" id="platform">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Platform"
+        title="Three products. One operating layer."
+        text="Start with hosting. Add monitoring and recovery when the service matters enough to page someone."
+      />
 
-  <FAQs
-    id="faq"
-    tagline="FAQ"
-    title="Questions before you start"
-    collapsible={true}
-    schema={true}
-    items={[
-      {
-        title: 'What is AsterLyn Edge?',
-        description:
-          'AsterLyn Edge is a control plane for routing, securing, and observing API traffic across regions. It sits in front of your existing HTTP services.',
-      },
-      {
-        title: 'Do I need to change my application?',
-        description:
-          'No. Point AsterLyn at an existing origin and keep your application code as it is. Routing and access policies live in AsterLyn.',
-      },
-      {
-        title: 'How does regional routing work?',
-        description:
-          'Each request is matched against your routes and sent to the nearest healthy region. If a region fails its health checks, traffic moves to the next eligible region according to your policy.',
-      },
-      {
-        title: 'Where is my data stored?',
-        description:
-          'Control-plane data is stored centrally. Request logs and traces are retained per your plan and can be scoped to a region. Contact us for data-handling details before you onboard.',
-      },
-      {
-        title: 'How do I get access?',
-        description:
-          'AsterLyn is onboarding teams gradually. Send us a short note about your traffic profile and regions, and we will follow up.',
-      },
-    ]}
-  />
+      <div class="grid-3">
+        {
+          products.map((product, index) => (
+            <article class="card" data-reveal style={`--reveal-delay: ${index * 70}ms`}>
+              <div class="card__top">
+                <span class="card__index">{product.index}</span>
+                <span class="card__tag">{product.tag}</span>
+              </div>
+              <h3 class="card__title">{product.name}</h3>
+              <p class="card__text">{product.text}</p>
+              <ul class="card__list">
+                {product.features.map((feature) => <li>{feature}</li>)}
+              </ul>
+              <a class="link-arrow card__link" href={product.href}>Explore {product.name.replace('Caurium ', '')}</a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-  <CallToAction
-    title="Put your APIs on the edge"
-    subtitle="Tell us what you run today and where your users are. We will map it to a regional setup."
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Talk to us',
-        href: '/contact',
-        icon: 'tabler:arrow-right',
-      },
-      { text: 'Read the docs', href: 'https://docs.asterlyn.io' },
-    ]}
-    layout="banner"
-  />
-</Layout>
+  <section class="section" id="how-it-works">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="How it works"
+        title="From assessment to a rehearsed recovery."
+        text="A small, predictable operating model. No migration theatre, no six-month platform programme."
+      />
+
+      <div class="steps">
+        {
+          steps.map((step, index) => (
+            <div class="step" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="step__num">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="step__title">{step.title}</h3>
+              <p class="step__text">{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav" id="regions">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Regions"
+        title="Five regions today. More on request."
+        text="Enough coverage for Europe, North America, and Asia Pacific without pretending to be a global CDN. If your customers are somewhere else, we will assess a new region."
+        split
+      />
+
+      <RegionGrid />
+
+      <p class="u-mono u-muted" style="margin-top: 1.5rem" data-reveal>
+        New regions are delivered in 2–4 weeks after a short capacity and data-residency review.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="Principles" title="What we optimise for." />
+
+      <div class="statements">
+        {
+          statements.map((statement, index) => (
+            <div class="statement" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="statement__index">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="statement__title">{statement.title}</h3>
+              <p class="statement__text">{statement.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" id="pricing">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Pricing"
+        title="Indicative pricing, written down."
+        text="Final scope is confirmed after the assessment. Prices below are monthly, exclusive of tax, and do not include cloud pass-through costs unless stated."
+        split
+      />
+
+      <div class="plans">
+        <Plan
+          title="Caurium Base"
+          price="€149"
+          note="One region, one environment. Setup fee €500."
+          features={['Deployment and TLS', 'Daily backups, 7-day retention', 'Business-hours support', 'Monthly health report']}
+          href="/pricing#base"
+          cta="Base pricing"
+        />
+        <Plan
+          title="Caurium Probe"
+          price="€0"
+          duration="/month"
+          note="Free tier: one check, five regions, five-minute interval."
+          features={['1 HTTP/TCP check', 'Checks from five regions', 'Email alerts', '7-day result history']}
+          href="/pricing#probe"
+          cta="Probe pricing"
+        />
+        <Plan
+          title="Caurium Guard"
+          price="€99"
+          note="Per protected service. Cross-region retention included."
+          features={['Cross-region backups', '30-day retention', 'Monthly restore test', 'Written recovery runbook']}
+          href="/pricing#guard"
+          cta="Guard pricing"
+        />
+      </div>
+
+      <p style="margin-top: 1.5rem" data-reveal>
+        <a class="link-arrow" href="/pricing">See the full pricing and what is not included</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="FAQ" title="Questions before you start." />
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Tell us what you run and where your customers are."
+        text="We will reply with a short assessment: what we would deploy, which regions fit, and what it costs. No deck, no discovery marathon."
+        primary={{ text: 'Talk to us', href: '/contact' }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>

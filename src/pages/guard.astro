@@ -1,0 +1,183 @@
+---
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import FeatureGrid from '~/components/caurium/FeatureGrid.astro';
+import Plan from '~/components/caurium/Plan.astro';
+import FAQ from '~/components/caurium/FAQ.astro';
+import CTA from '~/components/caurium/CTA.astro';
+
+const metadata = {
+  title: 'Caurium Guard — backups, standby, and failover',
+  description:
+    'Encrypted cross-region backups, restore testing, warm standby, and rehearsed failover for services that cannot afford a long outage.',
+};
+
+const features = [
+  {
+    title: 'Encrypted cross-region backups',
+    text: 'Backups are written to a second region with encryption at rest and a documented retention policy.',
+  },
+  {
+    title: 'Restore tests, not restore hopes',
+    text: 'A scheduled restore into an isolated environment, with a short report of what was restored and how long it took.',
+  },
+  {
+    title: 'Warm standby',
+    text: 'A second-region copy of the service, kept patched and reachable, ready for a controlled cutover.',
+  },
+  {
+    title: 'DNS failover',
+    text: 'Health-checked DNS with a documented cutover and rollback path. No heroics and no copy-paste at 3am.',
+  },
+  {
+    title: 'Runbooks and drills',
+    text: 'A written recovery runbook owned by your team, exercised on a schedule so it does not rot.',
+  },
+  {
+    title: 'A report after every drill',
+    text: 'What was tested, what broke, what changed. The report is the point: recovery improves only when it is measured.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What RPO and RTO can you guarantee?',
+    a: 'It depends on the application and the plan. We document what is achievable for your stack rather than quoting a generic number. Backup plans typically target a 24-hour RPO; Standby and Critical are designed around shorter recovery windows.',
+  },
+  {
+    q: 'Do you take over incident command?',
+    a: 'No. We execute the recovery runbook with your team and communicate what we are doing. Application-level decisions remain with you.',
+  },
+  {
+    q: 'Is Guard available without Base?',
+    a: 'Yes, if we can access the environment and verify the backup and restore path. We will not sell a recovery plan we cannot test.',
+  },
+  {
+    q: 'How often are drills run?',
+    a: 'Monthly on Critical, quarterly on Standby, and monthly restore tests on Backup. Every drill produces a short written report.',
+  },
+  {
+    q: 'Where are backups stored?',
+    a: 'In a second region, encrypted, with access limited to the named engineers on your account. Retention is defined in your plan and can be adjusted for data-residency requirements.',
+  },
+];
+---
+
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="Caurium Guard"
+    title="A recovery plan that has actually been run."
+    text="Backups, warm standby, and failover drills for services that cannot afford a long outage — with a written report after every test."
+    actions={[
+      { text: 'Talk to us', href: '/contact' },
+      { text: 'See pricing', href: '#pricing', variant: 'ghost' },
+    ]}
+    aside={[
+      { label: 'Backup target', value: 'Cross-region, encrypted' },
+      { label: 'Restore tests', value: 'Monthly or quarterly' },
+      { label: 'Failover', value: 'DNS with rollback path' },
+      { label: 'Reporting', value: 'After every drill' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="What you get"
+        title="Recovery treated as an operating discipline."
+        text="Guard is not a storage bucket with a retention policy. It is a tested path from “the primary region is gone” to “the service is answering again.”"
+        split
+      />
+      <FeatureGrid items={features} />
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Honesty" title="What we will not promise." />
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>No generic RTO</h3>
+          <p>Recovery time depends on your application, data size, and DNS TTL. We measure it during onboarding and put the observed number in writing.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>No untested plan</h3>
+          <p>If we cannot restore your backup in a test, we will not sell you a recovery plan. The drill comes before the invoice.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>No silent scope</h3>
+          <p>Guard covers the infrastructure and data path. Application-level remediation, code fixes, and third-party dependencies remain outside scope unless agreed in writing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--lav" id="pricing">
+    <div class="u-container">
+      <SectionHead
+        eyebrow="Guard pricing"
+        title="Per protected service."
+        text="Prices exclude tax. Storage and egress for backups are included up to a documented fair-use limit; overages are billed at cost."
+      />
+      <div class="plans">
+        <Plan
+          title="Backup"
+          price="€99"
+          note="Cross-region backups with a monthly restore test."
+          features={['Cross-region encrypted backups', '30-day retention', 'Monthly restore test', 'Written recovery runbook']}
+          href="/contact"
+          cta="Choose Backup"
+        />
+        <Plan
+          title="Standby"
+          price="€199"
+          featured
+          badge="Recommended"
+          note="Warm standby plus quarterly failover drill."
+          features={[
+            'Everything in Backup',
+            'Warm standby in a second region',
+            'DNS failover with rollback',
+            'Quarterly failover drill',
+          ]}
+          href="/contact"
+          cta="Choose Standby"
+        />
+        <Plan
+          title="Critical"
+          price="€349"
+          note="For services where an hour of downtime is a business event."
+          features={[
+            'Everything in Standby',
+            'Monthly failover drill',
+            'Priority recovery window',
+            'Named engineer on the runbook',
+          ]}
+          href="/contact"
+          cta="Choose Critical"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="FAQ" title="Guard, in practice." />
+      <FAQ items={faqs} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Find out what your recovery actually looks like."
+        text="We will review your current backups and run a restore test before proposing a plan. If the basics are missing, we will say that first."
+        primary={{ text: 'Talk to us', href: '/contact' }}
+        secondary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  items: { title: string; text: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="feature-list">
+  {
+    items.map((item, index) => (
+      <div class="feature" data-reveal style={`--reveal-delay: ${index * 50}ms`}>
+        <h3 class="feature__title">{item.title}</h3>
+        <p class="feature__text">{item.text}</p>
+      </div>
+    ))
+  }
+</div>

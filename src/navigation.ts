@@ -1,18 +1,15 @@
 import { getPermalink } from './utils/permalinks';
 
+const docs = 'https://docs.caurium.tech';
+
 export const headerData = {
   links: [
-    { text: 'Platform', href: '/#platform' },
-    { text: 'How it works', href: '/#how-it-works' },
-    { text: 'Regions', href: '/#regions' },
-    { text: 'Docs', href: 'https://docs.asterlyn.io' },
-    {
-      text: 'Company',
-      links: [
-        { text: 'About', href: getPermalink('/about') },
-        { text: 'Contact', href: getPermalink('/contact') },
-      ],
-    },
+    { text: 'Base', href: getPermalink('/base') },
+    { text: 'Probe', href: getPermalink('/probe') },
+    { text: 'Guard', href: getPermalink('/guard') },
+    { text: 'Pricing', href: getPermalink('/pricing') },
+    { text: 'Regions', href: getPermalink('/regions') },
+    { text: 'Docs', href: docs },
   ],
   actions: [{ text: 'Talk to us', href: getPermalink('/contact') }],
 };
@@ -20,18 +17,20 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'Product',
+      title: 'Platform',
       links: [
-        { text: 'Platform', href: '/#platform' },
-        { text: 'How it works', href: '/#how-it-works' },
-        { text: 'Regions', href: '/#regions' },
+        { text: 'Caurium Base', href: getPermalink('/base') },
+        { text: 'Caurium Probe', href: getPermalink('/probe') },
+        { text: 'Caurium Guard', href: getPermalink('/guard') },
+        { text: 'Pricing', href: getPermalink('/pricing') },
+        { text: 'Regions', href: getPermalink('/regions') },
       ],
     },
     {
       title: 'Resources',
       links: [
-        { text: 'Documentation', href: 'https://docs.asterlyn.io' },
-        { text: 'GitHub', href: 'https://github.com/Guislabert/asterlyn-site' },
+        { text: 'Documentation', href: docs },
+        { text: 'Trust & security', href: getPermalink('/trust') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],
     },
@@ -53,8 +52,8 @@ export const footerData = {
     {
       ariaLabel: 'GitHub',
       icon: 'tabler:brand-github',
-      href: 'https://github.com/Guislabert/asterlyn-site',
+      href: 'https://github.com/Guislabert/caurium-site',
     },
   ],
-  footNote: `© ${new Date().getFullYear()} AsterLyn. All rights reserved.`,
+  footNote: `© ${new Date().getFullYear()} Caurium. All rights reserved.`,
 };

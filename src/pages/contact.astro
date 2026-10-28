@@ -1,63 +1,143 @@
 ---
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
+import CauriumLayout from '~/layouts/CauriumLayout.astro';
+import PageHero from '~/components/caurium/PageHero.astro';
+import SectionHead from '~/components/caurium/SectionHead.astro';
+import Button from '~/components/caurium/Button.astro';
+import CTA from '~/components/caurium/CTA.astro';
+
+const email = 'hello' + '@' + 'caurium' + '.tech';
+const securityEmail = 'security' + '@' + 'caurium' + '.tech';
 
 const metadata = {
   title: 'Contact',
-  description: 'Contact AsterLyn about access, regional setup, security reports, and partnerships.',
+  description:
+    'Tell Caurium what you run, where your customers are, and what support window you need. Every engagement starts with a short assessment.',
 };
 
-const email = 'hello' + '@' + 'asterlyn' + '.io';
+const include = [
+  {
+    title: 'What you run',
+    text: 'Application or service, runtime, and roughly how it is deployed today. A link to a public endpoint is useful.',
+  },
+  {
+    title: 'Where your customers are',
+    text: 'The regions that matter and any latency or data-residency requirement. “Europe and Singapore” is enough to start.',
+  },
+  {
+    title: 'What happens if it breaks',
+    text: 'Current backup and recovery situation, and whether you need monitoring, failover, or both.',
+  },
+  {
+    title: 'The support window',
+    text: 'Business hours or out-of-hours, and who should be paged. This drives the quote more than the server count.',
+  },
+];
+
+const next = [
+  {
+    title: 'Reply within one business day',
+    text: 'A human reply, not an autoresponder. If we are not a fit, we will say so in the first message.',
+  },
+  {
+    title: 'Short assessment call',
+    text: 'Thirty minutes to confirm scope and the regions that make sense. No deck and no discovery marathon.',
+  },
+  {
+    title: 'Written proposal',
+    text: 'Architecture, monthly price, exclusions, and a delivery date. Nothing is provisioned until you approve it.',
+  },
+];
 ---
 
-<Layout metadata={metadata}>
-  <HeroText
-    tagline="Contact"
-    title="Talk to us"
-    subtitle="Tell us what you run today, where your users are, and what you need from an edge layer. A short note is enough to start."
-  />
-
-  <Features2
-    title="Where to reach us"
-    subtitle="We read every message. Expect a reply within two business days."
-    columns={2}
-    items={[
-      {
-        title: 'Access and onboarding',
-        description: `Questions about availability, regions, or migrating an existing API: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Security',
-        description: `Report a vulnerability or request our security contact details: <a class="text-primary underline" href="mailto:${email}">${email}</a>. Please do not include exploit details in a first message.`,
-        icon: 'tabler:shield-lock',
-      },
-      {
-        title: 'Partnerships',
-        description: `Infrastructure, integration, or reseller questions: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
-        icon: 'tabler:users',
-      },
-      {
-        title: 'Everything else',
-        description: `Press, careers, or general questions: <a class="text-primary underline" href="mailto:${email}">${email}</a>.`,
-        icon: 'tabler:message-circle',
-      },
+<CauriumLayout metadata={metadata}>
+  <PageHero
+    eyebrow="Contact"
+    title="Tell us what you run."
+    text="Every engagement starts with a short assessment. There is no public signup and no self-serve checkout — we confirm the scope before taking responsibility for a service."
+    aside={[
+      { label: 'Email', value: email },
+      { label: 'Reply time', value: 'One business day' },
+      { label: 'Assessment', value: 'Free, 30 minutes' },
+      { label: 'Signup', value: 'Not public' },
     ]}
   />
 
-  <CallToAction
-    title="Send us a note"
-    subtitle="Include your current setup, the regions you care about, and roughly how much traffic you move."
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Email AsterLyn',
-        href: `mailto:${email}`,
-        icon: 'tabler:mail',
-      },
-    ]}
-    layout="banner"
-  />
-</Layout>
+  <section class="section">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="What to include" title="Four things that make the first reply useful." />
+      </div>
+      <div style="display: grid; gap: 0">
+        {
+          include.map((item, index) => (
+            <div class="feature" data-reveal style={`--reveal-delay: ${index * 50}ms`}>
+              <h3 class="feature__title">{item.title}</h3>
+              <p class="feature__text">{item.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="u-container split">
+      <div>
+        <SectionHead eyebrow="Direct" title="Write to a person." />
+        <p class="u-body" data-reveal>
+          Email is the front door. Include the four points above and we will reply within one business day. If you prefer
+          a call, propose two windows and we will confirm one.
+        </p>
+        <div class="hero__actions" style="margin-top: 1.5rem" data-reveal>
+          <Button href={`mailto:${email}`} arrow>Email {email}</Button>
+          <Button href="/pricing" variant="ghost">See pricing first</Button>
+        </div>
+      </div>
+      <div style="display: grid; gap: 1rem">
+        <div class="note-box" data-reveal>
+          <h3>Business hours</h3>
+          <p>Monday to Friday, 09:00–18:00 CET. Out-of-hours on-call is a separate agreement and is quoted with the plan.</p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 60ms">
+          <h3>Security reports</h3>
+          <p>
+            Report a vulnerability to <a href={`mailto:${securityEmail}`}>{securityEmail}</a>. Please include reproduction
+            steps and do not test against customer environments without written permission.
+          </p>
+        </div>
+        <div class="note-box" data-reveal style="--reveal-delay: 120ms">
+          <h3>Not a fit</h3>
+          <p>We do not provide VPN, proxy, or circumvention services, and we do not host anonymous tunnel endpoints. Those requests will be declined.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="u-container">
+      <SectionHead eyebrow="Next" title="What happens after you write." />
+      <div class="steps steps--3">
+        {
+          next.map((step, index) => (
+            <div class="step" data-reveal style={`--reveal-delay: ${index * 60}ms`}>
+              <span class="step__num">{String(index + 1).padStart(2, '0')}</span>
+              <h3 class="step__title">{step.title}</h3>
+              <p class="step__text">{step.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="u-container">
+      <CTA
+        title="Prefer to read first?"
+        text="The docs cover deployment, checks, backups, and the recovery model. If your question is not answered there, email is the fastest path."
+        primary={{ text: 'Read the docs', href: 'https://docs.caurium.tech' }}
+        secondary={{ text: 'See pricing', href: '/pricing' }}
+      />
+    </div>
+  </section>
+</CauriumLayout>
