@@ -37,11 +37,11 @@ export const PLANS: Plan[] = [
     price: 49,
     cadence: 'per month',
     endpoints: 50,
-    minIntervalSeconds: 30,
+    minIntervalSeconds: 60,
     retentionDays: 30,
-    summary: 'Several services and a shorter interval.',
+    summary: 'Several services and a month of history.',
     detail:
-      'For teams running more than one service. Checks can run every 30 seconds; check history is kept for 30 days.',
+      'For teams running more than one service. Up to 50 endpoints, each checked every 60 seconds; check history is kept for 30 days.',
     recommended: true,
   },
   {
@@ -50,11 +50,11 @@ export const PLANS: Plan[] = [
     price: 99,
     cadence: 'per month',
     endpoints: 200,
-    minIntervalSeconds: 30,
+    minIntervalSeconds: 60,
     retentionDays: 90,
     summary: 'A larger surface with longer history.',
     detail:
-      'For a broader endpoint list. Checks can run every 30 seconds; check history is kept for 90 days.',
+      'For a broader endpoint list. Up to 200 endpoints, each checked every 60 seconds; check history is kept for 90 days.',
   },
 ];
 

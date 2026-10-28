@@ -66,7 +66,7 @@ export default function PricingPage() {
           <SectionHeading
             index="01 / Plans"
             id="plans-heading"
-            title="Pay for endpoints and cadence, nothing else."
+            title="Pay for endpoints and history, nothing else."
             intro="Every plan includes the same checks, incident rule, webhook and status page. The differences are how many endpoints you can add, how often they are checked and how long check history is kept."
           />
 

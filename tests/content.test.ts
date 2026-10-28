@@ -141,7 +141,7 @@ test('prices are published only for the Probe plans', () => {
   );
   for (const plan of PLANS) {
     assert.ok(plan.endpoints > 0);
-    assert.ok(plan.minIntervalSeconds >= 30);
+    assert.ok(plan.minIntervalSeconds >= 60);
     assert.ok(plan.retentionDays >= 7);
   }
   for (const product of PRODUCTS) {
