@@ -288,7 +288,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Private preview: scheduled HTTP checks, a three-failure incident rule, one webhook, and a sanitized status page. Accounts are activated by hand.',
     stage: 'private-preview',
     metaDescription:
-      'Probe checks owner-authorized endpoints every 30–60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month.',
+      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month.',
     audience:
       'Small teams that own public HTTP endpoints and want a status page and a webhook alert without operating the checker themselves.',
     forLine: 'Teams responsible for public endpoints they own or are authorized to monitor.',
@@ -332,9 +332,9 @@ export const PRODUCTS: ProductRecord[] = [
       },
       {
         id: 'cadence',
-        label: '30–3600 second cadence',
+        label: '60–3600 second cadence',
         detail:
-          'Each target has its own interval and timeout. The scheduler runs every minute. Starter accounts check at 60 seconds; Team and Business can use 30 seconds.',
+          'Each target is checked once per minute, with a 10 second timeout. The scheduler runs every minute, so 60 seconds is the shortest interval the service can honour.',
         stage: 'implemented',
       },
       {
@@ -428,7 +428,7 @@ export const PRODUCTS: ProductRecord[] = [
       {
         question: 'What does Probe cost?',
         answer:
-          '€19, €49 or €99 per month depending on endpoint count and check interval. The pricing page lists the exact limits.',
+          '€19, €49 or €99 per month depending on endpoint count and history. The pricing page lists the exact limits.',
       },
       {
         question: 'Can I monitor any URL?',
@@ -517,7 +517,7 @@ export const PRODUCTS: ProductRecord[] = [
       label: 'See Probe pricing',
       href: '/pricing/',
       detail:
-        'Three monthly plans with fixed endpoint limits, a 30–60 second cadence and manual activation.',
+        'Three monthly plans with fixed endpoint limits, a 60-second cadence and manual activation.',
     },
     cta: { label: 'See pricing', href: '/pricing/' },
     reviewedAt: REVIEWED_AT,
