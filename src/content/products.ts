@@ -414,7 +414,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     openQuestions: [
       'Should TLS expiry ship before public beta, or stay a later release?',
-      'Which check regions will run first, and how will their results be compared?',
+      'Will checks ever run from more than one measured region, and what claim would that support?',
       'When does the collector split from the status publisher into a separate deployment?',
       'Which alert channels follow the first HTTPS webhook?',
       'What is the right refund window for a monthly account?',
@@ -481,6 +481,16 @@ export const PRODUCTS: ProductRecord[] = [
       {
         label: 'Retention',
         value: 'Check history: 7 days on Starter, 30 on Team, 90 on Business.',
+      },
+      {
+        label: 'Regions',
+        value:
+          "Checks run from Cloudflare's network. No selectable region, residency commitment or region label is published.",
+      },
+      {
+        label: 'Certification',
+        value:
+          "No SOC 2, ISO 27001, HIPAA or equivalent. Cloudflare's compliance does not certify this service.",
       },
       {
         label: 'Availability',
