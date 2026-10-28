@@ -1,0 +1,118 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { Callout } from '@/components/Callout';
+import { DocsShell } from '@/components/DocsShell';
+import { pageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = pageMetadata({
+  title: 'Security boundaries',
+  description:
+    'Caurium public security boundaries: separate deployments, management access, credentials, logging and how to report a concern.',
+  path: '/docs/security/',
+  ogImage: '/og/docs.png',
+  ogAlt: 'Caurium security boundaries documentation.',
+});
+
+export default function SecurityPage() {
+  return (
+    <DocsShell
+      current="/docs/security/"
+      title="Security boundaries"
+      description="What is separated, what is not public, and what Caurium does not claim. This page describes the public site and the intended boundaries of planned products."
+      toc={[
+        { id: 'scope', label: 'Scope' },
+        { id: 'website', label: 'Public website' },
+        { id: 'management', label: 'Management access' },
+        { id: 'credentials', label: 'Product credentials' },
+        { id: 'probe', label: 'Probe and SSRF' },
+        { id: 'status-data', label: 'Public status data' },
+        { id: 'isolation', label: 'Isolation claims' },
+        { id: 'reporting', label: 'Reporting gap' },
+        { id: 'not-claimed', label: 'Not claimed' },
+      ]}
+    >
+      <h2 id="scope">Scope of this page</h2>
+      <p>
+        This page covers the public website and the intended security boundaries of Gate, Probe,
+        Guard and Box. The products are <strong>Planned</strong>; no product endpoint, console or
+        credential exists. Nothing here is a certification, an audit result or a compliance
+        attestation.
+      </p>
+
+      <h2 id="website">Public website</h2>
+      <ul>
+        <li>The site is a static export served from Cloudflare Pages. It has no application server, database or login.</li>
+        <li>There is no contact form, account creation, payment flow or API key generation on this site.</li>
+        <li>The site does not set first-party cookies for analytics, advertising or personalization.</li>
+        <li>The hosting provider processes technical request logs under its own configuration. The privacy page describes this without claiming that no data is processed.</li>
+        <li>Builds do not require product, management or separately operated network credentials.</li>
+      </ul>
+
+      <h2 id="management">Management access</h2>
+      <p>
+        A future management panel is a separate application with its own deployment, session and
+        permissions. It is not mounted under a hidden path of the public site and is not protected by
+        an unguessable URL alone.
+      </p>
+      <ul>
+        <li>Administrators use multi-factor authentication and do not share accounts.</li>
+        <li>Owner, operator and read-only permissions are separated.</li>
+        <li>Website publishing credentials cannot operate the management panel.</li>
+        <li>Management cookies are host-only and are not scoped to the whole apex domain.</li>
+      </ul>
+
+      <h2 id="credentials">Product credentials and limits (planned)</h2>
+      <ul>
+        <li>Caller credentials are issued per identity, shown once, and stored only as irreversible verification values.</li>
+        <li>Upstream secrets stay in server-side secret storage and are never sent to a browser.</li>
+        <li>Gate forwards only to an allow-listed upstream. Caller-supplied destination URLs are rejected so the service cannot become an open proxy.</li>
+        <li>Limits cover requests, body size, timeout and spend, backed by durable storage rather than a single process.</li>
+        <li>Logs contain request ID, endpoint identifier, status, latency and necessary usage. Prompt, request and response bodies are not logged by default.</li>
+        <li>Automatic retries are limited to requests known to be safe; a request that may create duplicate cost is not retried without an idempotency guarantee.</li>
+      </ul>
+
+      <h2 id="probe">Probe targets and SSRF</h2>
+      <p>
+        Probe is intended for endpoints the operator owns or is authorized to monitor. A fixed target
+        list replaces anonymous URL submission. DNS resolution, redirects and the connect boundary
+        must block localhost, private ranges, link-local addresses, cloud metadata endpoints and their
+        IPv6 equivalents. Response size and total duration are bounded.
+      </p>
+
+      <h2 id="status-data">Public status data</h2>
+      <p>
+        Public status contains a component alias, coarse region, health state and timestamps. It
+        excludes origin addresses, internal hostnames, full check URLs and raw error stacks. The
+        publisher has no scanning ability and no management credentials.
+      </p>
+
+      <h2 id="isolation">Isolation claims</h2>
+      <p>
+        Box environments are container-based and share a kernel. They are not described as microVMs,
+        virtual machines or VM-level isolation. No module claims a security property that has not
+        been tested and recorded.
+      </p>
+
+      <h2 id="reporting">Reporting gap</h2>
+      <Callout title="No public security contact is published yet." tone="warning">
+        A reporting channel and response expectations will be published before any product becomes
+        available. Until then, do not send credentials, tokens, private addresses or other sensitive
+        material through any public channel. This gap is recorded as a production blocker in the
+        content audit.
+      </Callout>
+
+      <h2 id="not-claimed">What is not claimed</h2>
+      <ul>
+        <li>No SOC 2, ISO 27001, HIPAA or other certification.</li>
+        <li>No penetration-test result or bug-bounty program.</li>
+        <li>No availability guarantee, SLA or 24/7 response commitment.</li>
+        <li>No claim that publishing this site reduces the chance of interference with separately operated services.</li>
+      </ul>
+
+      <p>
+        For the stage definitions, read <Link href="/docs/product-stages/">Product stages</Link>. For
+        the site’s actual data handling, read <Link href="/privacy/">Privacy</Link>.
+      </p>
+    </DocsShell>
+  );
+}
