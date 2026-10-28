@@ -126,7 +126,7 @@ export function StatusSummary({
         <div className="mt-4 flex items-center gap-2">
           <span className="h-2 w-2 rounded-full border border-border-strong" aria-hidden="true" />
           <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
-            No component is reported as operational
+            No live component is reported as operational
           </span>
         </div>
       </Panel>
