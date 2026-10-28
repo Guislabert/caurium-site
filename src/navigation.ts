@@ -48,12 +48,6 @@ export const footerData = {
     { text: 'Terms', href: getPermalink('/terms') },
     { text: 'Privacy', href: getPermalink('/privacy') },
   ],
-  socialLinks: [
-    {
-      ariaLabel: 'GitHub',
-      icon: 'tabler:brand-github',
-      href: 'https://github.com/Guislabert/caurium-site',
-    },
-  ],
+  socialLinks: [],
   footNote: `© ${new Date().getFullYear()} Caurium. All rights reserved.`,
 };
