@@ -38,7 +38,7 @@ npm run build      # static output in dist/
 npm run preview
 ```
 
-Node 22.22.3 or newer is required by Astro 7.
+Node 22.23.4 or newer is required by Astro 7.
 
 ## Deploying to Cloudflare
 
@@ -48,7 +48,7 @@ Node 22.22.3 or newer is required by Astro 7.
 2. Framework preset: **Astro**.
 3. Build command: `npm run build`.
 4. Build output directory: `dist`.
-5. Environment variable: `NODE_VERSION=22.22.3`.
+5. Environment variable: `NODE_VERSION=22.23.4`.
 6. Add the custom domain `caurium.tech` (and `www` if required) in **Custom domains**.
 
 ### Workers static assets
