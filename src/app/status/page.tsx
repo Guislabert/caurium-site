@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Callout } from '@/components/Callout';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHero } from '@/components/PageHero';
+import { StatusExample } from '@/components/StatusExample';
 import { StatusSummary } from '@/components/StatusSummary';
 import { pageMetadata } from '@/lib/seo';
 
@@ -19,7 +20,7 @@ const COVERAGE = [
   {
     component: 'Website',
     check: 'HTTPS reachability and a stable content marker, every 60 seconds.',
-    coverage: 'Not connected. No history published.',
+    coverage: 'Not connected. No history published. The panel above is an example.',
   },
   {
     component: 'Probe customer pages',
@@ -79,10 +80,14 @@ export default function StatusPage() {
             </h2>
             <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
               The public status feed is optional. It is not connected to an internal monitoring
-              dashboard, and it does not forward raw monitoring data.
+              dashboard, and it does not forward raw monitoring data. The second panel is a labelled
+              drawing of the layout, not a check.
             </p>
           </div>
-          <StatusSummary endpoint={process.env.NEXT_PUBLIC_STATUS_URL || undefined} />
+          <div className="min-w-0">
+            <StatusSummary endpoint={process.env.NEXT_PUBLIC_STATUS_URL || undefined} />
+            <StatusExample />
+          </div>
         </div>
       </section>
 
@@ -96,7 +101,7 @@ export default function StatusPage() {
               </h2>
             </div>
             <p className="mono max-w-xs text-[9.5px] uppercase tracking-[0.1em] text-muted">
-              0 components · 0 samples · 0 history
+              0 live components · 0 samples · 0 history
             </p>
           </div>
 
