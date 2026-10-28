@@ -22,12 +22,11 @@ export function SiteHeader() {
         <PrimaryNavigation />
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/docs/"
-            className="btn btn-primary hidden h-10 min-h-10 px-5 text-[13.5px] md:inline-flex"
-          >
-            Read the docs
-          </Link>
+          <div className="hidden md:block">
+            <Link href="/products/" className="btn btn-primary btn-compact">
+              See the roadmap
+            </Link>
+          </div>
           <MobileNavigation />
         </div>
       </div>

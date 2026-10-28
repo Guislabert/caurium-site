@@ -110,9 +110,9 @@ function wrap(text, maxChars) {
 const PAGES = {
   home: {
     kicker: 'Caurium · Early development',
-    title: 'Infrastructure for a connected world.',
+    title: 'Infrastructure with boundaries you can check.',
     description:
-      'A focused toolkit for API access, service monitoring, operational safeguards and private development environments.',
+      'Four narrow modules for the parts of infrastructure that are easy to leave unverified. All four are Planned.',
     footer: 'ROADMAP · ALL PRODUCTS PLANNED',
     chips: [
       ['Gate', 'Access'],
@@ -181,13 +181,29 @@ const PAGES = {
       'Public status is published only from sanitized checks with a recorded collection time. Without valid data, the state is Unknown.',
     footer: 'STATUS · NO FEED CONNECTED',
   },
+  trust: {
+    kicker: 'Trust · Claims',
+    title: 'Trust is a boundary, not a badge.',
+    description:
+      'Every public claim labelled with its stage and its evidence. No customers, prices, regions, SLAs or certifications.',
+    footer: 'CLAIMS REVIEWED 2026-10-28',
+  },
+  'build-log': {
+    kicker: 'Build log',
+    title: 'A dated record of what changed.',
+    description:
+      'What changed on the public site, what was corrected, and what is still missing. No release dates.',
+    footer: 'RSS FEED · NO NEWSLETTER',
+  },
 };
 
 function ogSvg(key, page) {
   const titleLines = wrap(page.title, 20);
   const descLines = wrap(page.description, 66).slice(0, 3);
-  const titleStartY = titleLines.length > 1 ? 300 : 342;
-  const titleSize = titleLines.length > 2 ? 58 : 68;
+  // Three-line titles need to start higher and set smaller so the description
+  // still clears the chip row at y=506.
+  const titleStartY = titleLines.length > 2 ? 216 : titleLines.length > 1 ? 300 : 342;
+  const titleSize = titleLines.length > 2 ? 54 : 68;
 
   const titleMarkup = titleLines
     .map(

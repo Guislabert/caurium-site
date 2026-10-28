@@ -14,7 +14,7 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {FOOTER_LINKS.map((group) => (
               <nav key={group.title} aria-label={group.title}>
                 <p className="eyebrow mb-4">{group.title}</p>
@@ -45,6 +45,12 @@ export function SiteFooter() {
           <p className="mt-4 max-w-2xl text-xs leading-5 text-muted">
             Product availability is listed per product. Nothing on this site is a live service
             unless a product page says so.
+          </p>
+          <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-muted">
+            Content reviewed 28 Oct 2026 ·{' '}
+            <Link href="/build-log/" className="underline decoration-border-strong underline-offset-2 hover:text-accent">
+              Build log
+            </Link>
           </p>
         </div>
       </div>

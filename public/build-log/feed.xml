@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Caurium build log</title>
+    <link>https://caurium.tech/build-log/</link>
+    <description>A dated record of changes to the Caurium public site. No product is available.</description>
+    <language>en</language>
+    <lastBuildDate>Wed, 28 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Public copy rewritten around reader questions</title>
+      <link>https://caurium.tech/products/</link>
+      <guid isPermaLink="false">2026-10-28-Public copy rewritten around reader questions</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>The home page now starts with the failure modes the modules are designed for, then states what each module would do. All four remain Planned.</description>
+    </item>
+    <item>
+      <title>Claims register published</title>
+      <link>https://caurium.tech/trust/</link>
+      <guid isPermaLink="false">2026-10-28-Claims register published</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Every public claim now has a page, a stage and an evidence status. Claims without evidence are marked as such.</description>
+    </item>
+    <item>
+      <title>Documentation aligned with the public stage model</title>
+      <link>https://caurium.tech/docs/</link>
+      <guid isPermaLink="false">2026-10-28-Documentation aligned with the public stage model</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Region, price, SLA and contact claims were removed pending evidence. The documentation now describes intended design only.</description>
+    </item>
+    <item>
+      <title>Product pages add use cases, design decisions and open questions</title>
+      <link>https://caurium.tech/products/gate/</link>
+      <guid isPermaLink="false">2026-10-28-Product pages add use cases, design decisions and open questions</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Each module page now records why its boundary is drawn where it is, and what is still undecided.</description>
+    </item>
+    <item>
+      <title>Five production blockers recorded</title>
+      <link>https://caurium.tech/trust/</link>
+      <guid isPermaLink="false">2026-10-28-Five production blockers recorded</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Legal entity, security reporting channel, domain verification, Lighthouse results and the operating entity are still open.</description>
+    </item>
+    <item>
+      <title>Public site rebuilt around product stages and boundaries</title>
+      <link>https://caurium.tech/architecture/</link>
+      <guid isPermaLink="false">2026-10-28-Public site rebuilt around product stages and boundaries</guid>
+      <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
+      <description>The site is a static export. It has no account, API key, payment flow or live product endpoint.</description>
+    </item>
+  </channel>
+</rss>

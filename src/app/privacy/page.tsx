@@ -37,7 +37,7 @@ export default function PrivacyPage() {
 
       <h2 id="hosting">Technical data processed by hosting</h2>
       <p>
-        The site is served by Cloudflare Pages. Like any web host, Cloudflare may process technical
+        The site is served by Cloudflare Workers Static Assets. Like any web host, Cloudflare may process technical
         request data such as the IP address, user agent, requested URL, referrer, timestamp and
         approximate country to deliver the site, protect it from abuse and produce aggregate
         operational logs.

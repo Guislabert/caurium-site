@@ -5,6 +5,8 @@ export const DOC_NAV = [
   { href: '/docs/overview/', label: 'System overview', short: 'Overview' },
   { href: '/docs/product-stages/', label: 'Product stages', short: 'Stages' },
   { href: '/docs/security/', label: 'Security boundaries', short: 'Security' },
+  { href: '/docs/faq/', label: 'FAQ', short: 'FAQ' },
+  { href: '/docs/glossary/', label: 'Glossary', short: 'Glossary' },
 ] as const;
 
 export function DocsNavigation({ current }: { current: string }) {
