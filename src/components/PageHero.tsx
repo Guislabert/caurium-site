@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Breadcrumbs, type Crumb } from '@/components/Breadcrumbs';
+import { breadcrumbJsonLd, jsonLdScript } from '@/lib/jsonld';
 
 export function PageHero({
   crumbs,
@@ -39,6 +40,11 @@ export function PageHero({
           {aside ? <div className="lg:pt-2">{aside}</div> : null}
         </div>
       </div>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd(crumbs)) }}
+      />
     </section>
   );
 }

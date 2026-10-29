@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     description:
       'Your Probe application reached the Caurium service. We review applications by hand and reply to the email you gave.',
     path: '/start/received/',
-    ogImage: '/og/home.png',
+    ogImage: '/og/start.png',
     ogAlt: 'Caurium Probe application received.',
   }),
   robots: { index: false, follow: false },

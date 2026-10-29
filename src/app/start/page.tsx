@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Apply for a Probe account. Send the endpoints you own, choose a plan, and we confirm ownership before sending a payment link.',
   path: '/start/',
-  ogImage: '/og/home.png',
+  ogImage: '/og/start.png',
   ogAlt: 'Apply for a Caurium Probe account.',
 });
 

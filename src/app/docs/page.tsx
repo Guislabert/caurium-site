@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Documentation',
   description:
-    'Caurium documentation: system concepts, product stages, security boundaries and current availability.',
+    'Caurium documentation: system concepts, the stage dictionary that governs every product page, security boundaries and what is available today.',
   path: '/docs/',
   ogImage: '/og/docs.png',
   ogAlt: 'Caurium documentation — concepts, stages and security boundaries.',

@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     'How Caurium handles application details, Probe account data and check metadata. No analytics, advertising cookies or tracking.',
   path: '/privacy/',
-  ogImage: '/og/docs.png',
+  ogImage: '/og/legal.png',
   ogAlt: 'Caurium privacy notice.',
 });
 

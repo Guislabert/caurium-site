@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'FAQ',
   description:
-    'Answers about Caurium availability, prices, regions, status data and how to report a security concern.',
+    'Answers about Caurium availability, Probe prices, regions, status data, refunds and how to report a security concern during the private preview.',
   path: '/docs/faq/',
   ogImage: '/og/docs.png',
   ogAlt: 'Caurium frequently asked questions.',

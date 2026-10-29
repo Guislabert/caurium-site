@@ -180,6 +180,22 @@ const PAGES = {
     footer: 'DOCUMENTATION · REVIEWED 2026-10-29',
     badge: 'REVIEWED 29 OCT',
   },
+  pricing: {
+    kicker: 'Probe · Pricing',
+    title: '€19, €49 or €99 per month.',
+    description:
+      'One product, three plans. The same one-minute checks on every plan; endpoints and check history differ. Manual activation, no SLA.',
+    footer: 'PRIVATE PREVIEW · MANUAL ACTIVATION · NO SLA',
+    badge: 'PRIVATE PREVIEW',
+  },
+  start: {
+    kicker: 'Probe · Application',
+    title: 'Send the endpoints. We check ownership.',
+    description:
+      'Applications are reviewed by hand. Every account has a named owner and an agreed endpoint list before monitoring starts.',
+    footer: 'MANUAL REVIEW · NO SLA',
+    badge: 'APPLY',
+  },
   status: {
     kicker: 'Service status',
     title: 'Status pages from sanitized checks.',
@@ -195,6 +211,14 @@ const PAGES = {
       'Every public claim labelled with its stage and its evidence. No customer references, regions, SLAs or certifications. Prices apply to Probe only.',
     footer: 'CLAIMS REVIEWED 2026-10-29',
     badge: 'REVIEWED 29 OCT',
+  },
+  legal: {
+    kicker: 'Privacy & terms',
+    title: 'What is collected, and on what basis.',
+    description:
+      'The privacy notice covers application details, Probe account data and check metadata. The terms cover the private preview and publish no SLA.',
+    footer: 'LEGAL NOTICES · PRIVATE PREVIEW',
+    badge: 'LEGAL',
   },
   'build-log': {
     kicker: 'Build log',

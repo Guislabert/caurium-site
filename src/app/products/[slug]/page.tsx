@@ -16,6 +16,7 @@ import {
   STAGE_LABELS,
   getProduct,
 } from '@/content/products';
+import { jsonLdScript, productJsonLd } from '@/lib/jsonld';
 import { pageMetadata } from '@/lib/seo';
 
 const META_TITLES: Record<string, string> = {
@@ -63,8 +64,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     timeZone: 'UTC',
   });
 
+  const structuredData = productJsonLd(product.slug);
+
   return (
     <>
+      {structuredData ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(structuredData) }}
+        />
+      ) : null}
       <PageHero
         crumbs={[{ label: 'Products', href: '/products/' }, { label: product.name }]}
         eyebrow={`${product.name} · ${product.role}`}

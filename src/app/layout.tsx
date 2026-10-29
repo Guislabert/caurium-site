@@ -7,6 +7,7 @@ import './globals.css';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import { OG_IMAGE, SITE } from '@/content/site';
+import { ORGANIZATION, WEBSITE, jsonLdScript } from '@/lib/jsonld';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -60,14 +61,8 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 };
 
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE.name,
-  url: `${SITE.url.replace(/\/$/, '')}/`,
-  description: SITE.description,
-  inLanguage: 'en',
-};
+const STRUCTURED_DATA = [ORGANIZATION, WEBSITE];
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -81,7 +76,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteFooter />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(STRUCTURED_DATA) }}
         />
       </body>
     </html>

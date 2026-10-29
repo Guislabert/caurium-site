@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   ...pageMetadata({
     title: 'Build log',
     description:
-      'A dated record of what changed on the Caurium public site, what was corrected, and what is still missing.',
+      'A dated record of what changed on the Caurium public site, what was corrected, what was removed and what is still missing, with an RSS feed.',
     path: '/build-log/',
     ogImage: '/og/build-log.png',
     ogAlt: 'Caurium build log.',

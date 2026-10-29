@@ -7,6 +7,20 @@
     <language>en</language>
     <lastBuildDate>Thu, 29 Oct 2026 00:00:00 GMT</lastBuildDate>
     <item>
+      <title>Three statements corrected to match the shipped state</title>
+      <link>https://caurium.tech/trust/</link>
+      <guid isPermaLink="false">2026-10-29-Three statements corrected to match the shipped state</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <description>The trust page no longer says the apex domain is unresolved; the application page no longer states a reply deadline the terms contradict; the pricing intro no longer says check frequency varies by plan.</description>
+    </item>
+    <item>
+      <title>The application form works without JavaScript</title>
+      <link>https://caurium.tech/start/</link>
+      <guid isPermaLink="false">2026-10-29-The application form works without JavaScript</guid>
+      <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+      <description>The form is now part of the static HTML and posts natively to the Probe service, which redirects to a confirmation page. Structured data, llms.txt and a per-page sitemap lastmod date were added.</description>
+    </item>
+    <item>
       <title>Probe private preview deployed</title>
       <link>https://caurium.tech/products/probe/</link>
       <guid isPermaLink="false">2026-10-29-Probe private preview deployed</guid>

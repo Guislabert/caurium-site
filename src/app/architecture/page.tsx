@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Architecture — clear service boundaries',
   description:
-    'How the static Caurium website, the deployed Probe service, planned modules and management access are separated.',
+    'How the static Caurium website, the deployed Probe service, the three planned modules and a separate management application are kept apart, and why the boundary exists.',
   path: '/architecture/',
   ogImage: '/og/architecture.png',
   ogAlt: 'Caurium architecture — public, product and management domains separated.',

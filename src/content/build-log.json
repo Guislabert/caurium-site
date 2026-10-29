@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-10-29",
+    "type": "content",
+    "title": "Three statements corrected to match the shipped state",
+    "detail": "The trust page no longer says the apex domain is unresolved; the application page no longer states a reply deadline the terms contradict; the pricing intro no longer says check frequency varies by plan.",
+    "href": "/trust/",
+    "linkLabel": "Open the claims register"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "release",
+    "title": "The application form works without JavaScript",
+    "detail": "The form is now part of the static HTML and posts natively to the Probe service, which redirects to a confirmation page. Structured data, llms.txt and a per-page sitemap lastmod date were added.",
+    "href": "/start/",
+    "linkLabel": "Open the application form"
+  },
+  {
+    "date": "2026-10-29",
     "type": "release",
     "title": "Probe private preview deployed",
     "detail": "A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.",
