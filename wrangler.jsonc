@@ -1,4 +1,4 @@
-// Cloudflare Workers configuration for the static Next.js export.
+// Cloudflare Workers configuration for the static Astro build.
 // Static files come from `dist/`; src/worker.ts only adds the www -> apex redirect.
 // Docs: https://developers.cloudflare.com/workers/static-assets/
 {
