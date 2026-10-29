@@ -12,10 +12,10 @@ export function SiteHeader() {
             New
           </span>
           <span className="text-white">Probe is in private preview</span>
-          <span aria-hidden="true" className="hidden text-white/40 sm:inline">
+          <span aria-hidden="true" className="hidden text-white/50 sm:inline">
             ·
           </span>
-          <span className="hidden text-white/70 sm:inline">Free · By application · No SLA</span>
+          <span className="hidden text-white/85 sm:inline">Free · By application · No SLA</span>
           <Link href="/access/" className="site-topbar__link ml-1">
             Apply
             <span aria-hidden="true">→</span>
@@ -31,7 +31,7 @@ export function SiteHeader() {
             </Link>
             <span className="hidden items-center gap-2 border-l border-white/20 pl-5 xl:inline-flex">
               <span className="h-1.5 w-1.5 rounded-full bg-lime" aria-hidden="true" />
-              <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/60">
+              <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/70">
                 Probe private preview
               </span>
             </span>

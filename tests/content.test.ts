@@ -22,22 +22,42 @@ test('every product has a unique id and slug', () => {
   assert.equal(new Set(PRODUCTS.map((p) => p.slug)).size, PRODUCTS.length);
 });
 
-test('only Probe is offered; Gate, Guard and Box remain Planned', () => {
+test('a stage is only advanced where a deployment exists', () => {
+  // Probe is deployed and open by application. Gate is deployed but not open, which
+  // is what `in-development` means. Guard and Box have no worker at all.
+  const EXPECTED: Record<string, string> = {
+    probe: 'private-preview',
+    gate: 'in-development',
+    guard: 'planned',
+    box: 'planned',
+  };
+
   for (const product of PRODUCTS) {
-    if (product.id === 'probe') {
-      assert.equal(product.stage, 'private-preview');
+    assert.equal(product.stage, EXPECTED[product.id], `${product.name} stage`);
+
+    if (product.stage === 'planned') {
+      for (const feature of product.features) {
+        assert.equal(
+          feature.stage,
+          'planned',
+          `${product.name}/${feature.id} must stay Planned until something is built`,
+        );
+      }
+    } else {
       assert.ok(
         product.features.some((feature) => feature.stage === 'implemented'),
-        'Probe must record its implemented capabilities',
+        `${product.name} is beyond Planned and must record what is implemented`,
       );
-    } else {
-      assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
-      for (const feature of product.features) {
-        assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
-      }
     }
   }
+
+  // Nothing is open for sale: two products run, but neither takes payment.
+  for (const product of PRODUCTS) {
+    assert.notEqual(product.stage, 'available', `${product.name} cannot be Available without a billing entity`);
+  }
+
   assert.equal(STAGE_LABELS.planned, 'Planned');
+  assert.equal(STAGE_LABELS['in-development'], 'In development');
   assert.equal(STAGE_LABELS['private-preview'], 'Private preview');
 });
 

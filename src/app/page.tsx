@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Caurium — endpoint monitoring in private preview',
   description:
-    'Probe checks the endpoints you own, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview, opened by application.',
+    'Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing to one upstream, is in development.',
   path: '/',
   absoluteTitle: true,
   ogImage: '/og/home.png',
@@ -172,7 +172,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <p className="mono mt-8 text-[11.5px] uppercase tracking-[0.06em] text-white/50">
+            <p className="mono mt-8 text-[11.5px] uppercase tracking-[0.06em] text-white/65">
               {HERO.stage}
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function HomePage() {
                 key={item.label}
                 className="flex items-baseline justify-between gap-4 py-3.5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0"
               >
-                <p className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-white/45">
+                <p className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-white/62">
                   <span className="h-1 w-1 rounded-full bg-lime" aria-hidden="true" />
                   {item.label}
                 </p>
@@ -527,7 +527,7 @@ export default function HomePage() {
               mono
             />
             <div className="relative px-6 py-14 md:px-14 md:py-20">
-              <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/55">
+              <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/68">
                 08 / Build log
               </p>
               <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">

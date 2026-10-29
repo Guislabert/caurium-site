@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Probe access',
   description:
-    'Probe is a free private preview opened by ticket. Send the endpoints you own; admission is reviewed by hand and nothing is charged.',
+    'Probe is a free private preview opened by ticket. Send the endpoints you own; every application is reviewed by hand, so intake is limited by operator time. Nothing is charged.',
   path: '/access/',
   ogImage: '/og/access.png',
   ogAlt: 'Caurium Probe access — free private preview, opened by application.',
@@ -26,7 +26,7 @@ const STEPS = [
     step: '02',
     title: 'We confirm ownership',
     detail:
-      'We check that you control the endpoints. Admission is by application, so a request can be declined — most often because the endpoints cannot be verified.',
+      'We check that you control the endpoints. A request can be declined, most often because the endpoints cannot be verified. Because each check is manual, only a few accounts are activated per week.',
   },
   {
     step: '03',
@@ -45,9 +45,10 @@ export default function AccessPage() {
         title="Three sizes. Free, by application."
         description={
           <>
-            Probe is the first Caurium product, and it runs as a free private preview. A size sets
-            how many endpoints you can add and how long check history is kept. Nothing is charged,
-            and no card is taken anywhere on this site.
+            Probe runs as a free private preview. Accounts are reviewed and activated by hand, which
+            is the whole reason intake is limited: there is no queue, there is one operator. A size
+            sets how many endpoints you can add and how long check history is kept. Nothing is
+            charged, and no card is taken anywhere on this site.
           </>
         }
         meta={
@@ -183,7 +184,7 @@ export default function AccessPage() {
             index="03 / How access works"
             id="steps-heading"
             title="Open a ticket, verify, activate."
-            intro="There is no sign-up and no self-service console during the preview. Each step is done by hand, which is why a ticket is the only way in."
+            intro="There is no sign-up and no self-service console during the preview. Ownership checks and activation are done by hand, so intake is limited by operator time rather than by demand. That is why a ticket is the only way in — and it is also why most requests are answered in order, not instantly."
           />
 
           <ol className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">

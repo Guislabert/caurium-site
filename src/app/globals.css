@@ -181,6 +181,14 @@ a {
   background: var(--surface-3);
 }
 
+/* Tinted bands tint the text too; muted grey alone falls under 4.5:1 there. */
+.section-lav .section-index,
+.section-lime .section-index,
+.section-lav .eyebrow,
+.section-lime .eyebrow {
+  color: var(--ink-2);
+}
+
 .section-ink {
   background: var(--ink);
   color: #f4f4f4;
