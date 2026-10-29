@@ -4,7 +4,6 @@ import { breadcrumbJsonLd, jsonLdScript } from '@/lib/jsonld';
 
 export function PageHero({
   crumbs,
-  eyebrow,
   title,
   description,
   meta,
@@ -12,7 +11,6 @@ export function PageHero({
   children,
 }: {
   crumbs: Crumb[];
-  eyebrow: string;
   title: ReactNode;
   description: ReactNode;
   meta?: ReactNode;
@@ -30,9 +28,15 @@ export function PageHero({
           }`}
         >
           <div>
-            <p className="eyebrow">{eyebrow}</p>
-            <h1 className="h1 mt-4 max-w-[22ch]">{title}</h1>
-            <div className="lede mt-6 max-w-2xl">{description}</div>
+            {/*
+              The tracked-caps kicker above the headline was removed. On every page
+              it repeated what the breadcrumb directly above it already said
+              ("Probe · Access" under "Home / Access"), and the eyebrow-over-huge-
+              headline pairing is the default AI-product hero. The headline now
+              starts the page and carries the product name itself where it matters.
+            */}
+            <h1 className="h1 max-w-[22ch]">{title}</h1>
+            <div className="lede mt-6 max-w-[38rem]">{description}</div>
             {meta ? (
               <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">{meta}</div>
             ) : null}

@@ -32,9 +32,9 @@ export function DocsShell({
 
         <article className="min-w-0">
           <header className="border-b border-border pb-7">
-            <p className="eyebrow">Documentation</p>
-            <h1 className="h1 mt-3 max-w-[20ch] text-[clamp(2.1rem,4vw,3.5rem)]">{title}</h1>
-            <p className="lede mt-4 max-w-2xl">{description}</p>
+            {/* The "Documentation" kicker repeated the section the nav already shows. */}
+            <h1 className="h1 max-w-[20ch] text-[clamp(2.1rem,4vw,3.5rem)]">{title}</h1>
+            <p className="lede mt-4 max-w-[38rem]">{description}</p>
             <p className="mono mt-5 text-[11px] uppercase tracking-[0.06em] text-muted">
               Last reviewed{' '}
               <time dateTime={SITE.reviewedAt}>{SITE.reviewedAt}</time> · Applies to the public

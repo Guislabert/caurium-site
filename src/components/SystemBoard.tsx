@@ -54,7 +54,7 @@ export function SystemBoard() {
                   <span className="absolute -right-1 top-1/2 -translate-y-1/2 border-y-[3px] border-l-[5px] border-y-transparent border-l-border-strong" />
                 </div>
 
-                <p className="text-right text-[11.5px] leading-4 text-muted sm:text-[11.5px]">
+                <p className="text-right text-[12px] leading-4 text-muted sm:text-[12px]">
                   {DESTINATIONS[product.id]}
                 </p>
               </div>

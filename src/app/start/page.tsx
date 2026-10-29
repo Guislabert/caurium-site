@@ -29,7 +29,6 @@ export default function StartPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Access', href: '/access/' }, { label: 'Apply' }]}
-        eyebrow="Probe · Application"
         title="Send the endpoints. We check ownership."
         description={
           <>
@@ -87,7 +86,7 @@ export default function StartPage() {
                     </span>
                     <span className="text-right">
                       <span className="block text-[13.5px] font-medium">Free</span>
-                      <span className="mono block text-[10.5px] uppercase tracking-[0.06em] text-muted">
+                      <span className="mono block text-[11px] uppercase tracking-[0.06em] text-muted">
                         by application
                       </span>
                     </span>

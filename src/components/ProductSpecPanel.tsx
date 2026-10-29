@@ -62,7 +62,7 @@ export function ProductSpecPanel({
                   aria-hidden="true"
                   className="absolute -left-[21px] top-1.5 h-[7px] w-[7px] rounded-full border border-border-strong bg-paper"
                 />
-                <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </p>
                 <p className="mt-0.5 text-[12px] leading-4">{step.title}</p>
@@ -73,7 +73,7 @@ export function ProductSpecPanel({
       </div>
 
       <div className="figure__foot">
-        <p className="text-[11.5px] leading-5 text-muted">
+        <p className="text-[12px] leading-5 text-muted">
           Illustrative record — not a live service.
         </p>
       </div>

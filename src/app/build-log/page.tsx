@@ -32,7 +32,6 @@ export default function BuildLogPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Build log' }]}
-        eyebrow="Build log"
         title="A dated record of what changed."
         description="Every entry states what changed, where to check it, and whether it affected a public claim. This is the follow surface for the project; there is no newsletter."
         meta={

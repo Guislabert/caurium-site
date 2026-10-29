@@ -142,7 +142,7 @@ const DOC_LINKS = [
 ] as const;
 
 const STATUS_STRIP = [
-  { label: 'Modules', value: 'One live, three planned' },
+  { label: 'Modules', value: 'One live, three in build' },
   { label: 'Probe', value: 'Private preview' },
   { label: 'Activation', value: 'Manual, by hand' },
   { label: 'Last review', value: '29 Oct 2026' },
@@ -155,12 +155,16 @@ export default function HomePage() {
         <div className="hero-glow hero-glow--ink" aria-hidden="true" />
         <div className="container-page relative z-10 py-16 md:py-24 lg:py-28">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-            <p className="eyebrow text-white/60">{HERO.eyebrow}</p>
-
-            <h1 className="hero-title mt-6 text-white">
+            {/*
+              The kicker used to sit above the headline as a tracked-caps eyebrow, the
+              default AI-product hero shape. It is the same fact — which product is in
+              preview — so it now sits in the status row below the buttons, next to the
+              stage line where a reader looks for it.
+            */}
+            <h1 className="hero-title text-white">
               Infrastructure with boundaries you can check.
             </h1>
-            <p className="lede mt-7 max-w-2xl text-white/70">{HERO.description}</p>
+            <p className="lede mt-7 max-w-[38rem] text-white/70">{HERO.description}</p>
 
             <div className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
               <Link href={HERO.primaryCta.href} className="btn btn-inverse">
@@ -172,8 +176,8 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <p className="mono mt-8 text-[11.5px] uppercase tracking-[0.06em] text-white/65">
-              {HERO.stage}
+            <p className="mono mt-8 text-[11px] uppercase tracking-[0.06em] text-white/65">
+              {`${HERO.eyebrow} · ${HERO.stage}`}
             </p>
           </div>
 
@@ -234,8 +238,8 @@ export default function HomePage() {
           </div>
 
           <p className="mt-5 text-[13px] leading-5 text-muted">
-            Design targets, not observed incidents. Probe is in private preview; Gate, Guard and Box
-            are planned.
+            Design targets, not observed incidents. Probe is in private preview; Gate, Guard and
+            Box are in development.
           </p>
         </div>
       </section>
@@ -257,7 +261,7 @@ export default function HomePage() {
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
             <p className="text-[13px] leading-5 text-muted">
-              Probe is available in private preview. Gate, Guard and Box are planned.
+              Probe is available in private preview. Gate, Guard and Box are in development.
             </p>
             <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
               Fig. 02–05 · Module records

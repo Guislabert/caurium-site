@@ -18,7 +18,6 @@ export function LegalShell({
     <>
       <PageHero
         crumbs={[{ label: title }]}
-        eyebrow="Legal"
         title={title}
         description={description}
         meta={

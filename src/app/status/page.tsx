@@ -61,7 +61,6 @@ export default function StatusPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Status' }]}
-        eyebrow="Status"
         title="Service status"
         description="Caurium publishes status only from sanitized checks with a recorded collection time. Probe customer pages are live. This site-wide feed is not connected, and says so instead of showing green."
         meta={

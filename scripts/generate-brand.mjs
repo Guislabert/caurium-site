@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 
@@ -8,16 +9,30 @@ import sharp from 'sharp';
  * Keep the geometry here in sync with that component if the mark changes.
  */
 
-const INK = '#0B1B3F';
-const INK_2 = '#26365F';
-const CREAM = '#F6F4EE';
-const SURFACE = '#FFFDF8';
-const MUTED = '#5C6784';
-const BORDER = '#E2DED2';
-const BORDER_STRONG = '#C7C1B0';
-const ACCENT = '#6C4CF1';
-const ACCENT_SOFT = '#ECE7FD';
-const LIME = '#C9E265';
+// Read from src/app/globals.css. The generator used to carry its own copy of the v1
+// navy/paper palette, so a reskin left the mark, favicons and OG cards on the old
+// colours while every page had moved on. One source now.
+const TOKENS = Object.fromEntries(
+  [...readFileSync('src/app/globals.css', 'utf8').matchAll(/(--[a-z0-9-]+):\s*(#[0-9a-fA-F]{6})/g)]
+    .map((m) => [m[1], m[2]]),
+);
+
+function token(name) {
+  const value = TOKENS[name];
+  if (!value) throw new Error(`token ${name} missing from globals.css`);
+  return value;
+}
+
+const INK = token('--ink');
+const INK_2 = token('--ink-2');
+const CREAM = token('--paper');
+const SURFACE = token('--background');
+const MUTED = token('--muted');
+const BORDER = token('--border');
+const BORDER_STRONG = token('--border-strong');
+const ACCENT = token('--accent');
+const ACCENT_SOFT = token('--accent-soft');
+const LIME = token('--accent');
 
 const SERIF = 'DejaVu Serif, Liberation Serif, Georgia, serif';
 const MONO = 'DejaVu Sans Mono, Liberation Mono, monospace';

@@ -60,7 +60,7 @@ const SEPARATION = [
   {
     title: 'Product services',
     detail:
-      'Probe runs as a separate Worker with its own D1 database, scheduler and customer records. Gate, Guard and Box are planned.',
+      'Probe runs as a separate Worker with its own D1 database, scheduler and customer records. Gate, Guard and Box are in development.',
   },
   {
     title: 'Management access',
@@ -74,7 +74,6 @@ export default function TrustPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Trust & claims' }]}
-        eyebrow="Trust & claims"
         title="Trust is a boundary, not a badge."
         description="Caurium has no certifications, customer references or uptime history to publish. This page records every public claim, what supports it, and what is still missing."
         meta={
@@ -99,7 +98,7 @@ export default function TrustPage() {
 
           <dl className="mt-10 grid gap-px overflow-hidden rounded-[12px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { value: '04', label: 'Modules', detail: 'Probe live, three planned' },
+              { value: '04', label: 'Modules', detail: 'Probe live, three in development' },
               { value: '01', label: 'Live product', detail: 'Probe, private preview' },
               { value: '00', label: 'Published customers', detail: 'No reference is claimed' },
               { value: '00', label: 'Certifications', detail: 'None claimed' },
@@ -201,7 +200,7 @@ export default function TrustPage() {
                 </span>
                 <div>
                   <h3 className="text-[16px] font-medium leading-6">{item.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-[14px] leading-6 text-muted">{item.detail}</p>
+                  <p className="mt-1.5 max-w-[34rem] text-[14px] leading-6 text-muted">{item.detail}</p>
                 </div>
               </div>
             ))}
@@ -250,7 +249,7 @@ export default function TrustPage() {
                 </span>
                 <div>
                   <h3 className="text-[15.5px] font-medium leading-6">{gap.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-[13.5px] leading-6 text-muted">{gap.detail}</p>
+                  <p className="mt-1.5 max-w-[34rem] text-[13.5px] leading-6 text-muted">{gap.detail}</p>
                 </div>
               </div>
             ))}

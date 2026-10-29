@@ -332,6 +332,8 @@ a {
   font-size: clamp(1.02rem, 1.3vw, 1.15rem);
   line-height: 1.6;
   color: var(--ink-2);
+  /* Comfortable measure in rem: ch resolves against the parent font, not this one. */
+  max-width: 38rem;
 }
 
 .section-ink .lede {
@@ -549,12 +551,13 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 22px;
+  min-height: 24px;
   padding: 3px 8px;
   border: 1px solid var(--border-strong);
   border-radius: 0;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  /* Functional text carries the product stage, so it sits on the 11px floor. */
+  font-size: 11px;
   line-height: 1.3;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -863,7 +866,8 @@ a {
 /* ---------- Prose ---------- */
 
 .doc-prose {
-  max-width: 720px;
+  /* 720px ran ~96 characters at this type size; 640px lands near 80. */
+  max-width: 640px;
   color: var(--ink-2);
 }
 
@@ -1098,22 +1102,42 @@ a {
 
 /* ---------- Misc ---------- */
 
+/*
+  The first viewport used a radial spotlight wash behind the headline. That shape is
+  the default AI-product hero, and a light haze adds nothing a reader can use. This
+  site is a measurements-and-boundaries product, so the hero carries a rule instead:
+  one hairline that fades out, aligned to the content rail. Structure over glow.
+*/
 .hero-glow {
   position: absolute;
   inset: 0 0 auto;
   height: 100%;
   pointer-events: none;
   background:
-    radial-gradient(60% 70% at 50% -10%, rgba(81, 162, 255, 0.14), transparent 70%),
-    radial-gradient(40% 50% at 88% 0%, rgba(0, 7, 205, 0.06), transparent 70%);
+    linear-gradient(
+        to right,
+        transparent 0,
+        var(--border-strong) 12%,
+        var(--accent) 50%,
+        var(--border-strong) 88%,
+        transparent 100%
+      )
+      top / 100% 1px no-repeat,
+    linear-gradient(to bottom, rgba(81, 162, 255, 0.05), transparent 240px);
   z-index: 0;
 }
 
 .hero-glow--ink {
   background:
-    radial-gradient(55% 60% at 50% 0%, rgba(81, 162, 255, 0.22), transparent 72%),
-    radial-gradient(40% 40% at 12% 30%, rgba(31, 43, 214, 0.28), transparent 70%),
-    radial-gradient(38% 42% at 88% 40%, rgba(56, 189, 248, 0.16), transparent 70%);
+    linear-gradient(
+        to right,
+        transparent 0,
+        rgba(255, 255, 255, 0.18) 12%,
+        var(--accent) 50%,
+        rgba(255, 255, 255, 0.18) 88%,
+        transparent 100%
+      )
+      top / 100% 1px no-repeat;
 }
 
 .skip-link {
@@ -1166,6 +1190,17 @@ a {
   color: #ffffff;
 }
 
+/*
+  Reduced motion shortens motion and keeps state feedback.
+
+  The previous rule forced every transition to 0.01ms, which also erased colour and
+  opacity changes — the cues that tell a reader something happened (a nav item
+  becoming current, a form entering its sending state). Motion is what causes
+  discomfort, so motion is shortened while colour and opacity survive.
+
+  No transform is reset here: .skip-link and the mobile navigation use translate to
+  place themselves, so stripping transforms would strand them off-screen.
+*/
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1176,7 +1211,13 @@ a {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition: color 80ms linear, background-color 80ms linear,
+      border-color 80ms linear, opacity 80ms linear !important;
     scroll-behavior: auto !important;
+  }
+
+  .skip-link,
+  .skip-link:focus {
+    transition: transform 80ms linear !important;
   }
 }

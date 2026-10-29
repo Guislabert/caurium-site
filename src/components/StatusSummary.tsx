@@ -44,7 +44,7 @@ function Panel({
           Public status · Schema v1
         </p>
         <span
-          className={`mono text-[10.5px] uppercase tracking-[0.06em] ${
+          className={`mono text-[11px] uppercase tracking-[0.06em] ${
             tone === 'warning' ? 'text-warning' : 'text-muted'
           }`}
         >
@@ -173,7 +173,7 @@ export function StatusSummary({
       stateLabel="Connected"
       footer={
         !compact ? (
-          <p className="text-[11.5px] leading-5 text-muted">
+          <p className="text-[12px] leading-5 text-muted">
             A component marked Unknown has missing, stale or invalid data. It is not treated as
             operational. Availability percentages are not shown unless a complete, labelled window
             is published.
@@ -198,7 +198,7 @@ export function StatusSummary({
           >
             <div>
               <p className="text-[13.5px] font-medium capitalize">{component.id}</p>
-              <p className="mt-0.5 text-[11.5px] leading-5 text-muted">{component.coverageNote}</p>
+              <p className="mt-0.5 text-[12px] leading-5 text-muted">{component.coverageNote}</p>
             </div>
             <div className="flex flex-wrap items-center gap-3 sm:justify-end">
               <span

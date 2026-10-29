@@ -31,7 +31,7 @@ export function DocsNavigation({ current }: { current: string }) {
       </ul>
 
       <div className="mt-6 hidden rounded-[10px] border border-border bg-paper p-3 lg:block">
-        <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">Current state</p>
+        <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">Current state</p>
         <p className="mt-1.5 text-[12px] leading-5 text-muted">
           Probe is in private preview. Gate, Guard and Box are planned.
         </p>

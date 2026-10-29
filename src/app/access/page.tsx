@@ -48,7 +48,6 @@ export default function AccessPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Access' }]}
-        eyebrow="Probe · Access"
         title="Three sizes. Free, by application."
         description={
           <>
@@ -95,7 +94,7 @@ export default function AccessPage() {
                 }`}
               >
                 {plan.recommended ? (
-                  <p className="mono absolute right-5 top-5 text-[10.5px] uppercase tracking-[0.06em] text-olive">
+                  <p className="mono absolute right-5 top-5 text-[11px] uppercase tracking-[0.06em] text-olive">
                     Suggested
                   </p>
                 ) : null}
@@ -144,14 +143,14 @@ export default function AccessPage() {
                   Open a ticket for {plan.name}
                   <span aria-hidden="true">→</span>
                 </Link>
-                <p className="mt-3 text-center text-[11.5px] leading-5 text-muted">
+                <p className="mt-3 text-center text-[12px] leading-5 text-muted">
                   Reviewed by hand. Nothing is charged.
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-6 max-w-3xl text-xs leading-5 text-muted">
+          <p className="mt-6 max-w-[34rem] text-xs leading-5 text-muted">
             {PRICING_NOTE} There is no checkout and no invoice. When paid activation opens it will be
             announced in the build log, and no existing account will be charged without notice.
             Questions about access go to{' '}
@@ -334,7 +333,7 @@ export default function AccessPage() {
             {PLAN_FAQ.map((item) => (
               <div key={item.question} className="border-b border-border py-5">
                 <dt className="text-[15px] font-medium">{item.question}</dt>
-                <dd className="mt-2 max-w-2xl text-[14px] leading-6 text-muted">
+                <dd className="mt-2 max-w-[34rem] text-[14px] leading-6 text-muted">
                   {item.answer}
                 </dd>
               </div>

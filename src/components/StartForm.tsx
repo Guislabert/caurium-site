@@ -11,7 +11,7 @@ type SubmitState =
   | { kind: 'error'; message: string };
 
 const FIELD =
-  'mt-1.5 w-full rounded-[10px] border border-border-strong bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25';
+  'mt-1.5 w-full rounded-[10px] border border-border-strong bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/25';
 
 const LABEL = 'mono text-[11px] uppercase tracking-[0.06em] text-muted';
 

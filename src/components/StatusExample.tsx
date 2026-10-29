@@ -19,7 +19,7 @@ export function StatusExample() {
         <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
           Example status · Schema v1
         </p>
-        <span className="mono text-[10.5px] uppercase tracking-[0.06em] text-warning">
+        <span className="mono text-[11px] uppercase tracking-[0.06em] text-warning">
           Sample · not live
         </span>
       </div>
@@ -38,14 +38,14 @@ export function StatusExample() {
             >
               <div>
                 <p className="text-[13px] font-medium">{item.name}</p>
-                <p className="mt-0.5 text-[11.5px] leading-4 text-muted">{item.detail}</p>
+                <p className="mt-0.5 text-[12px] leading-4 text-muted">{item.detail}</p>
               </div>
               <div className="flex flex-wrap items-center gap-3 sm:justify-end">
                 <span className="inline-flex items-center gap-1.5 text-[11.5px] font-medium text-success">
                   <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
                   Operational
                 </span>
-                <span className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
+                <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   sample
                 </span>
               </div>
@@ -54,7 +54,7 @@ export function StatusExample() {
         </ul>
       </div>
       <div className="border-t border-border px-4 py-3 md:px-5">
-        <p className="text-[11.5px] leading-5 text-muted">
+        <p className="text-[12px] leading-5 text-muted">
           Sample data for layout only. The live feed is not connected; these states are not a claim
           about any component.
         </p>

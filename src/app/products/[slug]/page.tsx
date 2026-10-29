@@ -76,7 +76,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       ) : null}
       <PageHero
         crumbs={[{ label: 'Products', href: '/products/' }, { label: product.name }]}
-        eyebrow={`${product.name} · ${product.role}`}
         title={product.title}
         description={product.summary}
         meta={

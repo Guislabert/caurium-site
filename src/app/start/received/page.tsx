@@ -20,7 +20,6 @@ export default function ApplicationReceivedPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Apply', href: '/start/' }, { label: 'Received' }]}
-        eyebrow="Probe · Application"
         title="Your application reached the service."
         description={
           <>

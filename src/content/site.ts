@@ -6,7 +6,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
   locale: 'en',
   stageNote:
-    'Probe is a free private preview, opened by application. Gate, Guard and Box are planned and not for sale.',
+    'Probe is a free private preview, opened by application. Gate, Guard and Box are in development and not for sale.',
   reviewedAt: '2026-10-29',
   indexable: process.env.NEXT_PUBLIC_SITE_ENV === 'production',
 } as const;
@@ -69,10 +69,10 @@ export const FOOTER_LINKS = [
 ] as const;
 
 export const HERO = {
-  eyebrow: 'Caurium · Probe private preview',
+  eyebrow: 'Caurium',
   title: 'Infrastructure with boundaries you can check.',
   description:
-    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate, Guard and Box remain planned.',
+    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate, Guard and Box are in development.',
   stage: 'Free private preview · By application · No SLA',
   primaryCta: { label: 'Apply for access', href: '/access/' },
   secondaryCta: { label: 'Read the boundary model', href: '/architecture/' },

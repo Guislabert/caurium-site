@@ -24,7 +24,7 @@ function Node({
         {title}
       </p>
       {detail ? (
-        <p className="mt-1 text-[11.5px] leading-4 text-muted">{detail}</p>
+        <p className="mt-1 text-[12px] leading-4 text-muted">{detail}</p>
       ) : null}
     </div>
   );
@@ -53,7 +53,7 @@ function DomainHeader({
       <h3 id={id} className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
         {title}
       </h3>
-      <span className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">{state}</span>
+      <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">{state}</span>
     </header>
   );
 }
@@ -66,7 +66,7 @@ export function ArchitectureMap() {
           <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
             Fig. 06 — Service boundaries
           </p>
-          <div className="flex items-center gap-4 text-[11.5px] text-muted">
+          <div className="flex items-center gap-4 text-[12px] text-muted">
             <span className="inline-flex items-center gap-1.5">
               <span
                 className="h-2.5 w-2.5 rounded-[2px] border border-border-strong bg-background"
@@ -105,7 +105,7 @@ export function ArchitectureMap() {
                   <Node title="Sanitized status" detail="Read-only, optional" />
                 </div>
               </div>
-              <p className="mt-4 border-t border-border pt-3 text-[11.5px] leading-5 text-muted">
+              <p className="mt-4 border-t border-border pt-3 text-[12px] leading-5 text-muted">
                 No login, console, database or management route.
               </p>
             </section>
@@ -147,26 +147,26 @@ export function ArchitectureMap() {
                 <Arrow />
                 <Node title="Internal assets" detail="No public route" />
               </div>
-              <p className="mt-4 border-t border-border pt-3 text-[11.5px] leading-5 text-muted">
+              <p className="mt-4 border-t border-border pt-3 text-[12px] leading-5 text-muted">
                 The public website has no call path into this domain.
               </p>
             </section>
           </div>
 
           <div className="mt-4 flex flex-col gap-2 rounded-[10px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[11.5px] leading-5 text-muted">
+            <p className="text-[12px] leading-5 text-muted">
               <span className="mono uppercase tracking-[0.06em]">Outside this diagram:</span>{' '}
               separately operated networks. No topology, addresses, ports or credentials are
               published.
             </p>
-            <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
+            <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Probe publishes the only live cross-domain output
             </p>
           </div>
         </div>
 
         <div className="figure__foot">
-          <p className="text-[11.5px] leading-5 text-muted">
+          <p className="text-[12px] leading-5 text-muted">
             Reference architecture. Probe runs on the product side today; the dashed boxes and the
             management domain remain planned.
           </p>

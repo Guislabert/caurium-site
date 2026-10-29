@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Architecture — clear service boundaries',
   description:
-    'How the static Caurium website, the deployed Probe service, the three planned modules and a separate management application are kept apart, and why the boundary exists.',
+    'How the static Caurium website, the deployed Probe service, three modules in development and a separate management application are kept apart, and why the boundary exists.',
   path: '/architecture/',
   ogImage: '/og/architecture.png',
   ogAlt: 'Caurium architecture — public, product and management domains separated.',
@@ -74,14 +74,13 @@ export default function ArchitecturePage() {
     <>
       <PageHero
         crumbs={[{ label: 'Architecture' }]}
-        eyebrow="Architecture"
         title="Designed around clear service boundaries."
         description="The public site explains the system; it does not operate it. Product APIs, management access and public status are separate services with separate credentials and separate failure modes."
         meta={
           <>
             <span className="badge-stage" data-stage="private-preview">
               <span className="badge-dot" aria-hidden="true" />
-              Probe live · three planned
+              Probe live · three in development
             </span>
             <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Public site · Current
@@ -154,9 +153,9 @@ export default function ArchitecturePage() {
           </div>
 
           <div>
-            <dl className="grid gap-px overflow-hidden rounded-[10px] border border-border bg-border sm:grid-cols-2">
+            <dl className="grid border-t border-border sm:grid-cols-2">
               {FACTS.map((fact) => (
-                <div key={fact.label} className="bg-background p-5">
+                <div key={fact.label} className="border-b border-border p-5 sm:odd:border-r">
                   <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                     {fact.label}
                   </dt>
@@ -166,10 +165,11 @@ export default function ArchitecturePage() {
               ))}
             </dl>
 
-            <div className="mt-6 space-y-4 text-[14px] leading-7 text-muted">
+            <div className="mt-6 max-w-[32rem] space-y-4 text-[14px] leading-7 text-muted">
               <p>
                 There is no login, console, API key, payment flow or contact form. The status page
-                reports that monitoring is not connected. No product module is available.
+                reports that monitoring is not connected. Probe is in private preview; Gate, Guard
+                and Box are in development.
               </p>
               <p>
                 Separately operated network services are outside this public architecture. This
@@ -189,17 +189,16 @@ export default function ArchitecturePage() {
             </h2>
           </div>
           <div className="space-y-6">
-            <Callout title="Probe is deployed; Gate, Guard and Box are not." tone="note">
+            <Callout title="Probe is deployed. Gate, Guard and Box are in development, not deployed." tone="note">
               Probe runs as its own Cloudflare Worker with a D1 database and a one-minute scheduler.
               The management domain and the other product boxes in the diagram are designs.
             </Callout>
-            <p className="text-[14px] leading-7 text-muted">
+            <p className="max-w-[32rem] text-[14px] leading-7 text-muted">
               Probe checks a fixed list of owner-authorized endpoints, opens one incident after
               three consecutive failures, posts to one HTTPS webhook and publishes sanitized state.
-              Gate would accept a caller credential, enforce scope and limits, and forward only to
-              an allow-listed upstream. Guard would keep backups, recovery procedures and access
-              records for Caurium operations. Box would provide invitation-only development
-              instances with documented limits.
+              Gate accepts a caller credential, enforces scope and limits, and forwards only to an
+              allow-listed upstream. Guard takes encrypted backups and records whether a restore was
+              proved. Box runs invitation-only containers with documented limits.
             </p>
             <p className="text-[14px] leading-7 text-muted">
               Each module has its own release criteria. Passing one criterion does not promote the
@@ -224,9 +223,14 @@ export default function ArchitecturePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-[10px] border border-border bg-border md:grid-cols-2">
+          {/*
+            Was a bordered grid whose gap-px showed the container background through, which
+            reads as a card inside a card. The rule is a single hairline now: the constraints
+            are one list with internal dividers, not nested panels.
+          */}
+          <div className="mt-10 grid border-t border-border md:grid-cols-2">
             {INVARIANTS.map((item, index) => (
-              <div key={item.title} className="bg-background p-6">
+              <div key={item.title} className="border-b border-border p-6 md:odd:border-r">
                 <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   I.{String(index + 1).padStart(2, '0')}
                 </p>

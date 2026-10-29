@@ -7,7 +7,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Is Caurium available today?',
     answer:
-      'Probe is available in private preview with manual activation. Gate, Guard and Box are Planned and are not for sale.',
+      'Probe is available in private preview with manual activation. Gate, Guard and Box are in development and are not for sale.',
   },
   {
     question: 'Can I create an account, key or paid plan?',

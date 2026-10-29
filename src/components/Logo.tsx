@@ -7,9 +7,11 @@ export function CauriumMark({
   inverse?: boolean;
   mono?: boolean;
 }) {
-  const background = inverse ? '#F6F4EE' : '#0B1B3F';
-  const arc = mono ? 'currentColor' : inverse ? '#0B1B3F' : '#F6F4EE';
-  const dot = mono ? 'currentColor' : '#C9E265';
+  // Read the tokens instead of repeating the palette: the mark used to hard-code the
+  // v1 navy and stayed behind when the site was reskinned.
+  const background = inverse ? 'var(--paper)' : 'var(--ink)';
+  const arc = mono ? 'currentColor' : inverse ? 'var(--ink)' : 'var(--paper)';
+  const dot = mono ? 'currentColor' : 'var(--accent)';
 
   return (
     <svg
@@ -54,7 +56,7 @@ export function Logo({
         inverse={inverse}
       />
       <span
-        className={`wordmark text-[18px] leading-none ${inverse ? 'text-[#F6F4EE]' : 'text-ink'}`}
+        className={`wordmark text-[18px] leading-none ${inverse ? 'text-white' : 'text-ink'}`}
       >
         Caurium
       </span>

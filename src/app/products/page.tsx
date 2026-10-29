@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
     'Probe is in private preview for endpoint monitoring. Gate for scoped API access, Guard for operational safeguards, and Box for invitation-only development environments remain planned.',
   path: '/products/',
   ogImage: '/og/products.png',
-  ogAlt: 'Caurium products — Probe in private preview, three planned modules.',
+  ogAlt: 'Caurium products — Probe in private preview, three modules in development.',
 });
 
 const STAGES = Object.keys(STAGE_LABELS) as ProductStage[];
@@ -27,9 +27,8 @@ export default function ProductsPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Products' }]}
-        eyebrow="Products"
         title="A focused roadmap, one module at a time."
-        description="Caurium has four narrow modules. Probe is in private preview with manual activation. Gate, Guard and Box are planned. Each page states the workflow, the limits, and the evidence required before its stage can change."
+        description="Caurium has four narrow modules. Probe is in private preview with manual activation. Gate, Guard and Box are in development. Each page states the workflow, the limits, and the evidence required before its stage can change."
         meta={
           <>
             <span className="badge-stage" data-stage="private-preview">
@@ -57,7 +56,7 @@ export default function ProductsPage() {
           </div>
 
           <p className="mt-5 text-xs leading-5 text-muted">
-            Probe is in private preview. Gate, Guard and Box are planned and not for sale.
+            Probe is in private preview. Gate, Guard and Box are in development and not for sale.
           </p>
         </div>
       </section>
@@ -145,13 +144,13 @@ export default function ProductsPage() {
                       key={stage}
                       className={`p-3 ${current ? 'bg-accent-soft' : 'bg-paper'}`}
                     >
-                      <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
+                      <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                         {String(index + 1).padStart(2, '0')}
                       </p>
                       <p className={`mt-1.5 text-[12px] font-medium leading-4 ${current ? 'text-accent-ink' : ''}`}>
                         {STAGE_LABELS[stage]}
                       </p>
-                      <p className="mono mt-1 text-[10px] uppercase tracking-[0.06em] text-muted">
+                      <p className="mono mt-1 text-[11px] uppercase tracking-[0.06em] text-muted">
                         {current ? 'Current' : 'Later'}
                       </p>
                     </li>
