@@ -2,11 +2,11 @@ export const SITE = {
   name: 'Caurium',
   tagline: 'API access, monitoring and recovery.',
   description:
-    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, authenticated routing to one upstream, Guard, encrypted backups with a proven restore, and Box, invitation-only container environments, are in development.',
+    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, authenticated routing to one upstream, Guard, encrypted backups with a proven restore, are in development. Box is planned.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
   locale: 'en',
   stageNote:
-    'Probe is a free private preview, opened by application. Gate, Guard and Box are in development and not for sale.',
+    'Probe is a free private preview, opened by application. Gate and Guard are in development; Box is planned. None is for sale.',
   reviewedAt: '2026-10-29',
   indexable: process.env.NEXT_PUBLIC_SITE_ENV === 'production',
 } as const;
@@ -72,7 +72,7 @@ export const HERO = {
   eyebrow: 'Caurium',
   title: 'Infrastructure with boundaries you can check.',
   description:
-    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate, Guard and Box are in development.',
+    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate and Guard are in development; Box is planned.',
   stage: 'Free private preview · By application · No SLA',
   primaryCta: { label: 'Apply for access', href: '/access/' },
   secondaryCta: { label: 'Read the boundary model', href: '/architecture/' },

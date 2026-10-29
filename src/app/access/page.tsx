@@ -164,10 +164,10 @@ export default function AccessPage() {
       <section className="section section-paper border-b border-border" aria-labelledby="included-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <h2 id="included-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="included-heading" className="h2 max-w-[15ch]">
               The same product on every size.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Limits change with the size. The boundary model does not: Probe checks endpoints you
               own, stores no response bodies and publishes no origin addresses.
             </p>
@@ -182,7 +182,7 @@ export default function AccessPage() {
                 <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[14px] leading-6 text-ink-2">{item}</span>
+                <span className="note block text-[14px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>
@@ -317,10 +317,10 @@ export default function AccessPage() {
       <section className="section border-b border-border" aria-labelledby="faq-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <h2 id="faq-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="faq-heading" className="h2 max-w-[14ch]">
               What access does and does not include.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Short answers. The{' '}
               <Link href="/docs/faq/" className="underline decoration-border-strong">
                 documentation FAQ
@@ -345,7 +345,7 @@ export default function AccessPage() {
       <section className="section section-paper" aria-labelledby="boundary-heading">
         <div className="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <h2 id="boundary-heading" className="h2 mt-4 max-w-[22ch]">
+            <h2 id="boundary-heading" className="h2 max-w-[22ch]">
               What access does not buy.
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-6 text-muted">

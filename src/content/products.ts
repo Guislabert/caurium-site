@@ -724,8 +724,8 @@ export const PRODUCTS: ProductRecord[] = [
     role: 'Build',
     title: 'A private place to build and run.',
     summary:
-      'In development: invitation-only development environments, one container per instance, with enforced CPU, memory, disk and lifetime ceilings, a per-instance credential and no route to the host network.',
-    stage: 'in-development',
+      'Planned: invitation-only development environments with documented limits. A worker exists and was exercised, but it is not deployed and no instance is running.',
+    stage: 'planned',
     metaDescription:
       'Caurium Box provides invitation-only development environments: one container per instance, documented limits, a per-instance credential and no host route. In development.',
     audience:
@@ -752,56 +752,56 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     workflowCaption: 'An invited project receives one bounded instance, then returns it cleanly.',
     scopeNote:
-      'Box runs on the operator host with one container per instance. It is not open to customers and has no self-serve path. Isolation is container-based with a shared kernel, and every surface says so rather than implying a virtual machine.',
+      'Not deployed. The design is complete and the worker was exercised on an operator host, then taken down: it ran on hardware this project should not occupy. Until Box has a runtime that is not a spare machine, nothing is offered and no instance exists.',
     features: [
       {
         id: 'invite',
         label: 'Manual review',
         detail:
           'No anonymous sign-up and no automated acceptance. The intended use is checked before capacity is assigned.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'limits',
         label: 'Documented limits',
         detail:
           'CPU, RAM, disk, region, egress and instance lifetime are written down per environment.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'credentials',
         label: 'Per-instance credentials',
         detail:
           'Each environment receives its own credential, revocable without affecting other instances.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'lifecycle',
         label: 'Deletion and return',
         detail:
           'A defined export window, deletion step and confirmation are part of handover and teardown.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'no-anonymous-code',
         label: 'No anonymous code execution',
         detail:
           'Box is not a public arbitrary-code sandbox and does not accept unknown workloads.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'isolation',
         label: 'Honest isolation label',
         detail:
           'Environments are container-based and share a kernel. They are not described as microVMs or VM-level isolation.',
-        stage: 'implemented',
+        stage: 'planned',
       },
       {
         id: 'separation',
         label: 'Separate from other networks',
         detail:
           'Box instances are not created by converting nodes that carry separately operated network services.',
-        stage: 'implemented',
+        stage: 'planned',
       },
     ],
     releaseCriteria: [

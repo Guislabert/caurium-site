@@ -60,7 +60,7 @@ const SEPARATION = [
   {
     title: 'Product services',
     detail:
-      'Probe runs as a separate Worker with its own D1 database, scheduler and customer records. Gate, Guard and Box are in development.',
+      'Probe runs as a separate Worker with its own D1 database, scheduler and customer records. Gate and Guard are in development; Box is planned.',
   },
   {
     title: 'Management access',
@@ -91,7 +91,7 @@ export default function TrustPage() {
 
       <section className="section border-b border-border" aria-labelledby="state-heading">
         <div className="container-page">
-          <h2 id="state-heading" className="h2 mt-4 max-w-[18ch]">
+          <h2 id="state-heading" className="h2 max-w-[18ch]">
             What exists, in four lines.
           </h2>
 
@@ -118,7 +118,7 @@ export default function TrustPage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="claims-heading" className="h2 mt-4 max-w-[18ch]">
+              <h2 id="claims-heading" className="h2 max-w-[18ch]">
                 Every public claim, with its evidence.
               </h2>
             </div>
@@ -177,10 +177,10 @@ export default function TrustPage() {
       <section className="section border-b border-border" aria-labelledby="separation-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="separation-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="separation-heading" className="h2 max-w-[15ch]">
               What is kept apart.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               The public site explains the system; it does not operate it. These boundaries are the
               part of trust that can be inspected rather than asserted.
             </p>
@@ -205,7 +205,7 @@ export default function TrustPage() {
       <section className="section border-b border-border bg-paper" id="not-claimed" aria-labelledby="not-claimed-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="not-claimed-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="not-claimed-heading" className="h2 max-w-[14ch]">
               What this page will not say.
             </h2>
           </div>
@@ -222,10 +222,10 @@ export default function TrustPage() {
       <section className="section border-b border-border" id="gaps" aria-labelledby="gaps-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="gaps-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="gaps-heading" className="h2 max-w-[15ch]">
               What is still missing.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               These are recorded as production blockers. A missing item is not a hidden item; it is
               listed here until it exists.
             </p>
@@ -246,7 +246,7 @@ export default function TrustPage() {
       <section className="section" aria-labelledby="history-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="history-heading" className="h2 mt-4">
+            <h2 id="history-heading" className="h2">
               What changed, and when.
             </h2>
           </div>

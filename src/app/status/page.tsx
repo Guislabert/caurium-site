@@ -73,10 +73,10 @@ export default function StatusPage() {
       <section className="section border-b border-border bg-paper" aria-labelledby="current-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="current-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="current-heading" className="h2 max-w-[14ch]">
               What the feed reports.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               The public status feed is optional. It is not connected to an internal monitoring
               dashboard, and it does not forward raw monitoring data. The second panel is a labelled
               drawing of the layout, not a check.
@@ -93,7 +93,7 @@ export default function StatusPage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="coverage-heading" className="h2 mt-4 max-w-[20ch]">
+              <h2 id="coverage-heading" className="h2 max-w-[20ch]">
                 What would be published, and from where.
               </h2>
             </div>
@@ -130,7 +130,7 @@ export default function StatusPage() {
       <section className="section border-b border-border bg-paper" aria-labelledby="rules-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="rules-heading" className="h2 mt-4">
+            <h2 id="rules-heading" className="h2">
               How a state is decided.
             </h2>
           </div>
@@ -140,7 +140,7 @@ export default function StatusPage() {
                 <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[14px] leading-6 text-ink-2">{rule}</span>
+                <span className="note block text-[14px] leading-6 text-ink-2">{rule}</span>
               </li>
             ))}
           </ol>
@@ -150,10 +150,10 @@ export default function StatusPage() {
       <section className="section border-b border-border" aria-labelledby="contract-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="contract-heading" className="h2 mt-4">
+            <h2 id="contract-heading" className="h2">
               The published shape.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               If a feed is connected, the site validates it before display. A response that does not
               match this schema is treated as unavailable.
             </p>
@@ -178,12 +178,12 @@ export default function StatusPage() {
       <section className="section" aria-labelledby="not-shown-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="not-shown-heading" className="h2 mt-4">
+            <h2 id="not-shown-heading" className="h2">
               What status never exposes.
             </h2>
           </div>
           <div className="space-y-5">
-            <p className="text-[14px] leading-6 text-ink-2">
+            <p className="note text-[14px] leading-6 text-ink-2">
               Origin addresses, internal hostnames, full check URLs, raw error stacks, probe
               addresses and management credentials. The status endpoint accepts no arbitrary target
               parameters; it publishes a fixed, sanitized component list.

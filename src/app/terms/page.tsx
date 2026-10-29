@@ -17,7 +17,7 @@ export default function TermsPage() {
   return (
     <LegalShell
       title="Terms"
-      description="These terms cover the Caurium website and the Probe private preview. Gate, Guard and Box are in development and are not offered. Paid activation is not open until the operating entity, governing law and a support channel are published."
+      description="These terms cover the Caurium website and the Probe private preview. Gate and Guard are in development; Box is planned and are not offered. Paid activation is not open until the operating entity, governing law and a support channel are published."
       toc={[
         { id: 'scope', label: 'Scope' },
         { id: 'service', label: 'The Probe service' },
@@ -35,7 +35,7 @@ export default function TermsPage() {
       <h2 id="scope">Scope</h2>
       <p>
         These terms apply to this website and to Probe, the only Caurium product currently offered,
-        in private preview. Gate, Guard and Box are described for planning only. Nothing on their
+        in private preview. Gate and Guard are in development; Box is planned described for planning only. Nothing on their
         pages is an offer, a commitment to deliver, or a statement that they are available.
       </p>
       <p>

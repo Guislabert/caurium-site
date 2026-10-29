@@ -11,7 +11,7 @@ export const ORGANIZATION = {
   url: `${ORIGIN}/`,
   description: SITE.description,
   disambiguatingDescription:
-    'Caurium operates Probe, an endpoint monitoring service in private preview. Gate, Guard and Box are planned and are not offered.',
+    'Caurium operates Probe, an endpoint monitoring service in private preview. Gate and Guard are in development; Box is planned and are not offered.',
   knowsAbout: [
     'endpoint monitoring',
     'API access control',

@@ -59,7 +59,7 @@ export default function DocsPage() {
         Caurium is a small set of infrastructure modules: Gate for controlled API access, Probe for
         endpoint monitoring, Guard for operational safeguards, and Box for invitation-only
         development environments. Probe is in <strong>private preview</strong> with manual
-        activation. Gate, Guard and Box are <strong>Planned</strong>. The public website and the
+        activation. Gate and Guard are <strong>in development</strong>; Box is <strong>Planned</strong>. The public website and the
         Probe service exist as running builds.
       </p>
 

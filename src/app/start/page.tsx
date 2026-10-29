@@ -129,7 +129,7 @@ export default function StartPage() {
       <section className="section section-paper" aria-labelledby="after-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-16">
           <div>
-            <h2 id="after-heading" className="h2 mt-4 max-w-[16ch]">
+            <h2 id="after-heading" className="h2 max-w-[16ch]">
               What happens next.
             </h2>
           </div>

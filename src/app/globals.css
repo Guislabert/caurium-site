@@ -866,8 +866,8 @@ a {
 /* ---------- Prose ---------- */
 
 .doc-prose {
-  /* 720px ran ~96 characters at this type size; 640px lands near 80. */
-  max-width: 640px;
+  /* 720px ran ~96 characters at this type size; 34em lands near 75. */
+  max-width: 34em;
   color: var(--ink-2);
 }
 

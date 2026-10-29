@@ -93,7 +93,7 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="why-heading" className="h2 mt-4 max-w-[18ch]">
+              <h2 id="why-heading" className="h2 max-w-[18ch]">
                 Three consequences of the separation.
               </h2>
             </div>
@@ -121,7 +121,7 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="diagram-heading" className="h2 mt-4">
+              <h2 id="diagram-heading" className="h2">
                 Four responsibilities, three visible domains.
               </h2>
             </div>
@@ -140,10 +140,10 @@ export default function ArchitecturePage() {
       <section className="section border-b border-border" aria-labelledby="current-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="current-heading" className="h2 mt-4">
+            <h2 id="current-heading" className="h2">
               What exists today.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               The public website is a static export deployed to Cloudflare Workers Static Assets. It contains the
               brand, product roadmap, documentation, legal pages and this architecture page.
             </p>
@@ -166,7 +166,7 @@ export default function ArchitecturePage() {
               <p>
                 There is no login, console, API key, payment flow or contact form. The status page
                 reports that monitoring is not connected. Probe is in private preview; Gate, Guard
-                and Box are in development.
+                and Box is planned.
               </p>
               <p>
                 Separately operated network services are outside this public architecture. This
@@ -180,12 +180,12 @@ export default function ArchitecturePage() {
       <section className="section border-b border-border bg-paper" aria-labelledby="planned-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="planned-heading" className="h2 mt-4">
+            <h2 id="planned-heading" className="h2">
               What runs, and what is designed.
             </h2>
           </div>
           <div className="space-y-6">
-            <Callout title="Probe is deployed. Gate, Guard and Box are in development, not deployed." tone="note">
+            <Callout title="Probe is deployed. Gate and Guard are in development; Box is planned, not deployed." tone="note">
               Probe runs as its own Cloudflare Worker with a D1 database and a one-minute scheduler.
               The management domain and the other product boxes in the diagram are designs.
             </Callout>
@@ -209,7 +209,7 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <h2 id="invariants-heading" className="h2 mt-4 max-w-[18ch]">
+              <h2 id="invariants-heading" className="h2 max-w-[18ch]">
                 Separation that can be checked.
               </h2>
             </div>
@@ -240,7 +240,7 @@ export default function ArchitecturePage() {
       <section className="section" aria-labelledby="not-public-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="not-public-heading" className="h2 mt-4">
+            <h2 id="not-public-heading" className="h2">
               What this page will not show.
             </h2>
           </div>

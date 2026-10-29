@@ -24,7 +24,7 @@ export const CLAIMS: ClaimRecord[] = [
     evidence: 'Four product records in src/content/products.ts.',
   },
   {
-    claim: 'Probe is in private preview; Gate, Guard and Box are in development.',
+    claim: 'Probe is in private preview; Gate and Guard are in development; Box is planned.',
     page: 'Product stages',
     href: '/docs/product-stages/',
     stage: 'fact',

@@ -114,7 +114,7 @@ export default function OverviewPage() {
       <p>
         Probe is in <strong>private preview</strong>. Accounts are reviewed and activated by hand,
         paid monthly, and get a live status page and JSON feed. There is no self-serve console or
-        public API key issuance. Gate, Guard and Box are <strong>Planned</strong> and are not for
+        public API key issuance. Gate and Guard are <strong>in development</strong>; Box is <strong>Planned</strong> and are not for
         sale. The Caurium site-wide monitoring feed is not connected, so that page says so instead
         of showing a green state.
       </p>

@@ -35,8 +35,9 @@ export default function SecurityPage() {
       <h2 id="scope">Scope of this page</h2>
       <p>
         This page covers the public website, the deployed Probe service and the intended security
-        boundaries of Gate, Guard and Box. Probe is in <strong>private preview</strong>. Gate, Guard
-        and Box are <strong>Planned</strong>; no endpoint, console or credential exists for them.
+        boundaries of Gate, Guard and Box. Probe is in <strong>private preview</strong>; Gate and
+        Guard are <strong>in development</strong> and not open. Box is <strong>Planned</strong> and
+        not deployed. No endpoint, console or credential is offered for any of them.
         Nothing here is a certification, an audit result or a compliance attestation.
       </p>
 

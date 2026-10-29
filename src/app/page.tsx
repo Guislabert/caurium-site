@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Caurium — endpoint monitoring in private preview',
   description:
-    'Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing, Guard, backups whose restore is proven, and Box, container environments by invitation, are in development.',
+    'Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing, Guard, backups whose restore is proven, are in development. Box is planned.',
   path: '/',
   absoluteTitle: true,
   ogImage: '/og/home.png',
@@ -226,8 +226,8 @@ export default function HomePage() {
           </div>
 
           <p className="note mt-5 text-[13px] leading-5 text-muted">
-            Design targets, not observed incidents. Probe is in private preview; Gate, Guard and
-            Box are in development.
+            Design targets, not observed incidents. Probe is in private preview; Gate and Guard
+            are in development; Box is planned.
           </p>
         </div>
       </section>
@@ -248,7 +248,7 @@ export default function HomePage() {
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
             <p className="text-[13px] leading-5 text-muted">
-              Probe is available in private preview. Gate, Guard and Box are in development.
+              Probe is available in private preview. Gate and Guard are in development; Box is planned.
             </p>
             <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Fig. 02–05 · Module records
@@ -264,7 +264,7 @@ export default function HomePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <h2 id="workflow-heading" className="h2 mt-4">
+              <h2 id="workflow-heading" className="h2">
                 Connect. Observe. Operate.
               </h2>
             </div>
@@ -306,7 +306,7 @@ export default function HomePage() {
       <section className="section section-lav border-b border-border" aria-labelledby="principles-heading">
         <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
           <div>
-            <h2 id="principles-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="principles-heading" className="h2 max-w-[15ch]">
               What we will and will not <span className="emphasis">claim.</span>
             </h2>
             <p className="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
@@ -333,7 +333,7 @@ export default function HomePage() {
       <section className="section section-lime border-b border-border" aria-labelledby="trust-heading">
         <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
           <div>
-            <h2 id="trust-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="trust-heading" className="h2 max-w-[14ch]">
               Trust is a <span className="emphasis">boundary,</span> not a badge.
             </h2>
             <p className="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
@@ -380,7 +380,7 @@ export default function HomePage() {
       <section className="section section-paper border-b border-border" aria-labelledby="docs-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <h2 id="docs-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="docs-heading" className="h2 max-w-[15ch]">
               Read what exists before you rely on it.
             </h2>
             <p className="mt-6 max-w-sm text-[14px] leading-6 text-muted">
@@ -426,7 +426,7 @@ export default function HomePage() {
       <section className="section border-b border-border" aria-labelledby="status-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-20">
           <div>
-            <h2 id="status-heading" className="h2 mt-4">
+            <h2 id="status-heading" className="h2">
               Service status
             </h2>
             <p className="mt-6 max-w-sm text-[14px] leading-6 text-muted">

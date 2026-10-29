@@ -92,7 +92,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <dl className="mt-7 grid max-w-2xl gap-4 border-t border-border pt-5 sm:grid-cols-2">
           <div>
             <dt className="eyebrow">For</dt>
-            <dd className="mt-2 text-[14px] leading-6 text-ink-2">{product.forLine}</dd>
+            <dd className="note mt-2 text-[14px] leading-6 text-ink-2">{product.forLine}</dd>
           </div>
           <div>
             <dt className="eyebrow">Not for</dt>
@@ -131,7 +131,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <h2 id="workflow-heading" className="h2 mt-4">
+              <h2 id="workflow-heading" className="h2">
                 Input, handling, output.
               </h2>
             </div>
@@ -163,10 +163,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="section border-b border-border" aria-labelledby="scope-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="scope-heading" className="h2 mt-4 max-w-[16ch]">
+            <h2 id="scope-heading" className="h2 max-w-[16ch]">
               What is intended, and what is verified.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">{product.scopeNote}</p>
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">{product.scopeNote}</p>
 
             <Callout title="Verified capabilities: none." tone="warning">
               There is no public deployment of {product.name}, so no capability is marked
@@ -196,10 +196,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       >
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="decisions-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="decisions-heading" className="h2 max-w-[15ch]">
               Why the boundary sits here.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               These are the choices that define the first release. They are design intent, not
               claims about a running service.
             </p>
@@ -228,10 +228,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="section border-b border-border" aria-labelledby="criteria-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="criteria-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="criteria-heading" className="h2 max-w-[15ch]">
               What must be true before this changes.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               The stage label moves only after these checks are run and recorded. Internal evidence
               stays internal; the public page publishes only the resulting scope.
             </p>
@@ -246,10 +246,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       >
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="example-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="example-heading" className="h2 max-w-[14ch]">
               The shape of the contract.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Examples describe an intended interface or record. They are not callable and may
               change before release.
             </p>
@@ -266,10 +266,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="section border-b border-border" aria-labelledby="limits-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="limits-heading" className="h2 mt-4 max-w-[16ch]">
+            <h2 id="limits-heading" className="h2 max-w-[16ch]">
               Written down before they matter.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Boundaries are part of the product definition. If an item is not listed here, it is
               not part of the intended first release.
             </p>
@@ -284,10 +284,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       >
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="questions-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="questions-heading" className="h2 max-w-[15ch]">
               What is still undecided.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               These decisions are not made yet. Publishing them is part of the scope: a reader
               should not have to guess which parts of the design are settled.
             </p>
@@ -311,10 +311,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <section className="section border-b border-border" aria-labelledby="faq-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="faq-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="faq-heading" className="h2 max-w-[14ch]">
               Questions a reader should ask.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Short answers about availability and behavior. Every answer describes the intended
               design unless it says otherwise.
             </p>
@@ -348,10 +348,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       >
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
           <div>
-            <h2 id="availability-heading" className="h2 mt-4">
+            <h2 id="availability-heading" className="h2">
               {STAGE_LABELS[product.stage]}.
             </h2>
-            <p className="mt-4 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-4 note max-w-sm text-[14px] leading-6 text-muted">
               {STAGE_DESCRIPTIONS[product.stage]}
             </p>
           </div>
@@ -388,7 +388,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       <section className="section" aria-labelledby="related-heading">
         <div className="container-page">
-          <h2 id="related-heading" className="h2 mt-4">
+          <h2 id="related-heading" className="h2">
             The rest of the roadmap.
           </h2>
           <div className="mt-8">

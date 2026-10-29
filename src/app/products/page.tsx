@@ -28,7 +28,7 @@ export default function ProductsPage() {
       <PageHero
         crumbs={[{ label: 'Products' }]}
         title="A focused roadmap, one module at a time."
-        description="Caurium has four narrow modules. Probe is in private preview with manual activation. Gate, Guard and Box are in development. Each page states the workflow, the limits, and the evidence required before its stage can change."
+        description="Caurium has four narrow modules. Probe is in private preview with manual activation. Gate and Guard are in development; Box is planned. Each page states the workflow, the limits, and the evidence required before its stage can change."
         meta={
           <>
             <span className="badge-stage" data-stage="private-preview">
@@ -55,7 +55,7 @@ export default function ProductsPage() {
           </div>
 
           <p className="note mt-5 text-[13px] leading-5 text-muted">
-            Probe is in private preview. Gate, Guard and Box are in development and not for sale.
+            Probe is in private preview. Gate and Guard are in development; Box is planned and not for sale.
           </p>
         </div>
       </section>
@@ -66,10 +66,10 @@ export default function ProductsPage() {
       >
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="choose-heading" className="h2 mt-4 max-w-[15ch]">
+            <h2 id="choose-heading" className="h2 max-w-[15ch]">
               Start from the failure, not the product name.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
               Each module exists because one failure mode is easy to leave unverified. Pick the
               sentence that sounds familiar.
             </p>
@@ -123,10 +123,10 @@ export default function ProductsPage() {
         <div className="container-page">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <div>
-              <h2 id="stages-heading" className="h2 mt-4 max-w-[14ch]">
+              <h2 id="stages-heading" className="h2 max-w-[14ch]">
                 A label is a statement of evidence.
               </h2>
-              <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+              <p className="mt-5 note max-w-sm text-[14px] leading-6 text-muted">
                 Status is stored once and reused by the home page, product pages, documentation and
                 metadata. A module can move forward only when its own acceptance criteria are met.
               </p>
@@ -207,14 +207,14 @@ export default function ProductsPage() {
       <section className="section bg-paper" aria-labelledby="not-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
           <div>
-            <h2 id="not-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="not-heading" className="h2 max-w-[14ch]">
               What this roadmap is not.
             </h2>
           </div>
           <ul className="border-t border-border-strong">
             {[
               'A release schedule. Stage order shows dependency and priority, not dates.',
-              'A full price list. Probe has three plans; Gate, Guard and Box are not sold and have no price.',
+              'A full price list. Probe has three plans; Gate and Guard are in development; Box is planned not sold and have no price.',
               'A self-serve console. Probe activation is manual; no account or API key is created online.',
               'A platform claim. Each module stands on its own verified scope.',
             ].map((item, index) => (
@@ -222,7 +222,7 @@ export default function ProductsPage() {
                 <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[14px] leading-6 text-ink-2">{item}</span>
+                <span className="note block text-[14px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>

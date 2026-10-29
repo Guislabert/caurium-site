@@ -120,7 +120,7 @@ export default function ProductStagesPage() {
       <h2 id="conclusion">Current conclusion</h2>
       <p>
         Probe is in <strong>private preview</strong>: manual activation, monthly plans and live
-        customer status pages. Gate, Guard and Box are <strong>Planned</strong>. There is no
+        customer status pages. Gate and Guard are <strong>in development</strong>; Box is <strong>Planned</strong>. There is no
         self-serve sign-up, console or public API key issuance. The next step is to read the{' '}
         <Link href="/products/probe/">Probe page</Link>, its{' '}
         <Link href="/access/">access</Link>, and the{' '}

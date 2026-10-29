@@ -43,18 +43,18 @@ export default function BuildLogPage() {
       />
 
       <section className="section border-b border-border" aria-labelledby="entries-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
+        <div className="container-page">
           <div>
-            <h2 id="entries-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="entries-heading" className="h2 max-w-[16ch]">
               Newest first.
             </h2>
-            <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
+            <p className="note mt-5 text-[14px] leading-6 text-muted">
               A build log is not a release announcement. An entry can record a correction, a
               removal, or a gap that is still open.
             </p>
           </div>
 
-          <ol className="border-t border-border-strong">
+          <ol className="mt-10 max-w-[46rem] border-t border-border-strong">
             {BUILD_LOG.map((entry) => (
               <li key={`${entry.date}-${entry.title}`} className="border-b border-border py-6">
                 <div className="flex flex-wrap items-center gap-3">
@@ -86,7 +86,7 @@ export default function BuildLogPage() {
       <section className="section" aria-labelledby="not-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <h2 id="not-heading" className="h2 mt-4 max-w-[14ch]">
+            <h2 id="not-heading" className="h2 max-w-[16ch]">
               Not a roadmap with dates.
             </h2>
           </div>

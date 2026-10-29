@@ -139,7 +139,7 @@ export function MobileNavigation() {
             </div>
 
             <p className="mt-6 border-t border-white/15 pt-4 text-[13.5px] leading-5 text-white/55">
-              Probe is in private preview. Gate, Guard and Box are planned.
+              Probe is in private preview. Gate and Guard are in development; Box is planned.
             </p>
           </nav>
         </div>
