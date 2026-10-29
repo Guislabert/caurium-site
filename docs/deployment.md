@@ -53,9 +53,12 @@ Required repository configuration:
 - Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
   optional `NEXT_PUBLIC_STATUS_URL`. The first two are already set on the repository.
 
-Current state: `CLOUDFLARE_DEPLOY` is unset and neither secret exists, so CI deploys nothing and
-the job reports `skipped`. Deploys run by hand from a machine with `wrangler login`. Enable CI
-deploys by adding the two secrets, then `CLOUDFLARE_DEPLOY=enabled`.
+Current state: all three are configured, so a push to `main` deploys. `wrangler` is a
+devDependency; the job runs the repository's own binary, not a globally installed one, so the
+version is pinned by `pnpm-lock.yaml`.
+
+Rotate the token in the Cloudflare dashboard and re-set the secret; the old value stops working
+the moment it is rolled in the account.
 
 The first manual deployment, if the project does not exist yet:
 
