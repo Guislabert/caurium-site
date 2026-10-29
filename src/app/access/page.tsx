@@ -80,13 +80,17 @@ export default function AccessPage() {
             intro="Every size includes the same checks at the same one-minute interval, the incident rule, the webhook and the status page. The differences are how many endpoints you can add and how long check history is kept."
           />
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">
+          <div
+            className={`mt-12 grid gap-4 lg:gap-5 ${
+              OFFERED_PLANS.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
+            }`}
+          >
             {OFFERED_PLANS.map((plan) => (
               <div
                 key={plan.id}
                 className={`relative flex flex-col rounded-[12px] border p-6 md:p-7 ${
                   plan.recommended
-                    ? 'border-ink bg-paper '
+                    ? 'border-ink bg-paper'
                     : 'border-border bg-paper/60'
                 }`}
               >
