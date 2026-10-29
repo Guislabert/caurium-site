@@ -43,12 +43,18 @@ Worker version list therefore names the commit that produced it, which the manua
 not.
 
 Required repository configuration:
-- Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+- Secrets: `CLOUDFLARE_API_TOKEN` (a scoped API token, not an OAuth login: Workers Scripts
+  edit on this account only), `CLOUDFLARE_ACCOUNT_ID` (`REDACTED`).
 - Variable: `CLOUDFLARE_DEPLOY=enabled`. The job only runs when this is set, so a fork or a
   fresh clone does not attempt a deploy. Once it is enabled, a missing secret fails the job
   instead of silently reporting success without deploying.
 - Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
-  optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`
+  optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`. The first two are already set on
+  the repository.
+
+Current state: `CLOUDFLARE_DEPLOY` is unset and neither secret exists, so CI deploys nothing and
+the job reports `skipped`. Deploys run by hand from a machine with `wrangler login`. Enable CI
+deploys by adding the two secrets, then `CLOUDFLARE_DEPLOY=enabled`.
 
 The first manual deployment, if the project does not exist yet:
 
