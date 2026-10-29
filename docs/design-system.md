@@ -10,6 +10,9 @@
 | `main` | v1 editorial | [`design-system-editorial.md`](design-system-editorial.md) | 暖纸、navy 墨色、衬线标题、圆角、药丸按钮 |
 | `dev` | v2 graphite | [`design-system-graphite.md`](design-system-graphite.md) | 冷灰、纯白面板、无衬线、直角、细线导轨 |
 
+两份视觉文档在**两条分支上都存在**：它们记录的是可选体系，不是分支私有状态。
+这样两条分支合并时文档不会产生 "added in both" 冲突。
+
 两者共享下面的一切。改动共用部分时两边同时生效；改动视觉体系时只动对应那一份。
 
 ## 1. 设计命题（共用）
