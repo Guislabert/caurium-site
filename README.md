@@ -31,11 +31,16 @@ The application form at `/start/` posts to the Probe Worker. Cross-origin reques
 `http://localhost:3000` are not accepted by the deployed Worker, so submitting locally fails by
 design until the Worker lists that origin. Everything else works offline.
 
-## Branches and environments
+## Branches, environments and versions
 
-`main` deploys the production Worker; `dev` deploys a separate preview Worker. A branch
-with no Worker of its own gets checks only. See [`docs/branches.md`](docs/branches.md)
-for the mapping, the protection rules and how to run two checkouts side by side.
+`main` is production and deploys `caurium-site`. `dev` is the preview and test bench and
+deploys `caurium-site-dev`. The two may differ **only** in the visual layer, and
+`pnpm check:branches` fails if they drift anywhere else.
+
+Releases are annotated tags per branch: `v0.2.0` on `main`, `dev-v0.3.1` on `dev`.
+Cut one with `pnpm release minor "…"`.
+
+Full process, promotion rules and the version policy: [`docs/branches.md`](docs/branches.md).
 
 ## Checks
 
