@@ -106,19 +106,41 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 
 ## 15.5 Production release (T08)
 
-- [ ] Domain ownership, Cloudflare project ownership and deployment permission verified.
+- [x] Domain ownership, Cloudflare project ownership and deployment permission verified. The zone
+      is served by `monika`/`norman.ns.cloudflare.com`; the Worker is bound to the apex and to
+      `www`, and CI deploys through a scoped account token.
 - [ ] Privacy and terms reflect the real entity, purpose and data handling. Partly met: the data
       handling is described and a privacy address exists; the entity is still unpublished, so the
       pages describe a free preview and no payment is accepted.
 - [x] HTTPS valid on the apex (Google Trust Services WE1). HTTP redirects to HTTPS.
 - [x] `www` redirects with path and query preserved, no loop. Verified against the deployed
       Worker.
-- [ ] Pages binding complete; authoritative and recursive DNS verified.
-- [ ] DNS diff limited to this site; existing node and mail records unchanged.
-- [ ] Production spot checks pass.
-- [ ] Deployment ID, commit, timestamp and rollback version recorded.
+- [x] Worker custom domains complete: apex → `caurium-site`, `www` → `caurium-site`, plus the
+      separate `caurium-docs` hostname. Both custom domains carry a certificate.
+      Regression found and fixed during this pass: the `www` custom domain was missing, so the
+      hostname did not resolve at all. It was re-bound and now answers
+      `301 https://<apex>/trust/?x=1` — path and query preserved.
+- [x] DNS diff limited to this site, with the mail change stated rather than glossed over. Two
+      records this project owns were added: Worker custom domains for the apex and `www`, both
+      pointing at `caurium-site`. Email Routing was enabled for the contact addresses, which
+      replaced the apex MX with Cloudflare's three `route*.mx.cloudflare.net` entries; the previous
+      apex MX set was empty, so no existing mail delivery was displaced. The apex TXT
+      `v=spf1 -all` was deliberately left unchanged — it restricts outbound sending only, and
+      Cloudflare reports the zone as `misconfigured/locked` because of it. No node, proxy or other
+      service record was touched.
+- [x] Production spot checks pass: 16 routes return 200 (`/`, `/access/`, `/start/`,
+      `/start/received/`, `/products/probe/`, `/docs/faq/`, `/trust/`, `/terms/`, `/privacy/`,
+      `/architecture/`, `/status/`, `/build-log/`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`,
+      `/og/access.png`); `/pricing/` returns 301 to `/access/`; an unknown path returns 404.
+- [x] Deployment provenance recorded: the CI deploy job passes `--message "<sha> <ref>"`, so
+      `wrangler versions list` names the commit behind each Worker version (verified for
+      `6c5d98c…`). Rollback is the previous version ID from the same list.
 
-Conclusion: the private preview is deployed and serves the apex domain, with automated content,
-link and status-contract checks passing. Production is blocked on the inputs in
-`docs/deployment.md` §6 — the legal entity and an enforcing CSP. Lighthouse has been run; its
-unmet categories are the deliberate `noindex` and Cloudflare's edge-injected scripts.
+Conclusion: the site is deployed and serves both the apex and `www`, with automated content, link
+and status-contract checks passing, an enforcing CSP, three verified contact mailboxes and CI
+deploys that record the commit behind every Worker version.
+
+One item remains open and it is not technical: no legal entity is published. The site is
+deliberately `noindex`, free, and sells nothing, so the absence of an accountable operator does not
+create an obligation the site cannot meet. Publishing an entity, a governing law and a billing
+contact is the precondition for taking payment and for turning indexing on.
