@@ -67,7 +67,7 @@ export default function PricingPage() {
             index="01 / Plans"
             id="plans-heading"
             title="Pay for endpoints and history, nothing else."
-            intro="Every plan includes the same checks, incident rule, webhook and status page. The differences are how many endpoints you can add, how often they are checked and how long check history is kept."
+            intro="Every plan includes the same checks at the same one-minute interval, the incident rule, the webhook and the status page. The differences are how many endpoints you can add and how long check history is kept."
           />
 
           <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">

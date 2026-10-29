@@ -46,7 +46,7 @@ export default function StartPage() {
               Private preview
             </span>
             <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
-              Reply within one business day
+              Reviewed by hand · No SLA
             </span>
           </>
         }
