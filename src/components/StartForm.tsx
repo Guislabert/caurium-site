@@ -11,9 +11,9 @@ type SubmitState =
   | { kind: 'error'; message: string };
 
 const FIELD =
-  'mt-1.5 w-full rounded-[10px] border border-border-strong bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-violet focus:ring-2 focus:ring-violet/20';
+  'mt-1.5 w-full rounded-[10px] border border-border-strong bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-accent focus:ring-2 focus:ring-accent/25';
 
-const LABEL = 'mono text-[9px] uppercase tracking-[0.12em] text-muted';
+const LABEL = 'mono text-[11px] uppercase tracking-[0.06em] text-muted';
 
 export function StartForm({ endpoint }: { endpoint: string }) {
   const planSelect = useRef<HTMLSelectElement>(null);
@@ -77,14 +77,14 @@ export function StartForm({ endpoint }: { endpoint: string }) {
   if (state.kind === 'sent') {
     return (
       <div className="card p-6 md:p-8" role="status">
-        <p className="mono text-[9px] uppercase tracking-[0.14em] text-olive">Request received</p>
+        <p className="mono text-[11px] uppercase tracking-[0.06em] text-olive">Request received</p>
         <h2 className="h3 mt-3">We will check ownership and reply by email.</h2>
-        <p className="mt-3 max-w-xl text-[13.5px] leading-6 text-muted">
+        <p className="mt-3 max-w-xl text-[14px] leading-6 text-muted">
           Your application is stored by the Probe service. If the endpoints can be verified, we
           activate the account and send the status page address and a webhook test. If something is
           missing, we reply with the exact question.
         </p>
-        <p className="mt-4 max-w-xl text-[12.5px] leading-5 text-muted">
+        <p className="mt-4 max-w-xl text-[13px] leading-5 text-muted">
           Nothing is monitored until activation, and nothing is charged at any point during the
           preview.
         </p>
@@ -190,7 +190,7 @@ export function StartForm({ endpoint }: { endpoint: string }) {
           className={FIELD}
           placeholder={'https://example.com/health — Checkout API — expect 200\nhttps://example.com/status — Public site — expect 200'}
         />
-        <p className="mt-1.5 text-[11.5px] leading-5 text-muted">
+        <p className="mt-1.5 text-[12px] leading-5 text-muted">
           One per line. Include the public URL, the alias for the status page and the expected HTTP
           status. Private hosts and credentials will be rejected.
         </p>
@@ -215,12 +215,12 @@ export function StartForm({ endpoint }: { endpoint: string }) {
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <label className="mt-6 flex items-start gap-3 text-[12px] leading-5 text-muted">
+      <label className="mt-6 flex items-start gap-3 text-[12.5px] leading-5 text-muted">
         <input
           type="checkbox"
           name="consent"
           required
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-border-strong accent-violet"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-border-strong accent-accent"
         />
         <span>
           I have read the <Link href="/privacy/" className="underline decoration-border-strong">privacy notice</Link>{' '}
@@ -231,14 +231,14 @@ export function StartForm({ endpoint }: { endpoint: string }) {
       {state.kind === 'error' ? (
         <p
           role="alert"
-          className="mt-5 rounded-[10px] border border-danger/30 bg-danger/5 px-3 py-2 text-[12.5px] leading-5 text-danger"
+          className="mt-5 rounded-[10px] border border-danger/30 bg-danger/5 px-3 py-2 text-[13px] leading-5 text-danger"
         >
           {state.message}
         </p>
       ) : null}
 
       <div className="mt-6 flex flex-col items-start gap-4 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-sm text-[11.5px] leading-5 text-muted">
+        <p className="max-w-sm text-[12px] leading-5 text-muted">
           No payment is taken now. We reply to the email you provide.
         </p>
         <button

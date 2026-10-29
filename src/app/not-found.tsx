@@ -10,7 +10,7 @@ const LINKS = [
 export default function NotFound() {
   return (
     <div className="container-page py-16 md:py-24">
-      <p className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">Error / 404</p>
+      <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">Error / 404</p>
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr_auto] lg:items-end lg:gap-16">
         <div>
           <h1 className="h1 max-w-[16ch]">Page not found.</h1>
@@ -24,7 +24,7 @@ export default function NotFound() {
             <li key={link.href} className="border-b border-border">
               <Link
                 href={link.href}
-                className="group flex items-center justify-between py-3 text-[13.5px] text-foreground"
+                className="group flex items-center justify-between py-3 text-[14px] text-foreground"
               >
                 {link.label}
                 <span aria-hidden="true" className="text-muted transition-transform group-hover:translate-x-1">

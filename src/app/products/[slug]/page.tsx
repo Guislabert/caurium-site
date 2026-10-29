@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         meta={
           <>
             <ProductStageBadge stage={product.stage} />
-            <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Content reviewed{' '}
               <time dateTime={product.reviewedAt}>{reviewed}</time>
             </span>
@@ -93,11 +93,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <dl className="mt-7 grid max-w-2xl gap-4 border-t border-border pt-5 sm:grid-cols-2">
           <div>
             <dt className="eyebrow">For</dt>
-            <dd className="mt-2 text-[13.5px] leading-6 text-ink-2">{product.forLine}</dd>
+            <dd className="mt-2 text-[14px] leading-6 text-ink-2">{product.forLine}</dd>
           </div>
           <div>
             <dt className="eyebrow">Not for</dt>
-            <dd className="mt-2 text-[13.5px] leading-6 text-muted">
+            <dd className="mt-2 text-[14px] leading-6 text-muted">
               {product.notThis
                 .slice(0, 2)
                 .map((item) => item.replace(/\.$/, ''))
@@ -116,11 +116,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="mt-8 grid gap-10 md:grid-cols-2 md:gap-16">
             <div className="border-t border-border-strong pt-5">
               <p className="eyebrow">Who it is for</p>
-              <p className="mt-3 max-w-lg text-[15px] leading-7">{product.audience}</p>
+              <p className="mt-3 max-w-lg text-[15.5px] leading-7">{product.audience}</p>
             </div>
             <div className="border-t border-border-strong pt-5">
               <p className="eyebrow">The problem</p>
-              <p className="mt-3 max-w-lg text-[15px] leading-7">{product.problem}</p>
+              <p className="mt-3 max-w-lg text-[15.5px] leading-7">{product.problem}</p>
             </div>
           </div>
         </div>
@@ -148,11 +148,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   aria-hidden="true"
                   className="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full border border-border-strong bg-paper"
                 />
-                <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {String(stepIndex + 1).padStart(2, '0')} / Step
                 </p>
                 <h3 className="h3 mt-3">{step.title}</h3>
-                <p className="mt-2 max-w-sm text-[13.5px] leading-6 text-muted">{step.detail}</p>
+                <p className="mt-2 max-w-sm text-[14px] leading-6 text-muted">{step.detail}</p>
               </li>
             ))}
           </ol>
@@ -181,7 +181,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <p className="eyebrow">Not this</p>
               <ul className="mt-3 space-y-2.5">
                 {product.notThis.map((item) => (
-                  <li key={item} className="flex gap-3 text-[13px] leading-6 text-muted">
+                  <li key={item} className="flex gap-3 text-[13.5px] leading-6 text-muted">
                     <span aria-hidden="true" className="mt-2.5 h-px w-3 shrink-0 bg-border-strong" />
                     {item}
                   </li>
@@ -215,12 +215,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 key={decision.title}
                 className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5"
               >
-                <span className="mono pt-1 text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono pt-1 text-[11px] tracking-[0.06em] text-muted">
                   D.{String(decisionIndex + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="text-[15.5px] font-medium leading-6">{decision.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-[13.5px] leading-6 text-muted">
+                  <h3 className="text-[16px] font-medium leading-6">{decision.title}</h3>
+                  <p className="mt-1.5 max-w-xl text-[14px] leading-6 text-muted">
                     {decision.detail}
                   </p>
                 </div>
@@ -307,10 +307,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 key={question}
                 className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4"
               >
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   Q.{String(questionIndex + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-ink-2">{question}</span>
+                <span className="text-[14px] leading-6 text-ink-2">{question}</span>
               </li>
             ))}
           </ol>
@@ -336,16 +336,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="border-t border-border-strong">
             {product.faq.map((item) => (
               <details key={item.question} className="group border-b border-border py-4">
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[14.5px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
                     aria-hidden="true"
-                    className="mono pt-0.5 text-[13px] text-muted transition-transform group-open:rotate-45"
+                    className="mono pt-0.5 text-[13.5px] text-muted transition-transform group-open:rotate-45"
                   >
                     +
                   </span>
                 </summary>
-                <p className="mt-3 max-w-2xl text-[13.5px] leading-6 text-muted">{item.answer}</p>
+                <p className="mt-3 max-w-2xl text-[14px] leading-6 text-muted">{item.answer}</p>
               </details>
             ))}
           </div>
@@ -367,12 +367,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </p>
           </div>
 
-          <div className="rounded-[16px] border border-border bg-paper p-5 md:p-6">
+          <div className="rounded-[10px] border border-border bg-paper p-5 md:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="eyebrow">Current stage</span>
               <ProductStageBadge stage={product.stage} />
             </div>
-            <p className="mt-4 text-[15px] leading-6">
+            <p className="mt-4 text-[15.5px] leading-6">
               {product.stage === 'planned'
                 ? `${product.name} is not available for use. There is no console, sign-up, API key or paid plan. The stage will change only after the release criteria are met and recorded with evidence.`
                 : `${product.name} is available in private preview. Accounts are reviewed, paid monthly and activated by hand; there is no self-serve console. The stage will change again only after the remaining release criteria are met and recorded.`}
@@ -385,7 +385,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             ) : null}
             <div className="mt-5 border-t border-border pt-4">
               <p className="eyebrow">Next step</p>
-              <p className="mt-2 max-w-lg text-[13.5px] leading-6 text-muted">
+              <p className="mt-2 max-w-lg text-[14px] leading-6 text-muted">
                 {product.nextStep.detail}
               </p>
               <Link href={product.nextStep.href} className="btn btn-secondary mt-4">

@@ -11,12 +11,12 @@ export function RelatedModules({ currentId }: { currentId: string }) {
         <li key={product.id}>
           <Link
             href={`/products/${product.slug}/`}
-            className="group flex h-full items-start justify-between gap-4 rounded-[16px] border border-border bg-background p-5 transition-colors hover:border-border-strong"
+            className="group flex h-full items-start justify-between gap-4 rounded-[10px] border border-border bg-background p-5 transition-colors hover:border-border-strong"
           >
             <span>
               <ProductGlyph id={product.id} className="h-8 w-8" />
-              <span className="mt-4 block text-[15px] font-medium">{product.name}</span>
-              <span className="mt-1 block text-[11.5px] leading-5 text-muted">
+              <span className="mt-4 block text-[15.5px] font-medium">{product.name}</span>
+              <span className="mt-1 block text-[12px] leading-5 text-muted">
                 {product.role} · {STAGE_LABELS[product.stage]}
               </span>
             </span>

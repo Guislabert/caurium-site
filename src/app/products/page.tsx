@@ -36,7 +36,7 @@ export default function ProductsPage() {
               <span className="badge-dot" aria-hidden="true" />
               Probe in private preview
             </span>
-            <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Reviewed 29 Oct 2026
             </span>
           </>
@@ -137,21 +137,21 @@ export default function ProductsPage() {
             </div>
 
             <div className="min-w-0">
-              <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
+              <ol className="grid grid-cols-2 gap-px overflow-hidden rounded-[10px] border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
                 {STAGES.map((stage, index) => {
                   const current = stage === 'private-preview';
                   return (
                     <li
                       key={stage}
-                      className={`p-3 ${current ? 'bg-accent-soft' : 'bg-background'}`}
+                      className={`p-3 ${current ? 'bg-accent-soft' : 'bg-paper'}`}
                     >
-                      <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
+                      <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
                         {String(index + 1).padStart(2, '0')}
                       </p>
-                      <p className={`mt-1.5 text-[11.5px] font-medium leading-4 ${current ? 'text-accent' : ''}`}>
+                      <p className={`mt-1.5 text-[12px] font-medium leading-4 ${current ? 'text-accent-ink' : ''}`}>
                         {STAGE_LABELS[stage]}
                       </p>
-                      <p className="mono mt-1 text-[7.5px] uppercase tracking-[0.08em] text-muted">
+                      <p className="mono mt-1 text-[10px] uppercase tracking-[0.06em] text-muted">
                         {current ? 'Current' : 'Later'}
                       </p>
                     </li>
@@ -186,7 +186,7 @@ export default function ProductsPage() {
                         <th scope="row" className="whitespace-nowrap px-3 py-4 text-left font-medium">
                           <Link
                             href={`/products/${product.slug}/`}
-                            className="text-accent hover:underline"
+                            className="text-accent-ink hover:underline"
                           >
                             {product.name}
                           </Link>
@@ -224,10 +224,10 @@ export default function ProductsPage() {
               'A platform claim. Each module stands on its own verified scope.',
             ].map((item, index) => (
               <li key={item} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-ink-2">{item}</span>
+                <span className="text-[14px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>

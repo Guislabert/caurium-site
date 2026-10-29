@@ -14,10 +14,10 @@ export function BoundaryTable({
           key={boundary.label}
           className="grid gap-1.5 border-b border-border py-4 md:grid-cols-[170px_1fr] md:gap-8"
         >
-          <dt className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted md:pt-1">
+          <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted md:pt-1">
             {boundary.label}
           </dt>
-          <dd className="text-[13.5px] leading-6 text-ink-2">{boundary.value}</dd>
+          <dd className="text-[14px] leading-6 text-ink-2">{boundary.value}</dd>
         </div>
       ))}
     </dl>

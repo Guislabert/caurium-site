@@ -22,7 +22,7 @@ export function LegalShell({
         title={title}
         description={description}
         meta={
-          <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+          <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
             Last updated <time dateTime={SITE.reviewedAt}>{SITE.reviewedAt}</time>
           </span>
         }

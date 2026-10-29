@@ -39,8 +39,8 @@ fails if either phrase returns.
 
 | Product | Stage | Added content | Evidence |
 | --- | --- | --- | --- |
-| Gate | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No deployment. |
-| Probe | Private preview | Use case, scope items, 3 design decisions, open questions, FAQs, release criteria, exclusions, pricing | Worker with D1 and a one-minute scheduler; manual activation; no SLA published. |
+| Gate | In development | Use case, scope items, design decisions, open questions, FAQs, release criteria, exclusions | Worker deployed; 6 of 7 features verified against it (one upstream with path-only addressing, SHA-256 verifiers, Worker secret, D1 quota and spend ceiling, six typed errors, body-free logs). Streaming still planned. Not open to customers. |
+| Probe | Private preview | Use case, scope items, design decisions, open questions, FAQs, release criteria, exclusions, prices | Worker with D1 and a one-minute scheduler; manual activation; no SLA published. Two sizes offered at 149 and 399 euro; the preview is free. |
 | Guard | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No restore recorded. |
 | Box | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No instance delivered. |
 

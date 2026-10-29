@@ -62,7 +62,7 @@ export default function BuildLogPage() {
                 <div className="flex flex-wrap items-center gap-3">
                   <time
                     dateTime={entry.date}
-                    className="mono text-[9px] uppercase tracking-[0.12em] text-muted"
+                    className="mono text-[11px] uppercase tracking-[0.06em] text-muted"
                   >
                     {entry.date}
                   </time>
@@ -72,7 +72,7 @@ export default function BuildLogPage() {
                   </span>
                 </div>
                 <h3 className="mt-3 text-[16px] font-medium leading-6">{entry.title}</h3>
-                <p className="mt-1.5 max-w-xl text-[13.5px] leading-6 text-muted">{entry.detail}</p>
+                <p className="mt-1.5 max-w-xl text-[14px] leading-6 text-muted">{entry.detail}</p>
                 {entry.href && entry.linkLabel ? (
                   <Link href={entry.href} className="link-arrow mt-4">
                     {entry.linkLabel}

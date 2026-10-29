@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
-import { PLANS } from '../src/content/plans';
+import { FREE_NOTICE, OFFERED_PLANS, PLANS, PRICING_NOTE } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
 import { CONTACT } from '../src/content/site';
 
@@ -22,22 +22,42 @@ test('every product has a unique id and slug', () => {
   assert.equal(new Set(PRODUCTS.map((p) => p.slug)).size, PRODUCTS.length);
 });
 
-test('only Probe is offered; Gate, Guard and Box remain Planned', () => {
+test('a stage is only advanced where a deployment exists', () => {
+  // Probe is deployed and open by application. Gate is deployed but not open, which
+  // is what `in-development` means. Guard and Box have no worker at all.
+  const EXPECTED: Record<string, string> = {
+    probe: 'private-preview',
+    gate: 'in-development',
+    guard: 'planned',
+    box: 'planned',
+  };
+
   for (const product of PRODUCTS) {
-    if (product.id === 'probe') {
-      assert.equal(product.stage, 'private-preview');
+    assert.equal(product.stage, EXPECTED[product.id], `${product.name} stage`);
+
+    if (product.stage === 'planned') {
+      for (const feature of product.features) {
+        assert.equal(
+          feature.stage,
+          'planned',
+          `${product.name}/${feature.id} must stay Planned until something is built`,
+        );
+      }
+    } else {
       assert.ok(
         product.features.some((feature) => feature.stage === 'implemented'),
-        'Probe must record its implemented capabilities',
+        `${product.name} is beyond Planned and must record what is implemented`,
       );
-    } else {
-      assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
-      for (const feature of product.features) {
-        assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
-      }
     }
   }
+
+  // Nothing is open for sale: two products run, but neither takes payment.
+  for (const product of PRODUCTS) {
+    assert.notEqual(product.stage, 'available', `${product.name} cannot be Available without a billing entity`);
+  }
+
   assert.equal(STAGE_LABELS.planned, 'Planned');
+  assert.equal(STAGE_LABELS['in-development'], 'In development');
   assert.equal(STAGE_LABELS['private-preview'], 'Private preview');
 });
 
@@ -144,32 +164,34 @@ test('only the three published mailboxes appear, and they are the ones in CONTAC
   }
 });
 
-test('no price is published anywhere, because the preview is free', () => {
-  // A free, application-only preview has nothing to price. A euro figure on any
-  // page would assert a charge that does not exist.
+test('every published price is labelled as not yet charged', () => {
+  // Prices are real figures for paid activation, which has not opened. That is only
+  // honest if the free-preview qualifier travels with the number on every surface.
+  assert.equal(PRICING_NOTE.includes('Nothing is charged during the preview'), true);
+  assert.equal(FREE_NOTICE.includes('Free during the private preview'), true);
+
+  // Sizes that are no longer offered must not be sold.
+  assert.deepEqual(OFFERED_PLANS.map((plan) => plan.id), ['team', 'business']);
   for (const plan of PLANS) {
-    assert.equal('price' in plan, false, `${plan.name} must not carry a price`);
+    assert.ok(plan.price >= 39, `${plan.name} must not undercut the manual review cost`);
     assert.ok(plan.endpoints > 0);
     assert.ok(plan.minIntervalSeconds >= 60);
     assert.ok(plan.retentionDays >= 7);
   }
 
-  const rendered = walk('src/app')
-    .filter((file) => file.endsWith('.tsx'))
-    .map((file) => readFileSync(file, 'utf8'))
-    .join('\n');
-  const content = [
-    readFileSync('src/content/plans.ts', 'utf8'),
-    readFileSync('src/content/faq.ts', 'utf8'),
-    JSON.stringify(PRODUCTS),
-  ].join('\n');
+  const access = readFileSync('src/app/access/page.tsx', 'utf8');
+  assert.match(access, /\{FREE_NOTICE\}/, 'the cards must carry the free notice');
+  assert.match(access, /\{PRICING_NOTE\}/, 'the page must state when prices apply');
 
-  for (const [label, text] of [['routes', rendered], ['content', content]]) {
-    assert.equal(
-      /[€£]\s?\d/.test(text),
-      false,
-      `${label} must not publish a price while the preview is free`,
-    );
+  // A euro figure outside the access page would be a price without its qualifier.
+  for (const file of walk('src/app')) {
+    if (!file.endsWith('.tsx')) continue;
+    const text = readFileSync(file, 'utf8');
+    const hasEuro = /[€]\s?\d/.test(text);
+    if (hasEuro) {
+      assert.equal(file, 'src/app/access/page.tsx', `${file} shows a price outside the priced page`);
+      assert.match(text, /FREE_NOTICE|PRICING_NOTE/, `${file} must qualify its price`);
+    }
   }
 });
 

@@ -47,7 +47,7 @@ export function MobileNavigation() {
       <button
         ref={buttonRef}
         type="button"
-        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border-strong bg-background text-foreground"
+        className="mono inline-flex h-9 items-center gap-2 border border-white/30 px-3 text-[11.5px] uppercase tracking-[0.06em] text-white"
         aria-expanded={open}
         aria-controls="mobile-navigation"
         aria-label={open ? 'Close menu' : 'Open menu'}
@@ -56,7 +56,7 @@ export function MobileNavigation() {
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="h-5 w-5"
+          className="h-4 w-4"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.6"
@@ -67,36 +67,37 @@ export function MobileNavigation() {
             <path d="M4 8h16M4 16h16" strokeLinecap="round" />
           )}
         </svg>
+        Menu
       </button>
 
       {open ? (
         <div
           id="mobile-navigation"
           ref={panelRef}
-          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-var(--header))] overflow-y-auto border-t border-border bg-background"
+          className="mobile-nav-panel absolute inset-x-0 top-full z-40 h-[calc(100dvh-var(--header))] overflow-y-auto border-t border-white/15"
         >
           <nav aria-label="Mobile" className="container-page py-4">
-            <ul className="border-t border-border">
+            <ul className="border-t border-white/15">
               {NAV.map((item, index) => (
-                <li key={item.href} className="border-b border-border">
+                <li key={item.href} className="border-b border-white/15">
                   <Link
                     href={item.href}
-                    className="flex min-h-16 items-center justify-between gap-4 py-4"
+                    className="mobile-nav-link flex min-h-16 items-center justify-between gap-4 py-4"
                     aria-current={isActive(pathname, item.href) ? 'page' : undefined}
                     onClick={() => setOpen(false)}
                   >
                     <span>
                       <span className="flex items-baseline gap-3">
-                        <span className="mono text-[10px] tracking-[0.12em] text-muted">
+                        <span className="mono text-[11.5px] text-white/45">
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span className="text-[17px] font-medium">{item.label}</span>
+                        <span className="text-[17px]">{item.label}</span>
                       </span>
-                      <span className="mt-1 block pl-8 text-xs leading-5 text-muted">
+                      <span className="mt-1 block pl-8 text-[13.5px] leading-5 text-white/55">
                         {item.description}
                       </span>
                     </span>
-                    <span aria-hidden="true" className="text-muted">
+                    <span aria-hidden="true" className="text-white/50">
                       →
                     </span>
                   </Link>
@@ -107,14 +108,14 @@ export function MobileNavigation() {
             <div className="mt-6">
               <Link
                 href="/access/"
-                className="btn btn-primary w-full"
+                className="mono flex h-12 w-full items-center justify-center bg-white text-[13px] uppercase tracking-[0.06em] text-ink"
                 onClick={() => setOpen(false)}
               >
                 Apply for access
               </Link>
             </div>
 
-            <p className="mt-6 border-t border-border pt-4 text-xs leading-5 text-muted">
+            <p className="mt-6 border-t border-white/15 pt-4 text-[13.5px] leading-5 text-white/55">
               Probe is in private preview. Gate, Guard and Box are planned.
             </p>
           </nav>

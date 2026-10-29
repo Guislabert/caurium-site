@@ -26,12 +26,12 @@ export function CapabilityList({
           key={feature.id}
           className="grid gap-3 border-b border-border py-5 md:grid-cols-[42px_1fr_auto] md:gap-5"
         >
-          <span className="mono pt-0.5 text-[10px] tracking-[0.1em] text-muted">
+          <span className="mono pt-0.5 text-[11.5px] tracking-[0.06em] text-muted">
             {String(index + 1).padStart(2, '0')}
           </span>
           <div>
-            <h3 className="text-[15px] font-medium leading-6">{feature.label}</h3>
-            <p className="mt-1 max-w-2xl text-[13.5px] leading-6 text-muted">{feature.detail}</p>
+            <h3 className="text-[15.5px] font-medium leading-6">{feature.label}</h3>
+            <p className="mt-1 max-w-2xl text-[14px] leading-6 text-muted">{feature.detail}</p>
           </div>
           <span
             className="badge-stage self-start"

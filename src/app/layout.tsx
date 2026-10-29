@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import '@fontsource-variable/inter';
+import '@fontsource-variable/geist';
 import '@fontsource-variable/roboto-slab';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#f6f4ee',
+  themeColor: '#0f0f0f',
   colorScheme: 'light',
 };
 

@@ -44,7 +44,7 @@ export default function StartPage() {
               <span className="badge-dot" aria-hidden="true" />
               Private preview
             </span>
-            <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Reviewed by hand · No SLA
             </span>
           </>
@@ -69,8 +69,8 @@ export default function StartPage() {
           </div>
 
           <aside className="lg:pt-2">
-            <div className="rounded-[16px] border border-border bg-paper p-5">
-              <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+            <div className="rounded-[10px] border border-border bg-paper p-5">
+              <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                 Plans
               </p>
               <ul className="mt-4 border-t border-border">
@@ -80,21 +80,21 @@ export default function StartPage() {
                     className="flex items-baseline justify-between gap-4 border-b border-border py-3"
                   >
                     <span>
-                      <span className="block text-[13.5px] font-medium">{plan.name}</span>
-                      <span className="mt-0.5 block text-[11.5px] text-muted">
+                      <span className="block text-[14px] font-medium">{plan.name}</span>
+                      <span className="mt-0.5 block text-[12px] text-muted">
                         {plan.endpoints} endpoints · {plan.minIntervalSeconds}s
                       </span>
                     </span>
                     <span className="text-right">
-                      <span className="block text-[13px] font-medium">Free</span>
-                      <span className="mono block text-[8.5px] uppercase tracking-[0.08em] text-muted">
+                      <span className="block text-[13.5px] font-medium">Free</span>
+                      <span className="mono block text-[10.5px] uppercase tracking-[0.06em] text-muted">
                         by application
                       </span>
                     </span>
                   </li>
                 ))}
               </ul>
-              <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-olive">
+              <p className="mono mt-3 text-[11px] uppercase tracking-[0.06em] text-olive">
                 Preview is free · no card taken
               </p>
               <Link href="/access/" className="link-arrow mt-4">
@@ -103,13 +103,13 @@ export default function StartPage() {
               </Link>
             </div>
 
-            <div className="mt-6 rounded-[16px] border border-border bg-background p-5">
-              <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+            <div className="mt-6 rounded-[10px] border border-border bg-background p-5">
+              <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                 Before activation
               </p>
               <ul className="mt-4 space-y-3">
                 {CHECKS.map((item) => (
-                  <li key={item} className="flex gap-3 text-[12.5px] leading-5 text-ink-2">
+                  <li key={item} className="flex gap-3 text-[13px] leading-5 text-ink-2">
                     <span
                       className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-olive"
                       aria-hidden="true"
@@ -120,7 +120,7 @@ export default function StartPage() {
               </ul>
             </div>
 
-            <p className="mt-6 text-[11.5px] leading-5 text-muted">
+            <p className="mt-6 text-[12px] leading-5 text-muted">
               Applying does not create an account, reserve capacity or start a subscription.
             </p>
           </aside>
@@ -154,12 +154,12 @@ export default function StartPage() {
                 key={title}
                 className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5"
               >
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span>
-                  <span className="block text-[15px] font-medium">{title}</span>
-                  <span className="mt-1 block max-w-xl text-[13px] leading-6 text-muted">
+                  <span className="block text-[15.5px] font-medium">{title}</span>
+                  <span className="mt-1 block max-w-xl text-[13.5px] leading-6 text-muted">
                     {detail}
                   </span>
                 </span>

@@ -109,10 +109,10 @@ export const PRODUCTS: ProductRecord[] = [
     role: 'Access',
     title: 'Controlled access to the APIs you use.',
     summary:
-      'Planned: authenticated API routing with scoped access, request limits, and clear operational logs.',
-    stage: 'planned',
+      'In development: authenticated API routing to one allow-listed upstream, with per-caller scopes, a request quota, a spend ceiling and metadata-only logs. Running; not open to customers.',
+    stage: 'in-development',
     metaDescription:
-      'Learn about the planned scope, access controls, and release criteria for Caurium Gate.',
+      'Caurium Gate routes authenticated requests to one allow-listed upstream, with per-caller scopes, quotas, a spend ceiling and metadata-only logs. In development.',
     audience:
       'Small engineering teams that call third-party APIs from more than one service, and need to know which caller did what.',
     forLine: 'Teams calling one third-party API from several services.',
@@ -137,49 +137,49 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     workflowCaption: 'A caller crosses one boundary, is checked, and reaches one allow-listed upstream.',
     scopeNote:
-      'No Gate capability is verified yet. The list below is the intended first release, not a description of a running service.',
+      'Gate runs and is exercised end to end, but it is not open to customers. Each item below is labelled verified or not yet built; nothing here is offered for sale.',
     features: [
       {
         id: 'upstream',
         label: 'One upstream, fixed endpoints',
         detail:
-          'The first release documents one supported upstream and the exact request and response shapes it forwards.',
-        stage: 'planned',
+          'Verified: one https upstream, path-only addressing; redirects are not followed.',
+        stage: 'implemented',
       },
       {
         id: 'credentials',
         label: 'Per-caller credentials',
         detail:
-          'Each caller receives a high-entropy key shown once at creation. The verifier stores only an irreversible value.',
-        stage: 'planned',
+          'Verified: only a SHA-256 verifier is stored, and the presented key is never logged.',
+        stage: 'implemented',
       },
       {
         id: 'secrets',
         label: 'Server-side upstream secrets',
         detail:
-          'Upstream keys live in server-side secret storage. The public website cannot read, issue or manage them.',
-        stage: 'planned',
+          'Verified: the upstream secret is a Worker secret and never returns to a caller.',
+        stage: 'implemented',
       },
       {
         id: 'limits',
         label: 'Durable limits',
         detail:
-          'Per-identity request, body-size, timeout and spend limits are enforced in durable storage, not a single process.',
-        stage: 'planned',
+          'Verified in D1: a 24-hour request quota and an estimated spend ceiling per key.',
+        stage: 'implemented',
       },
       {
         id: 'errors',
         label: 'Typed errors',
         detail:
-          'Missing or invalid credentials return 401, insufficient scope 403, exhausted quota 429, and upstream failure has its own class.',
-        stage: 'planned',
+          'Verified: 401, 403, 413, 429, 502 and 507, each with a stable error field.',
+        stage: 'implemented',
       },
       {
         id: 'logs',
         label: 'Metadata-only logs',
         detail:
-          'Request ID, endpoint, status, latency and usage. Prompt and response bodies are not logged by default.',
-        stage: 'planned',
+          'Verified: path, status, latency and outcome per request; no request or response bodies.',
+        stage: 'implemented',
       },
       {
         id: 'streaming',

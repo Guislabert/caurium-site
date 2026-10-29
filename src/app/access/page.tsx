@@ -2,14 +2,21 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { SectionHeading } from '@/components/SectionHeading';
-import { FREE_NOTICE, PLANS, PLAN_FAQ, PLAN_INCLUDES, PLAN_INTERVAL_LABEL } from '@/content/plans';
+import {
+  FREE_NOTICE,
+  OFFERED_PLANS,
+  PLAN_FAQ,
+  PLAN_INCLUDES,
+  PLAN_INTERVAL_LABEL,
+  PRICING_NOTE,
+} from '@/content/plans';
 import { CONTACT } from '@/content/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Probe access',
   description:
-    'Probe is a free private preview opened by ticket. Send the endpoints you own; admission is reviewed by hand and nothing is charged.',
+    'Probe is a free private preview opened by ticket. Send the endpoints you own; every application is reviewed by hand, so intake is limited by operator time. Nothing is charged.',
   path: '/access/',
   ogImage: '/og/access.png',
   ogAlt: 'Caurium Probe access — free private preview, opened by application.',
@@ -26,7 +33,7 @@ const STEPS = [
     step: '02',
     title: 'We confirm ownership',
     detail:
-      'We check that you control the endpoints. Admission is by application, so a request can be declined — most often because the endpoints cannot be verified.',
+      'We check that you control the endpoints. A request can be declined, most often because the endpoints cannot be verified. Because each check is manual, only a few accounts are activated per week.',
   },
   {
     step: '03',
@@ -45,9 +52,10 @@ export default function AccessPage() {
         title="Three sizes. Free, by application."
         description={
           <>
-            Probe is the first Caurium product, and it runs as a free private preview. A size sets
-            how many endpoints you can add and how long check history is kept. Nothing is charged,
-            and no card is taken anywhere on this site.
+            Probe runs as a free private preview. Accounts are reviewed and activated by hand, which
+            is the whole reason intake is limited: there is no queue, there is one operator. A size
+            sets how many endpoints you can add and how long check history is kept. Nothing is
+            charged, and no card is taken anywhere on this site.
           </>
         }
         meta={
@@ -56,7 +64,7 @@ export default function AccessPage() {
               <span className="badge-dot" aria-hidden="true" />
               Private preview
             </span>
-            <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               {FREE_NOTICE} · No SLA
             </span>
           </>
@@ -72,36 +80,43 @@ export default function AccessPage() {
             intro="Every size includes the same checks at the same one-minute interval, the incident rule, the webhook and the status page. The differences are how many endpoints you can add and how long check history is kept."
           />
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">
-            {PLANS.map((plan) => (
+          <div
+            className={`mt-12 grid gap-4 lg:gap-5 ${
+              OFFERED_PLANS.length >= 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'
+            }`}
+          >
+            {OFFERED_PLANS.map((plan) => (
               <div
                 key={plan.id}
-                className={`relative flex flex-col rounded-[18px] border p-6 md:p-7 ${
+                className={`relative flex flex-col rounded-[12px] border p-6 md:p-7 ${
                   plan.recommended
-                    ? 'border-ink bg-paper shadow-[0_18px_48px_-32px_rgba(11,27,63,0.45)]'
+                    ? 'border-ink bg-paper'
                     : 'border-border bg-paper/60'
                 }`}
               >
                 {plan.recommended ? (
-                  <p className="mono absolute right-5 top-5 text-[8.5px] uppercase tracking-[0.14em] text-olive">
+                  <p className="mono absolute right-5 top-5 text-[10.5px] uppercase tracking-[0.06em] text-olive">
                     Suggested
                   </p>
                 ) : null}
 
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Probe · {plan.name}
                 </p>
-                <p className="mt-5 text-[34px] font-medium leading-none tracking-[-0.03em]">
-                  {plan.endpoints}
-                  <span className="ml-2 text-[12px] font-normal tracking-normal text-muted">
-                    endpoints
+                <p className="mt-5 flex items-baseline gap-2">
+                  <span className="text-[36px] font-medium leading-none tracking-[-0.03em]">
+                    &#8364;{plan.price}
                   </span>
+                  <span className="text-[12.5px] font-normal text-muted">per month, later</span>
                 </p>
-                <p className="mono mt-2 text-[9px] uppercase tracking-[0.1em] text-olive">
+                <p className="mono mt-2 text-[11px] uppercase tracking-[0.06em] text-olive">
                   {FREE_NOTICE}
                 </p>
-                <p className="mt-3 text-[15px] font-medium leading-6">{plan.summary}</p>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{plan.detail}</p>
+                <p className="mt-3 text-[13px] leading-6 text-muted">
+                  Now: up to {plan.endpoints} endpoints, free.
+                </p>
+                <p className="mt-3 text-[15.5px] font-medium leading-6">{plan.summary}</p>
+                <p className="mt-2 text-[13.5px] leading-6 text-muted">{plan.detail}</p>
 
                 <dl className="mt-6 border-t border-border">
                   {[
@@ -115,8 +130,8 @@ export default function AccessPage() {
                       key={label}
                       className="flex items-baseline justify-between gap-4 border-b border-border py-2.5"
                     >
-                      <dt className="text-[12.5px] text-muted">{label}</dt>
-                      <dd className="text-right text-[12.5px] font-medium">{value}</dd>
+                      <dt className="text-[13px] text-muted">{label}</dt>
+                      <dd className="text-right text-[13px] font-medium">{value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -129,7 +144,7 @@ export default function AccessPage() {
                   Open a ticket for {plan.name}
                   <span aria-hidden="true">→</span>
                 </Link>
-                <p className="mt-3 text-center text-[11px] leading-5 text-muted">
+                <p className="mt-3 text-center text-[11.5px] leading-5 text-muted">
                   Reviewed by hand. Nothing is charged.
                 </p>
               </div>
@@ -137,8 +152,8 @@ export default function AccessPage() {
           </div>
 
           <p className="mt-6 max-w-3xl text-xs leading-5 text-muted">
-            There is no checkout and no invoice. If the preview ever becomes a paid service, it will
-            be announced in the build log and no existing account will be charged without notice.
+            {PRICING_NOTE} There is no checkout and no invoice. When paid activation opens it will be
+            announced in the build log, and no existing account will be charged without notice.
             Questions about access go to{' '}
             <a href={`mailto:${CONTACT.support}`} className="underline decoration-border-strong">
               {CONTACT.support}
@@ -167,7 +182,7 @@ export default function AccessPage() {
                 key={item}
                 className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4"
               >
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-[14px] leading-6 text-ink-2">{item}</span>
@@ -183,17 +198,17 @@ export default function AccessPage() {
             index="03 / How access works"
             id="steps-heading"
             title="Open a ticket, verify, activate."
-            intro="There is no sign-up and no self-service console during the preview. Each step is done by hand, which is why a ticket is the only way in."
+            intro="There is no sign-up and no self-service console during the preview. Ownership checks and activation are done by hand, so intake is limited by operator time rather than by demand. That is why a ticket is the only way in — and it is also why most requests are answered in order, not instantly."
           />
 
           <ol className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">
             {STEPS.map((item) => (
-              <li key={item.step} className="rounded-[16px] border border-border bg-paper p-6">
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+              <li key={item.step} className="rounded-[10px] border border-border bg-paper p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {item.step}
                 </p>
-                <p className="mt-3 text-[15px] font-medium">{item.title}</p>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{item.detail}</p>
+                <p className="mt-3 text-[15.5px] font-medium">{item.title}</p>
+                <p className="mt-2 text-[13.5px] leading-6 text-muted">{item.detail}</p>
               </li>
             ))}
           </ol>
@@ -212,11 +227,11 @@ export default function AccessPage() {
             <table className="w-full min-w-[620px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-border-strong">
-                  <th scope="col" className="py-3 pr-4 text-[11px] uppercase tracking-[0.1em] text-muted">
+                  <th scope="col" className="py-3 pr-4 text-[11.5px] uppercase tracking-[0.06em] text-muted">
                     Limit
                   </th>
-                  {PLANS.map((plan) => (
-                    <th key={plan.id} scope="col" className="py-3 pr-4 text-[13px] font-medium">
+                  {OFFERED_PLANS.map((plan) => (
+                    <th key={plan.id} scope="col" className="py-3 pr-4 text-[13.5px] font-medium">
                       {plan.name}
                     </th>
                   ))}
@@ -224,61 +239,71 @@ export default function AccessPage() {
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
-                    Cost
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
+                    Now
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       Free
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
+                    Per month, later
+                  </th>
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
+                      &#8364;{plan.price}
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Endpoints
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.endpoints}
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Shortest interval
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.minIntervalSeconds} seconds
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Check history
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.retentionDays} days
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Webhook endpoints
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Status pages
                   </th>
-                  {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1 account page
                     </td>
                   ))}
@@ -308,8 +333,8 @@ export default function AccessPage() {
           <dl className="border-t border-border-strong">
             {PLAN_FAQ.map((item) => (
               <div key={item.question} className="border-b border-border py-5">
-                <dt className="text-[14.5px] font-medium">{item.question}</dt>
-                <dd className="mt-2 max-w-2xl text-[13.5px] leading-6 text-muted">
+                <dt className="text-[15px] font-medium">{item.question}</dt>
+                <dd className="mt-2 max-w-2xl text-[14px] leading-6 text-muted">
                   {item.answer}
                 </dd>
               </div>
