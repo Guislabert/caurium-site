@@ -85,12 +85,12 @@ first, diff the intended change set, and apply only the records required for thi
 ## 2a. Workers Builds Git integration (blocked, dashboard only)
 
 The `caurium-site` Worker also has a Cloudflare Git integration (Workers Builds) attached to
-`main`. It runs on every push alongside the GitHub Actions deploy, and it fails: build
-`0c32a0c9-bc68-4857-b358-bb26c709dd5c` (commit `efb3163`) reported `Detected the following tools
-from environment: nodejs@22.22.3` and stopped at
-`Node.js v22.22.3 is not supported by Astro!`. The repository pins `22.23.4` in both `.nvmrc` and
-`.node-version`, and the Actions job honours it, so the build image is reading a `NODE_VERSION`
-build variable instead of the version files.
+`main`. It runs on every push alongside the GitHub Actions deploy, and it fails: the build for
+commit `efb3163` (29 Oct 2026, 16:12 UTC) reported `Detected the following tools from
+environment: nodejs@22.22.3` and stopped at `Node.js v22.22.3 is not supported by Astro!`. Commit
+`6bc9dd8` reproduced it. The repository pins `22.23.4` in both `.nvmrc` and `.node-version`, and
+the Actions job honours it, so the build image is reading a `NODE_VERSION` build variable instead
+of the version files.
 
 The result is a failed `Workers Builds: caurium-site` check on every `main` commit, next to the
 successful Actions deploy. Branch protection only requires `Check and build`, so merges are not
