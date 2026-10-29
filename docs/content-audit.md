@@ -2,8 +2,8 @@
 
 Every public claim, its stage and its evidence. Update this file whenever copy changes.
 
-Review date: 2026-10-28. Reviewed by: operator (in progress). Promotion evidence is retained in an
-internal record outside this public repository and is never shipped in the site build.
+Review date: 2026-10-29. Reviewed by: operator. Promotion evidence is retained in an internal
+record outside this public repository and is never shipped in the site build.
 
 ## Brand
 
@@ -11,8 +11,8 @@ internal record outside this public repository and is never shipped in the site 
 | --- | --- | --- | --- |
 | “API access, monitoring and recovery.” | `SITE.tagline`, footer, default metadata | positioning statement | No capability implied beyond the four modules. |
 | “Infrastructure with boundaries you can check.” | home H1 | brand line | No capability claim. |
-| “Caurium is building four narrow infrastructure modules: Gate … Probe … Guard … Box. All four are Planned.” | `SITE.description`, hero, page metadata | factual | Four product records in `src/content/products.ts`; no deployment exists. |
-| “Early development. No module is available for use.” | hero, proof strip, footer | factual | All products `planned`; no endpoint, console, key or payment flow. |
+| “Caurium builds narrow infrastructure modules. Probe is in private preview from €19 per month. Gate, Guard and Box are planned.” | `SITE.description`, hero, page metadata | factual | `src/content/products.ts` (Probe `private-preview`, three `planned`) and `src/content/plans.ts`. |
+| “Probe private preview · Manual activation · No SLA.” | hero stage line, footer | factual | Probe worker deployed; activation is by hand; no SLA is published anywhere on the site. |
 
 Retired positioning — “Developer infrastructure & AI connectivity” and “Infrastructure for a
 connected world” — has been removed from the root metadata, manifest and OG card generator. A test
@@ -22,13 +22,13 @@ fails if either phrase returns.
 
 | Section | Claim | Stage | Evidence |
 | --- | --- | --- | --- |
-| Proof strip | Four modules, all Planned | factual | `PRODUCTS`; stage dictionary. |
-| Proof strip | Live endpoints: None | factual | No product deployment. |
+| Proof strip | One live module, three planned | factual | `PRODUCTS`; stage dictionary. |
+| Proof strip | Probe: private preview, manual activation | factual | `products.ts` Probe record; `/pricing/` activation steps. |
 | Proof strip | Status feeds: Not connected | factual | `NEXT_PUBLIC_STATUS_URL` unset. |
-| Proof strip | Last review: 28 Oct 2026 | factual | `SITE.reviewedAt`. |
+| Proof strip | Last review: 29 Oct 2026 | factual | `SITE.reviewedAt`. |
 | 01 Problem | Four failure modes are “design targets, not observed incidents” | intended design | Section states no incident is being described. |
 | 02 Products | Four modules, four narrow jobs | factual | Product records. |
-| 03 Workflow | Connect / Observe / Operate | intended design | Caption says none of it is live today. |
+| 03 Workflow | Connect / Observe / Operate | intended design | Caption states the Probe path is live and Gate, Guard and Box are not. |
 | 04 Principles | One credential per caller; a boundary is not a hidden URL; Unknown is valid; capability requires a record | intended design | Matches module boundaries. |
 | 05 Boundaries | Trust is a boundary, not a badge | factual | Links to `/trust/` register and known gaps. |
 | 06 Documentation | Read what exists before relying on it | factual | Links to overview, stages, security, FAQ. |
@@ -40,7 +40,7 @@ fails if either phrase returns.
 | Product | Stage | Added content | Evidence |
 | --- | --- | --- | --- |
 | Gate | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No deployment. |
-| Probe | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No probe running. |
+| Probe | Private preview | Use case, scope items, 3 design decisions, open questions, FAQs, release criteria, exclusions, pricing | Worker with D1 and a one-minute scheduler; manual activation; no SLA published. |
 | Guard | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No restore recorded. |
 | Box | Planned | Use case, 7 scope items, 3 design decisions, 4 open questions, 5 FAQs, 6 release criteria, 3 exclusions | No instance delivered. |
 
@@ -55,8 +55,8 @@ product page says so above both sections.
 
 | Group | Claims | Label |
 | --- | --- | --- |
-| Current state | Four modules; all Planned; no account, console, key, payment or contact form; static Workers hosting; no first-party tracking; monitoring not connected | Fact |
-| Module design | Gate one upstream; Probe authorized targets; Guard restore evidence; Box container isolation | Planned |
+| Current state | Four modules; Probe in private preview, three planned; no account, console or key; no card field on the site; static Workers hosting; no first-party tracking; site-wide monitoring feed not connected | Fact |
+| Module design | Gate one upstream; Probe authorized targets; Guard restore evidence; Box container isolation | Planned / Intended design |
 | Proposed material | Product examples are contracts, not endpoints; status only from sanitized checks | Intended design |
 | Missing items | No security reporting channel; no legal entity or governing law | Known gap |
 
@@ -79,7 +79,7 @@ states that the register wins if it disagrees with any other copy.
 | Fig. 01 — roadmap architecture (four modules and boundaries) | home | “Illustrative example — not a live service.” + `Planned` badge |
 | Workflow (Connect / Observe / Operate) | home | “What you would see … None of this is live today.” |
 | Fig. 06 — service boundaries | `/architecture/` | “Planned architecture — illustrative, not a deployed system.” + `Current` / `Planned` legend |
-| Product workflow lists and spec panel | each product page | `Planned` badge; intended workflow |
+| Product workflow lists and spec panel | each product page | Stage badge per record — `Private preview` for Probe, `Planned` for the rest; intended workflow |
 | Gate curl example | `/products/gate/` | “Proposed request contract — subject to change”, `api.example.com`, `YOUR_API_KEY` |
 | Probe status example | `/products/probe/` | “Proposed schema — subject to change”; feed not connected |
 | Guard backup manifest | `/products/guard/` | “Proposed manifest — subject to change”; `lastVerifiedAt: null` |
@@ -99,14 +99,14 @@ states that the register wins if it disagrees with any other copy.
 
 | Page | Claims | Basis |
 | --- | --- | --- |
-| `/docs/overview/` | Public / product / management domains are separate; all modules Planned | Architecture invariants; no product deployment |
+| `/docs/overview/` | Public / product / management domains are separate; Probe in private preview, three modules Planned | Architecture invariants; Probe deployment record |
 | `/docs/product-stages/` | Stage definitions, permitted CTA and promotion rules | `src/content/products.ts`; no promotion record exists |
-| `/docs/security/` | Website static; management separate; credentials, SSRF, sanitized status, container isolation; threat model | Intended design; no product exists. Reporting gap stated explicitly. |
+| `/docs/security/` | Website static; management separate; credentials, SSRF, sanitized status, container isolation; threat model | Intended design; Probe runs but is a private preview. Reporting gap stated explicitly. |
 | `/docs/faq/` | Short answers about availability, price, regions, status and reporting | Restates boundaries; links to the claims register |
 | `/docs/glossary/` | Term definitions used across the site | Product, stage and status records |
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
-| `/privacy/` | No accounts, forms, first-party analytics or cookies; Cloudflare processes request logs | Static build and hosting configuration. No entity invented. |
-| `/terms/` | Informational use only; no offer, service, account or guarantee | All modules Planned; no contract formed. |
+| `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; Cloudflare processes request logs | `src/app/privacy/page.tsx`; Worker storage. No entity invented. |
+| `/terms/` | Preview terms for Probe; no SLA, no uptime percentage, no response-time guarantee | Private preview scope; paid activation requires published entity and governing law. |
 
 ## docs.caurium.tech (separate repository)
 
@@ -116,9 +116,9 @@ It has been rewritten as design documentation:
 
 | Removed | Replaced with |
 | --- | --- |
-| Base managed hosting and named customers | Four module records: Gate, Probe, Guard, Box — all Planned |
+| Base managed hosting and named customers | Four module records: Gate, Probe, Guard, Box — Probe in private preview, three planned |
 | Five regions and residency claims | “No region claim until a deployment exists and is measured” |
-| Prices, plans, billing terms and SLAs | “No price or plan is published”; measured restore duration instead of a promised RTO |
+| Prices, plans, billing terms and SLAs | Probe prices with fixed limits and an explicit no-SLA statement; measured restore duration instead of a promised RTO |
 | `hello@` and `security@` addresses | Explicit known-gap statement; no address is published |
 | Provisioning timelines, invoices, monthly reports | Intended workflow, boundaries and release criteria |
 
@@ -129,11 +129,11 @@ absolute URLs because it is a separate deployment.
 ## Things deliberately absent
 
 - Customers, logos, testimonials, case studies, user counts.
-- Prices, plans, checkout, payment links.
+- Checkout or payment links. Probe prices and limits are published; payment happens off-site after a manual review.
 - Console, login, sign-up, API key, “Get started” buttons that lead nowhere.
 - SLA, response time, certification, benchmark or performance numbers.
 - Region claims for products or probes.
-- Contact page, contact email, contact form, social links and GitHub links (no verified channel).
+- Contact page, contact email, social links and GitHub links. The `/start/` application form is the only intake path.
 - Newsletter, email capture or “notify me” flow.
 - Separately operated network services, their hostnames, addresses or topology.
 
@@ -142,7 +142,7 @@ absolute URLs because it is a separate deployment.
 1. Legal entity, governing law and privacy contact are not established; `/privacy/` and `/terms/`
    say so explicitly.
 2. No security reporting channel is published; `/docs/security/` and `/trust/#gaps` record this gap.
-3. Domain ownership and Cloudflare project are unverified; `NEXT_PUBLIC_SITE_ENV` stays `preview`.
+3. The apex domain is served, but `www.caurium.tech` answers 404 instead of redirecting, and `NEXT_PUBLIC_SITE_ENV` stays `preview` until the entity and support channel are published.
 4. Lighthouse results are not yet recorded; browser acceptance runs are recorded in
    `docs/acceptance.md`.
 5. No operating entity is published. Until it is, `/privacy/` and `/terms/` cannot be treated as
