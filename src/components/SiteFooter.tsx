@@ -53,15 +53,15 @@ export function SiteFooter() {
             Product availability is listed per product. Nothing on this site is a live service
             unless a product page says so.
           </p>
-          <ul className="mt-5 flex flex-col gap-2 text-[13px] text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
+          <ul className="mt-5 flex flex-col text-[13px] text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
             {CONTACT_LINKS.map((item) => (
-              <li key={item.address}>
+              <li key={item.address} className="flex min-h-9 flex-wrap items-center gap-x-1.5">
                 <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {item.label}
                 </span>{' '}
                 <a
                   href={`mailto:${item.address}`}
-                  className="underline decoration-border-strong underline-offset-2 hover:text-accent-ink"
+                  className="inline-flex min-h-9 items-center underline decoration-border-strong underline-offset-2 hover:text-accent-ink"
                 >
                   {item.address}
                 </a>{' '}
@@ -73,7 +73,7 @@ export function SiteFooter() {
             Content reviewed 29 Oct 2026 ·{' '}
             <Link
               href="/build-log/"
-              className="underline decoration-border-strong underline-offset-2 hover:text-accent-ink"
+              className="inline-flex min-h-9 items-center underline decoration-border-strong underline-offset-2 hover:text-accent-ink"
             >
               Build log
             </Link>

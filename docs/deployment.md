@@ -36,6 +36,10 @@ Never reuse production upstream secrets in a preview build; this site needs none
 
 ## 2. Deployment
 
+Pushes to `main` deploy production; pushes to `dev` deploy a preview Worker with no
+custom domain. The mapping and its protections are in
+[`branches.md`](branches.md).
+
 Pushes to `main` deploy automatically. The `deploy` job in
 `.github/workflows/actions.yaml` builds and runs `wrangler deploy --message "<sha> <ref>"`, so the
 Worker version list names the commit that produced it, which the manual flow below did not.

@@ -25,9 +25,9 @@
 | `--ink-2` | `#2F2F2F` | 正文 |
 | `--muted` | `#6B6B6B` | 次级文字 |
 | `--border` | `#E4E4E4` | 常规细线 |
-| `--border-strong` | `#C9C9C9` | 图版/控件边界 |
+| `--border-strong` | `#C9C9C9` | 分隔线、图版边界（不作为控件边界） |
+| `--control-border` | `#9A9A9A` | 输入框/次按钮边界，对纸白 3:1 |
 | `--accent` | `#51A2FF` | 焦点环、标记点、装饰 |
-| `--accent-dark` | `#1F7EE8` | 强调 hover |
 | `--accent-ink` | `#0007CD` | 正文可读链接 / 标题强调（对比度 ≥ 7:1） |
 | `--accent-soft` | `#EAF3FF` | 提示、当前阶段 |
 | `--lime` | `#C9E265` | 仅品牌标记的圆点与页头小点 |
@@ -55,7 +55,7 @@
 | H3 | Geist Variable 400 | 19–24px | 1.2 | -0.02em |
 | Body | Geist Variable 400 | 16px | 1.55 | 0 |
 | Lede | Geist Variable 400 | 16–18px | 1.6 | 0 |
-| 标签 / 按钮 / 元信息 | JetBrains Mono Variable 400 | 10.5–12px | 1.5 | 0.06em, uppercase |
+| 标签 / 按钮 / 元信息 | JetBrains Mono Variable 400 | 11px | 1.5 | 0.06em, uppercase |
 | 代码 | JetBrains Mono Variable 400 | 12.5px | 1.7 | 0 |
 | 词标 | Roboto Slab Variable 600 | 18px | 1 | -0.02em |
 
@@ -71,7 +71,7 @@
 - 桌面 12 列，间距 24px；区块 64 / 88 / 104px。
 - Hero：深色全宽区块，居中窄栏正文（`max-w-3xl`），下方居中放 `Fig. 01` 模块图 + 四列状态条。
 - 分栏区块：`0.72fr / 1.28fr` 等左侧标题、右侧列表；卡片网格用 `gap: 1px` + 底色作分隔线。
-- 文档页：200px 导航 + 720px 正文 + 176px TOC（≥1280px）。
+- 文档页：200px 导航 + 640px 正文 + 176px TOC（≥1280px）。
 
 ## 5. 组件规则
 
@@ -110,7 +110,7 @@
 
 ### 5.6 文档
 
-- 正文最大 720px；H2 前距 40px、H3 前距 28px。
+- 正文最大 `34em`（约 75 字符）；H2 前距 40px、H3 前距 28px。
 - 表头用等宽大写小字 + `--surface` 底。
 - 代码块为 `#171717` 底、浅灰字，支持复制，`tabIndex=0` 可键盘滚动。
 - 左侧导航 sticky；当前页使用左侧 1px 墨色竖线 + 加粗。

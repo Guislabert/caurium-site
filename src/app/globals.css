@@ -105,7 +105,9 @@ h4 {
   font-weight: 400;
 }
 
-p {
+p,
+dd,
+li {
   text-wrap: pretty;
 }
 
@@ -898,6 +900,7 @@ a {
 .doc-prose li {
   color: var(--ink-2);
   line-height: 1.7;
+  text-wrap: pretty;
 }
 
 .doc-prose ul,
@@ -927,6 +930,18 @@ a {
 
 .doc-prose a:hover {
   text-decoration-thickness: 2px;
+}
+
+/* A link that is the whole cell or list item is a target, not prose: it needs a
+   full 24px row. Inline links inside a sentence keep their text flow (and are
+   exempt under WCAG 2.2 SC 2.5.8). */
+.doc-prose td a,
+.doc-prose th a,
+.doc-prose li > a:only-child,
+.doc-prose dd > a:only-child {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
 }
 
 .doc-prose a:not(.text-link):not(.doc-row) {
@@ -1116,6 +1131,7 @@ a {
 .site-footer nav a {
   display: inline-flex;
   min-height: 44px;
+  min-width: 24px;
   align-items: center;
 }
 

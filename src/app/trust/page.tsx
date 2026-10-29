@@ -146,7 +146,7 @@ export default function TrustPage() {
                   <tr key={claim.claim} className="border-b border-border align-top last:border-b-0">
                     <td className="max-w-[320px] px-4 py-3 leading-5">{claim.claim}</td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <Link href={claim.href} className="text-accent-ink hover:underline">
+                      <Link href={claim.href} className="inline-flex min-h-9 items-center text-accent-ink hover:underline">
                         {claim.page}
                       </Link>
                     </td>

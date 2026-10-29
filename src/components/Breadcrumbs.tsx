@@ -8,9 +8,9 @@ export interface Crumb {
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Breadcrumb" className="text-[12px] text-muted">
-      <ol className="flex flex-wrap items-center gap-2">
+      <ol className="flex flex-wrap items-center gap-x-2">
         <li>
-          <Link href="/" className="transition-colors hover:text-foreground">
+          <Link href="/" className="inline-flex min-h-9 items-center transition-colors hover:text-foreground">
             Home
           </Link>
         </li>
@@ -22,9 +22,9 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
                 /
               </span>
               {last || !item.href ? (
-                <span aria-current={last ? 'page' : undefined}>{item.label}</span>
+                <span aria-current={last ? 'page' : undefined} className="inline-flex min-h-9 items-center">{item.label}</span>
               ) : (
-                <Link href={item.href} className="transition-colors hover:text-foreground">
+                <Link href={item.href} className="inline-flex min-h-9 items-center transition-colors hover:text-foreground">
                   {item.label}
                 </Link>
               )}

@@ -1,13 +1,13 @@
 name: CI
 
 on:
+  # Every branch gets the checks; only main gets deployed. A feature branch that
+  # has never been checked is not a branch anyone should merge.
   pull_request:
-    branches:
-      - main
-
   push:
     branches:
       - main
+      - dev
 
 permissions:
   contents: read
@@ -100,6 +100,64 @@ jobs:
 
       - name: Deploy
         run: pnpm exec wrangler deploy --message "$GITHUB_SHA $GITHUB_WORKFLOW_REF"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+  # Same checks, different Worker. `dev` has its own name and no custom domain, so a
+  # broken redesign cannot touch the apex. The production job above is the only one
+  # that deploys caurium-site.
+  deploy-dev:
+    name: Deploy dev preview to Cloudflare Workers
+    needs: check
+    if: >-
+      github.event_name == 'push' && github.ref == 'refs/heads/dev' &&
+      vars.CLOUDFLARE_DEPLOY == 'enabled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: dev-preview
+      url: https://caurium-site-dev.caurium.workers.dev
+    concurrency:
+      group: dev-preview
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Require Cloudflare credentials
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$TOKEN" ] || [ -z "$ACCOUNT" ]; then
+            echo "::error::CLOUDFLARE_DEPLOY is enabled but the Cloudflare credentials are missing."
+            exit 1
+          fi
+
+      - name: Build static export
+        run: pnpm build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://caurium-site-dev.caurium.workers.dev
+          # A preview must never be indexable, whatever the variable says.
+          NEXT_PUBLIC_SITE_ENV: preview
+          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
+          NEXT_PUBLIC_PROBE_URL: ${{ vars.NEXT_PUBLIC_PROBE_URL }}
+
+      - name: Deploy
+        run: pnpm exec wrangler deploy --config wrangler.dev.jsonc --message "dev $GITHUB_SHA $GITHUB_WORKFLOW_REF"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

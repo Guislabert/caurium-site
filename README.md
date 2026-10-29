@@ -31,6 +31,12 @@ The application form at `/start/` posts to the Probe Worker. Cross-origin reques
 `http://localhost:3000` are not accepted by the deployed Worker, so submitting locally fails by
 design until the Worker lists that origin. Everything else works offline.
 
+## Branches and environments
+
+`main` deploys the production Worker; `dev` deploys a separate preview Worker. A branch
+with no Worker of its own gets checks only. See [`docs/branches.md`](docs/branches.md)
+for the mapping, the protection rules and how to run two checkouts side by side.
+
 ## Checks
 
 ```bash
