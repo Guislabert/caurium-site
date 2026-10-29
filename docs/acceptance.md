@@ -21,9 +21,10 @@ Legend: `[ ]` not run · `[x]` pass · `[!]` fail.
       `/start/` application form, and it posts to the deployed Probe Worker.
 - [x] Three mailboxes are published in the footer (`security@`, `support@`, `privacy@`), Email
       Routing is enabled and the MX accepts all three (`RCPT 250`).
-- [ ] End-to-end delivery into the destination mailbox confirmed. `NOT RUN` — every address this
-      host can send from is unauthorised by SPF, so the receiving MX rejected the test at `DATA`
-      (550) before routing. Send one message from an external mailbox to close this.
+- [x] End-to-end delivery into the destination mailbox confirmed by an external send. Cloudflare's
+      Email Routing analytics records `action=forward, status=delivered` at 2026-10-29T01:53:03Z
+      for `security@`. The sender was a third-party mailbox this host does not control, which is
+      what the previous `NOT RUN` required.
 - [x] No contact page or contact form exists; the application form remains the only intake path.
 - [x] Public content contains no private nodes, origin IPs, management addresses, SSH details or
       secrets (enforced by test pattern list and `check:links`).

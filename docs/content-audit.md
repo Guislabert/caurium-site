@@ -105,7 +105,7 @@ states that the register wins if it disagrees with any other copy.
 | `/docs/faq/` | Short answers about availability, price, regions, status and reporting | Restates boundaries; links to the claims register |
 | `/docs/glossary/` | Term definitions used across the site | Product, stage and status records |
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
-| Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`RCPT 250`) and the forwarding rules are enabled. End-to-end delivery to the destination mailbox was **not** confirmed — the sending host is not SPF-authorised for any test domain, so the receiving side refused it before routing. |
+| Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`RCPT 250`), the forwarding rules are enabled, and an external send to `security@` was recorded by Cloudflare as `action=forward, status=delivered` at 2026-10-29T01:53:03Z. `support@` and `privacy@` share the same rule shape and destination but have not had a delivery observed. |
 | `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/app/privacy/page.tsx`, `CONTACT.privacy`; Worker storage. No entity invented. |
 | `/terms/` | Free preview, no prices published; no SLA, uptime percentage or response-time guarantee; liability capped at zero because nothing is paid | Private preview scope; billing would require a published entity and governing law. |
 

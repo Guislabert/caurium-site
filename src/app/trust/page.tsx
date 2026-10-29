@@ -27,12 +27,12 @@ const GAPS = [
   {
     title: 'No public legal entity or governing law',
     detail:
-      'The privacy notice and terms say so explicitly, which is why no payment is accepted. The three contact addresses are published and reachable; what is missing is a named party to hold responsible.',
+      'The privacy notice and terms say so explicitly, which is why no payment is accepted. The three contact addresses are published and all three accept mail at the MX; security@ has had a delivery confirmed. What is missing is a named party to hold responsible.',
   },
   {
     title: 'No published security response commitment',
     detail:
-      'A security address is published and accepts mail. No acknowledgement window, triage process or bug-bounty programme is documented, so no response time is promised.',
+      'A security address is published and delivery to it has been confirmed. No acknowledgement window, triage process or bug-bounty programme is documented, so no response time is promised.',
   },
   {
     title: 'No operating entity behind the prices',
