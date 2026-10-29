@@ -6,10 +6,11 @@
   "name": "caurium-site",
   "compatibility_date": "2026-10-28",
   "main": "src/worker.ts",
-  // The apex is a custom domain on this Worker (created in the dashboard). `www`
-  // needs its own custom-domain attachment: without one, DNS has nothing to answer
-  // for it and src/worker.ts never sees the request it is supposed to redirect.
+  // Both hostnames are custom domains on this Worker. They must be declared here,
+  // not only in the dashboard: deploying a `routes` array replaces the Worker's
+  // custom-domain set, and a hostname left out of it stops resolving.
   "routes": [
+    { "pattern": "caurium.tech", "custom_domain": true },
     { "pattern": "www.caurium.tech", "custom_domain": true }
   ],
   "assets": {
