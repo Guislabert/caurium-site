@@ -29,7 +29,7 @@ test('a stage is only advanced where a deployment exists', () => {
     probe: 'private-preview',
     gate: 'in-development',
     guard: 'in-development',
-    box: 'planned',
+    box: 'in-development',
   };
 
   for (const product of PRODUCTS) {
