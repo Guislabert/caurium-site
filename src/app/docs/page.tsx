@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Documentation',
   description:
-    'Caurium documentation: system concepts, product stages, security boundaries and current availability.',
+    'Caurium documentation: system concepts, the stage dictionary that governs every product page, security boundaries and what is available today.',
   path: '/docs/',
   ogImage: '/og/docs.png',
   ogAlt: 'Caurium documentation — concepts, stages and security boundaries.',
@@ -29,6 +29,16 @@ const DOCS = [
     title: 'Security boundaries',
     detail: 'Public, product and management separation, credentials, logging and reporting.',
   },
+  {
+    href: '/docs/faq/',
+    title: 'FAQ',
+    detail: 'Availability, prices, regions, status data, examples and reporting.',
+  },
+  {
+    href: '/docs/glossary/',
+    title: 'Glossary',
+    detail: 'Module, stage, health, sanitized status, evidence and the other terms used here.',
+  },
 ] as const;
 
 export default function DocsPage() {
@@ -36,9 +46,10 @@ export default function DocsPage() {
     <DocsShell
       current="/docs/"
       title="Understand the system before you use it."
-      description="These documents describe what Caurium is building, what exists today, and where the boundaries are. They are written to stay useful when a product is still Planned."
+      description="These documents describe what Caurium runs today, what is planned, and where the boundaries are. They are written to stay useful when part of the system is still planned."
       toc={[
         { id: 'documents', label: 'Documents' },
+        { id: 'reading-paths', label: 'Reading paths' },
         { id: 'current-state', label: 'Current state' },
         { id: 'not-contained', label: 'What is not here' },
         { id: 'next', label: 'Where to go next' },
@@ -46,14 +57,16 @@ export default function DocsPage() {
     >
       <p>
         Caurium is a small set of infrastructure modules: Gate for controlled API access, Probe for
-        service monitoring, Guard for operational safeguards, and Box for invitation-only
-        development environments. At the time of writing, all four are <strong>Planned</strong>.
-        The public website is the only part that exists as a running build.
+        endpoint monitoring, Guard for operational safeguards, and Box for invitation-only
+        development environments. Probe is in <strong>private preview</strong> with manual
+        activation. Gate, Guard and Box are <strong>Planned</strong>. The public website and the
+        Probe service exist as running builds.
       </p>
 
-      <Callout title="There is no quickstart." tone="warning">
-        There is no callable API, console, account or API key. A quickstart would imply a service
-        that does not exist. The documents below explain concepts, scope and boundaries instead.
+      <Callout title="There is no public quickstart." tone="warning">
+        Probe accounts are activated by hand. There is no self-serve console or public API key
+        issuance. The documents below explain the live status contract, scope and boundaries; the{' '}
+        <Link href="/start/">application form</Link> is the only intake path.
       </Callout>
 
       <h2 id="documents">Documents</h2>
@@ -82,6 +95,39 @@ export default function DocsPage() {
         ))}
       </div>
 
+      <h2 id="reading-paths">Reading paths</h2>
+      <div className="grid gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3">
+        {[
+          {
+            title: 'Evaluating Caurium',
+            detail: 'Overview → Product stages → Security boundaries → FAQ',
+            href: '/docs/overview/',
+          },
+          {
+            title: 'Designing against a contract',
+            detail: 'Product page → Example → Limits → Open questions',
+            href: '/products/',
+          },
+          {
+            title: 'Checking a claim',
+            detail: 'Claims register → Build log → Status',
+            href: '/trust/',
+          },
+        ].map((path) => (
+          <Link
+            key={path.title}
+            href={path.href}
+            className="group bg-background p-5 transition-colors hover:bg-paper"
+          >
+            <p className="text-[14.5px] font-medium leading-5">{path.title}</p>
+            <p className="mt-2 text-[12px] leading-5 text-muted">{path.detail}</p>
+            <span className="mono mt-4 inline-block text-[9px] uppercase tracking-[0.1em] text-accent">
+              Start →
+            </span>
+          </Link>
+        ))}
+      </div>
+
       <h2 id="current-state">Current state</h2>
       <div className="table-scroll">
         <table>
@@ -99,14 +145,19 @@ export default function DocsPage() {
               <td>Brand, roadmap, documentation, legal pages and status page.</td>
             </tr>
             <tr>
-              <th scope="row">Gate, Probe, Guard, Box</th>
-              <td>Planned</td>
-              <td>No module is available for use.</td>
+              <th scope="row">Probe</th>
+              <td>Private preview</td>
+              <td>Manual activation, monthly plans and live customer status pages.</td>
             </tr>
             <tr>
-              <th scope="row">Public monitoring</th>
+              <th scope="row">Gate, Guard, Box</th>
+              <td>Planned</td>
+              <td>Not for sale. No deployment exists.</td>
+            </tr>
+            <tr>
+              <th scope="row">Caurium site-wide feed</th>
               <td>Not connected</td>
-              <td>No live service status or uptime history is published.</td>
+              <td>No Caurium uptime history is published.</td>
             </tr>
           </tbody>
         </table>
@@ -125,7 +176,9 @@ export default function DocsPage() {
         Start with the <Link href="/docs/overview/">system overview</Link>, then read the{' '}
         <Link href="/docs/product-stages/">stage dictionary</Link> before interpreting any product
         label. The <Link href="/docs/security/">security boundaries</Link> page explains how
-        public, product and management access are separated.
+        public, product and management access are separated. For short answers, read the{' '}
+        <Link href="/docs/faq/">FAQ</Link>; for the status of each public claim, read the{' '}
+        <Link href="/trust/">claims register</Link>.
       </p>
     </DocsShell>
   );

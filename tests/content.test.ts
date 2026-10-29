@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
+import { PLANS } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
 import { SITE } from '../src/content/site';
 
@@ -21,14 +22,23 @@ test('every product has a unique id and slug', () => {
   assert.equal(new Set(PRODUCTS.map((p) => p.slug)).size, PRODUCTS.length);
 });
 
-test('every product is Planned and every feature is Planned', () => {
+test('only Probe is offered; Gate, Guard and Box remain Planned', () => {
   for (const product of PRODUCTS) {
-    assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
-    for (const feature of product.features) {
-      assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
+    if (product.id === 'probe') {
+      assert.equal(product.stage, 'private-preview');
+      assert.ok(
+        product.features.some((feature) => feature.stage === 'implemented'),
+        'Probe must record its implemented capabilities',
+      );
+    } else {
+      assert.equal(product.stage, 'planned', `${product.name} must remain Planned without evidence`);
+      for (const feature of product.features) {
+        assert.equal(feature.stage, 'planned', `${product.name}/${feature.id} must remain Planned`);
+      }
     }
   }
   assert.equal(STAGE_LABELS.planned, 'Planned');
+  assert.equal(STAGE_LABELS['private-preview'], 'Private preview');
 });
 
 test('every product answers audience, problem, workflow, limits and next step', () => {
@@ -65,6 +75,81 @@ test('every product states release criteria, exclusions and a labelled example',
         false,
         `${product.name} example must not contain a real hostname`,
       );
+    }
+  }
+});
+
+test('every product publishes a use case, design decisions, open questions and FAQ', () => {
+  for (const product of PRODUCTS) {
+    assert.ok(product.forLine.length > 20, `${product.name} use case`);
+
+    assert.ok(
+      product.designDecisions.length >= 3,
+      `${product.name} needs at least three design decisions`,
+    );
+    for (const decision of product.designDecisions) {
+      assert.ok(decision.title && decision.detail.length > 20, `${product.name} decision`);
+    }
+
+    assert.ok(
+      product.openQuestions.length >= 4,
+      `${product.name} needs at least four open questions`,
+    );
+    assert.ok(product.openQuestions.every((question) => question.endsWith('?')));
+
+    assert.ok(product.faq.length >= 4, `${product.name} needs at least four FAQ entries`);
+    for (const item of product.faq) {
+      assert.ok(item.question.endsWith('?'), `${product.name} FAQ question`);
+      assert.ok(item.answer.length > 20, `${product.name} FAQ answer`);
+    }
+  }
+});
+
+test('retired positioning is not reintroduced', () => {
+  const retired = [
+    'AI connectivity',
+    'Infrastructure for a connected world',
+    'Developer Infrastructure & AI',
+    'Trusted by',
+  ];
+
+  for (const phrase of retired) {
+    assert.equal(
+      sourceText.toLowerCase().includes(phrase.toLowerCase()),
+      false,
+      `retired positioning present: ${phrase}`,
+    );
+  }
+});
+
+test('no contact address is published without a verified mailbox', () => {
+  assert.equal(
+    /[a-z0-9._%+-]+@caurium\.(tech|com)/i.test(sourceText),
+    false,
+    'contact address present',
+  );
+});
+
+test('prices are published only for the Probe plans', () => {
+  assert.deepEqual(
+    PLANS.map((plan) => [plan.id, plan.price]),
+    [
+      ['starter', 19],
+      ['team', 49],
+      ['business', 99],
+    ],
+  );
+  for (const plan of PLANS) {
+    assert.ok(plan.endpoints > 0);
+    assert.ok(plan.minIntervalSeconds >= 60);
+    assert.ok(plan.retentionDays >= 7);
+  }
+  for (const product of PRODUCTS) {
+    const text = JSON.stringify(product.boundaries) + JSON.stringify(product.faq);
+    if (product.id === 'probe') {
+      assert.match(text, /€19/);
+    } else {
+      assert.equal(/[€£]\s?\d/.test(text), false, `${product.name} must not publish a price`);
     }
   }
 });
@@ -128,4 +213,94 @@ test('no credentials or secret-shaped strings in source', () => {
   for (const pattern of patterns) {
     assert.equal(pattern.test(sourceText), false, `secret-shaped string: ${pattern}`);
   }
+});
+
+test('the sitemap lists every route and nothing else', () => {
+  const declared = new Set(
+    [...readFileSync('src/app/sitemap.ts', 'utf8').matchAll(/'(\/[a-z0-9/-]*\/)'/g)].map(
+      (match) => match[1],
+    ),
+  );
+  for (const product of PRODUCTS) declared.add(`/products/${product.slug}/`);
+
+  declared.add('/');
+
+  const routes = new Set<string>(['/']);
+  for (const file of walk('src/app')) {
+    if (!file.endsWith('/page.tsx')) continue;
+    const route = file.replace('src/app', '').replace('/page.tsx', '');
+    if (route.includes('[')) continue;
+    routes.add(`${route.replace(/\/$/, '')}/`.replace(/^\/\//, '/'));
+  }
+  routes.delete('/start/received/');
+  for (const product of PRODUCTS) routes.add(`/products/${product.slug}/`);
+
+  assert.deepEqual([...declared].sort(), [...routes].sort());
+});
+
+test('every referenced Open Graph card exists and is scoped to one section', () => {
+  // Cards are per section, not per page: the docs pages and the two legal notices
+  // deliberately share one card each. A card must not cross section boundaries.
+  const SECTION_OF: Record<string, string> = { privacy: 'legal', terms: 'legal' };
+  function section(path: string): string {
+    const top = path.replace('src/app/', '').split('/')[0];
+    return SECTION_OF[top] ?? top;
+  }
+
+  const used = new Map<string, string>();
+  for (const file of walk('src/app')) {
+    if (!file.endsWith('.tsx')) continue;
+    const text = readFileSync(file, 'utf8');
+    for (const match of text.matchAll(/ogImage:\s*'(\/og\/[a-z-]+\.png)'/g)) {
+      assert.ok(existsSync(`public${match[1]}`), `${file} references missing ${match[1]}`);
+      const previous = used.get(match[1]);
+      if (previous) {
+        assert.equal(
+          section(previous),
+          section(file),
+          `${match[1]} is reused across sections by ${previous} and ${file}`,
+        );
+      }
+      used.set(match[1], file);
+    }
+  }
+  assert.ok(used.size >= 10);
+});
+
+test('the pricing copy does not claim plans differ in check frequency', () => {
+  const intervals = new Set(PLANS.map((plan) => plan.minIntervalSeconds));
+  const pricing = readFileSync('src/app/pricing/page.tsx', 'utf8');
+  if (intervals.size === 1) {
+    assert.equal(
+      /how often they are checked|interval differs|different interval/i.test(pricing),
+      false,
+      'every plan uses one interval, so the page must not claim intervals differ',
+    );
+  }
+});
+
+test('no page promises a response time while terms deny one', () => {
+  const terms = readFileSync('src/app/terms/page.tsx', 'utf8');
+  const deniesCommitment = /No SLA, uptime percentage, response-time guarantee/.test(terms);
+  const promising = [
+    ...sourceText.matchAll(/[^.\n]*\b(within \w+ (?:business|working) day|respond(?:s)? within|reply within)\b[^.\n]*/gi),
+  ].map((match) => match[0].trim());
+
+  if (deniesCommitment) {
+    assert.deepEqual(promising, [], 'the terms deny a response-time commitment');
+  }
+});
+
+test('the CSP allows the origin the application form posts to', () => {
+  const headers = readFileSync('public/_headers', 'utf8');
+  const startPage = readFileSync('src/app/start/page.tsx', 'utf8');
+  const fallback = startPage.match(/caurium-probe\.[a-z.]+workers\.dev/)?.[0];
+  assert.ok(fallback, 'the Probe Worker origin must be discoverable in src/app/start/page.tsx');
+
+  const origin = new URL(`https://${fallback}`).origin;
+  const connect = headers.match(/connect-src ([^;]+);/)?.[1] ?? '';
+  const formAction = headers.match(/form-action ([^;]+);?/)?.[1] ?? '';
+
+  assert.ok(connect.includes(origin), `connect-src must include ${origin}`);
+  assert.ok(formAction.includes(origin), `form-action must include ${origin}`);
 });

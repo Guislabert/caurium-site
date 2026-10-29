@@ -1,13 +1,13 @@
 # Deployment
 
-> Status: not deployed. This document describes the intended Cloudflare Pages setup and the
-> verification steps. It is not a completion report.
+> This document describes the Cloudflare Workers Static Assets setup and the verification steps.
+> It is not a completion report; verify the current deployment in the Cloudflare dashboard.
 
 ## 1. Project settings
 
 | Setting | Value |
 | --- | --- |
-| Hosting product | Cloudflare Pages |
+| Hosting product | Cloudflare Workers Static Assets (`wrangler.jsonc`) |
 | Repository | to be confirmed before creation (do not duplicate an existing project) |
 | Production branch | `main` (protected) |
 | Build command | `pnpm build` |
@@ -34,13 +34,28 @@ NEXT_PUBLIC_STATUS_URL=            # only after a sanitized endpoint exists
 Preview must stay `preview`: the build emits `noindex` metadata and a disallow-all `robots.txt`.
 Never reuse production upstream secrets in a preview build; this site needs none.
 
-## 2. First deployment
+## 2. Deployment
+
+Pushes to `main` deploy automatically. The `deploy` job in
+`.github/workflows/actions.yaml` builds, runs `wrangler deploy --message "<sha> <ref>"`, and then
+submits the built sitemap to IndexNow when the `INDEXNOW_KEY` repository variable is set. The
+Worker version list therefore names the commit that produced it, which the manual flow below did
+not.
+
+Required repository configuration:
+- Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`. Until the token exists the job
+  reports that the deploy was skipped rather than failing the build, so a fork or a fresh
+  clone does not go red.
+- Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
+  optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`
+
+The first manual deployment, if the project does not exist yet:
 
 1. Verify repository ownership and whether a Cloudflare project already exists.
-2. Create a Pages project from the repository. Build command `pnpm build`, output `out`.
+2. Create or confirm the Workers project from the repository. Build with `pnpm build`; `wrangler.jsonc` serves `./out`.
 3. Deploy a preview and check every route against `docs/acceptance.md`.
-4. Bind the custom domain through Pages → Custom domains. Use the product flow; do not hand-write
-   a CNAME to an unknown target.
+4. Bind the custom domain through Workers → Settings → Domains & Routes. Use the product flow; do
+   not hand-write a CNAME to an unknown target.
 5. Add `www` and configure a 301/308 redirect to the apex, preserving path and query string.
 6. Verify the certificate chain, canonical URLs, sitemap, robots, security headers, 404 status and
    the status-page fallback.
@@ -84,7 +99,7 @@ own credentials, limits and storage — not a Next.js Route Handler in a static 
 
 ## 5. Rollback
 
-1. In Cloudflare Pages, redeploy the previous successful deployment.
+1. In Cloudflare Workers, roll back to the previous version or redeploy the previous commit.
 2. Re-check the home page, product stages, navigation, canonical and status fallback.
 3. DNS changes roll back separately; do not assume they follow the deployment.
 4. Record the reason, deployment IDs and verification result.
@@ -92,7 +107,7 @@ own credentials, limits and storage — not a Next.js Route Handler in a static 
 ## 6. Inputs still required before production
 
 - Verified domain ownership and Cloudflare zone access.
-- Confirmed Pages project ownership and production branch.
+- Confirmed Workers project ownership and production branch.
 - Real legal entity, privacy contact and security contact.
 - Decision on whether `NEXT_PUBLIC_STATUS_URL` exists.
 - Lighthouse runs in the target environment (see `docs/acceptance.md`).

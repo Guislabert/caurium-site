@@ -14,7 +14,7 @@ export function SiteHeader() {
           <span className="hidden items-center gap-2 border-l border-border pl-4 xl:inline-flex">
             <span className="h-1.5 w-1.5 rounded-full bg-lime" aria-hidden="true" />
             <span className="mono text-[9.5px] uppercase tracking-[0.14em] text-muted">
-              Early development
+              Probe private preview
             </span>
           </span>
         </div>
@@ -22,12 +22,11 @@ export function SiteHeader() {
         <PrimaryNavigation />
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/docs/"
-            className="btn btn-primary hidden h-10 min-h-10 px-5 text-[13.5px] md:inline-flex"
-          >
-            Read the docs
-          </Link>
+          <div className="hidden md:block">
+            <Link href="/pricing/" className="btn btn-primary btn-compact">
+              See Probe pricing
+            </Link>
+          </div>
           <MobileNavigation />
         </div>
       </div>

@@ -3,37 +3,44 @@ import Link from 'next/link';
 import { Callout } from '@/components/Callout';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHero } from '@/components/PageHero';
+import { StatusExample } from '@/components/StatusExample';
 import { StatusSummary } from '@/components/StatusSummary';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Service status',
   description:
-    'Current Caurium public status. Monitoring is not connected yet; no live status or uptime history is available.',
+    'Caurium site-wide status. The public feed is not connected; this page reports that instead of an uptime history. Probe customer status pages are live.',
   path: '/status/',
   ogImage: '/og/status.png',
-  ogAlt: 'Caurium service status — monitoring not connected.',
+  ogAlt: 'Caurium service status — site-wide feed not connected.',
 });
 
 const COVERAGE = [
   {
     component: 'Website',
     check: 'HTTPS reachability and a stable content marker, every 60 seconds.',
-    coverage: 'Not connected. No history published.',
+    coverage: 'Not connected. No history published. The panel above is an example.',
   },
   {
-    component: 'Gate, Probe, Guard, Box',
+    component: 'Probe customer pages',
+    check: 'Owner-authorized endpoint checks, per account, with a recorded check time.',
+    coverage: 'Live for activated accounts. Not summarized on this page.',
+  },
+  {
+    component: 'Gate, Guard, Box',
     check: 'Only components the operator has verified and chosen to publish.',
-    coverage: 'Not connected. Products are Planned.',
+    coverage: 'Planned. No deployment exists.',
   },
 ] as const;
 
 const RULES = [
-  'More than 180 seconds without a fresh check renders the component Unknown, even if the HTTP request succeeds.',
+  'For this site feed, more than 180 seconds without a fresh check renders the component Unknown, even if the HTTP request succeeds.',
   'A missing, invalid or future-dated timestamp renders Unknown. Updating generatedAt does not refresh an old checkedAt.',
   'A failed publisher cannot reuse a previous green state.',
   'An availability percentage is shown only for a labelled window with complete, valid samples. Missing time is reported as coverage, not as success.',
   'No incident history means no incidents have been published — not that none occurred.',
+  'Probe customer pages use a per-target threshold: three missed intervals plus a minute, with at least three minutes of slack.',
 ] as const;
 
 const CONTRACT = `{
@@ -56,7 +63,7 @@ export default function StatusPage() {
         crumbs={[{ label: 'Status' }]}
         eyebrow="Status"
         title="Service status"
-        description="Public status is published only from sanitized checks with a recorded collection time. When there is no valid data, the page says so instead of showing green."
+        description="Caurium publishes status only from sanitized checks with a recorded collection time. Probe customer pages are live. This site-wide feed is not connected, and says so instead of showing green."
         meta={
           <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
             Feed · Not connected
@@ -73,10 +80,14 @@ export default function StatusPage() {
             </h2>
             <p className="mt-5 max-w-sm text-sm leading-6 text-muted">
               The public status feed is optional. It is not connected to an internal monitoring
-              dashboard, and it does not forward raw monitoring data.
+              dashboard, and it does not forward raw monitoring data. The second panel is a labelled
+              drawing of the layout, not a check.
             </p>
           </div>
-          <StatusSummary endpoint={process.env.NEXT_PUBLIC_STATUS_URL || undefined} />
+          <div className="min-w-0">
+            <StatusSummary endpoint={process.env.NEXT_PUBLIC_STATUS_URL || undefined} />
+            <StatusExample />
+          </div>
         </div>
       </section>
 
@@ -90,7 +101,7 @@ export default function StatusPage() {
               </h2>
             </div>
             <p className="mono max-w-xs text-[9.5px] uppercase tracking-[0.1em] text-muted">
-              0 components · 0 samples · 0 history
+              0 live components · 0 samples · 0 history
             </p>
           </div>
 

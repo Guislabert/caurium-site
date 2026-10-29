@@ -6,9 +6,10 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Privacy',
-  description: 'How the Caurium public website handles data. No accounts, forms, first-party cookies or tracking.',
+  description:
+    'How Caurium handles application details, Probe account data and check metadata. No analytics, advertising cookies or tracking.',
   path: '/privacy/',
-  ogImage: '/og/docs.png',
+  ogImage: '/og/legal.png',
   ogAlt: 'Caurium privacy notice.',
 });
 
@@ -16,68 +17,171 @@ export default function PrivacyPage() {
   return (
     <LegalShell
       title="Privacy"
-      description="This notice describes the public Caurium website. It does not describe a product that has not launched: Gate, Probe, Guard and Box are Planned, and no account, API key or customer data can be created through this site."
+      description="This notice covers the Caurium website and the Probe private preview. It describes the application form, account records, check metadata and public status pages. It does not describe Gate, Guard or Box, which are not offered."
       toc={[
-        { id: 'not-done', label: 'What this site does not do' },
-        { id: 'hosting', label: 'Hosting data' },
-        { id: 'stored', label: 'What is stored' },
-        { id: 'products', label: 'Future products' },
-        { id: 'rights', label: 'Contact and rights' },
+        { id: 'controller', label: 'Who is responsible' },
+        { id: 'collected', label: 'What is collected' },
+        { id: 'why', label: 'Why, and on what basis' },
+        { id: 'public', label: 'Public status data' },
+        { id: 'processors', label: 'Processors' },
+        { id: 'retention', label: 'Retention' },
+        { id: 'cookies', label: 'Cookies and tracking' },
+        { id: 'rights', label: 'Your rights' },
+        { id: 'security', label: 'Security' },
         { id: 'changes', label: 'Changes' },
       ]}
     >
-      <h2 id="not-done">What this site does not do</h2>
+      <h2 id="controller">Who is responsible</h2>
+      <p>
+        Caurium is the project name used by the operator of this site and the Probe service. The
+        operator’s legal name and registered address are not published yet. They must be published
+        before paid activation opens.
+      </p>
+      <p>
+        Until a dedicated privacy address exists, you can send a privacy request through the{' '}
+        <Link href="/start/">application form</Link> with “Privacy request” in the message field and
+        no endpoint details. This is a temporary intake path, not a final contact channel.
+      </p>
+
+      <h2 id="collected">What is collected</h2>
+      <p>When you submit the application form, the Probe service stores:</p>
       <ul>
-        <li>No account registration, login or user profile.</li>
-        <li>No contact form, newsletter signup or file upload.</li>
-        <li>No first-party analytics, advertising pixels or cross-site tracking.</li>
-        <li>No first-party cookies for analytics, advertising or personalization.</li>
-        <li>No payment processing, because no paid service is offered.</li>
+        <li>your name, email address and optional company or project name;</li>
+        <li>the plan you selected, the endpoint URLs and aliases you send, and your message;</li>
+        <li>the time the application was received and its internal status.</li>
+      </ul>
+      <p>For an activated account, Probe also stores:</p>
+      <ul>
+        <li>the account name, contact email, plan, status and webhook URL;</li>
+        <li>the target URL, public alias, expected status, interval and timeout;</li>
+        <li>check records: time, success flag, HTTP status, latency and a short error class;</li>
+        <li>incident records: open time, close time and the last error class.</li>
+      </ul>
+      <p>
+        Response bodies, response headers, API keys and passwords are not collected. Do not put
+        credentials or sensitive material in the application form.
+      </p>
+      <p>
+        Cloudflare, as the hosting provider, processes technical request data such as IP address,
+        user agent, requested URL and timestamp to deliver the site and protect it from abuse. That
+        processing is governed by Cloudflare’s own terms and privacy documentation.
+      </p>
+
+      <h2 id="why">Why, and on what basis</h2>
+      <ul>
+        <li>
+          <strong>To review an application and reply:</strong> steps taken at your request before a
+          contract, and our legitimate interest in operating the intake process.
+        </li>
+        <li>
+          <strong>To provide a Probe account:</strong> performance of the service contract,
+          including checks, incidents, status pages and alerts.
+        </li>
+        <li>
+          <strong>To prevent abuse and secure the service:</strong> our legitimate interest in
+          rejecting unauthorized targets, limiting access and investigating misuse.
+        </li>
+        <li>
+          <strong>To meet legal obligations:</strong> invoices, tax records and responses to lawful
+          requests, where applicable.
+        </li>
+      </ul>
+      <p>We do not sell personal data or use it for advertising.</p>
+
+      <h2 id="public">Public status data</h2>
+      <p>
+        A Probe status page is public to anyone who has its address. It shows the component alias,
+        state, check time and latency. It does not show the target URL, origin address, customer
+        email or raw error. Choose an alias that is safe to publish.
+      </p>
+      <p>
+        The JSON feed exposes the same fields as the HTML page. Search engines are asked not to
+        index customer status pages, but the address itself is not a secret and should be treated
+        as public.
+      </p>
+
+      <h2 id="processors">Processors and recipients</h2>
+      <ul>
+        <li>
+          <strong>Cloudflare</strong> hosts the website, the Probe Worker, the D1 database and
+          operational logs. Data is processed in Cloudflare’s network, including the region where
+          the D1 database is provisioned.
+        </li>
+        <li>
+          <strong>Stripe</strong> will process payment details if and when paid activation opens.
+          Card details are never entered on this site or stored by Probe.
+        </li>
+        <li>
+          <strong>Email delivery</strong> is handled by the operator’s mail provider when replying
+          to an application. The provider is not published yet.
+        </li>
+        <li>
+          <strong>Webhook delivery</strong> sends incident messages to the HTTPS endpoint you
+          configure. That endpoint may be operated by a third party such as Slack, and its own
+          privacy terms apply.
+        </li>
+      </ul>
+      <p>
+        These providers may process data outside your country. Where required, transfers rely on
+        the providers’ contractual safeguards.
+      </p>
+
+      <h2 id="retention">Retention</h2>
+      <ul>
+        <li>Applications that do not become accounts are deleted after 12 months.</li>
+        <li>
+          Check history is kept for 7, 30 or 90 days depending on the plan, then deleted by a daily
+          job.
+        </li>
+        <li>
+          Account details, targets, incidents and webhook settings are kept while the account is
+          active. After cancellation they are deleted within 90 days unless a legal obligation
+          requires longer retention.
+        </li>
+        <li>Hosting logs are retained according to the Cloudflare configuration.</li>
       </ul>
 
-      <h2 id="hosting">Technical data processed by hosting</h2>
+      <h2 id="cookies">Cookies and tracking</h2>
       <p>
-        The site is served by Cloudflare Pages. Like any web host, Cloudflare may process technical
-        request data such as the IP address, user agent, requested URL, referrer, timestamp and
-        approximate country to deliver the site, protect it from abuse and produce aggregate
-        operational logs.
-      </p>
-      <p>
-        That processing is governed by Cloudflare’s own terms and privacy documentation and by the
-        configuration of the Cloudflare account. Caurium does not combine those logs with other
-        sources, build advertising profiles or sell them. Retention is controlled by the hosting
-        configuration rather than by a first-party database.
+        The site sets no first-party analytics, advertising or personalization cookies, and includes
+        no advertising pixels or cross-site tracking. The application form does not use cookies to
+        remember what you typed.
       </p>
 
-      <h2 id="stored">What is stored by Caurium</h2>
+      <h2 id="rights">Your rights</h2>
       <p>
-        The public site has no application database. Build and deployment metadata exists in the
-        hosting and source-control providers used to publish the site. It is used to operate and
-        roll back deployments, not to profile visitors.
+        Depending on your jurisdiction, you may request access to your personal data, correction,
+        deletion, restriction, portability or objection to processing. You may also withdraw
+        consent where processing relies on it, without affecting processing that already took place.
       </p>
-
-      <h2 id="products">Future products</h2>
       <p>
-        If a product begins collecting account, billing or usage data, this page will be replaced
-        before that collection starts, with the actual categories, purposes, retention and deletion
-        method. A planned product must not inherit this page’s description.
+        Use the temporary intake described above. You also have the right to complain to a data
+        protection authority in your country. A dedicated privacy contact and the operator’s
+        identity will be published before paid activation.
       </p>
-
-      <h2 id="rights">Contact and rights</h2>
-      <Callout title="No contact channel is published yet." tone="warning">
-        The operating entity and a working privacy contact will be published before the site
-        accepts personal data through a form or account. Until then, do not send personal or
-        sensitive data through any public channel.
+      <Callout title="A dedicated privacy contact is still missing." tone="warning">
+        The operator identity and a working privacy address are release blockers, not footnotes.
+        Until they are published, do not send identity documents, credentials or sensitive personal
+        data through any public channel.
       </Callout>
+
+      <h2 id="security">Security</h2>
+      <p>
+        Access to the Probe database and administration endpoints requires a secret held by the
+        operator. Public status output is limited to the fields described above. Targets are
+        restricted to public HTTP endpoints, and private hosts and unsafe redirects are rejected.
+      </p>
 
       <h2 id="changes">Changes</h2>
       <p>
-        Material changes will update the date above. Because there are no accounts, there is no
-        email list to notify; the page itself is the notice.
+        Material changes will update the date above and be recorded in the build log. Because there
+        is no newsletter, the page itself is the notice.
       </p>
 
       <p>
-        See also <Link href="/terms/">Terms</Link> and <Link href="/docs/security/">Security boundaries</Link>.
+        See also <Link href="/terms/">Terms</Link>,{' '}
+        <Link href="/products/probe/">Probe boundaries</Link> and{' '}
+        <Link href="/trust/">Trust &amp; claims</Link>.
       </p>
     </LegalShell>
   );

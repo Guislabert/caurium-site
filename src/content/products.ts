@@ -32,6 +32,16 @@ export interface ProductExample {
   note: string;
 }
 
+export interface DesignDecision {
+  title: string;
+  detail: string;
+}
+
+export interface ProductFaq {
+  question: string;
+  answer: string;
+}
+
 export interface ProductRecord {
   id: 'gate' | 'probe' | 'guard' | 'box';
   slug: string;
@@ -42,12 +52,16 @@ export interface ProductRecord {
   stage: ProductStage;
   metaDescription: string;
   audience: string;
+  forLine: string;
   problem: string;
   workflow: WorkflowStep[];
   workflowCaption: string;
   scopeNote: string;
   features: ScopeFeature[];
   releaseCriteria: string[];
+  designDecisions: DesignDecision[];
+  openQuestions: string[];
+  faq: ProductFaq[];
   notThis: string[];
   boundaries: Boundary[];
   boundaryTarget: string;
@@ -70,7 +84,8 @@ export const STAGE_DESCRIPTIONS: Record<ProductStage, string> = {
   planned: 'A specification or design exists. Availability has not been verified.',
   'in-development': 'An implementation can be inspected, but it is not available to external users.',
   internal: 'Running internally, with a known scope and evidence.',
-  'private-preview': 'Core acceptance passed. Open only to invited users through a real intake process.',
+  'private-preview':
+    'Core acceptance passed. Open through a reviewed intake; accounts are activated by hand.',
   'public-beta': 'Open intake, limits, support and monitoring are in place.',
   available: 'Stable within the documented scope after a formal release review.',
 };
@@ -100,6 +115,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Learn about the planned scope, access controls, and release criteria for Caurium Gate.',
     audience:
       'Small engineering teams that call third-party APIs from more than one service, and need to know which caller did what.',
+    forLine: 'Teams calling one third-party API from several services.',
     problem:
       'API keys spread across services. Nobody can revoke one caller without breaking the others, and a spent quota is discovered only after the bill arrives.',
     workflow: [
@@ -181,6 +197,55 @@ export const PRODUCTS: ProductRecord[] = [
       'Spend protection triggers before the configured ceiling.',
       'The published contract is reproducible from documentation alone.',
     ],
+    designDecisions: [
+      {
+        title: 'Why one upstream',
+        detail:
+          'An open proxy is a security and billing liability. One allow-listed upstream makes the contract testable end to end.',
+      },
+      {
+        title: 'Why per-caller keys',
+        detail:
+          'Revocation has to be local. Rotating a shared key breaks every caller at once.',
+      },
+      {
+        title: 'Why metadata-only logs',
+        detail:
+          'Request bodies create retention and leakage risk without improving routing. The log answers “who called what”, not “what did they say”.',
+      },
+    ],
+    openQuestions: [
+      'Which upstream ships first, and who authorizes it?',
+      'Is streaming supported on the target runtime, or does the first release buffer?',
+      'What is the default metadata retention: 7, 14 or 30 days?',
+      'Which region, if any, will the first deployment run in?',
+    ],
+    faq: [
+      {
+        question: 'Can I call Gate today?',
+        answer: 'No. Gate is Planned. There is no endpoint, key or console.',
+      },
+      {
+        question: 'What happens when quota is exhausted?',
+        answer:
+          'The intended behavior is a 429 before the request reaches the upstream.',
+      },
+      {
+        question: 'Are request bodies logged?',
+        answer:
+          'Not by default. The intended record is metadata only: request ID, endpoint, status, latency and usage.',
+      },
+      {
+        question: 'Is Gate an open proxy?',
+        answer:
+          'No. Callers cannot supply a destination URL; one allow-listed upstream is configured per deployment.',
+      },
+      {
+        question: 'Is streaming supported?',
+        answer:
+          'Not claimed. It must be tested on the target runtime before it is offered.',
+      },
+    ],
     notThis: [
       'An open proxy for arbitrary URLs.',
       'A model or API reseller.',
@@ -220,138 +285,251 @@ export const PRODUCTS: ProductRecord[] = [
     role: 'Observe',
     title: 'Know when your services need attention.',
     summary:
-      'Planned: scheduled availability and TLS checks for endpoints you own or are authorized to monitor.',
-    stage: 'planned',
+      'Private preview: scheduled HTTP checks, a three-failure incident rule, one webhook, and a sanitized status page. Accounts are activated by hand.',
+    stage: 'private-preview',
     metaDescription:
-      'Explore the planned availability and TLS monitoring workflow, data boundaries, and release criteria for Caurium Probe.',
+      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month.',
     audience:
-      'Teams responsible for endpoints they own or are explicitly authorized to monitor.',
+      'Small teams that own public HTTP endpoints and want a status page and a webhook alert without operating the checker themselves.',
+    forLine: 'Teams responsible for public endpoints they own or are authorized to monitor.',
     problem:
-      'A service is slow from only one region, or a certificate expires on a Sunday, and the first report comes from a customer.',
+      'A deploy breaks the checkout endpoint at night. The first report is a customer message, and the status page is a green page nobody remembered to update.',
     workflow: [
       {
-        title: 'Check on a schedule',
+        title: 'Send the endpoints you own',
         detail:
-          'A probe requests a fixed endpoint and records HTTP status, time to response headers, TLS certificate validity and the time of the check.',
+          'Apply with the URLs and aliases you want checked. We confirm ownership, agree the interval and activate the account by hand before monitoring starts.',
       },
       {
-        title: 'Evaluate a short window',
+        title: 'Checks run on a fixed schedule',
         detail:
-          'Three consecutive failures open an event. A recovery closes it. Missing or stale data is shown as Unknown, never as success.',
+          'Probe requests each target on its interval, records the status code and latency, follows at most three redirects and re-validates every hop. Response bodies are discarded.',
       },
       {
-        title: 'Publish a sanitized state',
+        title: 'Three failures open an incident',
         detail:
-          'A separate publisher exposes only an alias, coarse region, state and timestamps. It has no scanning capability or management credentials.',
+          'The status page turns Outage and the account webhook receives one message. The first successful check closes the incident and sends one recovery message.',
       },
     ],
-    workflowCaption: 'A fixed target is measured, evaluated over a window, and reduced to sanitized state.',
+    workflowCaption:
+      'You send a fixed target list; Probe checks it, reduces it to state, and alerts one webhook on change.',
     scopeNote:
-      'No Probe capability is verified yet. The first release is limited to a fixed endpoint list and does not accept anonymous arbitrary URLs.',
+      'Probe is running in private preview. Every account is reviewed and activated by hand. There is no self-serve console, and no endpoint is checked until ownership is confirmed.',
     features: [
       {
         id: 'checks',
-        label: 'HTTP(S) and TLS checks',
+        label: 'HTTP status and latency',
         detail:
-          'Status code, response time and certificate expiry, each recorded with its collection time.',
-        stage: 'planned',
+          'Expected status, actual status and time to response, recorded with the check time. Response bodies and headers are not stored.',
+        stage: 'implemented',
       },
       {
         id: 'fixed-targets',
-        label: 'Fixed endpoint list',
+        label: 'Fixed, owner-authorized targets',
         detail:
-          'Only endpoints you own or are authorized to monitor. No public URL scanner.',
-        stage: 'planned',
+          'Only endpoints you own or are authorized to monitor. There is no anonymous URL scanner.',
+        stage: 'implemented',
       },
       {
         id: 'cadence',
-        label: 'Explicit initial cadence',
+        label: '60–3600 second cadence',
         detail:
-          'Every 60 seconds, 10 second total timeout, event after three consecutive failures. These are initial values, not an SLA.',
-        stage: 'planned',
+          'Each target is checked once per minute, with a 10 second timeout. The scheduler runs every minute, so 60 seconds is the shortest interval the service can honour.',
+        stage: 'implemented',
+      },
+      {
+        id: 'incidents',
+        label: 'Three-failure incident rule',
+        detail:
+          'Three consecutive failures open one incident. One success closes it. Duplicate open or recovery messages are suppressed.',
+        stage: 'implemented',
+      },
+      {
+        id: 'alerts',
+        label: 'One HTTPS webhook per account',
+        detail:
+          'Incident opened and recovered messages post to a Slack-compatible or custom HTTPS endpoint. Email alerts are not available.',
+        stage: 'implemented',
       },
       {
         id: 'public-status',
         label: 'Sanitized public status',
         detail:
-          'Public data excludes origin IPs, internal hostnames, full check URLs and raw error stacks.',
-        stage: 'planned',
+          'A JSON feed and an HTML page show alias, state, check time and latency. Origin URLs and raw errors are never published.',
+        stage: 'implemented',
       },
       {
         id: 'ssrf',
-        label: 'SSRF boundaries',
+        label: 'Private-network rejection',
         detail:
-          'DNS resolution, redirects and connect boundaries block localhost, private ranges, link-local addresses and cloud metadata endpoints.',
+          'Localhost, private IPv4 literals, metadata hostnames, .local and .internal names are rejected before a request is made. Every redirect hop is checked again.',
+        stage: 'implemented',
+      },
+      {
+        id: 'staleness',
+        label: 'Unknown when a check is stale',
+        detail:
+          'A missing or out-of-date check renders Unknown. The threshold is three missed slots plus a minute, with at least three minutes of slack.',
+        stage: 'implemented',
+      },
+      {
+        id: 'tls',
+        label: 'TLS expiry checks',
+        detail:
+          'Certificate expiry is not read yet. It stays out of the offer until it is implemented and verified.',
         stage: 'planned',
       },
       {
         id: 'separation',
-        label: 'Collector and publisher separated',
+        label: 'Separate collector and publisher',
         detail:
-          'The publishing side has no ability to scan and no management credentials.',
-        stage: 'planned',
-      },
-      {
-        id: 'staleness',
-        label: 'Unknown when data is stale',
-        detail:
-          'More than 180 seconds without a successful update shows Unknown, including when the publisher itself fails.',
+          'The status endpoint currently shares a Worker with collection. Splitting them is required before a stronger compromise boundary is claimed.',
         stage: 'planned',
       },
     ],
     releaseCriteria: [
-      'A test endpoint returns normal, timeout, error-code and TLS-warning results correctly.',
-      'Three consecutive failures open one event; recovery closes it; duplicate alerts are suppressed.',
+      'Normal, timeout, error-code and redirect results are recorded correctly.',
+      'Three consecutive failures open one incident; recovery closes it; duplicate alerts are suppressed.',
       'Missing or stale data renders Unknown instead of carrying forward a previous green state.',
-      'SSRF boundaries block localhost, private ranges, link-local and metadata endpoints.',
-      'One probe runs in a real region before any single-region claim; two before any multi-region claim.',
-      'The public publisher is verified to have no scan capability or management credentials.',
+      'Private IP literals, localhost, metadata hosts and unsafe redirect hops are rejected.',
+      'A customer status page exposes no origin URL, internal hostname or raw error.',
+      'Payment, activation and cancellation complete end to end for a paying account.',
+    ],
+    designDecisions: [
+      {
+        title: 'Why fixed targets',
+        detail:
+          'An anonymous URL scanner invites abuse and SSRF. A fixed target list makes every check accountable to an owner.',
+      },
+      {
+        title: 'Why three failures',
+        detail:
+          'One missed request is noise. Three consecutive failures are a state change worth waking someone for.',
+      },
+      {
+        title: 'Why a sanitized publisher',
+        detail:
+          'The public status path must not expose origin addresses, internal hostnames or raw errors, even to the account owner’s visitors.',
+      },
+    ],
+    openQuestions: [
+      'Should TLS expiry ship before public beta, or stay a later release?',
+      'Will checks ever run from more than one measured region, and what claim would that support?',
+      'When does the collector split from the status publisher into a separate deployment?',
+      'Which alert channels follow the first HTTPS webhook?',
+      'What is the right refund window for a monthly account?',
+    ],
+    faq: [
+      {
+        question: 'Can I use Probe today?',
+        answer:
+          'Yes, in private preview. Send the endpoints you own; we confirm ownership, agree the interval and activate the account by hand. There is no self-serve signup.',
+      },
+      {
+        question: 'What does Probe cost?',
+        answer:
+          '€19, €49 or €99 per month depending on endpoint count and history. The pricing page lists the exact limits.',
+      },
+      {
+        question: 'Can I monitor any URL?',
+        answer:
+          'No. Only endpoints you own or are authorized to monitor are eligible. We confirm ownership before activation.',
+      },
+      {
+        question: 'How do alerts work?',
+        answer:
+          'One HTTPS webhook per account receives a message when an incident opens and another when it recovers. Email alerts are not available yet.',
+      },
+      {
+        question: 'Is there a public status page?',
+        answer:
+          'Yes. Each account gets a sanitized status page and a JSON feed at a stable address on the Probe host.',
+      },
+      {
+        question: 'What happens when checks stop?',
+        answer:
+          'The component renders Unknown, not green. Missing or stale data is never carried forward as success.',
+      },
+      {
+        question: 'Do you store response bodies?',
+        answer:
+          'No. Probe records status code, latency, check time and a short error class. Bodies and response headers are discarded.',
+      },
     ],
     notThis: [
       'An anonymous URL scanner.',
-      'A replacement for internal application tracing.',
-      'A guarantee that a third-party service will stay online.',
+      'A replacement for application tracing or log aggregation.',
+      'An uptime guarantee or a promise that a third party will stay online.',
     ],
     boundaries: [
       {
-        label: 'Regions',
-        value: 'A region label appears only after a probe actually runs there and the result is reviewed.',
+        label: 'Targets',
+        value: 'Only owner-authorized public endpoints. No anonymous scanning.',
+      },
+      {
+        label: 'Checks',
+        value: 'HTTP status and latency. Bodies are not stored. TLS expiry is not checked yet.',
+      },
+      {
+        label: 'Alerts',
+        value: 'One HTTPS webhook per account. No email, SMS or pager integration.',
       },
       {
         label: 'Public data',
-        value: 'Component alias, coarse region, state and timestamps. No origin IP, internal hostname, full URL or raw error.',
+        value: 'Alias, state, check time and latency. No origin URL, internal hostname or raw error.',
       },
-      { label: 'Retention', value: 'Raw checks 30 days, redacted events 90 days (proposed).' },
-      { label: 'Targets', value: 'Only endpoints you own or are authorized to monitor.' },
-      { label: 'Availability', value: 'Planned. No monitoring is connected on this site.' },
-      { label: 'Uptime', value: 'No verified uptime history exists yet, so no percentage is published.' },
+      {
+        label: 'Retention',
+        value: 'Check history: 7 days on Starter, 30 on Team, 90 on Business.',
+      },
+      {
+        label: 'Regions',
+        value:
+          "Checks run from Cloudflare's network. No selectable region, residency commitment or region label is published.",
+      },
+      {
+        label: 'Certification',
+        value:
+          "No SOC 2, ISO 27001, HIPAA or equivalent. Cloudflare's compliance does not certify this service.",
+      },
+      {
+        label: 'Availability',
+        value: 'Private preview. Manual activation. No SLA and no uptime percentage is published.',
+      },
+      {
+        label: 'Pricing',
+        value: '€19 / €49 / €99 per month. Cancel at the end of the current month.',
+      },
     ],
-    boundaryTarget: 'Authorized endpoints',
+    boundaryTarget: 'Owner-authorized endpoints',
     example: {
-      title: 'Proposed public status shape',
-      language: 'ts',
-      code: `interface PublicStatus {
-  schemaVersion: 1;
-  generatedAt: string;
-  components: {
-    id: string;
-    health: 'operational' | 'degraded' | 'outage'
-          | 'maintenance' | 'unknown';
-    checkedAt: string | null;
-    publishedAt: string;
-    sourceRegion: string | null;
-    coverageNote: string;
-  }[];
+      title: 'Live status contract',
+      language: 'json',
+      code: `{
+  "schemaVersion": 1,
+  "customer": { "slug": "acme", "name": "Acme" },
+  "generatedAt": "2026-10-28T09:00:00.000Z",
+  "components": [
+    {
+      "id": "COMPONENT_ID",
+      "alias": "Checkout API",
+      "state": "operational",
+      "checkedAt": "2026-10-28T08:59:40.000Z",
+      "latencyMs": 88,
+      "statusCode": 200,
+      "error": null
+    }
+  ]
 }`,
-      note: 'Proposed schema — subject to change. The live status page currently reports that monitoring is not connected.',
+      note: 'This is the deployed schema. IDs, customer names and timestamps are illustrative placeholders, not a live account.',
     },
     nextStep: {
-      label: 'Read the status page',
-      href: '/status/',
+      label: 'See Probe pricing',
+      href: '/pricing/',
       detail:
-        'The status page states exactly what is and is not connected today.',
+        'Three monthly plans with fixed endpoint limits, a 60-second cadence and manual activation.',
     },
-    cta: { label: 'View the roadmap', href: '/products/' },
+    cta: { label: 'See pricing', href: '/pricing/' },
     reviewedAt: REVIEWED_AT,
   },
   {
@@ -367,6 +545,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records.',
     audience:
       'Caurium operators first. External teams only after a real permission boundary, interface and support path exist.',
+    forLine: 'Operators who need a restore they can prove.',
     problem:
       'Configuration, credentials and recovery steps live in different places. Nobody knows whether the last backup can actually be restored until it is needed.',
     workflow: [
@@ -448,6 +627,54 @@ export const PRODUCTS: ProductRecord[] = [
       'The management panel is outside the connection path of separately operated services.',
       'Public status remains limited to components the operator has verified and chosen to publish.',
     ],
+    designDecisions: [
+      {
+        title: 'Why restore drills',
+        detail:
+          'An untested backup is a hypothesis. The restore record is the evidence, including the duration and any data gap.',
+      },
+      {
+        title: 'Why manual runbooks first',
+        detail:
+          'Automatic failover without a proven recovery path creates a second failure mode.',
+      },
+      {
+        title: 'Why separate recovery keys',
+        detail:
+          'A stolen backup should not also contain the key that decrypts it.',
+      },
+    ],
+    openQuestions: [
+      'Which asset classes are in the first release?',
+      'What restore duration counts as acceptable?',
+      'Where are recovery keys held, and who can use them?',
+      'Which failures justify automatic action rather than a page?',
+    ],
+    faq: [
+      {
+        question: 'Is Guard a backup product I can buy?',
+        answer:
+          'No. Guard is Planned and starts as an internal operational capability.',
+      },
+      {
+        question: 'Does Guard guarantee a recovery time?',
+        answer:
+          'No. Recovery duration is recorded per restore test, not promised in advance.',
+      },
+      {
+        question: 'Are backups encrypted?',
+        answer:
+          'The intended design encrypts before transfer. No backup has been produced.',
+      },
+      {
+        question: 'Is Guard a compliance certification?',
+        answer: 'No. It is an operational capability, not an audit or a certificate.',
+      },
+      {
+        question: 'Can I access a Guard console?',
+        answer: 'No. No public Guard API or console exists.',
+      },
+    ],
     notThis: [
       'A public secrets API or customer KMS.',
       'A compliance certification.',
@@ -503,6 +730,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments.',
     audience:
       'Known users and trusted projects, admitted by invitation rather than anonymous sign-up.',
+    forLine: 'Invited projects that need a bounded development environment.',
     problem:
       'A shared development server blurs ownership, spreads credentials and cannot be reclaimed cleanly when a project ends.',
     workflow: [
@@ -583,6 +811,53 @@ export const PRODUCTS: ProductRecord[] = [
       'Export, deletion and reclaim steps are tested and recorded.',
       'Isolation is described as container-based shared kernel, never as a microVM.',
       'The instance has no route into management systems or separately operated networks.',
+    ],
+    designDecisions: [
+      {
+        title: 'Why invitation only',
+        detail:
+          'Anonymous code execution changes the threat model. Manual review keeps the trust boundary explicit.',
+      },
+      {
+        title: 'Why isolation is stated plainly',
+        detail:
+          'Shared-kernel containers are not microVMs. The page should not imply an isolation property it does not have.',
+      },
+      {
+        title: 'Why per-instance credentials',
+        detail:
+          'Reclaiming one project must not require rotating every other project.',
+      },
+    ],
+    openQuestions: [
+      'What is the first supported runtime and image format?',
+      'Which egress destinations are allowed by default?',
+      'How long can an instance live before review?',
+      'What does export look like at the end of a project?',
+    ],
+    faq: [
+      {
+        question: 'Can I sign up for Box?',
+        answer: 'No. Box is invitation-only and not open.',
+      },
+      {
+        question: 'Is Box a public code sandbox?',
+        answer: 'No. It does not accept anonymous or unknown workloads.',
+      },
+      {
+        question: 'Is Box a microVM?',
+        answer:
+          'No. Environments are container-based and share a kernel. They are not VM-level isolation.',
+      },
+      {
+        question: 'Can Box reach other Caurium networks?',
+        answer:
+          'No. Egress is defined per instance, and Box is not a route to other networks.',
+      },
+      {
+        question: 'Is there a Box console?',
+        answer: 'No. No public console exists.',
+      },
     ],
     notThis: [
       'A public arbitrary-code sandbox.',

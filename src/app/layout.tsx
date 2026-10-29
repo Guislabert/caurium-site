@@ -7,11 +7,12 @@ import './globals.css';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import { OG_IMAGE, SITE } from '@/content/site';
+import { ORGANIZATION, WEBSITE, jsonLdScript } from '@/lib/jsonld';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Caurium — Developer Infrastructure & AI Connectivity',
+    default: 'Caurium — endpoint monitoring in private preview',
     template: '%s — Caurium',
   },
   description: SITE.description,
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE.name,
-    title: 'Caurium — Developer Infrastructure & AI Connectivity',
+    title: 'Caurium — endpoint monitoring in private preview',
     description: SITE.description,
     url: `${SITE.url.replace(/\/$/, '')}/`,
     locale: 'en_US',
@@ -41,13 +42,13 @@ export const metadata: Metadata = {
         url: `${SITE.url.replace(/\/$/, '')}${OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: 'Caurium — developer infrastructure and AI connectivity.',
+        alt: 'Caurium — endpoint monitoring in private preview.',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Caurium — Developer Infrastructure & AI Connectivity',
+    title: 'Caurium — endpoint monitoring in private preview',
     description: SITE.description,
     images: [`${SITE.url.replace(/\/$/, '')}${OG_IMAGE}`],
   },
@@ -60,14 +61,8 @@ export const viewport: Viewport = {
   colorScheme: 'light',
 };
 
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE.name,
-  url: `${SITE.url.replace(/\/$/, '')}/`,
-  description: SITE.description,
-  inLanguage: 'en',
-};
+const STRUCTURED_DATA = [ORGANIZATION, WEBSITE];
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -81,7 +76,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteFooter />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdScript(STRUCTURED_DATA) }}
         />
       </body>
     </html>

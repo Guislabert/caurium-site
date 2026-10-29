@@ -1,0 +1,90 @@
+[
+  {
+    "date": "2026-10-29",
+    "type": "content",
+    "title": "Three statements corrected to match the shipped state",
+    "detail": "The trust page no longer says the apex domain is unresolved; the application page no longer states a reply deadline the terms contradict; the pricing intro no longer says check frequency varies by plan.",
+    "href": "/trust/",
+    "linkLabel": "Open the claims register"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "release",
+    "title": "The application form works without JavaScript",
+    "detail": "The form is now part of the static HTML and posts natively to the Probe service, which redirects to a confirmation page. Structured data, llms.txt and a per-page sitemap lastmod date were added.",
+    "href": "/start/",
+    "linkLabel": "Open the application form"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "release",
+    "title": "Probe private preview deployed",
+    "detail": "A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.",
+    "href": "/products/probe/",
+    "linkLabel": "Read the Probe boundary"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "content",
+    "title": "Probe pricing and application flow published",
+    "detail": "Three monthly plans at €19, €49 and €99 with fixed endpoint, interval and retention limits. The application form posts to the Probe service; no payment is taken on this site.",
+    "href": "/pricing/",
+    "linkLabel": "See pricing"
+  },
+  {
+    "date": "2026-10-29",
+    "type": "docs",
+    "title": "Probe record moves from Planned to private preview",
+    "detail": "Implemented checks, incident rule, webhook, SSRF rejection and stale-state handling are now listed as implemented. TLS expiry and the split between collector and publisher remain planned.",
+    "href": "/products/probe/",
+    "linkLabel": "Open the Probe record"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "content",
+    "title": "Public copy rewritten around reader questions",
+    "detail": "The home page now starts with the failure modes the modules are designed for, then states what each module would do. All four remain Planned.",
+    "href": "/products/",
+    "linkLabel": "Read the roadmap"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "content",
+    "title": "Claims register published",
+    "detail": "Every public claim now has a page, a stage and an evidence status. Claims without evidence are marked as such.",
+    "href": "/trust/",
+    "linkLabel": "Open the claims register"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "docs",
+    "title": "Documentation aligned with the public stage model",
+    "detail": "Region, price, SLA and contact claims were removed pending evidence. The documentation now describes intended design only.",
+    "href": "/docs/",
+    "linkLabel": "Read the documentation"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "content",
+    "title": "Product pages add use cases, design decisions and open questions",
+    "detail": "Each module page now records why its boundary is drawn where it is, and what is still undecided.",
+    "href": "/products/gate/",
+    "linkLabel": "Open the Gate record"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "content",
+    "title": "Five production blockers recorded",
+    "detail": "Legal entity, security reporting channel, domain verification, Lighthouse results and the operating entity are still open.",
+    "href": "/trust/",
+    "linkLabel": "See the gaps"
+  },
+  {
+    "date": "2026-10-28",
+    "type": "release",
+    "title": "Public site rebuilt around product stages and boundaries",
+    "detail": "The site is a static export. It has no account, API key, payment flow or live product endpoint.",
+    "href": "/architecture/",
+    "linkLabel": "Read the architecture"
+  }
+]
