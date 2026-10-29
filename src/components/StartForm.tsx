@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { PLANS, getPlan, type PlanId } from '@/content/plans';
+import { useEffect, useRef, useState } from 'react';
+import { PLANS, getPlan } from '@/content/plans';
 
 type SubmitState =
   | { kind: 'idle' }
@@ -17,10 +16,16 @@ const FIELD =
 const LABEL = 'mono text-[9px] uppercase tracking-[0.12em] text-muted';
 
 export function StartForm({ endpoint }: { endpoint: string }) {
-  const params = useSearchParams();
-  const requested = getPlan(params.get('plan'));
-  const [plan, setPlan] = useState<PlanId>(requested?.id ?? 'team');
+  const planSelect = useRef<HTMLSelectElement>(null);
   const [state, setState] = useState<SubmitState>({ kind: 'idle' });
+
+  // The pricing page links here with ?plan=. Reading the query string during render
+  // would force the form behind a Suspense boundary and drop it from the static
+  // export, so the select starts on the default plan and is corrected after mount.
+  useEffect(() => {
+    const requested = getPlan(new URLSearchParams(window.location.search).get('plan'));
+    if (requested && planSelect.current) planSelect.current.value = requested.id;
+  }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -95,7 +100,13 @@ export function StartForm({ endpoint }: { endpoint: string }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="card p-6 md:p-8" noValidate={false}>
+    <form
+      method="post"
+      action={`${endpoint.replace(/\/$/, '')}/api/leads`}
+      onSubmit={handleSubmit}
+      className="card p-6 md:p-8"
+      noValidate={false}
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={LABEL} htmlFor="name">
@@ -149,11 +160,11 @@ export function StartForm({ endpoint }: { endpoint: string }) {
             Plan
           </label>
           <select
+            ref={planSelect}
             id="plan"
             name="plan"
             required
-            value={plan}
-            onChange={(event) => setPlan(event.target.value as PlanId)}
+            defaultValue="team"
             className={FIELD}
           >
             {PLANS.map((item) => (

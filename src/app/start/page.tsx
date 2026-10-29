@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import { PageHero } from '@/components/PageHero';
 import { StartForm } from '@/components/StartForm';
 import { PLANS } from '@/content/plans';
@@ -65,15 +64,7 @@ export default function StartPage() {
             </p>
 
             <div className="mt-8">
-              <Suspense
-                fallback={
-                  <div className="card p-6 text-[13px] text-muted md:p-8">
-                    Loading the application form…
-                  </div>
-                }
-              >
-                <StartForm endpoint={PROBE_ENDPOINT} />
-              </Suspense>
+              <StartForm endpoint={PROBE_ENDPOINT} />
             </div>
           </div>
 

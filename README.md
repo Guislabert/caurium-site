@@ -1,10 +1,17 @@
 # Caurium website
 
-Static brand and roadmap site for Caurium — developer infrastructure and AI connectivity.
+The public Caurium website: a static, evidence-first site for infrastructure products.
 
-Built with Next.js App Router (static export), TypeScript and Tailwind CSS. The first delivery
-target is a previewable, honest website MVP: every product is `Planned`, and no page implies a
-service that does not exist.
+Every claim on the site maps to a record in `src/content/`. Probe is in private preview; Gate,
+Guard and Box are `Planned` and are not for sale.
+
+## What this repository is
+
+- A static Next.js App Router export, deployed to Cloudflare Workers Static Assets.
+- The single source of truth for product stages, pricing limits, boundaries and the claims
+  register.
+- Not the product. Probe runs as a separate Worker with its own database and scheduler. There is
+  no runtime, login, payment or API route in this build.
 
 ## Requirements
 
@@ -14,97 +21,109 @@ service that does not exist.
 ## Local development
 
 ```bash
+corepack enable
 pnpm install
 cp .env.example .env.local
-pnpm dev
+pnpm dev            # http://localhost:3000
 ```
 
-Open `http://localhost:3000`.
+The application form at `/start/` posts to the Probe Worker. Cross-origin requests from
+`http://localhost:3000` are not accepted by the deployed Worker, so submitting locally fails by
+design until the Worker lists that origin. Everything else works offline.
 
 ## Checks
 
 ```bash
 pnpm typecheck     # TypeScript
 pnpm lint          # ESLint
-pnpm test          # Content and status-contract tests
+pnpm test          # Content, claims and status-contract tests
 pnpm build         # Static export to out/
-pnpm check:links   # Internal links and forbidden strings in out/
+pnpm check:links   # Internal links, sitemap and forbidden strings in out/
 pnpm check         # All of the above
 ```
 
-`pnpm build` writes a static site to `out/`. There is no server runtime, database, login,
-subscription or API route.
+`pnpm build` writes a static site to `out/`. CI runs the same set on every pull request.
 
 ## Preview the exported site
 
 ```bash
 pnpm build
-pnpm start
+pnpm start         # serves out/ with serve
 ```
 
-`pnpm start` serves `out/` locally with `serve`. For a Cloudflare Workers Static Assets preview, follow
-[`docs/deployment.md`](docs/deployment.md).
+For the Cloudflare Workers Static Assets path, follow [`docs/deployment.md`](docs/deployment.md).
 
 ## Environment
 
 | Variable | Purpose | Default |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap and robots | `https://caurium.tech` (unverified) |
+| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap, robots and the RSS feed | `https://caurium.tech` |
 | `NEXT_PUBLIC_SITE_ENV` | `preview` emits noindex + disallow-all robots; `production` enables indexing | `preview` |
-| `NEXT_PUBLIC_STATUS_URL` | Optional sanitized read-only status endpoint | empty (status shows “not connected”) |
+| `NEXT_PUBLIC_STATUS_URL` | Optional sanitized read-only status feed | empty (status shows “not connected”) |
+| `NEXT_PUBLIC_PROBE_URL` | Origin of the Probe Worker that receives `/start/` applications | `https://caurium-probe.caurium.workers.dev` |
 
 `NEXT_PUBLIC_*` values are embedded in the build. Change one, rebuild, redeploy.
 
-Do not put secrets in `NEXT_PUBLIC_*` or in this repository. The website build requires no product,
+Changing `NEXT_PUBLIC_PROBE_URL` also requires the origin in the `connect-src` and `form-action`
+directives of `public/_headers`; `pnpm test` fails if they disagree.
+
+Do not put secrets in `NEXT_PUBLIC_*` or in this repository. The website build needs no product,
 management or network credentials.
 
 ## Editing content
 
-- `src/content/site.ts` — brand, navigation, hero copy, footer groups, canonical URL.
-- `src/content/products.ts` — the single source of truth for Gate, Probe, Guard and Box stages,
-  scope, boundaries, release criteria, explicit exclusions and examples. Home, product pages,
-  docs and metadata all read from here.
-- `scripts/generate-brand.mjs` — generates the v1 rounded-square C mark, favicons, app icons and
-  the per-page Open Graph cards in `public/og/`. Run `pnpm brand` after changing the mark geometry;
-  keep it in sync with `src/components/Logo.tsx`.
-- `src/app/docs/*` — substantive documentation pages.
-- `docs/content-audit.md` — claim-to-evidence mapping. Update it with any content change.
-- Internal promotion evidence and the brand/business plan are retained outside this public
-  repository and are never copied to `public/` or `out/`.
+| File | Holds |
+| --- | --- |
+| `src/content/site.ts` | Brand, navigation, hero copy, footer groups, canonical URL, review date |
+| `src/content/products.ts` | Gate, Probe, Guard and Box stages, scope, boundaries, release criteria, exclusions, examples |
+| `src/content/plans.ts` | Probe prices, endpoint limits, interval, retention |
+| `src/content/claims.ts` | The `/trust/` claims register: page, stage, evidence |
+| `src/content/build-log.json` | Dated entries; `pnpm feed` renders them to RSS |
+| `docs/content-audit.md` | Claim-to-evidence mapping, updated with any copy change |
 
-A product stage may only change when its acceptance evidence is recorded. A feature that ships
-does not promote sibling features or the module itself.
+Home, product pages, pricing, docs and metadata all read from these records. A product stage may
+only change when its acceptance evidence is recorded; a shipped feature does not promote its
+siblings or the module.
+
+Internal promotion evidence and the brand plan are kept outside this public repository and are
+never copied to `public/` or `out/`.
 
 ## Design and boundaries
 
-- Visual direction: v1 editorial engineering — warm paper and off-white surfaces, navy ink,
-  violet as the action colour, lime as the evidence marker, rounded figure cards, mono metadata
-  and the v1 rounded-square C mark.
+- Visual direction: warm paper and off-white surfaces, navy ink, violet as the action colour, lime
+  as the evidence marker, mono metadata, and the rounded-square C mark.
 - Type: Roboto Slab for display, Inter for text, JetBrains Mono for metadata; self-hosted through
-  the `@fontsource-variable/*` packages.
-- Design tokens live in `src/app/globals.css`; the reasoning is recorded in
+  the `@fontsource-variable/*` packages. Tokens live in `src/app/globals.css`; the reasoning is in
   [`docs/design-system.md`](docs/design-system.md).
-- No fabricated customers, logos, testimonials, metrics, uptime, SLAs, prices, certifications or
-  live consoles.
+- No fabricated customers, logos, testimonials, metrics, uptime, SLAs, certifications or live
+  consoles.
 - The public site has no path to management, product APIs or separately operated network services.
-- All illustrative diagrams and example APIs are labelled. Every product example carries a
-  “Proposed … subject to change” note; diagrams carry an “Illustrative example” note.
-- The brand and business plan is an internal document and is not published in this repository.
+- Illustrative diagrams and example APIs are labelled. Product examples carry a “Proposed …
+  subject to change” note; diagrams carry an “Illustrative example” note.
 
 ## Structure
 
 ```text
-src/app/            routes (home, products, architecture, docs, status, legal, 404)
+src/app/            routes (home, products, pricing, start, architecture, docs, status, legal, 404)
 src/components/     shell, navigation, diagrams, product records, docs and legal layout
-src/content/        site and product records
-src/lib/            metadata and status-contract validation
-public/             four-node mark, icons, per-page OG cards, _headers, manifest
-docs/               brand, design, deployment, content audit, acceptance, release evidence
-scripts/            brand generation and build-output link checks
+src/content/        site, product, plan, claim and build-log records
+src/lib/            metadata, JSON-LD and status-contract validation
+public/             mark, icons, per-page OG cards, _headers, manifest, RSS feed
+docs/               design, deployment, content audit, acceptance record
+scripts/            brand generation, RSS generation and build-output checks
 tests/              content invariants and status-contract tests
 ```
 
 ## Current state
 
-All four products are `Planned`. Monitoring is not connected. No account, console, API key,
-payment flow or contact form exists. See `docs/acceptance.md` for the verification record.
+Probe is a private preview activated by hand at €19, €49 or €99 per month. Monitoring for this
+site is not connected, so `/status/` reports Unknown. Gate, Guard and Box are `Planned`. There is
+no console, API key, checkout or self-serve signup. The build stays `noindex` until the operating
+entity and support channel are published.
+
+See [`docs/acceptance.md`](docs/acceptance.md) for the verification record and
+[`docs/content-audit.md`](docs/content-audit.md) for the evidence behind every claim.
+
+## License
+
+MIT. See [`LICENSE.md`](LICENSE.md).
