@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import test from 'node:test';
-import { PLANS } from '../src/content/plans';
+import { FREE_NOTICE, OFFERED_PLANS, PLANS, PRICING_NOTE } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
 import { CONTACT } from '../src/content/site';
 
@@ -164,32 +164,34 @@ test('only the three published mailboxes appear, and they are the ones in CONTAC
   }
 });
 
-test('no price is published anywhere, because the preview is free', () => {
-  // A free, application-only preview has nothing to price. A euro figure on any
-  // page would assert a charge that does not exist.
+test('every published price is labelled as not yet charged', () => {
+  // Prices are real figures for paid activation, which has not opened. That is only
+  // honest if the free-preview qualifier travels with the number on every surface.
+  assert.equal(PRICING_NOTE.includes('Nothing is charged during the preview'), true);
+  assert.equal(FREE_NOTICE.includes('Free during the private preview'), true);
+
+  // Sizes that are no longer offered must not be sold.
+  assert.deepEqual(OFFERED_PLANS.map((plan) => plan.id), ['team', 'business']);
   for (const plan of PLANS) {
-    assert.equal('price' in plan, false, `${plan.name} must not carry a price`);
+    assert.ok(plan.price >= 39, `${plan.name} must not undercut the manual review cost`);
     assert.ok(plan.endpoints > 0);
     assert.ok(plan.minIntervalSeconds >= 60);
     assert.ok(plan.retentionDays >= 7);
   }
 
-  const rendered = walk('src/app')
-    .filter((file) => file.endsWith('.tsx'))
-    .map((file) => readFileSync(file, 'utf8'))
-    .join('\n');
-  const content = [
-    readFileSync('src/content/plans.ts', 'utf8'),
-    readFileSync('src/content/faq.ts', 'utf8'),
-    JSON.stringify(PRODUCTS),
-  ].join('\n');
+  const access = readFileSync('src/app/access/page.tsx', 'utf8');
+  assert.match(access, /\{FREE_NOTICE\}/, 'the cards must carry the free notice');
+  assert.match(access, /\{PRICING_NOTE\}/, 'the page must state when prices apply');
 
-  for (const [label, text] of [['routes', rendered], ['content', content]]) {
-    assert.equal(
-      /[€£]\s?\d/.test(text),
-      false,
-      `${label} must not publish a price while the preview is free`,
-    );
+  // A euro figure outside the access page would be a price without its qualifier.
+  for (const file of walk('src/app')) {
+    if (!file.endsWith('.tsx')) continue;
+    const text = readFileSync(file, 'utf8');
+    const hasEuro = /[€]\s?\d/.test(text);
+    if (hasEuro) {
+      assert.equal(file, 'src/app/access/page.tsx', `${file} shows a price outside the priced page`);
+      assert.match(text, /FREE_NOTICE|PRICING_NOTE/, `${file} must qualify its price`);
+    }
   }
 });
 

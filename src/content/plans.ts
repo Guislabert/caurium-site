@@ -3,6 +3,12 @@ export type PlanId = 'starter' | 'team' | 'business';
 export interface Plan {
   id: PlanId;
   name: string;
+  /**
+   * Monthly price in euro, exclusive of VAT. Not charged today: no billing entity
+   * is published yet, so the preview is free. The figure is the price that applies
+   * once paid activation opens.
+   */
+  price: number;
   endpoints: number;
   minIntervalSeconds: number;
   retentionDays: number;
@@ -12,15 +18,21 @@ export interface Plan {
 }
 
 /**
- * The preview is free and admission is by application, so there are no prices
- * here. A plan selects the endpoint count and the check-history retention; it is
- * a size, not a purchase. Every number is enforced by the Probe worker or by the
- * manual activation checklist, so change it in the same commit as the worker.
+ * Three sizes, two of them shown. `starter` still exists because active accounts
+ * use it and the worker enforces its limits; it is no longer offered, because a
+ * ten-endpoint account costs more to review by hand than it returns.
+ *
+ * Prices are what applies once paid activation opens. Nothing is charged while the
+ * preview runs, and every surface must say so next to the figure. The numbers are
+ * enforced by the manual activation checklist, so change them in the same commit
+ * as the checklist.
  */
 export const PLANS: Plan[] = [
   {
     id: 'starter',
     name: 'Starter',
+    /** Grandfathered for existing accounts; no longer offered. */
+    price: 39,
     endpoints: 10,
     minIntervalSeconds: 60,
     retentionDays: 7,
@@ -31,6 +43,7 @@ export const PLANS: Plan[] = [
   {
     id: 'team',
     name: 'Team',
+    price: 149,
     endpoints: 50,
     minIntervalSeconds: 60,
     retentionDays: 30,
@@ -42,6 +55,7 @@ export const PLANS: Plan[] = [
   {
     id: 'business',
     name: 'Business',
+    price: 399,
     endpoints: 200,
     minIntervalSeconds: 60,
     retentionDays: 90,
@@ -95,8 +109,14 @@ export const PLAN_FAQ = [
 
 export const PLAN_INTERVAL_LABEL = (seconds: number) => `Every ${seconds}s`;
 
-/** Stated wherever a plan is offered, because no plan is sold. */
+/** Stated wherever a plan is offered, because no plan is sold yet. */
 export const FREE_NOTICE = 'Free during the private preview';
+
+/** The sizes that are actually offered. `starter` stays for existing accounts only. */
+export const OFFERED_PLANS = PLANS.filter((plan) => plan.id !== 'starter');
+
+export const PRICING_NOTE =
+  'Prices apply once paid activation opens. Nothing is charged during the preview.';
 
 export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((plan) => plan.id === id);

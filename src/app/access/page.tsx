@@ -2,7 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { SectionHeading } from '@/components/SectionHeading';
-import { FREE_NOTICE, PLANS, PLAN_FAQ, PLAN_INCLUDES, PLAN_INTERVAL_LABEL } from '@/content/plans';
+import {
+  FREE_NOTICE,
+  OFFERED_PLANS,
+  PLAN_FAQ,
+  PLAN_INCLUDES,
+  PLAN_INTERVAL_LABEL,
+  PRICING_NOTE,
+} from '@/content/plans';
 import { CONTACT } from '@/content/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -74,7 +81,7 @@ export default function AccessPage() {
           />
 
           <div className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">
-            {PLANS.map((plan) => (
+            {OFFERED_PLANS.map((plan) => (
               <div
                 key={plan.id}
                 className={`relative flex flex-col rounded-[12px] border p-6 md:p-7 ${
@@ -92,14 +99,17 @@ export default function AccessPage() {
                 <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Probe · {plan.name}
                 </p>
-                <p className="mt-5 text-[34px] font-medium leading-none tracking-[-0.03em]">
-                  {plan.endpoints}
-                  <span className="ml-2 text-[12.5px] font-normal tracking-normal text-muted">
-                    endpoints
+                <p className="mt-5 flex items-baseline gap-2">
+                  <span className="text-[36px] font-medium leading-none tracking-[-0.03em]">
+                    &#8364;{plan.price}
                   </span>
+                  <span className="text-[12.5px] font-normal text-muted">per month, later</span>
                 </p>
                 <p className="mono mt-2 text-[11px] uppercase tracking-[0.06em] text-olive">
                   {FREE_NOTICE}
+                </p>
+                <p className="mt-3 text-[13px] leading-6 text-muted">
+                  Now: up to {plan.endpoints} endpoints, free.
                 </p>
                 <p className="mt-3 text-[15.5px] font-medium leading-6">{plan.summary}</p>
                 <p className="mt-2 text-[13.5px] leading-6 text-muted">{plan.detail}</p>
@@ -138,8 +148,8 @@ export default function AccessPage() {
           </div>
 
           <p className="mt-6 max-w-3xl text-xs leading-5 text-muted">
-            There is no checkout and no invoice. If the preview ever becomes a paid service, it will
-            be announced in the build log and no existing account will be charged without notice.
+            {PRICING_NOTE} There is no checkout and no invoice. When paid activation opens it will be
+            announced in the build log, and no existing account will be charged without notice.
             Questions about access go to{' '}
             <a href={`mailto:${CONTACT.support}`} className="underline decoration-border-strong">
               {CONTACT.support}
@@ -216,7 +226,7 @@ export default function AccessPage() {
                   <th scope="col" className="py-3 pr-4 text-[11.5px] uppercase tracking-[0.06em] text-muted">
                     Limit
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <th key={plan.id} scope="col" className="py-3 pr-4 text-[13.5px] font-medium">
                       {plan.name}
                     </th>
@@ -226,9 +236,9 @@ export default function AccessPage() {
               <tbody>
                 <tr>
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
-                    Cost
+                    Now
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       Free
                     </td>
@@ -236,9 +246,19 @@ export default function AccessPage() {
                 </tr>
                 <tr>
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
+                    Per month, later
+                  </th>
+                  {OFFERED_PLANS.map((plan) => (
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
+                      &#8364;{plan.price}
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Endpoints
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.endpoints}
                     </td>
@@ -248,7 +268,7 @@ export default function AccessPage() {
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Shortest interval
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.minIntervalSeconds} seconds
                     </td>
@@ -258,7 +278,7 @@ export default function AccessPage() {
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Check history
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.retentionDays} days
                     </td>
@@ -268,7 +288,7 @@ export default function AccessPage() {
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Webhook endpoints
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1
                     </td>
@@ -278,7 +298,7 @@ export default function AccessPage() {
                   <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Status pages
                   </th>
-                  {PLANS.map((plan) => (
+                  {OFFERED_PLANS.map((plan) => (
                     <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1 account page
                     </td>
