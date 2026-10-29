@@ -9,9 +9,9 @@ Legend: `[ ]` not run · `[x]` pass · `[!]` fail.
 
 - [x] Gate, Probe, Guard and Box each have purpose, stage, workflow, scope, release criteria,
       exclusions, boundaries, example and a next step.
-- [x] Only Probe is `private-preview`; every product and feature without launch evidence stays
-      `Planned`, and the stage is consistent on home, detail pages, docs and metadata (enforced by
-      `tests/content.test.ts`).
+- [x] Each stage matches a deployment: Probe `private-preview` (deployed, open by application),
+      Gate `in-development` (deployed, not open), Guard and Box `planned` (no worker). Nothing is
+      `available`, because no billing entity exists. Enforced by `tests/content.test.ts`.
 - [x] Planned capabilities, diagrams and proposed APIs carry adjacent English labels. The test
       suite checks that every product example is labelled illustrative or proposed.
 - [x] No fabricated customers, reviews, certifications, regions, user counts, performance or uptime
