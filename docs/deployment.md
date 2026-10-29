@@ -84,9 +84,16 @@ status). The generator uses `sharp`; it is a build-time dependency, not a runtim
   the static Next.js bootstrap), `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`
 - Long cache for `/_next/static/*`, daily cache for `/og/*` and `/brand/*`, revalidation for HTML.
 
-If `NEXT_PUBLIC_STATUS_URL` is configured, add its origin to `connect-src` and keep the policy in
-Report-Only until a preview run shows no breakage. Do not add a fixed CSP nonce without a runtime
-that can generate it.
+The policy already names the Probe Worker origin in `connect-src` and `form-action`, because the
+application form posts there. A test fails if those two disagree with `NEXT_PUBLIC_PROBE_URL`.
+
+If `NEXT_PUBLIC_STATUS_URL` is configured, add its origin to `connect-src`.
+
+Before switching the policy from Report-Only to enforcing, two known violations must clear:
+- Cloudflare injects `https://static.cloudflareinsights.com/beacon.min.js` at the edge, which
+  `script-src 'self' 'unsafe-inline'` blocks. Either allow that origin or disable the automatic
+  Web Analytics injection for this Worker.
+- Do not add a fixed CSP nonce without a runtime that can generate it.
 
 HSTS: enable only on a verified host, starting with a short max-age. Do not add
 `includeSubDomains` or `preload` while unverified subdomains exist.

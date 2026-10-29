@@ -68,8 +68,12 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 - [x] Secret scan and build-output scan find nothing (`check:links` forbidden strings, content test).
 - [x] Static response headers verified on the deployed origin: `X-Content-Type-Options`,
       `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY` and a CSP in Report-Only.
-- [ ] CSP switched from Report-Only to enforcing. `NOT RUN` — `connect-src` must first list the
-      Probe Worker origin that `/start/` posts to.
+- [x] The application form works with JavaScript disabled: Playwright with JS off fills and
+      submits `/start/`, the browser posts natively to the Probe Worker, and lands on
+      `/start/received/` with a 303. Verified against the deployed Worker.
+- [ ] CSP switched from Report-Only to enforcing. `NOT RUN` — the form's endpoint is now allowed,
+      but Cloudflare injects `static.cloudflareinsights.com/beacon.min.js` at the edge, which
+      `script-src` blocks. One of the two has to change first.
 - [ ] `www` redirects to the apex with path and query preserved. `FAIL` — `www.caurium.tech`
       answers 404 while the apex serves the site.
 - [x] No management database, private node control or shared management cookie.
