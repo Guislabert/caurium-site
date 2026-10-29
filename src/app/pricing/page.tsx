@@ -2,16 +2,22 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { SectionHeading } from '@/components/SectionHeading';
-import { PLANS, PLAN_FAQ, PLAN_INCLUDES, PLAN_INTERVAL_LABEL } from '@/content/plans';
+import {
+  PLANS,
+  PLAN_FAQ,
+  PLAN_INCLUDES,
+  PLAN_INTERVAL_LABEL,
+  PRICE_QUALIFIER,
+} from '@/content/plans';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Probe pricing',
   description:
-    'Probe is €19, €49 or €99 per month. HTTP checks, three-failure incidents, webhook alerts and a sanitized status page. Private preview with manual activation.',
+    'Probe runs as a free private preview. Planned prices are €19, €49 or €99 per month for HTTP checks, three-failure incidents, webhook alerts and a sanitized status page.',
   path: '/pricing/',
   ogImage: '/og/pricing.png',
-  ogAlt: 'Caurium Probe pricing — €19, €49 and €99 per month.',
+  ogAlt: 'Caurium Probe pricing — planned €19, €49 and €99 per month; the preview is free.',
 });
 
 const STEPS = [
@@ -23,13 +29,13 @@ const STEPS = [
   },
   {
     step: '02',
-    title: 'We confirm ownership and send a payment link',
+    title: 'We confirm ownership',
     detail:
-      'We check that you control the endpoints, agree the interval and send a Stripe payment link. No card details are entered on this site.',
+      'We check that you control the endpoints and agree the interval. Nothing is charged: the preview is free and no card details are entered anywhere.',
   },
   {
     step: '03',
-    title: 'Monitoring starts after payment',
+    title: 'Monitoring starts after activation',
     detail:
       'We create the account, add the targets and send the status page address and webhook test. Changes are made by hand during the preview.',
   },
@@ -44,8 +50,9 @@ export default function PricingPage() {
         title="One product, three monthly plans."
         description={
           <>
-            Probe is the first Caurium product in private preview. Prices are monthly and include
-            manual activation. Gate, Guard and Box are planned and are not for sale.
+            Probe is the first Caurium product, and it runs as a free private preview. The
+            monthly prices below are planned, not charged. Gate, Guard and Box are planned and are
+            not for sale.
           </>
         }
         meta={
@@ -55,7 +62,7 @@ export default function PricingPage() {
               Private preview
             </span>
             <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
-              Manual activation · No SLA
+              Free preview · Planned prices · No SLA
             </span>
           </>
         }
@@ -95,6 +102,9 @@ export default function PricingPage() {
                   </span>
                   <span className="text-[12px] text-muted">{plan.cadence}</span>
                 </div>
+                <p className="mono mt-2 text-[9px] uppercase tracking-[0.1em] text-olive">
+                  {PRICE_QUALIFIER}
+                </p>
                 <p className="mt-3 text-[15px] font-medium leading-6">{plan.summary}</p>
                 <p className="mt-2 text-[13px] leading-6 text-muted">{plan.detail}</p>
 
@@ -125,15 +135,17 @@ export default function PricingPage() {
                   <span aria-hidden="true">→</span>
                 </Link>
                 <p className="mt-3 text-center text-[11px] leading-5 text-muted">
-                  Payment link sent after ownership is confirmed.
+                  Free while the preview runs. Nothing is charged.
                 </p>
               </div>
             ))}
           </div>
 
           <p className="mt-6 max-w-3xl text-xs leading-5 text-muted">
-            Prices are in euro and exclude VAT where applicable. No plan renews automatically: we
-            send a payment link each month. No free trial is offered during the private preview.
+            These figures are the planned monthly prices in euro, exclusive of VAT where
+            applicable. They are not charged during the preview. When paid activation opens, plans
+            are monthly in advance and no plan renews automatically; existing accounts will be told
+            before anything is charged.
           </p>
         </div>
       </section>
@@ -191,7 +203,7 @@ export default function PricingPage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Price</th>
+                    <th scope="row">Planned price</th>
                     {PLANS.map((plan) => (
                       <td key={plan.id}>€{plan.price} / month</td>
                     ))}

@@ -18,7 +18,7 @@ const NOT_CLAIMED = [
   'No penetration-test result, bug-bounty program or audit report.',
   'No availability guarantee, SLA or response-time commitment.',
   'No customer, logo, testimonial or case study.',
-  'No free tier, and no checkout on this site. Probe prices and limits are listed.',
+  'No checkout on this site, and no charge during the preview. Planned prices and limits are listed.',
   'No region label for a product or probe that has not run there.',
   'No uptime percentage or performance benchmark.',
 ] as const;
@@ -27,22 +27,22 @@ const GAPS = [
   {
     title: 'No public legal entity or governing law',
     detail:
-      'The privacy notice and terms say so explicitly. Paid service cannot be treated as final until the contracting entity is published.',
+      'The privacy notice and terms say so explicitly, which is why no payment is accepted. The privacy, support and security addresses are published and deliver.',
   },
   {
-    title: 'No public security reporting channel',
+    title: 'No published security response commitment',
     detail:
-      'A verified intake process is a release blocker. Until then, do not send credentials or sensitive material through any public channel.',
+      'A security address exists and delivers. What does not exist is a stated acknowledgement window or a bug-bounty programme, so no response time is promised.',
   },
   {
-    title: 'No dedicated support mailbox',
+    title: 'No operating entity behind the prices',
     detail:
-      'Applications are answered from an operator mailbox that is not yet published. A dedicated address is required before public launch.',
+      'Caurium is a project name, not a registered company. The planned prices are published, but nothing is charged until the entity, governing law and a billing contact exist.',
   },
   {
-    title: 'The site is not indexable, and www does not redirect',
+    title: 'The site is not indexable yet',
     detail:
-      'The apex domain serves this site over HTTPS, but the build stays in preview mode with noindex until the operating entity and a support channel are published. www.caurium.tech answers 404 instead of redirecting to the apex.',
+      'The apex serves this site over HTTPS and www redirects to it, but the build stays noindex while no legal entity is published. Indexing turns on when paid activation does, so search traffic is not pointed at a project with no accountable operator.',
   },
   {
     title: 'Payment and activation are manual',

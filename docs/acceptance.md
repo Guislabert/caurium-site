@@ -19,8 +19,9 @@ Legend: `[ ]` not run · `[x]` pass · `[!]` fail.
       are the only prices on the site.
 - [x] No dead “Console”, “Login”, “Get started” or access buttons. The only call to action is the
       `/start/` application form, and it posts to the deployed Probe Worker.
-- [x] No contact email or contact page; the application form is the single intake path, and
-      `/privacy/` states it is a temporary one.
+- [x] Three mailboxes are published in the footer (`security@`, `support@`, `privacy@`) and the
+      MX accepts all three. No contact page or contact form exists; the application form remains
+      the only intake path.
 - [x] Public content contains no private nodes, origin IPs, management addresses, SSH details or
       secrets (enforced by test pattern list and `check:links`).
 
@@ -83,7 +84,9 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 ## 15.5 Production release (T08)
 
 - [ ] Domain ownership, Cloudflare project ownership and deployment permission verified.
-- [ ] Privacy and terms reflect the real entity, purpose and data handling.
+- [ ] Privacy and terms reflect the real entity, purpose and data handling. Partly met: the data
+      handling is described and a privacy address exists; the entity is still unpublished, so the
+      pages describe a free preview and no payment is accepted.
 - [x] HTTPS valid on the apex (Google Trust Services WE1). HTTP redirects to HTTPS.
 - [x] `www` redirects with path and query preserved, no loop. Verified against the deployed
       Worker.

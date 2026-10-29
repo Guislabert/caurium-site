@@ -22,7 +22,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'What does Probe cost?',
     answer:
-      '€19, €49 or €99 per month depending on endpoint count and check-history retention. Every plan checks at 60 seconds. The pricing page lists the exact limits. Gate, Guard and Box have no price because they are not sold.',
+      'Nothing, while the preview runs. The planned prices are €19, €49 or €99 per month depending on endpoint count and check-history retention, and they are not charged: no card is taken and no billing entity is published yet. Every plan checks at 60 seconds. Gate, Guard and Box have no price because they are not sold.',
   },
   {
     question: 'Do you publish regions, SLAs or uptime?',

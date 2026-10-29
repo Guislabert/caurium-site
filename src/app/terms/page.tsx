@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalShell } from '@/components/LegalShell';
+import { CONTACT } from '@/content/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Terms',
   description:
-    'Terms for the Caurium website and the Probe private preview: service scope, fees, acceptable use, data and liability.',
+    'Terms for the Caurium website and the free Probe private preview: service scope, the planned prices, acceptable use, data and liability.',
   path: '/terms/',
   ogImage: '/og/legal.png',
   ogAlt: 'Caurium website and Probe service terms.',
@@ -79,23 +80,27 @@ export default function TermsPage() {
 
       <h2 id="fees">Fees and cancellation</h2>
       <ul>
-        <li>Probe costs €19, €49 or €99 per month depending on the plan you choose.</li>
         <li>
-          Prices are exclusive of VAT and other taxes where applicable. The amount due is confirmed
-          before activation.
+          <strong>The private preview is free.</strong> No payment is requested, no card is taken
+          and no invoice is issued.
         </li>
         <li>
-          Payment is monthly and in advance. No plan renews automatically: we issue a payment
-          request before each month. Monitoring pauses if the next month is not paid.
+          The figures on the pricing page — €19, €49 or €99 per month — are the planned prices. They
+          are not a charge in force. Paid activation will open only after the operating entity,
+          governing law and a billing contact are published.
         </li>
         <li>
-          You may cancel before the next monthly payment. Monitoring continues until the end of the
-          month already paid and then stops. We do not provide pro-rata refunds for partial months,
-          except where mandatory law requires one.
+          When paid activation opens, plans are monthly and in advance, exclusive of VAT where
+          applicable, and no plan renews automatically: a payment request is issued before each
+          month. Existing accounts will be told before anything is charged.
         </li>
         <li>
-          We do not add endpoints or charge overages automatically. If the endpoint count or
-          interval exceeds the plan, you choose whether to upgrade or remove targets.
+          You may stop using the service at any time by emailing the support address. Because
+          nothing is charged during the preview, cancelling costs nothing.
+        </li>
+        <li>
+          If an account exceeds its plan limits, it is not charged for the excess. We raise it and
+          you choose whether to move up or remove targets.
         </li>
       </ul>
 
@@ -168,10 +173,21 @@ export default function TermsPage() {
 
       <h2 id="identity">Identity and law</h2>
       <p>
-        Caurium is the project name. The operator’s legal name, registered address, governing law
-        and a dedicated support contact must be published before paid activation opens. Until those
-        details are published, this page describes the intended service terms and no payment is
-        requested or accepted.
+        Caurium is the name this project publishes under. It is not a registered company name. The
+        operator’s legal name, registered address and governing law are not published yet, and they
+        must be published before paid activation opens. Until then no payment is requested or
+        accepted, and these terms describe a free preview rather than a contract of sale.
+      </p>
+      <p>
+        Questions about these terms go to{' '}
+        <a href={`mailto:${CONTACT.support}`} className="underline decoration-border-strong">
+          {CONTACT.support}
+        </a>
+        . Security reports go to{' '}
+        <a href={`mailto:${CONTACT.security}`} className="underline decoration-border-strong">
+          {CONTACT.security}
+        </a>
+        .
       </p>
 
       <h2 id="changes">Changes</h2>

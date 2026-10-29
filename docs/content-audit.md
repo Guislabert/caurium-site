@@ -11,7 +11,7 @@ record outside this public repository and is never shipped in the site build.
 | --- | --- | --- | --- |
 | “API access, monitoring and recovery.” | `SITE.tagline`, footer, default metadata | positioning statement | No capability implied beyond the four modules. |
 | “Infrastructure with boundaries you can check.” | home H1 | brand line | No capability claim. |
-| “Caurium builds narrow infrastructure modules. Probe is in private preview from €19 per month. Gate, Guard and Box are planned.” | `SITE.description`, hero, page metadata | factual | `src/content/products.ts` (Probe `private-preview`, three `planned`) and `src/content/plans.ts`. |
+| “Caurium builds narrow infrastructure modules. Probe runs as a free private preview. Gate, Guard and Box are planned.” | `SITE.description`, hero, page metadata | factual | `src/content/products.ts` (Probe `private-preview`, three `planned`); `src/content/plans.ts` marks `price` as planned. |
 | “Probe private preview · Manual activation · No SLA.” | hero stage line, footer | factual | Probe worker deployed; activation is by hand; no SLA is published anywhere on the site. |
 
 Retired positioning — “Developer infrastructure & AI connectivity” and “Infrastructure for a
@@ -105,8 +105,9 @@ states that the register wins if it disagrees with any other copy.
 | `/docs/faq/` | Short answers about availability, price, regions, status and reporting | Restates boundaries; links to the claims register |
 | `/docs/glossary/` | Term definitions used across the site | Product, stage and status records |
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
-| `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; Cloudflare processes request logs | `src/app/privacy/page.tsx`; Worker storage. No entity invented. |
-| `/terms/` | Preview terms for Probe; no SLA, no uptime percentage, no response-time guarantee | Private preview scope; paid activation requires published entity and governing law. |
+| Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`250`) and the rules are enabled. |
+| `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/app/privacy/page.tsx`, `CONTACT.privacy`; Worker storage. No entity invented. |
+| `/terms/` | Free preview; planned prices are not charged; no SLA, uptime percentage or response-time guarantee | Private preview scope; paid activation requires published entity and governing law. |
 
 ## docs.caurium.tech (separate repository)
 
@@ -129,7 +130,7 @@ absolute URLs because it is a separate deployment.
 ## Things deliberately absent
 
 - Customers, logos, testimonials, case studies, user counts.
-- Checkout or payment links. Probe prices and limits are published; payment happens off-site after a manual review.
+- Checkout, payment links and billing. Planned Probe prices are published; nothing is charged during the preview.
 - Console, login, sign-up, API key, “Get started” buttons that lead nowhere.
 - SLA, response time, certification, benchmark or performance numbers.
 - Region claims for products or probes.
@@ -145,5 +146,5 @@ absolute URLs because it is a separate deployment.
 3. The apex domain is served, but `www.caurium.tech` answers 404 instead of redirecting, and `NEXT_PUBLIC_SITE_ENV` stays `preview` until the entity and support channel are published.
 4. Lighthouse results are not yet recorded; browser acceptance runs are recorded in
    `docs/acceptance.md`.
-5. No operating entity is published. Until it is, `/privacy/` and `/terms/` cannot be treated as
-   final legal notices.
+5. No operating entity is published. Until it is, `/privacy/` and `/terms/` describe a free preview
+   rather than a contract of sale, and no payment is accepted.

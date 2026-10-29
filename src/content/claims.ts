@@ -62,7 +62,7 @@ export const CLAIMS: ClaimRecord[] = [
     evidence: 'GET /status/:slug and GET /api/status/:slug return alias, state, check time and latency only.',
   },
   {
-    claim: 'Probe costs €19, €49 or €99 per month.',
+    claim: 'Probe runs as a free private preview; €19, €49 and €99 per month are the planned prices.',
     page: 'Pricing',
     href: '/pricing/',
     stage: 'fact',

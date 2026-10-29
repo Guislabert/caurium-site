@@ -2,15 +2,24 @@ export const SITE = {
   name: 'Caurium',
   tagline: 'API access, monitoring and recovery.',
   description:
-    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, is in private preview from €19 per month. Gate, Guard and Box are planned.',
+    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, Guard and Box are planned.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
   locale: 'en',
   stageNote:
-    'Probe is in private preview with manual activation. Gate, Guard and Box are planned and not for sale.',
+    'Probe is a free private preview with manual activation. Gate, Guard and Box are planned and not for sale.',
   reviewedAt: '2026-10-29',
-  /** Only set after the address is verified and a real intake process exists. */
-  contactEmail: null as string | null,
   indexable: process.env.NEXT_PUBLIC_SITE_ENV === 'production',
+} as const;
+
+/**
+ * Published mailboxes, verified by a delivery check against the MX records before
+ * being added here. Caurium is presented as a project name; no legal entity is
+ * published, and nothing is charged during the preview.
+ */
+export const CONTACT = {
+  security: 'security@caurium.tech',
+  support: 'support@caurium.tech',
+  privacy: 'privacy@caurium.tech',
 } as const;
 
 export const NAV = [
@@ -63,7 +72,7 @@ export const HERO = {
   eyebrow: 'Caurium · Probe private preview',
   title: 'Infrastructure with boundaries you can check.',
   description:
-    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It is available in private preview from €19 per month. Gate, Guard and Box remain planned.',
+    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview; planned prices start at €19 per month. Gate, Guard and Box remain planned.',
   stage: 'Probe private preview · Manual activation · No SLA',
   primaryCta: { label: 'See Probe pricing', href: '/pricing/' },
   secondaryCta: { label: 'Read the boundary model', href: '/architecture/' },

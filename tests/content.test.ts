@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import test from 'node:test';
 import { PLANS } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
-import { SITE } from '../src/content/site';
+import { CONTACT } from '../src/content/site';
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((entry) => {
@@ -122,12 +122,26 @@ test('retired positioning is not reintroduced', () => {
   }
 });
 
-test('no contact address is published without a verified mailbox', () => {
-  assert.equal(
-    /[a-z0-9._%+-]+@caurium\.(tech|com)/i.test(sourceText),
-    false,
-    'contact address present',
-  );
+test('only the three published mailboxes appear, and they are the ones in CONTACT', () => {
+  const published = new Set(Object.values(CONTACT));
+  assert.deepEqual([...published].sort(), [
+    CONTACT.privacy,
+    CONTACT.security,
+    CONTACT.support,
+  ].sort());
+
+  for (const address of published) {
+    assert.match(address, /^[a-z]+@caurium\.tech$/, `${address} must be on the apex domain`);
+  }
+
+  // Any other address on the domain is unpublished: it would route nowhere.
+  const found = new Set(sourceText.match(/[a-z0-9._%+-]+@caurium\.tech/gi) ?? []);
+  for (const address of found) {
+    assert.ok(
+      published.has(address as never),
+      `${address} is not one of the verified published mailboxes`,
+    );
+  }
 });
 
 test('prices are published only for the Probe plans', () => {
@@ -203,9 +217,12 @@ test('no legacy brand, GitHub links or private node identifiers', () => {
   }
 });
 
-test('no contact page while no verified contact channel exists', () => {
-  assert.equal(SITE.contactEmail, null);
+test('contact details live in the footer, not on a separate contact route', () => {
+  // Three verified mailboxes are enough; a page with a form would need its own
+  // intake, storage and abuse handling, which the static build does not have.
   assert.equal(existsSync('src/app/contact'), false);
+  const footer = readFileSync('src/components/SiteFooter.tsx', 'utf8');
+  assert.match(footer, /mailto:/, 'the footer must expose the published addresses');
 });
 
 test('no credentials or secret-shaped strings in source', () => {

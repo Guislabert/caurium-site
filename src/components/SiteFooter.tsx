@@ -1,5 +1,11 @@
 import Link from 'next/link';
-import { FOOTER_LINKS, SITE } from '@/content/site';
+import { CONTACT, FOOTER_LINKS, SITE } from '@/content/site';
+
+const CONTACT_LINKS = [
+  { label: 'Security', address: CONTACT.security, note: 'vulnerability reports' },
+  { label: 'Support', address: CONTACT.support, note: 'accounts and activation' },
+  { label: 'Privacy', address: CONTACT.privacy, note: 'data requests' },
+] as const;
 
 export function SiteFooter() {
   return (
@@ -46,6 +52,22 @@ export function SiteFooter() {
             Product availability is listed per product. Nothing on this site is a live service
             unless a product page says so.
           </p>
+          <ul className="mt-5 flex flex-col gap-2 text-xs text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
+            {CONTACT_LINKS.map((item) => (
+              <li key={item.address}>
+                <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                  {item.label}
+                </span>{' '}
+                <a
+                  href={`mailto:${item.address}`}
+                  className="underline decoration-border-strong underline-offset-2 hover:text-accent"
+                >
+                  {item.address}
+                </a>{' '}
+                <span className="text-muted/80">— {item.note}</span>
+              </li>
+            ))}
+          </ul>
           <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-muted">
             Content reviewed 29 Oct 2026 ·{' '}
             <Link href="/build-log/" className="underline decoration-border-strong underline-offset-2 hover:text-accent">

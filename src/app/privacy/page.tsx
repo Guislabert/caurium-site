@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Callout } from '@/components/Callout';
 import { LegalShell } from '@/components/LegalShell';
+import { CONTACT } from '@/content/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -33,14 +34,17 @@ export default function PrivacyPage() {
     >
       <h2 id="controller">Who is responsible</h2>
       <p>
-        Caurium is the project name used by the operator of this site and the Probe service. The
-        operator’s legal name and registered address are not published yet. They must be published
-        before paid activation opens.
+        Caurium is the name this project publishes under. It is not a registered company name, and
+        no legal entity, registered address or governing law is published yet. Because of that,
+        nothing on this site is sold: the private preview is free and no payment is requested.
       </p>
       <p>
-        Until a dedicated privacy address exists, you can send a privacy request through the{' '}
-        <Link href="/start/">application form</Link> with “Privacy request” in the message field and
-        no endpoint details. This is a temporary intake path, not a final contact channel.
+        For any question about this notice or your data, write to{' '}
+        <a href={`mailto:${CONTACT.privacy}`} className="underline decoration-border-strong">
+          {CONTACT.privacy}
+        </a>
+        . Include “Privacy request” in the subject and do not send credentials or endpoint details
+        you would not publish.
       </p>
 
       <h2 id="collected">What is collected</h2>
@@ -155,14 +159,14 @@ export default function PrivacyPage() {
         consent where processing relies on it, without affecting processing that already took place.
       </p>
       <p>
-        Use the temporary intake described above. You also have the right to complain to a data
-        protection authority in your country. A dedicated privacy contact and the operator’s
-        identity will be published before paid activation.
+        Write to the privacy address above. You also have the right to complain to a data
+        protection authority in your country. The operator’s legal identity will be published
+        before anything is charged.
       </p>
-      <Callout title="A dedicated privacy contact is still missing." tone="warning">
-        The operator identity and a working privacy address are release blockers, not footnotes.
-        Until they are published, do not send identity documents, credentials or sensitive personal
-        data through any public channel.
+      <Callout title="What is still missing, and why it is safe to use the site" tone="warning">
+        A working privacy address exists, but the legal identity of the operator does not. That is
+        why no payment is accepted. Do not send identity documents, credentials or other sensitive
+        personal data through any public channel — including email.
       </Callout>
 
       <h2 id="security">Security</h2>

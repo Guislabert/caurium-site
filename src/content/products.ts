@@ -288,7 +288,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Private preview: scheduled HTTP checks, a three-failure incident rule, one webhook, and a sanitized status page. Accounts are activated by hand.',
     stage: 'private-preview',
     metaDescription:
-      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month.',
+      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview; planned prices start at €19 per month.',
     audience:
       'Small teams that own public HTTP endpoints and want a status page and a webhook alert without operating the checker themselves.',
     forLine: 'Teams responsible for public endpoints they own or are authorized to monitor.',
@@ -428,7 +428,7 @@ export const PRODUCTS: ProductRecord[] = [
       {
         question: 'What does Probe cost?',
         answer:
-          '€19, €49 or €99 per month depending on endpoint count and history. The pricing page lists the exact limits.',
+          'Free during the preview. Planned prices are €19, €49 or €99 per month depending on endpoint count and history; the pricing page lists the exact limits.',
       },
       {
         question: 'Can I monitor any URL?',
@@ -498,7 +498,7 @@ export const PRODUCTS: ProductRecord[] = [
       },
       {
         label: 'Pricing',
-        value: '€19 / €49 / €99 per month. Cancel at the end of the current month.',
+        value: 'Free during the preview. Planned prices €19 / €49 / €99 per month. Cancel by email at any time.',
       },
     ],
     boundaryTarget: 'Owner-authorized endpoints',

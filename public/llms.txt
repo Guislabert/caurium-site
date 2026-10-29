@@ -1,6 +1,6 @@
 # Caurium
 
-> Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, is in private preview from €19 per month. Gate, Guard and Box are planned.
+> Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, Guard and Box are planned.
 
 Caurium is a small infrastructure project. Only Probe exists, and only as a private
 preview activated by hand. Gate, Guard and Box are planned; no page offers them for
@@ -48,7 +48,7 @@ inventing capabilities.
 ## Products
 
 - Gate (Access) — Planned: Learn about the planned scope, access controls, and release criteria for Caurium Gate. https://caurium.tech/products/gate/
-- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month. https://caurium.tech/products/probe/
+- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview; planned prices start at €19 per month. https://caurium.tech/products/probe/
 - Guard (Operate) — Planned: Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records. https://caurium.tech/products/guard/
 - Box (Build) — Planned: Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments. https://caurium.tech/products/box/
 

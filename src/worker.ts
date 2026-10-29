@@ -10,7 +10,7 @@ export interface Env {
   ASSETS: { fetch: (request: Request) => Promise<Response> };
 }
 
-export default {
+const worker = {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
@@ -24,3 +24,5 @@ export default {
     return env.ASSETS.fetch(request);
   },
 };
+
+export default worker;

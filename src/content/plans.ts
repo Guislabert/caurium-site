@@ -3,6 +3,7 @@ export type PlanId = 'starter' | 'team' | 'business';
 export interface Plan {
   id: PlanId;
   name: string;
+  /** Planned price. Nothing is charged during the private preview. */
   price: number;
   cadence: string;
   endpoints: number;
@@ -17,6 +18,10 @@ export interface Plan {
  * Every number here is enforced by the Probe worker or by the manual
  * activation checklist. If a limit changes in the worker, change it here in
  * the same commit.
+ *
+ * `price` is the planned monthly price. The private preview is free: no payment
+ * is requested and no billing entity is published, so every surface must present
+ * these figures as planned rather than as a charge in force.
  */
 export const PLANS: Plan[] = [
   {
@@ -76,22 +81,22 @@ export const PLAN_FAQ = [
   {
     question: 'How does payment work?',
     answer:
-      'Apply first. We confirm that you own the endpoints, then send a Stripe payment link for the plan you chose. Monitoring starts when the payment completes. Each month is paid separately; no card is stored on this site.',
+      'It does not, yet. The private preview is free: no payment is requested, no card is taken and no billing entity is published. The figures on this page are the planned monthly prices. Paid activation will open only after the operating entity, governing law and a billing contact are published, and existing accounts will be told before anything is charged.',
   },
   {
     question: 'Is there a free trial?',
     answer:
-      'No. Private-preview accounts are activated by hand and paid monthly from the first month.',
+      'The whole private preview is free. There is no trial period, because there is nothing to buy: accounts are activated by hand and cost nothing while the preview runs.',
   },
   {
     question: 'What happens if I go over the endpoint limit?',
     answer:
-      'We do not add endpoints or charge overages automatically. You choose whether to upgrade or disable the extra targets.',
+      'Nothing is charged for it. We tell you the target count exceeds the plan and you choose whether to move up or remove targets.',
   },
   {
     question: 'Can I cancel?',
     answer:
-      'Yes. Cancel before the next monthly payment. Monitoring continues until the end of the paid month and then stops.',
+      'Yes. Ask by email and the account stops at the end of the month you are in. Nothing is charged during the preview, so cancelling costs nothing.',
   },
   {
     question: 'Is there an SLA or uptime guarantee?',
@@ -101,6 +106,9 @@ export const PLAN_FAQ = [
 ] as const;
 
 export const PLAN_INTERVAL_LABEL = (seconds: number) => `Every ${seconds}s`;
+
+/** Set on every surface that shows a figure from PLANS. */
+export const PRICE_QUALIFIER = 'Planned price · preview is free';
 
 export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((plan) => plan.id === id);

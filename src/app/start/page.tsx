@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Apply for Probe',
   description:
-    'Apply for a Probe account. Send the endpoints you own, choose a plan, and we confirm ownership before sending a payment link.',
+    'Apply for a free Probe private-preview account. Send the endpoints you own, choose a plan, and we confirm ownership before activation. Nothing is charged.',
   path: '/start/',
   ogImage: '/og/start.png',
   ogAlt: 'Apply for a Caurium Probe account.',
@@ -85,10 +85,18 @@ export default function StartPage() {
                         {plan.endpoints} endpoints · {plan.minIntervalSeconds}s
                       </span>
                     </span>
-                    <span className="text-[15px] font-medium">€{plan.price}</span>
+                    <span className="text-right">
+                      <span className="block text-[15px] font-medium">€{plan.price}</span>
+                      <span className="mono block text-[8.5px] uppercase tracking-[0.08em] text-muted">
+                        planned
+                      </span>
+                    </span>
                   </li>
                 ))}
               </ul>
+              <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-olive">
+                Preview is free · no card taken
+              </p>
               <Link href="/pricing/" className="link-arrow mt-4">
                 Compare the limits
                 <span aria-hidden="true">→</span>
