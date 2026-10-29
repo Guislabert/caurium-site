@@ -28,7 +28,7 @@ export default function StartPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: 'Pricing', href: '/pricing/' }, { label: 'Apply' }]}
+        crumbs={[{ label: 'Access', href: '/access/' }, { label: 'Apply' }]}
         eyebrow="Probe · Application"
         title="Send the endpoints. We check ownership."
         description={
@@ -86,9 +86,9 @@ export default function StartPage() {
                       </span>
                     </span>
                     <span className="text-right">
-                      <span className="block text-[15px] font-medium">€{plan.price}</span>
+                      <span className="block text-[13px] font-medium">Free</span>
                       <span className="mono block text-[8.5px] uppercase tracking-[0.08em] text-muted">
-                        planned
+                        by application
                       </span>
                     </span>
                   </li>
@@ -97,7 +97,7 @@ export default function StartPage() {
               <p className="mono mt-3 text-[9px] uppercase tracking-[0.1em] text-olive">
                 Preview is free · no card taken
               </p>
-              <Link href="/pricing/" className="link-arrow mt-4">
+              <Link href="/access/" className="link-arrow mt-4">
                 Compare the limits
                 <span aria-hidden="true">→</span>
               </Link>
@@ -142,8 +142,8 @@ export default function StartPage() {
                 'We fetch the endpoints and look for a verification file or DNS record you control. If neither is practical, we ask for another proof rather than guessing.',
               ],
               [
-                'Plan and payment',
-                'We confirm the endpoint count and interval, then send a Stripe payment link. Monitoring starts after payment completes.',
+                'Size and activation',
+                'We confirm the endpoint count and interval. Nothing is charged; monitoring starts once the account is activated by hand.',
               ],
               [
                 'Activation',

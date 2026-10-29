@@ -23,8 +23,8 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <div className="hidden md:block">
-            <Link href="/pricing/" className="btn btn-primary btn-compact">
-              See Probe pricing
+            <Link href="/access/" className="btn btn-primary btn-compact">
+              Apply for access
             </Link>
           </div>
           <MobileNavigation />

@@ -288,7 +288,7 @@ export const PRODUCTS: ProductRecord[] = [
       'Private preview: scheduled HTTP checks, a three-failure incident rule, one webhook, and a sanitized status page. Accounts are activated by hand.',
     stage: 'private-preview',
     metaDescription:
-      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview; planned prices start at €19 per month.',
+      'Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview, opened by application.',
     audience:
       'Small teams that own public HTTP endpoints and want a status page and a webhook alert without operating the checker themselves.',
     forLine: 'Teams responsible for public endpoints they own or are authorized to monitor.',
@@ -428,7 +428,7 @@ export const PRODUCTS: ProductRecord[] = [
       {
         question: 'What does Probe cost?',
         answer:
-          'Free during the preview. Planned prices are €19, €49 or €99 per month depending on endpoint count and history; the pricing page lists the exact limits.',
+          'Free during the private preview. A size sets the endpoint count and the check-history retention; the access page lists the exact limits.',
       },
       {
         question: 'Can I monitor any URL?',
@@ -494,11 +494,11 @@ export const PRODUCTS: ProductRecord[] = [
       },
       {
         label: 'Availability',
-        value: 'Private preview. Manual activation. No SLA and no uptime percentage is published.',
+        value: 'Free private preview, opened by application. No SLA and no uptime percentage is published.',
       },
       {
-        label: 'Pricing',
-        value: 'Free during the preview. Planned prices €19 / €49 / €99 per month. Cancel by email at any time.',
+        label: 'Cost',
+        value: 'Free during the preview, opened by application. Leave by email at any time.',
       },
     ],
     boundaryTarget: 'Owner-authorized endpoints',
@@ -524,12 +524,12 @@ export const PRODUCTS: ProductRecord[] = [
       note: 'This is the deployed schema. IDs, customer names and timestamps are illustrative placeholders, not a live account.',
     },
     nextStep: {
-      label: 'See Probe pricing',
-      href: '/pricing/',
+      label: 'Apply for access',
+      href: '/access/',
       detail:
-        'Three monthly plans with fixed endpoint limits, a 60-second cadence and manual activation.',
+        'Three fixed sizes, a 60-second cadence, free during the preview and opened by application.',
     },
-    cta: { label: 'See pricing', href: '/pricing/' },
+    cta: { label: 'Request access', href: '/access/' },
     reviewedAt: REVIEWED_AT,
   },
   {

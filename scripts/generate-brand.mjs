@@ -180,13 +180,13 @@ const PAGES = {
     footer: 'DOCUMENTATION · REVIEWED 2026-10-29',
     badge: 'REVIEWED 29 OCT',
   },
-  pricing: {
-    kicker: 'Probe · Pricing',
-    title: '€19, €49 or €99 per month.',
+  access: {
+    kicker: 'Probe · Access',
+    title: 'Three sizes. Free, by application.',
     description:
-      'One product, three plans. The same one-minute checks on every plan; endpoints and check history differ. Manual activation, no SLA.',
-    footer: 'PRIVATE PREVIEW · MANUAL ACTIVATION · NO SLA',
-    badge: 'PRIVATE PREVIEW',
+      'The private preview costs nothing. A size sets the endpoint count and how long check history is kept; every size checks every minute.',
+    footer: 'FREE PRIVATE PREVIEW · BY APPLICATION',
+    badge: 'FREE PREVIEW',
   },
   start: {
     kicker: 'Probe · Application',

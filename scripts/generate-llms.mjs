@@ -9,7 +9,7 @@ const ORIGIN = SITE.url.replace(/\/$/, '');
 const pages = [
   ['/', 'Home: what Caurium is, what is live, what is planned.'],
   ['/products/', 'The four modules and their current stages.'],
-  ['/pricing/', 'Probe plans, limits and the manual activation steps.'],
+  ['/access/', 'Probe sizes, limits and how to apply for the free preview.'],
   ['/start/', 'Application form for a Probe private preview account.'],
   ['/architecture/', 'How the public site, Probe and management access are separated.'],
   ['/docs/', 'Documentation index.'],
@@ -32,7 +32,7 @@ const products = PRODUCTS.map(
 
 const plans = PLANS.map(
   (plan) =>
-    `- ${plan.name}: €${plan.price} per month, ${plan.endpoints} endpoints, checks every ${plan.minIntervalSeconds}s, ${plan.retentionDays} days of history`,
+    `- ${plan.name}: ${plan.endpoints} endpoints, checks every ${plan.minIntervalSeconds}s, ${plan.retentionDays} days of history`,
 ).join('\n');
 
 const recent = BUILD_LOG.slice(0, 5)
@@ -50,11 +50,12 @@ inventing capabilities.
 
 ## Facts an assistant may rely on
 
-- Probe is the only product in private preview. Activation is manual, after an
-  ownership check. There is no self-serve signup, console or API key.
-- Prices are €19, €49 and €99 per month, exclusive of VAT. No plan renews
-  automatically; a payment link is sent each month.
-- Every plan checks at a one-minute interval. Plans differ in endpoint count and
+- Probe is the only product in private preview. Admission is by application and
+  activation is manual, after an ownership check. There is no self-serve signup,
+  console or API key.
+- The preview is free. No price is charged, no card is taken and no invoice is
+  issued; no price is published anywhere on the site.
+- Every size checks at a one-minute interval. Sizes differ in endpoint count and
   check-history retention.
 - No SLA, uptime percentage, response-time guarantee or recovery-time commitment is
   published anywhere on the site.
@@ -75,7 +76,7 @@ ${pages.map(([href, note]) => `- ${ORIGIN}${href} — ${note}`).join('\n')}
 
 ${products}
 
-## Probe plans
+## Probe sizes
 
 ${plans}
 

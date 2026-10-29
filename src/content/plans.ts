@@ -3,9 +3,6 @@ export type PlanId = 'starter' | 'team' | 'business';
 export interface Plan {
   id: PlanId;
   name: string;
-  /** Planned price. Nothing is charged during the private preview. */
-  price: number;
-  cadence: string;
   endpoints: number;
   minIntervalSeconds: number;
   retentionDays: number;
@@ -15,32 +12,25 @@ export interface Plan {
 }
 
 /**
- * Every number here is enforced by the Probe worker or by the manual
- * activation checklist. If a limit changes in the worker, change it here in
- * the same commit.
- *
- * `price` is the planned monthly price. The private preview is free: no payment
- * is requested and no billing entity is published, so every surface must present
- * these figures as planned rather than as a charge in force.
+ * The preview is free and admission is by application, so there are no prices
+ * here. A plan selects the endpoint count and the check-history retention; it is
+ * a size, not a purchase. Every number is enforced by the Probe worker or by the
+ * manual activation checklist, so change it in the same commit as the worker.
  */
 export const PLANS: Plan[] = [
   {
     id: 'starter',
     name: 'Starter',
-    price: 19,
-    cadence: 'per month',
     endpoints: 10,
     minIntervalSeconds: 60,
     retentionDays: 7,
     summary: 'One small service, one status page.',
     detail:
-      'For a single product or a handful of endpoints. Checks run every 60 seconds; check history is kept for 7 days.',
+      'For a single product or a handful of endpoints. Up to 10 endpoints, each checked every 60 seconds; check history is kept for 7 days.',
   },
   {
     id: 'team',
     name: 'Team',
-    price: 49,
-    cadence: 'per month',
     endpoints: 50,
     minIntervalSeconds: 60,
     retentionDays: 30,
@@ -52,8 +42,6 @@ export const PLANS: Plan[] = [
   {
     id: 'business',
     name: 'Business',
-    price: 99,
-    cadence: 'per month',
     endpoints: 200,
     minIntervalSeconds: 60,
     retentionDays: 90,
@@ -68,7 +56,7 @@ export const PLAN_INCLUDES = [
   'Three consecutive failures open one incident; the first success closes it',
   'One HTTPS webhook for incident opened and recovered messages',
   'A sanitized HTML status page and JSON feed for your account',
-  'Manual activation and ownership confirmation',
+  'Activation by hand after an ownership check',
   'No response bodies, origin addresses or raw errors published',
 ] as const;
 
@@ -79,24 +67,24 @@ export const PLAN_FAQ = [
       'One URL, one expected HTTP status and one interval. If two paths need separate states, they are two endpoints.',
   },
   {
-    question: 'How does payment work?',
+    question: 'How do I get an account?',
     answer:
-      'It does not, yet. The private preview is free: no payment is requested, no card is taken and no billing entity is published. The figures on this page are the planned monthly prices. Paid activation will open only after the operating entity, governing law and a billing contact are published, and existing accounts will be told before anything is charged.',
+      'Open a ticket from the application form with the endpoints you own. Admission is by ticket during the preview, and we answer to the email you give. Accounts are activated by hand after an ownership check.',
   },
   {
-    question: 'Is there a free trial?',
+    question: 'What does it cost?',
     answer:
-      'The whole private preview is free. There is no trial period, because there is nothing to buy: accounts are activated by hand and cost nothing while the preview runs.',
+      'Nothing. The private preview is free: no payment is requested, no card is taken and no invoice is issued. A plan only selects how many endpoints you can add and how long check history is kept.',
   },
   {
     question: 'What happens if I go over the endpoint limit?',
     answer:
-      'Nothing is charged for it. We tell you the target count exceeds the plan and you choose whether to move up or remove targets.',
+      'Nothing is charged, because nothing is charged at all. We tell you the target count exceeds the plan and you choose whether to move up or remove targets.',
   },
   {
-    question: 'Can I cancel?',
+    question: 'Can I leave?',
     answer:
-      'Yes. Ask by email and the account stops at the end of the month you are in. Nothing is charged during the preview, so cancelling costs nothing.',
+      'Yes. Ask by email and the account and its targets are removed. Nothing is charged during the preview, so leaving costs nothing.',
   },
   {
     question: 'Is there an SLA or uptime guarantee?',
@@ -107,8 +95,8 @@ export const PLAN_FAQ = [
 
 export const PLAN_INTERVAL_LABEL = (seconds: number) => `Every ${seconds}s`;
 
-/** Set on every surface that shows a figure from PLANS. */
-export const PRICE_QUALIFIER = 'Planned price · preview is free';
+/** Stated wherever a plan is offered, because no plan is sold. */
+export const FREE_NOTICE = 'Free during the private preview';
 
 export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((plan) => plan.id === id);

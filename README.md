@@ -8,7 +8,7 @@ Guard and Box are `Planned` and are not for sale.
 ## What this repository is
 
 - A static Next.js App Router export, deployed to Cloudflare Workers Static Assets.
-- The single source of truth for product stages, pricing limits, boundaries and the claims
+- The single source of truth for product stages, plan limits, boundaries and the claims
   register.
 - Not the product. Probe runs as a separate Worker with its own database and scheduler. There is
   no runtime, login, payment or API route in this build.
@@ -76,12 +76,12 @@ management or network credentials.
 | --- | --- |
 | `src/content/site.ts` | Brand, navigation, hero copy, footer groups, canonical URL, review date |
 | `src/content/products.ts` | Gate, Probe, Guard and Box stages, scope, boundaries, release criteria, exclusions, examples |
-| `src/content/plans.ts` | Probe prices, endpoint limits, interval, retention |
+| `src/content/plans.ts` | Probe sizes: endpoint limits, interval, retention. No prices. |
 | `src/content/claims.ts` | The `/trust/` claims register: page, stage, evidence |
 | `src/content/build-log.json` | Dated entries; `pnpm feed` renders them to RSS |
 | `docs/content-audit.md` | Claim-to-evidence mapping, updated with any copy change |
 
-Home, product pages, pricing, docs and metadata all read from these records. A product stage may
+Home, product pages, access, docs and metadata all read from these records. A product stage may
 only change when its acceptance evidence is recorded; a shipped feature does not promote its
 siblings or the module.
 
@@ -104,7 +104,7 @@ never copied to `public/` or `out/`.
 ## Structure
 
 ```text
-src/app/            routes (home, products, pricing, start, architecture, docs, status, legal, 404)
+src/app/            routes (home, products, access, start, architecture, docs, status, legal, 404)
 src/components/     shell, navigation, diagrams, product records, docs and legal layout
 src/content/        site, product, plan, claim and build-log records
 src/lib/            metadata, JSON-LD and status-contract validation
@@ -116,10 +116,13 @@ tests/              content invariants and status-contract tests
 
 ## Current state
 
-Probe is a private preview activated by hand at €19, €49 or €99 per month. Monitoring for this
-site is not connected, so `/status/` reports Unknown. Gate, Guard and Box are `Planned`. There is
-no console, API key, checkout or self-serve signup. The build stays `noindex` until the operating
-entity and support channel are published.
+Probe is a free private preview opened by ticket and activated by hand. No price is published and
+nothing is charged. A size only sets the endpoint count and check-history retention. Monitoring for
+this site is not connected, so `/status/` reports Unknown. Gate, Guard and Box are `Planned`. There
+is no console, API key, checkout or self-serve signup.
+
+This is a presentation site, not an acquisition channel: the build stays `noindex` and `robots.txt`
+disallows everything. There is no IndexNow ping and no sitemap submission.
 
 See [`docs/acceptance.md`](docs/acceptance.md) for the verification record and
 [`docs/content-audit.md`](docs/content-audit.md) for the evidence behind every claim.

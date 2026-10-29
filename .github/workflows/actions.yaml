@@ -103,10 +103,3 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Submit changed URLs to IndexNow
-        if: vars.INDEXNOW_KEY != ''
-        run: pnpm indexnow
-        env:
-          INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
-          NEXT_PUBLIC_SITE_URL: https://caurium.tech

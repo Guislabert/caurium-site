@@ -1,4 +1,3 @@
-import { PLANS } from '@/content/plans';
 import { PRODUCTS } from '@/content/products';
 import { SITE } from '@/content/site';
 
@@ -60,22 +59,11 @@ export function productJsonLd(slug: string) {
     publisher: { '@id': `${ORIGIN}/#organization` },
   };
 
-  if (product.stage !== 'private-preview' && product.stage !== 'available') return base;
-
-  return {
-    ...base,
-    offers: PLANS.map((plan) => ({
-      '@type': 'Offer',
-      name: `${product.name} ${plan.name}`,
-      price: plan.price,
-      priceCurrency: 'EUR',
-      availability:
-        product.stage === 'available'
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/PreOrder',
-      url: `${ORIGIN}/pricing/`,
-    })),
-  };
+  // No Offer is emitted. An Offer asserts that the thing can be bought, and the
+  // preview is free: there is no billing entity and no price is charged. The
+  // planned prices stay on the pricing page as prose, where the qualifier travels
+  // with them.
+  return base;
 }
 
 export function breadcrumbJsonLd(items: { label: string; href?: string }[]) {

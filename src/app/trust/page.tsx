@@ -47,7 +47,7 @@ const GAPS = [
   {
     title: 'Payment and activation are manual',
     detail:
-      'No checkout runs on this site. A Stripe link is sent after ownership is confirmed, and accounts are created by hand.',
+      'No checkout runs on this site and nothing is charged during the preview. Accounts are created by hand after an ownership check.',
   },
 ] as const;
 

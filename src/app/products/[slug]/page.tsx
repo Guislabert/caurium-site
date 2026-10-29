@@ -378,8 +378,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 : `${product.name} is available in private preview. Accounts are reviewed, paid monthly and activated by hand; there is no self-serve console. The stage will change again only after the remaining release criteria are met and recorded.`}
             </p>
             {product.stage !== 'planned' ? (
-              <Link href="/pricing/" className="btn btn-primary mt-4">
-                See pricing
+              <Link href="/access/" className="btn btn-primary mt-4">
+                See access
                 <span aria-hidden="true">→</span>
               </Link>
             ) : null}

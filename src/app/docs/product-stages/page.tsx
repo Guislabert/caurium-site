@@ -123,7 +123,7 @@ export default function ProductStagesPage() {
         customer status pages. Gate, Guard and Box are <strong>Planned</strong>. There is no
         self-serve sign-up, console or public API key issuance. The next step is to read the{' '}
         <Link href="/products/probe/">Probe page</Link>, its{' '}
-        <Link href="/pricing/">pricing</Link>, and the{' '}
+        <Link href="/access/">access</Link>, and the{' '}
         <Link href="/docs/security/">security boundaries</Link>.
       </p>
     </DocsShell>

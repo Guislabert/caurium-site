@@ -106,11 +106,11 @@ export function MobileNavigation() {
 
             <div className="mt-6">
               <Link
-                href="/pricing/"
+                href="/access/"
                 className="btn btn-primary w-full"
                 onClick={() => setOpen(false)}
               >
-                See Probe pricing
+                Apply for access
               </Link>
             </div>
 

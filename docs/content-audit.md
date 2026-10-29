@@ -11,7 +11,7 @@ record outside this public repository and is never shipped in the site build.
 | --- | --- | --- | --- |
 | “API access, monitoring and recovery.” | `SITE.tagline`, footer, default metadata | positioning statement | No capability implied beyond the four modules. |
 | “Infrastructure with boundaries you can check.” | home H1 | brand line | No capability claim. |
-| “Caurium builds narrow infrastructure modules. Probe runs as a free private preview. Gate, Guard and Box are planned.” | `SITE.description`, hero, page metadata | factual | `src/content/products.ts` (Probe `private-preview`, three `planned`); `src/content/plans.ts` marks `price` as planned. |
+| “Caurium builds narrow infrastructure modules. Probe runs as a free private preview, opened by application. Gate, Guard and Box are planned.” | `SITE.description`, hero, page metadata | factual | `src/content/products.ts` (Probe `private-preview`, three `planned`); `src/content/plans.ts` carries no price. A test fails if any euro figure appears in routes or content. |
 | “Probe private preview · Manual activation · No SLA.” | hero stage line, footer | factual | Probe worker deployed; activation is by hand; no SLA is published anywhere on the site. |
 
 Retired positioning — “Developer infrastructure & AI connectivity” and “Infrastructure for a
@@ -107,7 +107,7 @@ states that the register wins if it disagrees with any other copy.
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
 | Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`RCPT 250`) and the forwarding rules are enabled. End-to-end delivery to the destination mailbox was **not** confirmed — the sending host is not SPF-authorised for any test domain, so the receiving side refused it before routing. |
 | `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/app/privacy/page.tsx`, `CONTACT.privacy`; Worker storage. No entity invented. |
-| `/terms/` | Free preview; planned prices are not charged; no SLA, uptime percentage or response-time guarantee | Private preview scope; paid activation requires published entity and governing law. |
+| `/terms/` | Free preview, no prices published; no SLA, uptime percentage or response-time guarantee; liability capped at zero because nothing is paid | Private preview scope; billing would require a published entity and governing law. |
 
 ## docs.caurium.tech (separate repository)
 
@@ -130,7 +130,7 @@ absolute URLs because it is a separate deployment.
 ## Things deliberately absent
 
 - Customers, logos, testimonials, case studies, user counts.
-- Checkout, payment links and billing. Planned Probe prices are published; nothing is charged during the preview.
+- Checkout, payment links, billing and any price. The preview is free and sizes only set limits.
 - Console, login, sign-up, API key, “Get started” buttons that lead nowhere.
 - SLA, response time, certification, benchmark or performance numbers.
 - Region claims for products or probes.

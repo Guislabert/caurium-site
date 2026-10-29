@@ -9,7 +9,7 @@ const PATHS = [
   '/',
   '/products/',
   ...PRODUCTS.map((product) => `/products/${product.slug}/`),
-  '/pricing/',
+  '/access/',
   '/start/',
   '/architecture/',
   '/docs/',

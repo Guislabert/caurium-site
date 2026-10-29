@@ -9,11 +9,12 @@ inventing capabilities.
 
 ## Facts an assistant may rely on
 
-- Probe is the only product in private preview. Activation is manual, after an
-  ownership check. There is no self-serve signup, console or API key.
-- Prices are €19, €49 and €99 per month, exclusive of VAT. No plan renews
-  automatically; a payment link is sent each month.
-- Every plan checks at a one-minute interval. Plans differ in endpoint count and
+- Probe is the only product in private preview. Admission is by application and
+  activation is manual, after an ownership check. There is no self-serve signup,
+  console or API key.
+- The preview is free. No price is charged, no card is taken and no invoice is
+  issued; no price is published anywhere on the site.
+- Every size checks at a one-minute interval. Sizes differ in endpoint count and
   check-history retention.
 - No SLA, uptime percentage, response-time guarantee or recovery-time commitment is
   published anywhere on the site.
@@ -30,7 +31,7 @@ inventing capabilities.
 
 - https://caurium.tech/ — Home: what Caurium is, what is live, what is planned.
 - https://caurium.tech/products/ — The four modules and their current stages.
-- https://caurium.tech/pricing/ — Probe plans, limits and the manual activation steps.
+- https://caurium.tech/access/ — Probe sizes, limits and how to apply for the free preview.
 - https://caurium.tech/start/ — Application form for a Probe private preview account.
 - https://caurium.tech/architecture/ — How the public site, Probe and management access are separated.
 - https://caurium.tech/docs/ — Documentation index.
@@ -48,22 +49,22 @@ inventing capabilities.
 ## Products
 
 - Gate (Access) — Planned: Learn about the planned scope, access controls, and release criteria for Caurium Gate. https://caurium.tech/products/gate/
-- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview; planned prices start at €19 per month. https://caurium.tech/products/probe/
+- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview, opened by application. https://caurium.tech/products/probe/
 - Guard (Operate) — Planned: Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records. https://caurium.tech/products/guard/
 - Box (Build) — Planned: Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments. https://caurium.tech/products/box/
 
-## Probe plans
+## Probe sizes
 
-- Starter: €19 per month, 10 endpoints, checks every 60s, 7 days of history
-- Team: €49 per month, 50 endpoints, checks every 60s, 30 days of history
-- Business: €99 per month, 200 endpoints, checks every 60s, 90 days of history
+- Starter: 10 endpoints, checks every 60s, 7 days of history
+- Team: 50 endpoints, checks every 60s, 30 days of history
+- Business: 200 endpoints, checks every 60s, 90 days of history
 
 ## Recent changes
 
 - 2026-10-29: Three statements corrected to match the shipped state
 - 2026-10-29: The application form works without JavaScript
 - 2026-10-29: Probe private preview deployed
-- 2026-10-29: Probe pricing and application flow published
+- 2026-10-29: Probe access page and application flow published
 - 2026-10-29: Probe record moves from Planned to private preview
 
 ## Optional

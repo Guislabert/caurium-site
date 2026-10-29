@@ -37,10 +37,12 @@ Never reuse production upstream secrets in a preview build; this site needs none
 ## 2. Deployment
 
 Pushes to `main` deploy automatically. The `deploy` job in
-`.github/workflows/actions.yaml` builds, runs `wrangler deploy --message "<sha> <ref>"`, and then
-submits the built sitemap to IndexNow when the `INDEXNOW_KEY` repository variable is set. The
-Worker version list therefore names the commit that produced it, which the manual flow below did
-not.
+`.github/workflows/actions.yaml` builds and runs `wrangler deploy --message "<sha> <ref>"`, so the
+Worker version list names the commit that produced it, which the manual flow below did not.
+
+This is a presentation site. It has no search or answer-engine submission step: no IndexNow ping,
+no sitemap push. The build stays `noindex` and `robots.txt` disallows everything until the site is
+meant to be found.
 
 Required repository configuration:
 - Secrets: `CLOUDFLARE_API_TOKEN` (a scoped API token, not an OAuth login: Workers Scripts
@@ -49,8 +51,7 @@ Required repository configuration:
   fresh clone does not attempt a deploy. Once it is enabled, a missing secret fails the job
   instead of silently reporting success without deploying.
 - Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
-  optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`. The first two are already set on
-  the repository.
+  optional `NEXT_PUBLIC_STATUS_URL`. The first two are already set on the repository.
 
 Current state: `CLOUDFLARE_DEPLOY` is unset and neither secret exists, so CI deploys nothing and
 the job reports `skipped`. Deploys run by hand from a machine with `wrangler login`. Enable CI

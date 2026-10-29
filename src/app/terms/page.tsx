@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Terms',
   description:
-    'Terms for the Caurium website and the free Probe private preview: service scope, the planned prices, acceptable use, data and liability.',
+    'Terms for the Caurium website and the free Probe private preview: service scope, cost, acceptable use, data and liability.',
   path: '/terms/',
   ogImage: '/og/legal.png',
   ogAlt: 'Caurium website and Probe service terms.',
@@ -22,7 +22,7 @@ export default function TermsPage() {
         { id: 'scope', label: 'Scope' },
         { id: 'service', label: 'The Probe service' },
         { id: 'accounts', label: 'Accounts and activation' },
-        { id: 'fees', label: 'Fees and cancellation' },
+        { id: 'fees', label: 'Cost and leaving' },
         { id: 'use', label: 'Acceptable use' },
         { id: 'data', label: 'Data and public status' },
         { id: 'availability', label: 'Preview availability' },
@@ -78,25 +78,24 @@ export default function TermsPage() {
         </li>
       </ul>
 
-      <h2 id="fees">Fees and cancellation</h2>
+      <h2 id="fees">Cost and leaving</h2>
       <ul>
         <li>
           <strong>The private preview is free.</strong> No payment is requested, no card is taken
           and no invoice is issued.
         </li>
         <li>
-          The figures on the pricing page — €19, €49 or €99 per month — are the planned prices. They
-          are not a charge in force. Paid activation will open only after the operating entity,
-          governing law and a billing contact are published.
+          No price is published, because none is charged. The access page lists three sizes that set
+          the endpoint count and check-history retention; a size is not a purchase.
         </li>
         <li>
-          When paid activation opens, plans are monthly and in advance, exclusive of VAT where
-          applicable, and no plan renews automatically: a payment request is issued before each
-          month. Existing accounts will be told before anything is charged.
+          If this ever becomes a paid service, it will be announced in the build log and no existing
+          account will be charged without prior notice. Billing would only open once the operating
+          entity, governing law and a billing contact are published.
         </li>
         <li>
           You may stop using the service at any time by emailing the support address. Because
-          nothing is charged during the preview, cancelling costs nothing.
+          nothing is charged during the preview, leaving costs nothing.
         </li>
         <li>
           If an account exceeds its plan limits, it is not charged for the excess. We raise it and
@@ -158,9 +157,9 @@ export default function TermsPage() {
         checks or alerts.
       </p>
       <p>
-        Where liability cannot be excluded, it is limited to the fees paid for Probe in the month in
-        which the event occurred. Nothing in these terms limits liability that cannot lawfully be
-        limited.
+        Where liability cannot be excluded, it is limited to the amount you paid for Probe in the
+        month in which the event occurred. During the free preview that amount is zero. Nothing in
+        these terms limits liability that cannot lawfully be limited.
       </p>
 
       <h2 id="ip">Intellectual property</h2>

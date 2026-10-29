@@ -144,27 +144,32 @@ test('only the three published mailboxes appear, and they are the ones in CONTAC
   }
 });
 
-test('prices are published only for the Probe plans', () => {
-  assert.deepEqual(
-    PLANS.map((plan) => [plan.id, plan.price]),
-    [
-      ['starter', 19],
-      ['team', 49],
-      ['business', 99],
-    ],
-  );
+test('no price is published anywhere, because the preview is free', () => {
+  // A free, application-only preview has nothing to price. A euro figure on any
+  // page would assert a charge that does not exist.
   for (const plan of PLANS) {
+    assert.equal('price' in plan, false, `${plan.name} must not carry a price`);
     assert.ok(plan.endpoints > 0);
     assert.ok(plan.minIntervalSeconds >= 60);
     assert.ok(plan.retentionDays >= 7);
   }
-  for (const product of PRODUCTS) {
-    const text = JSON.stringify(product.boundaries) + JSON.stringify(product.faq);
-    if (product.id === 'probe') {
-      assert.match(text, /€19/);
-    } else {
-      assert.equal(/[€£]\s?\d/.test(text), false, `${product.name} must not publish a price`);
-    }
+
+  const rendered = walk('src/app')
+    .filter((file) => file.endsWith('.tsx'))
+    .map((file) => readFileSync(file, 'utf8'))
+    .join('\n');
+  const content = [
+    readFileSync('src/content/plans.ts', 'utf8'),
+    readFileSync('src/content/faq.ts', 'utf8'),
+    JSON.stringify(PRODUCTS),
+  ].join('\n');
+
+  for (const [label, text] of [['routes', rendered], ['content', content]]) {
+    assert.equal(
+      /[€£]\s?\d/.test(text),
+      false,
+      `${label} must not publish a price while the preview is free`,
+    );
   }
 });
 
@@ -284,14 +289,14 @@ test('every referenced Open Graph card exists and is scoped to one section', () 
   assert.ok(used.size >= 10);
 });
 
-test('the pricing copy does not claim plans differ in check frequency', () => {
+test('the access copy does not claim sizes differ in check frequency', () => {
   const intervals = new Set(PLANS.map((plan) => plan.minIntervalSeconds));
-  const pricing = readFileSync('src/app/pricing/page.tsx', 'utf8');
+  const access = readFileSync('src/app/access/page.tsx', 'utf8');
   if (intervals.size === 1) {
     assert.equal(
-      /how often they are checked|interval differs|different interval/i.test(pricing),
+      /how often they are checked|interval differs|different interval/i.test(access),
       false,
-      'every plan uses one interval, so the page must not claim intervals differ',
+      'every size uses one interval, so the page must not claim intervals differ',
     );
   }
 });
@@ -335,4 +340,14 @@ test('the asset worker redirects www to the apex before serving files', () => {
     'assets would answer before the worker and skip the host check',
   );
   assert.match(config, /"binding":\s*"ASSETS"/, 'the worker needs the assets binding to fall through');
+});
+
+test('retired routes redirect instead of returning 404', () => {
+  const worker = readFileSync('src/worker.ts', 'utf8');
+  // /pricing/ was removed when the preview became free; old links must not 404.
+  assert.equal(existsSync('src/app/pricing'), false, 'the pricing route must be gone');
+  for (const path of ['/pricing', '/pricing/']) {
+    assert.ok(worker.includes(`'${path}'`), `${path} must be redirected`);
+  }
+  assert.ok(worker.includes("'/access/'"), 'the redirect target must be the access page');
 });

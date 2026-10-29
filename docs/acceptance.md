@@ -15,8 +15,8 @@ Legend: `[ ]` not run · `[x]` pass · `[!]` fail.
 - [x] Planned capabilities, diagrams and proposed APIs carry adjacent English labels. The test
       suite checks that every product example is labelled illustrative or proposed.
 - [x] No fabricated customers, reviews, certifications, regions, user counts, performance or uptime
-      (enforced by test pattern list). Probe prices are published from `src/content/plans.ts` and
-      are the only prices on the site.
+      (enforced by test pattern list). No price appears anywhere: the preview is free and a test
+      fails on any euro figure in routes or content.
 - [x] No dead “Console”, “Login”, “Get started” or access buttons. The only call to action is the
       `/start/` application form, and it posts to the deployed Probe Worker.
 - [x] Three mailboxes are published in the footer (`security@`, `support@`, `privacy@`), Email

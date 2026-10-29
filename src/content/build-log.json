@@ -26,10 +26,10 @@
   {
     "date": "2026-10-29",
     "type": "content",
-    "title": "Probe pricing and application flow published",
-    "detail": "Three monthly plans at €19, €49 and €99 with fixed endpoint, interval and retention limits. The application form posts to the Probe service; no payment is taken on this site.",
-    "href": "/pricing/",
-    "linkLabel": "See pricing"
+    "title": "Probe access page and application flow published",
+    "detail": "Three fixed sizes with endpoint and retention limits. The application form posts to the Probe service; nothing is charged during the preview and no payment is taken on this site.",
+    "href": "/access/",
+    "linkLabel": "See how access works"
   },
   {
     "date": "2026-10-29",

@@ -147,7 +147,7 @@ export default function DocsPage() {
             <tr>
               <th scope="row">Probe</th>
               <td>Private preview</td>
-              <td>Manual activation, monthly plans and live customer status pages.</td>
+              <td>Activation by application and live customer status pages.</td>
             </tr>
             <tr>
               <th scope="row">Gate, Guard, Box</th>

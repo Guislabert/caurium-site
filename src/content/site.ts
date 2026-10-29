@@ -6,7 +6,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
   locale: 'en',
   stageNote:
-    'Probe is a free private preview with manual activation. Gate, Guard and Box are planned and not for sale.',
+    'Probe is a free private preview, opened by application. Gate, Guard and Box are planned and not for sale.',
   reviewedAt: '2026-10-29',
   indexable: process.env.NEXT_PUBLIC_SITE_ENV === 'production',
 } as const;
@@ -24,7 +24,7 @@ export const CONTACT = {
 
 export const NAV = [
   { label: 'Products', href: '/products/', description: 'Four modules, one focused roadmap.' },
-  { label: 'Pricing', href: '/pricing/', description: 'Probe plans and activation.' },
+  { label: 'Access', href: '/access/', description: 'Apply for the free Probe preview.' },
   { label: 'Architecture', href: '/architecture/', description: 'How the service domains are separated.' },
   { label: 'Docs', href: '/docs/', description: 'Concepts, stages and boundaries.' },
   { label: 'Status', href: '/status/', description: 'What is connected, and what is not.' },
@@ -38,7 +38,7 @@ export const FOOTER_LINKS = [
       { label: 'Probe', href: '/products/probe/' },
       { label: 'Guard', href: '/products/guard/' },
       { label: 'Box', href: '/products/box/' },
-      { label: 'Pricing', href: '/pricing/' },
+      { label: 'Access', href: '/access/' },
     ],
   },
   {
@@ -72,9 +72,9 @@ export const HERO = {
   eyebrow: 'Caurium · Probe private preview',
   title: 'Infrastructure with boundaries you can check.',
   description:
-    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview; planned prices start at €19 per month. Gate, Guard and Box remain planned.',
-  stage: 'Probe private preview · Manual activation · No SLA',
-  primaryCta: { label: 'See Probe pricing', href: '/pricing/' },
+    'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate, Guard and Box remain planned.',
+  stage: 'Free private preview · By application · No SLA',
+  primaryCta: { label: 'Apply for access', href: '/access/' },
   secondaryCta: { label: 'Read the boundary model', href: '/architecture/' },
 } as const;
 

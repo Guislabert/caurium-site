@@ -45,7 +45,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-3 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Caurium. All rights reserved.</p>
             <p className="mono text-[10px] uppercase tracking-[0.1em]">
-              Static site · Manual activation · No first-party tracking
+              Static site · Free preview · No first-party tracking
             </p>
           </div>
           <p className="mt-4 max-w-2xl text-xs leading-5 text-muted">

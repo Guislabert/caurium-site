@@ -19,7 +19,7 @@ export function StartForm({ endpoint }: { endpoint: string }) {
   const planSelect = useRef<HTMLSelectElement>(null);
   const [state, setState] = useState<SubmitState>({ kind: 'idle' });
 
-  // The pricing page links here with ?plan=. Reading the query string during render
+  // The access page links here with ?plan=. Reading the query string during render
   // would force the form behind a Suspense boundary and drop it from the static
   // export, so the select starts on the default plan and is corrected after mount.
   useEffect(() => {
@@ -80,16 +80,17 @@ export function StartForm({ endpoint }: { endpoint: string }) {
         <p className="mono text-[9px] uppercase tracking-[0.14em] text-olive">Request received</p>
         <h2 className="h3 mt-3">We will check ownership and reply by email.</h2>
         <p className="mt-3 max-w-xl text-[13.5px] leading-6 text-muted">
-          Your application is stored by the Probe service. If the endpoints and plan fit, we send a
-          Stripe payment link and the activation steps. If something is missing, we reply with the
-          exact question.
+          Your application is stored by the Probe service. If the endpoints can be verified, we
+          activate the account and send the status page address and a webhook test. If something is
+          missing, we reply with the exact question.
         </p>
         <p className="mt-4 max-w-xl text-[12.5px] leading-5 text-muted">
-          Nothing is monitored and no payment is taken until you confirm the payment link.
+          Nothing is monitored until activation, and nothing is charged at any point during the
+          preview.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/pricing/" className="btn btn-secondary">
-            Back to pricing
+          <Link href="/access/" className="btn btn-secondary">
+            Back to access
           </Link>
           <Link href="/products/probe/" className="btn btn-secondary">
             How Probe works
@@ -169,7 +170,7 @@ export function StartForm({ endpoint }: { endpoint: string }) {
           >
             {PLANS.map((item) => (
               <option key={item.id} value={item.id}>
-                {item.name} — €{item.price}/month · {item.endpoints} endpoints
+                {item.name} — {item.endpoints} endpoints · free
               </option>
             ))}
           </select>

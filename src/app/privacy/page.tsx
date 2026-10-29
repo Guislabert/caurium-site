@@ -112,7 +112,7 @@ export default function PrivacyPage() {
           the D1 database is provisioned.
         </li>
         <li>
-          <strong>Stripe</strong> will process payment details if and when paid activation opens.
+          No payment processor receives your data during the preview, because nothing is charged. If paid activation ever opens, a processor would be named here before any payment is taken.
           Card details are never entered on this site or stored by Probe.
         </li>
         <li>

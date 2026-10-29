@@ -28,11 +28,11 @@
       <description>A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.</description>
     </item>
     <item>
-      <title>Probe pricing and application flow published</title>
-      <link>https://caurium.tech/pricing/</link>
-      <guid isPermaLink="false">2026-10-29-Probe pricing and application flow published</guid>
+      <title>Probe access page and application flow published</title>
+      <link>https://caurium.tech/access/</link>
+      <guid isPermaLink="false">2026-10-29-Probe access page and application flow published</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
-      <description>Three monthly plans at €19, €49 and €99 with fixed endpoint, interval and retention limits. The application form posts to the Probe service; no payment is taken on this site.</description>
+      <description>Three fixed sizes with endpoint and retention limits. The application form posts to the Probe service; nothing is charged during the preview and no payment is taken on this site.</description>
     </item>
     <item>
       <title>Probe record moves from Planned to private preview</title>
