@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
-import '@fontsource-variable/geist';
+import '@fontsource-variable/inter';
 import '@fontsource-variable/roboto-slab';
 import '@fontsource-variable/jetbrains-mono';
 import './globals.css';

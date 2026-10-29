@@ -70,7 +70,7 @@ export function MobileNavigation() {
       <button
         ref={buttonRef}
         type="button"
-        className="mono inline-flex h-11 items-center gap-2 border border-white/30 px-3 text-[11px] uppercase tracking-[0.06em] text-white"
+        className="mono inline-flex h-11 items-center gap-2 border border-border-strong px-3 text-[11px] uppercase tracking-[0.06em] text-ink"
         aria-expanded={open}
         aria-controls="mobile-navigation"
         aria-label={open ? 'Close menu' : 'Open menu'}
@@ -97,10 +97,10 @@ export function MobileNavigation() {
         <div
           id="mobile-navigation"
           ref={panelRef}
-          className="mobile-nav-panel absolute inset-x-0 top-full z-40 h-[calc(100dvh-var(--header))] overflow-y-auto border-t border-white/15"
+          className="mobile-nav-panel absolute inset-x-0 top-full z-40 h-[calc(100dvh-var(--header))] overflow-y-auto border-t border-border"
         >
           <nav aria-label="Mobile" className="container-page py-4">
-            <ul className="border-t border-white/15">
+            <ul className="border-t border-border">
               {NAV.map((item, index) => (
                 <li key={item.href} className="border-b border-white/15">
                   <Link
@@ -111,16 +111,16 @@ export function MobileNavigation() {
                   >
                     <span>
                       <span className="flex items-baseline gap-3">
-                        <span className="mono text-[11.5px] text-white/45">
+                        <span className="mono text-[11.5px] text-muted">
                           {String(index + 1).padStart(2, '0')}
                         </span>
                         <span className="text-[17px]">{item.label}</span>
                       </span>
-                      <span className="mt-1 block pl-8 text-[13.5px] leading-5 text-white/55">
+                      <span className="mt-1 block pl-8 text-[13.5px] leading-5 text-muted-2">
                         {item.description}
                       </span>
                     </span>
-                    <span aria-hidden="true" className="text-white/50">
+                    <span aria-hidden="true" className="text-muted">
                       →
                     </span>
                   </Link>
@@ -138,7 +138,7 @@ export function MobileNavigation() {
               </Link>
             </div>
 
-            <p className="mt-6 border-t border-white/15 pt-4 text-[13.5px] leading-5 text-white/55">
+            <p className="mt-6 border-t border-border pt-4 text-[13.5px] leading-5 text-muted-2">
               Probe is in private preview. Gate and Guard are in development; Box is planned.
             </p>
           </nav>
