@@ -7,7 +7,7 @@ export interface Crumb {
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="text-[11.5px] text-muted">
+    <nav aria-label="Breadcrumb" className="text-[12px] text-muted">
       <ol className="flex flex-wrap items-center gap-2">
         <li>
           <Link href="/" className="transition-colors hover:text-foreground">

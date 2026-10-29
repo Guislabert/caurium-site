@@ -33,7 +33,7 @@ export function CodeBlock({
       <div className="code-shell" data-language={language}>
         <div className="code-shell__head">
           <p className="code-shell__title">
-            {title} <span className="text-[#9aa3bd]">/ {language}</span>
+            {title} <span className="text-[#9a9a9a]">/ {language}</span>
           </p>
           <button type="button" onClick={copy} className="copy-button">
             {status === 'copied' ? 'Copied' : status === 'failed' ? 'Copy failed' : 'Copy'}

@@ -65,7 +65,7 @@ export default function StatusPage() {
         title="Service status"
         description="Caurium publishes status only from sanitized checks with a recorded collection time. Probe customer pages are live. This site-wide feed is not connected, and says so instead of showing green."
         meta={
-          <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+          <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
             Feed · Not connected
           </span>
         }
@@ -100,7 +100,7 @@ export default function StatusPage() {
                 What would be published, and from where.
               </h2>
             </div>
-            <p className="mono max-w-xs text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <p className="mono max-w-xs text-[11px] uppercase tracking-[0.06em] text-muted">
               0 live components · 0 samples · 0 history
             </p>
           </div>
@@ -141,10 +141,10 @@ export default function StatusPage() {
           <ol className="border-t border-border-strong">
             {RULES.map((rule, index) => (
               <li key={rule} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-ink-2">{rule}</span>
+                <span className="text-[14px] leading-6 text-ink-2">{rule}</span>
               </li>
             ))}
           </ol>
@@ -189,7 +189,7 @@ export default function StatusPage() {
             </h2>
           </div>
           <div className="space-y-5">
-            <p className="text-[13.5px] leading-6 text-ink-2">
+            <p className="text-[14px] leading-6 text-ink-2">
               Origin addresses, internal hostnames, full check URLs, raw error stacks, probe
               addresses and management credentials. The status endpoint accepts no arbitrary target
               parameters; it publishes a fixed, sanitized component list.
@@ -198,7 +198,7 @@ export default function StatusPage() {
               Before a feed exists, this page reports Unknown. It does not infer uptime from the fact
               that the site is reachable.
             </Callout>
-            <p className="text-[13px] leading-6 text-muted">
+            <p className="text-[13.5px] leading-6 text-muted">
               See the <Link href="/docs/security/" className="text-link">security boundaries</Link>{' '}
               for the wider model.
             </p>

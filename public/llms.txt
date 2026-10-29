@@ -29,29 +29,29 @@ inventing capabilities.
 
 ## Pages
 
-- https://caurium.tech/ — Home: what Caurium is, what is live, what is planned.
-- https://caurium.tech/products/ — The four modules and their current stages.
-- https://caurium.tech/access/ — Probe sizes, limits and how to apply for the free preview.
-- https://caurium.tech/start/ — Application form for a Probe private preview account.
-- https://caurium.tech/architecture/ — How the public site, Probe and management access are separated.
-- https://caurium.tech/docs/ — Documentation index.
-- https://caurium.tech/docs/overview/ — System concepts and the four modules.
-- https://caurium.tech/docs/product-stages/ — Stage definitions and the evidence required to change one.
-- https://caurium.tech/docs/security/ — Security boundaries, threat model and the reporting gap.
-- https://caurium.tech/docs/faq/ — Availability, prices, regions, status data and reporting.
-- https://caurium.tech/docs/glossary/ — Term definitions used across the site.
-- https://caurium.tech/trust/ — Claims register: every public claim with its stage and evidence.
-- https://caurium.tech/status/ — What monitoring is connected, and what is not.
-- https://caurium.tech/build-log/ — Dated record of changes to this site, with an RSS feed.
-- https://caurium.tech/privacy/ — What the site and Probe collect, and why.
-- https://caurium.tech/terms/ — Terms for the site and the Probe private preview.
+- https://caurium-site-dev.caurium.workers.dev/ — Home: what Caurium is, what is live, what is planned.
+- https://caurium-site-dev.caurium.workers.dev/products/ — The four modules and their current stages.
+- https://caurium-site-dev.caurium.workers.dev/access/ — Probe sizes, limits and how to apply for the free preview.
+- https://caurium-site-dev.caurium.workers.dev/start/ — Application form for a Probe private preview account.
+- https://caurium-site-dev.caurium.workers.dev/architecture/ — How the public site, Probe and management access are separated.
+- https://caurium-site-dev.caurium.workers.dev/docs/ — Documentation index.
+- https://caurium-site-dev.caurium.workers.dev/docs/overview/ — System concepts and the four modules.
+- https://caurium-site-dev.caurium.workers.dev/docs/product-stages/ — Stage definitions and the evidence required to change one.
+- https://caurium-site-dev.caurium.workers.dev/docs/security/ — Security boundaries, threat model and the reporting gap.
+- https://caurium-site-dev.caurium.workers.dev/docs/faq/ — Availability, prices, regions, status data and reporting.
+- https://caurium-site-dev.caurium.workers.dev/docs/glossary/ — Term definitions used across the site.
+- https://caurium-site-dev.caurium.workers.dev/trust/ — Claims register: every public claim with its stage and evidence.
+- https://caurium-site-dev.caurium.workers.dev/status/ — What monitoring is connected, and what is not.
+- https://caurium-site-dev.caurium.workers.dev/build-log/ — Dated record of changes to this site, with an RSS feed.
+- https://caurium-site-dev.caurium.workers.dev/privacy/ — What the site and Probe collect, and why.
+- https://caurium-site-dev.caurium.workers.dev/terms/ — Terms for the site and the Probe private preview.
 
 ## Products
 
-- Gate (Access) — Planned: Learn about the planned scope, access controls, and release criteria for Caurium Gate. https://caurium.tech/products/gate/
-- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview, opened by application. https://caurium.tech/products/probe/
-- Guard (Operate) — Planned: Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records. https://caurium.tech/products/guard/
-- Box (Build) — Planned: Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments. https://caurium.tech/products/box/
+- Gate (Access) — Planned: Learn about the planned scope, access controls, and release criteria for Caurium Gate. https://caurium-site-dev.caurium.workers.dev/products/gate/
+- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Free private preview, opened by application. https://caurium-site-dev.caurium.workers.dev/products/probe/
+- Guard (Operate) — Planned: Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records. https://caurium-site-dev.caurium.workers.dev/products/guard/
+- Box (Build) — Planned: Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments. https://caurium-site-dev.caurium.workers.dev/products/box/
 
 ## Probe sizes
 
@@ -69,5 +69,5 @@ inventing capabilities.
 
 ## Optional
 
-- https://caurium.tech/build-log/feed.xml — RSS feed for site changes.
-- https://caurium.tech/trust/ — read this before repeating any claim about the project.
+- https://caurium-site-dev.caurium.workers.dev/build-log/feed.xml — RSS feed for site changes.
+- https://caurium-site-dev.caurium.workers.dev/trust/ — read this before repeating any claim about the project.

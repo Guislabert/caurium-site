@@ -56,7 +56,7 @@ export default function AccessPage() {
               <span className="badge-dot" aria-hidden="true" />
               Private preview
             </span>
-            <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               {FREE_NOTICE} · No SLA
             </span>
           </>
@@ -76,32 +76,32 @@ export default function AccessPage() {
             {PLANS.map((plan) => (
               <div
                 key={plan.id}
-                className={`relative flex flex-col rounded-[18px] border p-6 md:p-7 ${
+                className={`relative flex flex-col rounded-[12px] border p-6 md:p-7 ${
                   plan.recommended
-                    ? 'border-ink bg-paper shadow-[0_18px_48px_-32px_rgba(11,27,63,0.45)]'
+                    ? 'border-ink bg-paper '
                     : 'border-border bg-paper/60'
                 }`}
               >
                 {plan.recommended ? (
-                  <p className="mono absolute right-5 top-5 text-[8.5px] uppercase tracking-[0.14em] text-olive">
+                  <p className="mono absolute right-5 top-5 text-[10.5px] uppercase tracking-[0.06em] text-olive">
                     Suggested
                   </p>
                 ) : null}
 
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Probe · {plan.name}
                 </p>
                 <p className="mt-5 text-[34px] font-medium leading-none tracking-[-0.03em]">
                   {plan.endpoints}
-                  <span className="ml-2 text-[12px] font-normal tracking-normal text-muted">
+                  <span className="ml-2 text-[12.5px] font-normal tracking-normal text-muted">
                     endpoints
                   </span>
                 </p>
-                <p className="mono mt-2 text-[9px] uppercase tracking-[0.1em] text-olive">
+                <p className="mono mt-2 text-[11px] uppercase tracking-[0.06em] text-olive">
                   {FREE_NOTICE}
                 </p>
-                <p className="mt-3 text-[15px] font-medium leading-6">{plan.summary}</p>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{plan.detail}</p>
+                <p className="mt-3 text-[15.5px] font-medium leading-6">{plan.summary}</p>
+                <p className="mt-2 text-[13.5px] leading-6 text-muted">{plan.detail}</p>
 
                 <dl className="mt-6 border-t border-border">
                   {[
@@ -115,8 +115,8 @@ export default function AccessPage() {
                       key={label}
                       className="flex items-baseline justify-between gap-4 border-b border-border py-2.5"
                     >
-                      <dt className="text-[12.5px] text-muted">{label}</dt>
-                      <dd className="text-right text-[12.5px] font-medium">{value}</dd>
+                      <dt className="text-[13px] text-muted">{label}</dt>
+                      <dd className="text-right text-[13px] font-medium">{value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -129,7 +129,7 @@ export default function AccessPage() {
                   Open a ticket for {plan.name}
                   <span aria-hidden="true">→</span>
                 </Link>
-                <p className="mt-3 text-center text-[11px] leading-5 text-muted">
+                <p className="mt-3 text-center text-[11.5px] leading-5 text-muted">
                   Reviewed by hand. Nothing is charged.
                 </p>
               </div>
@@ -167,7 +167,7 @@ export default function AccessPage() {
                 key={item}
                 className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4"
               >
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="text-[14px] leading-6 text-ink-2">{item}</span>
@@ -188,12 +188,12 @@ export default function AccessPage() {
 
           <ol className="mt-12 grid gap-4 lg:grid-cols-3 lg:gap-5">
             {STEPS.map((item) => (
-              <li key={item.step} className="rounded-[16px] border border-border bg-paper p-6">
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+              <li key={item.step} className="rounded-[10px] border border-border bg-paper p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {item.step}
                 </p>
-                <p className="mt-3 text-[15px] font-medium">{item.title}</p>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{item.detail}</p>
+                <p className="mt-3 text-[15.5px] font-medium">{item.title}</p>
+                <p className="mt-2 text-[13.5px] leading-6 text-muted">{item.detail}</p>
               </li>
             ))}
           </ol>
@@ -212,11 +212,11 @@ export default function AccessPage() {
             <table className="w-full min-w-[620px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-border-strong">
-                  <th scope="col" className="py-3 pr-4 text-[11px] uppercase tracking-[0.1em] text-muted">
+                  <th scope="col" className="py-3 pr-4 text-[11.5px] uppercase tracking-[0.06em] text-muted">
                     Limit
                   </th>
                   {PLANS.map((plan) => (
-                    <th key={plan.id} scope="col" className="py-3 pr-4 text-[13px] font-medium">
+                    <th key={plan.id} scope="col" className="py-3 pr-4 text-[13.5px] font-medium">
                       {plan.name}
                     </th>
                   ))}
@@ -224,61 +224,61 @@ export default function AccessPage() {
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Cost
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       Free
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Endpoints
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.endpoints}
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Shortest interval
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.minIntervalSeconds} seconds
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Check history
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       {plan.retentionDays} days
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Webhook endpoints
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1
                     </td>
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row" className="border-b border-border py-3 pr-4 text-[12.5px] font-normal text-muted">
+                  <th scope="row" className="border-b border-border py-3 pr-4 text-[13px] font-normal text-muted">
                     Status pages
                   </th>
                   {PLANS.map((plan) => (
-                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[12.5px]">
+                    <td key={plan.id} className="border-b border-border py-3 pr-4 text-[13px]">
                       1 account page
                     </td>
                   ))}
@@ -308,8 +308,8 @@ export default function AccessPage() {
           <dl className="border-t border-border-strong">
             {PLAN_FAQ.map((item) => (
               <div key={item.question} className="border-b border-border py-5">
-                <dt className="text-[14.5px] font-medium">{item.question}</dt>
-                <dd className="mt-2 max-w-2xl text-[13.5px] leading-6 text-muted">
+                <dt className="text-[15px] font-medium">{item.question}</dt>
+                <dd className="mt-2 max-w-2xl text-[14px] leading-6 text-muted">
                   {item.answer}
                 </dd>
               </div>

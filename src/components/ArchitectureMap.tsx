@@ -17,14 +17,14 @@ function Node({
           : 'border-dashed border-border-strong'
       }`}
     >
-      <p className="flex items-center gap-2 text-[12px] font-medium leading-4">
+      <p className="flex items-center gap-2 text-[12.5px] font-medium leading-4">
         {accent ? (
           <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
         ) : null}
         {title}
       </p>
       {detail ? (
-        <p className="mt-1 text-[10px] leading-4 text-muted">{detail}</p>
+        <p className="mt-1 text-[11.5px] leading-4 text-muted">{detail}</p>
       ) : null}
     </div>
   );
@@ -50,10 +50,10 @@ function DomainHeader({
 }) {
   return (
     <header className="flex items-center justify-between gap-3 border-b border-border pb-3">
-      <h3 id={id} className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+      <h3 id={id} className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
         {title}
       </h3>
-      <span className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">{state}</span>
+      <span className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">{state}</span>
     </header>
   );
 }
@@ -63,10 +63,10 @@ export function ArchitectureMap() {
     <figure>
       <div className="figure">
         <div className="figure__head">
-          <p className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted">
+          <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
             Fig. 06 — Service boundaries
           </p>
-          <div className="flex items-center gap-4 text-[10px] text-muted">
+          <div className="flex items-center gap-4 text-[11.5px] text-muted">
             <span className="inline-flex items-center gap-1.5">
               <span
                 className="h-2.5 w-2.5 rounded-[2px] border border-border-strong bg-background"
@@ -88,7 +88,7 @@ export function ArchitectureMap() {
           <div className="grid gap-4 lg:grid-cols-3">
             <section
               aria-labelledby="arch-public"
-              className="rounded-[16px] border border-border-strong bg-background p-4"
+              className="rounded-[10px] border border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-public" title="Public website domain" state="Current" />
               <div className="mt-4">
@@ -105,14 +105,14 @@ export function ArchitectureMap() {
                   <Node title="Sanitized status" detail="Read-only, optional" />
                 </div>
               </div>
-              <p className="mt-4 border-t border-border pt-3 text-[10.5px] leading-5 text-muted">
+              <p className="mt-4 border-t border-border pt-3 text-[11.5px] leading-5 text-muted">
                 No login, console, database or management route.
               </p>
             </section>
 
             <section
               aria-labelledby="arch-product"
-              className="rounded-[16px] border border-dashed border-border-strong bg-background p-4"
+              className="rounded-[10px] border border-dashed border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-product" title="Product domain" state="Partial" />
               <div className="mt-4">
@@ -135,7 +135,7 @@ export function ArchitectureMap() {
 
             <section
               aria-labelledby="arch-management"
-              className="rounded-[16px] border border-dashed border-border-strong bg-background p-4"
+              className="rounded-[10px] border border-dashed border-border-strong bg-background p-4"
             >
               <DomainHeader id="arch-management" title="Management domain" state="Planned" />
               <div className="mt-4">
@@ -147,26 +147,26 @@ export function ArchitectureMap() {
                 <Arrow />
                 <Node title="Internal assets" detail="No public route" />
               </div>
-              <p className="mt-4 border-t border-border pt-3 text-[10.5px] leading-5 text-muted">
+              <p className="mt-4 border-t border-border pt-3 text-[11.5px] leading-5 text-muted">
                 The public website has no call path into this domain.
               </p>
             </section>
           </div>
 
-          <div className="mt-4 flex flex-col gap-2 rounded-[16px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[10.5px] leading-5 text-muted">
-              <span className="mono uppercase tracking-[0.1em]">Outside this diagram:</span>{' '}
+          <div className="mt-4 flex flex-col gap-2 rounded-[10px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[11.5px] leading-5 text-muted">
+              <span className="mono uppercase tracking-[0.06em]">Outside this diagram:</span>{' '}
               separately operated networks. No topology, addresses, ports or credentials are
               published.
             </p>
-            <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
+            <p className="mono text-[10.5px] uppercase tracking-[0.06em] text-muted">
               Probe publishes the only live cross-domain output
             </p>
           </div>
         </div>
 
         <div className="figure__foot">
-          <p className="text-[10.5px] leading-5 text-muted">
+          <p className="text-[11.5px] leading-5 text-muted">
             Reference architecture. Probe runs on the product side today; the dashed boxes and the
             management domain remain planned.
           </p>

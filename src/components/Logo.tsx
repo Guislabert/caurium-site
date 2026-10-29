@@ -54,9 +54,7 @@ export function Logo({
         inverse={inverse}
       />
       <span
-        className={`font-display text-[18px] font-semibold leading-none tracking-[-0.02em] ${
-          inverse ? 'text-[#F6F4EE]' : 'text-ink'
-        }`}
+        className={`wordmark text-[18px] leading-none ${inverse ? 'text-[#F6F4EE]' : 'text-ink'}`}
       >
         Caurium
       </span>

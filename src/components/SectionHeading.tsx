@@ -26,7 +26,7 @@ export function SectionHeading({
         </h2>
       </div>
       {intro ? (
-        <div className="max-w-sm text-sm leading-6 text-muted md:pb-1">{intro}</div>
+        <div className="max-w-sm text-[14px] leading-6 text-muted md:pb-1">{intro}</div>
       ) : null}
     </div>
   );

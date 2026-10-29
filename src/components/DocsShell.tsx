@@ -35,7 +35,7 @@ export function DocsShell({
             <p className="eyebrow">Documentation</p>
             <h1 className="h1 mt-3 max-w-[20ch] text-[clamp(2.1rem,4vw,3.5rem)]">{title}</h1>
             <p className="lede mt-4 max-w-2xl">{description}</p>
-            <p className="mono mt-5 text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <p className="mono mt-5 text-[11px] uppercase tracking-[0.06em] text-muted">
               Last reviewed{' '}
               <time dateTime={SITE.reviewedAt}>{SITE.reviewedAt}</time> · Applies to the public
               site

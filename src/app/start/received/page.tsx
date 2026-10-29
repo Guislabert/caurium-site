@@ -30,7 +30,7 @@ export default function ApplicationReceivedPage() {
           </>
         }
         meta={
-          <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+          <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
             Manual review · No SLA
           </span>
         }

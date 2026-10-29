@@ -137,3 +137,23 @@ own credentials, limits and storage — not a Next.js Route Handler in a static 
 
 Until these exist, `NEXT_PUBLIC_SITE_ENV` must stay `preview`; do not point the production domain
 at a build whose legal pages name no entity.
+
+## 7. Redesign preview (`dev` branch)
+
+The `dev` branch carries the v2 visual system. It is deployed as a second Worker so production
+stays on the version that is live on the custom domain.
+
+| Setting | Value |
+| --- | --- |
+| Worker name | `caurium-site-dev` |
+| Config | `wrangler.dev.jsonc` (same assets binding and entry worker as production) |
+| Command | `pnpm build && pnpm deploy:dev` |
+| URL | `https://caurium-site-dev.caurium.workers.dev` |
+| Environment | `NEXT_PUBLIC_SITE_ENV=preview`, `NEXT_PUBLIC_SITE_URL=https://caurium-site-dev.caurium.workers.dev` |
+
+`pnpm deploy:dev` needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment. The
+branch build stays `noindex` because it keeps the preview environment; it is not attached to any
+custom domain or zone record.
+
+Promoting the redesign means merging `dev` into `main` and letting the existing production deploy
+job run — not re-pointing `wrangler.dev.jsonc` at the production name.

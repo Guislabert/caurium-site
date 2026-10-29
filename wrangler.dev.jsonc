@@ -1,0 +1,22 @@
+// Dev preview Worker for the redesign branch.
+// Same static export as production, deployed under its own name so the
+// production Worker and its custom domains are untouched.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "caurium-site-dev",
+  "compatibility_date": "2026-10-28",
+  "main": "src/worker.ts",
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": true
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "persist": true
+    }
+  }
+}

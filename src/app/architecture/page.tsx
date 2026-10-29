@@ -83,7 +83,7 @@ export default function ArchitecturePage() {
               <span className="badge-dot" aria-hidden="true" />
               Probe live · three planned
             </span>
-            <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Public site · Current
             </span>
           </>
@@ -105,14 +105,14 @@ export default function ArchitecturePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-[18px] border border-border bg-border md:grid-cols-3">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[12px] border border-border bg-border md:grid-cols-3">
             {WHY.map((item, index) => (
               <div key={item.title} className="bg-paper p-6">
-                <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   W.{String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="mt-3 text-[15px] font-medium leading-6">{item.title}</h3>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{item.detail}</p>
+                <h3 className="mt-3 text-[15.5px] font-medium leading-6">{item.title}</h3>
+                <p className="mt-2 text-[13.5px] leading-6 text-muted">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -154,14 +154,14 @@ export default function ArchitecturePage() {
           </div>
 
           <div>
-            <dl className="grid gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-2">
+            <dl className="grid gap-px overflow-hidden rounded-[10px] border border-border bg-border sm:grid-cols-2">
               {FACTS.map((fact) => (
                 <div key={fact.label} className="bg-background p-5">
-                  <dt className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                  <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                     {fact.label}
                   </dt>
                   <dd className="mono mt-2 text-3xl leading-none tracking-[-0.03em]">{fact.value}</dd>
-                  <dd className="mt-2 text-[11.5px] leading-5 text-muted">{fact.detail}</dd>
+                  <dd className="mt-2 text-[12px] leading-5 text-muted">{fact.detail}</dd>
                 </div>
               ))}
             </dl>
@@ -224,14 +224,14 @@ export default function ArchitecturePage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-[16px] border border-border bg-border md:grid-cols-2">
+          <div className="mt-10 grid gap-px overflow-hidden rounded-[10px] border border-border bg-border md:grid-cols-2">
             {INVARIANTS.map((item, index) => (
               <div key={item.title} className="bg-background p-6">
-                <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   I.{String(index + 1).padStart(2, '0')}
                 </p>
-                <h3 className="mt-3 text-[15px] font-medium">{item.title}</h3>
-                <p className="mt-2 max-w-md text-[13px] leading-6 text-muted">{item.detail}</p>
+                <h3 className="mt-3 text-[15.5px] font-medium">{item.title}</h3>
+                <p className="mt-2 max-w-md text-[13.5px] leading-6 text-muted">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -250,14 +250,14 @@ export default function ArchitecturePage() {
             <ul className="border-t border-border-strong">
               {NOT_SHOWN.map((item, index) => (
                 <li key={item} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">
-                  <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                  <span className="mono text-[11px] tracking-[0.06em] text-muted">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                  <span className="text-[13.5px] leading-6 text-ink-2">{item}</span>
+                  <span className="text-[14px] leading-6 text-ink-2">{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-5 max-w-lg text-[13px] leading-6 text-muted">
+            <p className="mt-5 max-w-lg text-[13.5px] leading-6 text-muted">
               Public documentation can explain a boundary without exposing what sits behind it. Read
               the <Link href="/docs/security/" className="text-link">security boundaries</Link> for
               the access, credential and logging model.

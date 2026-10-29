@@ -17,8 +17,8 @@ export function ReleaseCriteria({
               aria-hidden="true"
               className="mt-1 h-3.5 w-3.5 border border-border-strong bg-background"
             />
-            <span className="text-[13.5px] leading-6 text-ink-2">
-              <span className="mono mr-2 text-[9px] text-muted">
+            <span className="text-[14px] leading-6 text-ink-2">
+              <span className="mono mr-2 text-[11px] text-muted">
                 {String(index + 1).padStart(2, '0')}
               </span>
               {criterion}

@@ -151,47 +151,49 @@ const STATUS_STRIP = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="container-page relative z-10 grid gap-12 py-14 md:py-20 lg:grid-cols-[1.16fr_0.84fr] lg:items-center lg:gap-14 lg:py-24">
-          <div>
-            <p className="eyebrow">{HERO.eyebrow}</p>
+      <section className="section-ink relative overflow-hidden border-b border-border">
+        <div className="hero-glow hero-glow--ink" aria-hidden="true" />
+        <div className="container-page relative z-10 py-16 md:py-24 lg:py-28">
+          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+            <p className="eyebrow text-white/60">{HERO.eyebrow}</p>
 
-            <h1 className="display hero-title mt-6 max-w-[18ch]">{HERO.title}</h1>
-            <p className="lede mt-7 max-w-[34rem]">{HERO.description}</p>
+            <h1 className="hero-title mt-6 text-white">
+              Infrastructure with boundaries you can check.
+            </h1>
+            <p className="lede mt-7 max-w-2xl text-white/70">{HERO.description}</p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={HERO.primaryCta.href} className="btn btn-primary">
+            <div className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+              <Link href={HERO.primaryCta.href} className="btn btn-inverse">
                 {HERO.primaryCta.label}
                 <span aria-hidden="true">→</span>
               </Link>
-              <Link href={HERO.secondaryCta.href} className="btn btn-secondary">
+              <Link href={HERO.secondaryCta.href} className="btn btn-inverse-outline">
                 {HERO.secondaryCta.label}
               </Link>
             </div>
 
-            <p className="mt-8 max-w-md border-l border-border-strong pl-3 text-xs leading-5 text-muted">
+            <p className="mono mt-8 text-[11.5px] uppercase tracking-[0.06em] text-white/50">
               {HERO.stage}
             </p>
           </div>
 
-          <div className="relative lg:rotate-[-1.2deg]">
+          <div className="mx-auto mt-14 max-w-3xl">
             <SystemBoard />
           </div>
         </div>
 
-        <div className="relative z-10 border-t border-border">
-          <div className="container-page grid grid-cols-1 divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
+        <div className="relative z-10 border-t border-white/15">
+          <div className="container-page grid grid-cols-1 divide-y divide-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
             {STATUS_STRIP.map((item) => (
               <div
                 key={item.label}
-                className="flex items-baseline justify-between gap-4 py-3 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0"
+                className="flex items-baseline justify-between gap-4 py-3.5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0"
               >
-                <p className="mono flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.12em] text-muted">
-                  <span className="h-1 w-1 rounded-full bg-olive" aria-hidden="true" />
+                <p className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-white/45">
+                  <span className="h-1 w-1 rounded-full bg-lime" aria-hidden="true" />
                   {item.label}
                 </p>
-                <p className="text-[11.5px] text-muted sm:mt-1">{item.value}</p>
+                <p className="text-[13px] text-white/80 sm:mt-1.5">{item.value}</p>
               </div>
             ))}
           </div>
@@ -207,7 +209,7 @@ export default function HomePage() {
             intro="None of these is a customer story. They are the failure modes the four modules are meant to make visible."
           />
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-[18px] border border-border bg-border sm:grid-cols-2">
+          <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
             {PROBLEMS.map((item) => (
               <Link
                 key={item.code}
@@ -215,13 +217,13 @@ export default function HomePage() {
                 className="group flex flex-col justify-between gap-8 bg-paper p-6 transition-colors hover:bg-background md:p-8"
               >
                 <div>
-                  <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
+                  <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                     {item.code} / Design target
                   </p>
-                  <h3 className="mt-4 max-w-[24ch] text-[21px] font-medium leading-[1.25] tracking-[-0.02em]">
+                  <h3 className="mt-4 max-w-[24ch] text-[22px] leading-[1.2] tracking-[-0.02em]">
                     {item.title}
                   </h3>
-                  <p className="mt-3 max-w-md text-[13.5px] leading-6 text-muted">{item.detail}</p>
+                  <p className="mt-3 max-w-md text-[14px] leading-6 text-muted">{item.detail}</p>
                 </div>
                 <span className="link-arrow self-start">
                   {item.product}
@@ -231,7 +233,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <p className="mt-5 text-xs leading-5 text-muted">
+          <p className="mt-5 text-[13px] leading-5 text-muted">
             Design targets, not observed incidents. Probe is in private preview; Gate, Guard and Box
             are planned.
           </p>
@@ -254,10 +256,10 @@ export default function HomePage() {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-2">
-            <p className="text-xs leading-5 text-muted">
+            <p className="text-[13px] leading-5 text-muted">
               Probe is available in private preview. Gate, Guard and Box are planned.
             </p>
-            <p className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
+            <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
               Fig. 02–05 · Module records
             </p>
           </div>
@@ -281,29 +283,29 @@ export default function HomePage() {
                 <span className="badge-dot" aria-hidden="true" />
                 Observe is live
               </span>
-              <p className="max-w-xs text-right text-xs leading-5 text-muted">
+              <p className="max-w-xs text-right text-[13px] leading-5 text-muted">
                 Probe handles the Observe step today. Connect and Operate remain designs for Gate and
                 Guard.
               </p>
             </div>
           </div>
 
-          <div className="mt-12 grid gap-8 md:grid-cols-3 md:gap-6">
+          <div className="mt-12 grid gap-8 md:grid-cols-3 md:gap-5">
             {WORKFLOW.map((item) => (
-              <div key={item.step} className="border-t border-border-strong pt-5">
-                <span className="mb-4 inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink font-mono text-[11px] text-paper">
+              <div key={item.step} className="border-t border-ink pt-5">
+                <span className="mono mb-4 inline-flex h-8 w-8 items-center justify-center bg-ink text-[12.5px] text-paper">
                   {item.step}
                 </span>
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   {item.label}
                 </p>
                 <h3 className="h3 mt-3">{item.title}</h3>
-                <p className="mt-2 max-w-sm text-[13.5px] leading-6 text-muted">{item.detail}</p>
+                <p className="mt-2 max-w-sm text-[14px] leading-6 text-muted">{item.detail}</p>
               </div>
             ))}
           </div>
 
-          <p className="mt-10 max-w-2xl text-xs leading-5 text-muted">
+          <p className="mt-10 max-w-2xl text-[13px] leading-5 text-muted">
             What Probe gives you today: a status page with a timestamp, one webhook message when an
             incident opens and one when it recovers. A Gate key and a Guard restore record are still
             designs.
@@ -316,9 +318,9 @@ export default function HomePage() {
           <div>
             <p className="section-index">04 / Principles</p>
             <h2 id="principles-heading" className="h2 mt-4 max-w-[15ch]">
-              What we will and will not claim.
+              What we will and will not <span className="emphasis">claim.</span>
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
               These are design constraints, not certifications. They describe how the system must
               behave once each part exists — and how this site is allowed to describe it.
             </p>
@@ -328,14 +330,14 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 sm:gap-6">
+          <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
             {PRINCIPLES.map((principle) => (
-              <div key={principle.code} className="border-t border-ink pt-4">
-                <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
+              <div key={principle.code} className="bg-paper p-6">
+                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   {principle.code}
                 </p>
-                <h3 className="mt-3 text-[15px] font-medium leading-6">{principle.title}</h3>
-                <p className="mt-2 text-[13px] leading-6 text-muted">{principle.detail}</p>
+                <h3 className="mt-3 text-[16px] leading-6 tracking-[-0.01em]">{principle.title}</h3>
+                <p className="mt-2 text-[14px] leading-6 text-muted">{principle.detail}</p>
               </div>
             ))}
           </div>
@@ -347,9 +349,9 @@ export default function HomePage() {
           <div>
             <p className="section-index">05 / Boundaries</p>
             <h2 id="trust-heading" className="h2 mt-4 max-w-[14ch]">
-              Trust is a boundary, not a badge.
+              Trust is a <span className="emphasis">boundary,</span> not a badge.
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-6 text-ink-2">
+            <p className="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
               Caurium has no certifications, customer references or uptime history to publish. What
               it can show is how the public site, product services and management access are
               separated — and what is still missing.
@@ -360,20 +362,20 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="border-t border-border-strong">
+          <div className="border-t border-ink/25">
             {TRUST_LINKS.map((item, index) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex items-start justify-between gap-6 border-b border-border py-5 transition-colors hover:bg-paper/60"
+                className="group flex items-start justify-between gap-6 border-b border-ink/15 py-5 transition-colors hover:bg-paper/50"
               >
                 <span className="grid flex-1 gap-1 sm:grid-cols-[36px_1fr] sm:gap-4">
-                  <span className="mono pt-0.5 text-[9px] tracking-[0.1em] text-ink-2">
+                  <span className="mono pt-0.5 text-[11.5px] text-ink-2">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span>
-                    <span className="block text-[15.5px] font-medium">{item.title}</span>
-                    <span className="mt-1 block max-w-lg text-[13px] leading-6 text-ink-2">
+                    <span className="block text-[16px] leading-6">{item.title}</span>
+                    <span className="mt-1 block max-w-lg text-[14px] leading-6 text-ink-2">
                       {item.detail}
                     </span>
                   </span>
@@ -390,14 +392,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section border-b border-border" aria-labelledby="docs-heading">
+      <section className="section section-paper border-b border-border" aria-labelledby="docs-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
           <div>
             <p className="section-index">06 / Documentation</p>
             <h2 id="docs-heading" className="h2 mt-4 max-w-[15ch]">
               Read what exists before you rely on it.
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-6 max-w-sm text-[14px] leading-6 text-muted">
               Start with the overview and the stage dictionary. The Probe page documents its live
               status contract and the limits it does not promise.
             </p>
@@ -412,15 +414,15 @@ export default function HomePage() {
               <Link
                 key={doc.href}
                 href={doc.href}
-                className="group flex items-start justify-between gap-6 border-b border-border py-5 transition-colors hover:bg-paper"
+                className="group flex items-start justify-between gap-6 border-b border-border py-5 transition-colors hover:bg-background"
               >
                 <span className="grid flex-1 gap-1 sm:grid-cols-[36px_1fr] sm:gap-4">
-                  <span className="mono pt-0.5 text-[9px] tracking-[0.1em] text-muted">
+                  <span className="mono pt-0.5 text-[11.5px] text-muted">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span>
-                    <span className="block text-[15.5px] font-medium">{doc.title}</span>
-                    <span className="mt-1 block max-w-lg text-[13px] leading-6 text-muted">
+                    <span className="block text-[16px] leading-6">{doc.title}</span>
+                    <span className="mt-1 block max-w-lg text-[14px] leading-6 text-muted">
                       {doc.detail}
                     </span>
                   </span>
@@ -437,14 +439,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section section-paper border-b border-border" aria-labelledby="status-heading">
+      <section className="section border-b border-border" aria-labelledby="status-heading">
         <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
           <div>
             <p className="section-index">07 / Status</p>
             <h2 id="status-heading" className="h2 mt-4">
               Service status
             </h2>
-            <p className="mt-6 max-w-sm text-sm leading-6 text-muted">
+            <p className="mt-6 max-w-sm text-[14px] leading-6 text-muted">
               Each Probe account gets a status page built from its own checks. Caurium’s own
               site-wide feed is not connected yet, so this section reports that instead of a green
               summary.
@@ -458,18 +460,16 @@ export default function HomePage() {
           <div>
             <div className="status-panel">
               <div className="status-panel__head">
-                <p className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
+                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   Caurium site feed · Schema v1
                 </p>
-                <span className="mono text-[8.5px] uppercase tracking-[0.1em] text-muted">
+                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   Not connected
                 </span>
               </div>
               <div className="status-panel__body">
-                <p className="text-[15px] font-medium leading-6">
-                  The site-wide feed is not connected.
-                </p>
-                <p className="mt-1.5 max-w-lg text-[13.5px] leading-6 text-muted">
+                <p className="text-[15.5px] leading-6">The site-wide feed is not connected.</p>
+                <p className="mt-1.5 max-w-lg text-[14px] leading-6 text-muted">
                   Probe customer pages are live. This page does not claim a Caurium uptime history.
                 </p>
                 <div className="mt-4 flex items-center gap-2">
@@ -477,16 +477,16 @@ export default function HomePage() {
                     className="h-2 w-2 rounded-full border border-border-strong"
                     aria-hidden="true"
                   />
-                  <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                  <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                     No site-wide component is reported as operational
                   </span>
                 </div>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3">
-                <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   Data source: none
                 </span>
-                <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
                   Last check: none
                 </span>
               </div>
@@ -496,7 +496,7 @@ export default function HomePage() {
               {['Operational', 'Degraded', 'Outage', 'Maintenance', 'Unknown'].map((state) => (
                 <span
                   key={state}
-                  className="mono flex items-center gap-1.5 text-[8.5px] uppercase tracking-[0.1em] text-muted"
+                  className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-muted"
                 >
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
@@ -507,7 +507,7 @@ export default function HomePage() {
                   {state}
                 </span>
               ))}
-              <span className="text-[11px] leading-5 text-muted">
+              <span className="text-[12.5px] leading-5 text-muted">
                 All states are Unknown until a feed is connected.
               </span>
             </div>
@@ -515,35 +515,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-ink relative overflow-hidden" aria-labelledby="closing-heading">
-        <div className="grid-ink pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
-        <CauriumMark
-          className="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 text-[#f6f4ee] opacity-[0.08]"
-          mono
-        />
-        <div className="container-page relative py-16 md:py-24">
-          <p className="mono text-[10px] uppercase tracking-[0.16em] text-[#f6f4ee]/60">
-            08 / Build log
-          </p>
-          <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <h2 id="closing-heading" className="display max-w-[12ch] text-[#f6f4ee]">
-                Read the plan. Check the evidence.
-              </h2>
-              <p className="mt-5 max-w-md text-sm leading-6 text-[#f6f4ee]/70">
-                The roadmap is public, every claim is dated, and a stage changes only when its
-                evidence does. The build log records what changed — including what is still
-                missing.
+      <section className="section-tight border-b border-border" aria-labelledby="closing-heading">
+        <div className="container-page">
+          <div className="cta-card cta-card--ink relative overflow-hidden">
+            <div
+              className="grid-ink pointer-events-none absolute inset-0 opacity-50"
+              aria-hidden="true"
+            />
+            <CauriumMark
+              className="pointer-events-none absolute -bottom-20 -right-12 h-72 w-72 text-[#f4f4f4] opacity-[0.08]"
+              mono
+            />
+            <div className="relative px-6 py-14 md:px-14 md:py-20">
+              <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/55">
+                08 / Build log
               </p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link href="/build-log/" className="btn btn-inverse">
-                Open the build log
-                <span aria-hidden="true">→</span>
-              </Link>
-              <Link href="/docs/" className="btn btn-inverse-outline">
-                Read the docs
-              </Link>
+              <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+                <div>
+                  <h2 id="closing-heading" className="display max-w-[14ch] text-white">
+                    Read the plan. Check the evidence.
+                  </h2>
+                  <p className="mt-5 max-w-md text-[14px] leading-6 text-white/70">
+                    The roadmap is public, every claim is dated, and a stage changes only when its
+                    evidence does. The build log records what changed — including what is still
+                    missing.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <Link href="/build-log/" className="btn btn-inverse">
+                    Open the build log
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link href="/docs/" className="btn btn-inverse-outline">
+                    Read the docs
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

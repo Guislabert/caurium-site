@@ -14,7 +14,7 @@ export function SystemBoard() {
   return (
     <figure className="figure corner-marks">
       <div className="figure__head">
-        <p className="mono text-[9.5px] uppercase tracking-[0.12em] text-muted">
+        <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
           Fig. 01 — Module map
         </p>
         <ProductStageBadge stage="private-preview" />
@@ -23,10 +23,10 @@ export function SystemBoard() {
       <div className="figure__body grid-paper">
         <div className="relative">
           <div className="flex items-center justify-between gap-4 pb-3">
-            <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
               Caurium modules
             </span>
-            <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
               Service boundary
             </span>
           </div>
@@ -42,8 +42,8 @@ export function SystemBoard() {
                 <div className="flex items-center gap-2.5">
                   <ProductGlyph id={product.id} className="h-7 w-7 shrink-0" />
                   <div>
-                    <p className="text-[12.5px] font-medium leading-4">{product.name}</p>
-                    <p className="mono text-[8px] uppercase tracking-[0.1em] text-muted">
+                    <p className="text-[13.5px] leading-4">{product.name}</p>
+                    <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                       {product.role}
                     </p>
                   </div>
@@ -54,7 +54,7 @@ export function SystemBoard() {
                   <span className="absolute -right-1 top-1/2 -translate-y-1/2 border-y-[3px] border-l-[5px] border-y-transparent border-l-border-strong" />
                 </div>
 
-                <p className="text-right text-[10px] leading-4 text-muted sm:text-[10.5px]">
+                <p className="text-right text-[11.5px] leading-4 text-muted sm:text-[11.5px]">
                   {DESTINATIONS[product.id]}
                 </p>
               </div>
@@ -69,10 +69,10 @@ export function SystemBoard() {
       </div>
 
       <div className="figure__foot flex flex-wrap items-center justify-between gap-2">
-        <p className="text-[10.5px] leading-5 text-muted">
+        <p className="text-[12px] leading-5 text-muted">
           Probe is live in private preview. The other three boxes are illustrative.
         </p>
-        <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">Rev. 2026-10-29</p>
+        <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">Rev. 2026-10-29</p>
       </div>
     </figure>
   );

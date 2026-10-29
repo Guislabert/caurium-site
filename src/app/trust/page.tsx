@@ -83,7 +83,7 @@ export default function TrustPage() {
               <span className="badge-dot" aria-hidden="true" />
               Claims reviewed 29 Oct 2026
             </span>
-            <span className="mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               No certification claimed
             </span>
           </>
@@ -97,7 +97,7 @@ export default function TrustPage() {
             What exists, in four lines.
           </h2>
 
-          <dl className="mt-10 grid gap-px overflow-hidden rounded-[18px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+          <dl className="mt-10 grid gap-px overflow-hidden rounded-[12px] border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {[
               { value: '04', label: 'Modules', detail: 'Probe live, three planned' },
               { value: '01', label: 'Live product', detail: 'Probe, private preview' },
@@ -105,11 +105,11 @@ export default function TrustPage() {
               { value: '00', label: 'Certifications', detail: 'None claimed' },
             ].map((fact) => (
               <div key={fact.label} className="bg-paper p-6">
-                <dt className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {fact.label}
                 </dt>
                 <dd className="mono mt-2 text-3xl leading-none tracking-[-0.03em]">{fact.value}</dd>
-                <dd className="mt-2 text-[11.5px] leading-5 text-muted">{fact.detail}</dd>
+                <dd className="mt-2 text-[12px] leading-5 text-muted">{fact.detail}</dd>
               </div>
             ))}
           </dl>
@@ -131,8 +131,8 @@ export default function TrustPage() {
             </p>
           </div>
 
-          <div className="table-scroll mt-10 rounded-[16px] border border-border">
-            <table className="w-full border-collapse text-left text-[13px]">
+          <div className="table-scroll mt-10 rounded-[10px] border border-border">
+            <table className="w-full border-collapse text-left text-[13.5px]">
               <caption className="sr-only">
                 Public Caurium claims with their page, stage and evidence status
               </caption>
@@ -149,13 +149,13 @@ export default function TrustPage() {
                   <tr key={claim.claim} className="border-b border-border align-top last:border-b-0">
                     <td className="max-w-[320px] px-4 py-3 leading-5">{claim.claim}</td>
                     <td className="whitespace-nowrap px-4 py-3">
-                      <Link href={claim.href} className="text-accent hover:underline">
+                      <Link href={claim.href} className="text-accent-ink hover:underline">
                         {claim.page}
                       </Link>
                     </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       <span
-                        className={`mono text-[9px] uppercase tracking-[0.1em] ${
+                        className={`mono text-[11px] uppercase tracking-[0.06em] ${
                           claim.stage === 'gap'
                             ? 'text-warning'
                             : claim.stage === 'fact'
@@ -196,12 +196,12 @@ export default function TrustPage() {
           <div className="border-t border-border-strong">
             {SEPARATION.map((item, index) => (
               <div key={item.title} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5">
-                <span className="mono pt-1 text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono pt-1 text-[11px] tracking-[0.06em] text-muted">
                   S.{String(index + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="text-[15.5px] font-medium leading-6">{item.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-[13.5px] leading-6 text-muted">{item.detail}</p>
+                  <h3 className="text-[16px] font-medium leading-6">{item.title}</h3>
+                  <p className="mt-1.5 max-w-xl text-[14px] leading-6 text-muted">{item.detail}</p>
                 </div>
               </div>
             ))}
@@ -220,10 +220,10 @@ export default function TrustPage() {
           <ul className="border-t border-border-strong">
             {NOT_CLAIMED.map((item, index) => (
               <li key={item} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">
-                <span className="mono text-[9px] tracking-[0.1em] text-muted">
+                <span className="mono text-[11px] tracking-[0.06em] text-muted">
                   {String(index + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[13.5px] leading-6 text-ink-2">{item}</span>
+                <span className="text-[14px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>
@@ -245,12 +245,12 @@ export default function TrustPage() {
           <div className="border-t border-border-strong">
             {GAPS.map((gap, index) => (
               <div key={gap.title} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5">
-                <span className="mono pt-1 text-[9px] tracking-[0.1em] text-warning">
+                <span className="mono pt-1 text-[11px] tracking-[0.06em] text-warning">
                   G.{String(index + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <h3 className="text-[15px] font-medium leading-6">{gap.title}</h3>
-                  <p className="mt-1.5 max-w-xl text-[13px] leading-6 text-muted">{gap.detail}</p>
+                  <h3 className="text-[15.5px] font-medium leading-6">{gap.title}</h3>
+                  <p className="mt-1.5 max-w-xl text-[13.5px] leading-6 text-muted">{gap.detail}</p>
                 </div>
               </div>
             ))}

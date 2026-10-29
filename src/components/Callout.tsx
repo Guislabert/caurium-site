@@ -4,9 +4,9 @@ type Tone = 'note' | 'warning' | 'danger' | 'info';
 
 const TONE_CLASSES: Record<Tone, string> = {
   note: 'border-border bg-paper',
-  info: 'border-[#d8ceff] bg-accent-soft',
-  warning: 'border-[#e6d2b0] bg-[#fdf3e4]',
-  danger: 'border-[#eccaca] bg-[#fdf1f1]',
+  info: 'border-[#bcd7fb] bg-accent-soft',
+  warning: 'border-[#e8cfae] bg-[#fdf6ec]',
+  danger: 'border-[#efc9c9] bg-[#fdf1f1]',
 };
 
 export function Callout({
@@ -19,9 +19,9 @@ export function Callout({
   tone?: Tone;
 }) {
   return (
-    <div className={`rounded-[16px] border p-4 md:p-5 ${TONE_CLASSES[tone]}`}>
+    <div className={`rounded-[10px] border p-4 md:p-5 ${TONE_CLASSES[tone]}`}>
       <p className="text-sm font-medium leading-6">{title}</p>
-      <div className="mt-1 text-[13.5px] leading-6 text-muted">{children}</div>
+      <div className="mt-1 text-[14px] leading-6 text-muted">{children}</div>
     </div>
   );
 }

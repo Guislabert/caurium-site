@@ -78,14 +78,14 @@ export default function DocsPage() {
             className="doc-row group flex items-start justify-between gap-6 border-b border-border py-4 first:border-t first:border-border-strong"
           >
             <span className="grid flex-1 gap-1 sm:grid-cols-[32px_1fr] sm:gap-4">
-              <span className="mono pt-0.5 text-[9px] tracking-[0.1em] text-muted">
+              <span className="mono pt-0.5 text-[11px] tracking-[0.06em] text-muted">
                 {String(index + 1).padStart(2, '0')}
               </span>
               <span>
-                <span className="doc-row-title block text-[15.5px] font-medium text-foreground">
+                <span className="doc-row-title block text-[16px] font-medium text-foreground">
                   {doc.title}
                 </span>
-                <span className="mt-1 block text-[13px] leading-6 text-muted">{doc.detail}</span>
+                <span className="mt-1 block text-[13.5px] leading-6 text-muted">{doc.detail}</span>
               </span>
             </span>
             <span aria-hidden="true" className="pt-1 text-muted transition-transform group-hover:translate-x-1">
@@ -96,7 +96,7 @@ export default function DocsPage() {
       </div>
 
       <h2 id="reading-paths">Reading paths</h2>
-      <div className="grid gap-px overflow-hidden rounded-[16px] border border-border bg-border sm:grid-cols-3">
+      <div className="grid gap-px overflow-hidden rounded-[10px] border border-border bg-border sm:grid-cols-3">
         {[
           {
             title: 'Evaluating Caurium',
@@ -119,9 +119,9 @@ export default function DocsPage() {
             href={path.href}
             className="group bg-background p-5 transition-colors hover:bg-paper"
           >
-            <p className="text-[14.5px] font-medium leading-5">{path.title}</p>
-            <p className="mt-2 text-[12px] leading-5 text-muted">{path.detail}</p>
-            <span className="mono mt-4 inline-block text-[9px] uppercase tracking-[0.1em] text-accent">
+            <p className="text-[15px] font-medium leading-5">{path.title}</p>
+            <p className="mt-2 text-[12.5px] leading-5 text-muted">{path.detail}</p>
+            <span className="mono mt-4 inline-block text-[11.5px] uppercase tracking-[0.06em] text-accent-ink">
               Start →
             </span>
           </Link>

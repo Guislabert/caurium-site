@@ -20,21 +20,22 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-border">
-      <div className="hero-glow opacity-80" aria-hidden="true" />
-      <div className="container-page relative z-10 py-10 md:py-14 lg:py-16">
+    <section className="relative border-b border-border bg-paper">
+      <div className="container-page relative py-10 md:py-14 lg:py-16">
         <Breadcrumbs items={crumbs} />
 
         <div
           className={`mt-8 grid gap-10 lg:gap-16 ${
-            aside ? 'lg:grid-cols-[1fr_290px] lg:items-start' : ''
+            aside ? 'lg:grid-cols-[1fr_300px] lg:items-start' : ''
           }`}
         >
           <div>
             <p className="eyebrow">{eyebrow}</p>
-            <h1 className="h1 mt-4 max-w-[20ch]">{title}</h1>
+            <h1 className="h1 mt-4 max-w-[22ch]">{title}</h1>
             <div className="lede mt-6 max-w-2xl">{description}</div>
-            {meta ? <div className="mt-6 flex flex-wrap items-center gap-3">{meta}</div> : null}
+            {meta ? (
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">{meta}</div>
+            ) : null}
             {children}
           </div>
           {aside ? <div className="lg:pt-2">{aside}</div> : null}
