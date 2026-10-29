@@ -34,7 +34,20 @@ NEXT_PUBLIC_STATUS_URL=            # only after a sanitized endpoint exists
 Preview must stay `preview`: the build emits `noindex` metadata and a disallow-all `robots.txt`.
 Never reuse production upstream secrets in a preview build; this site needs none.
 
-## 2. First deployment
+## 2. Deployment
+
+Pushes to `main` deploy automatically. The `deploy` job in
+`.github/workflows/actions.yaml` builds, runs `wrangler deploy --message "<sha> <ref>"`, and then
+submits the built sitemap to IndexNow when the `INDEXNOW_KEY` repository variable is set. The
+Worker version list therefore names the commit that produced it, which the manual flow below did
+not.
+
+Required repository configuration:
+- Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+- Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
+  optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`
+
+The first manual deployment, if the project does not exist yet:
 
 1. Verify repository ownership and whether a Cloudflare project already exists.
 2. Create or confirm the Workers project from the repository. Build with `pnpm build`; `wrangler.jsonc` serves `./out`.
