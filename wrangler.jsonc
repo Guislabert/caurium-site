@@ -6,6 +6,12 @@
   "name": "caurium-site",
   "compatibility_date": "2026-10-28",
   "main": "src/worker.ts",
+  // The apex is a custom domain on this Worker (created in the dashboard). `www`
+  // needs its own custom-domain attachment: without one, DNS has nothing to answer
+  // for it and src/worker.ts never sees the request it is supposed to redirect.
+  "routes": [
+    { "pattern": "www.caurium.tech", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
