@@ -164,6 +164,6 @@ export const CLAIMS: ClaimRecord[] = [
     page: 'Trust & claims',
     href: '/trust/',
     stage: 'gap',
-    evidence: 'Applications are answered by email, but no public support address exists.',
+    evidence: 'Applications are answered by email; the support, security and privacy addresses are published in the footer.',
   },
 ];

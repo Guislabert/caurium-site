@@ -164,7 +164,7 @@ export default function PrivacyPage() {
         before anything is charged.
       </p>
       <Callout title="What is still missing, and why it is safe to use the site" tone="warning">
-        A working privacy address exists, but the legal identity of the operator does not. That is
+        A published privacy address exists, but the legal identity of the operator does not. That is
         why no payment is accepted. Do not send identity documents, credentials or other sensitive
         personal data through any public channel — including email.
       </Callout>

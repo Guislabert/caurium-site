@@ -105,7 +105,7 @@ states that the register wins if it disagrees with any other copy.
 | `/docs/faq/` | Short answers about availability, price, regions, status and reporting | Restates boundaries; links to the claims register |
 | `/docs/glossary/` | Term definitions used across the site | Product, stage and status records |
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
-| Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`250`) and the rules are enabled. |
+| Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`RCPT 250`) and the forwarding rules are enabled. End-to-end delivery to the destination mailbox was **not** confirmed — the sending host is not SPF-authorised for any test domain, so the receiving side refused it before routing. |
 | `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/app/privacy/page.tsx`, `CONTACT.privacy`; Worker storage. No entity invented. |
 | `/terms/` | Free preview; planned prices are not charged; no SLA, uptime percentage or response-time guarantee | Private preview scope; paid activation requires published entity and governing law. |
 
