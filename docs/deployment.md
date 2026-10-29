@@ -43,7 +43,9 @@ Worker version list therefore names the commit that produced it, which the manua
 not.
 
 Required repository configuration:
-- Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+- Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`. Until the token exists the job
+  reports that the deploy was skipped rather than failing the build, so a fork or a fresh
+  clone does not go red.
 - Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
   optional `NEXT_PUBLIC_STATUS_URL`, optional `INDEXNOW_KEY`
 
