@@ -94,7 +94,7 @@ export const CLAIMS: ClaimRecord[] = [
     page: 'Architecture',
     href: '/architecture/',
     stage: 'fact',
-    evidence: 'wrangler.jsonc serves ./out as static assets.',
+    evidence: 'wrangler.jsonc serves ./dist as static assets.',
   },
   {
     claim: 'The site sets no first-party analytics, advertising cookies or tracking.',
