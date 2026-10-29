@@ -69,7 +69,6 @@ export const FOOTER_LINKS = [
 ] as const;
 
 export const HERO = {
-  eyebrow: 'Caurium',
   title: 'Infrastructure with boundaries you can check.',
   description:
     'Probe checks the endpoints you own, opens one incident after three consecutive failures, alerts your webhook and publishes a status page that never exposes an origin address. It runs as a free private preview, opened by application. Gate and Guard are in development; Box is planned.',

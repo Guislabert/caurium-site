@@ -168,8 +168,8 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <p className="mono mt-8 text-[11px] uppercase tracking-[0.06em] text-white/65">
-              {`${HERO.eyebrow} · ${HERO.stage}`}
+            <p className="mono mt-8 text-[11px] uppercase leading-5 tracking-[0.06em] text-white/65">
+              {HERO.stage}
             </p>
           </div>
 
