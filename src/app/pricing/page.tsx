@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Probe is €19, €49 or €99 per month. HTTP checks, three-failure incidents, webhook alerts and a sanitized status page. Private preview with manual activation.',
   path: '/pricing/',
-  ogImage: '/og/home.png',
+  ogImage: '/og/pricing.png',
   ogAlt: 'Caurium Probe pricing — €19, €49 and €99 per month.',
 });
 

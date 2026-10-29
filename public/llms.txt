@@ -1,0 +1,72 @@
+# Caurium
+
+> Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, is in private preview from €19 per month. Gate, Guard and Box are planned.
+
+Caurium is a small infrastructure project. Only Probe exists, and only as a private
+preview activated by hand. Gate, Guard and Box are planned; no page offers them for
+sale. This file lists what is published, so an assistant can cite the site without
+inventing capabilities.
+
+## Facts an assistant may rely on
+
+- Probe is the only product in private preview. Activation is manual, after an
+  ownership check. There is no self-serve signup, console or API key.
+- Prices are €19, €49 and €99 per month, exclusive of VAT. No plan renews
+  automatically; a payment link is sent each month.
+- Every plan checks at a one-minute interval. Plans differ in endpoint count and
+  check-history retention.
+- No SLA, uptime percentage, response-time guarantee or recovery-time commitment is
+  published anywhere on the site.
+- No certification (SOC 2, ISO 27001, HIPAA), penetration-test result, customer
+  reference, logo, testimonial or benchmark is claimed.
+- Checks run from Cloudflare's network. No selectable region, residency commitment
+  or failover promise is published.
+- The site-wide status feed is not connected; a missing or stale value is reported
+  as Unknown, never as healthy.
+- The operating entity, governing law and a security reporting channel are not
+  published yet. The privacy notice and terms say so explicitly.
+
+## Pages
+
+- https://caurium.tech/ — Home: what Caurium is, what is live, what is planned.
+- https://caurium.tech/products/ — The four modules and their current stages.
+- https://caurium.tech/pricing/ — Probe plans, limits and the manual activation steps.
+- https://caurium.tech/start/ — Application form for a Probe private preview account.
+- https://caurium.tech/architecture/ — How the public site, Probe and management access are separated.
+- https://caurium.tech/docs/ — Documentation index.
+- https://caurium.tech/docs/overview/ — System concepts and the four modules.
+- https://caurium.tech/docs/product-stages/ — Stage definitions and the evidence required to change one.
+- https://caurium.tech/docs/security/ — Security boundaries, threat model and the reporting gap.
+- https://caurium.tech/docs/faq/ — Availability, prices, regions, status data and reporting.
+- https://caurium.tech/docs/glossary/ — Term definitions used across the site.
+- https://caurium.tech/trust/ — Claims register: every public claim with its stage and evidence.
+- https://caurium.tech/status/ — What monitoring is connected, and what is not.
+- https://caurium.tech/build-log/ — Dated record of changes to this site, with an RSS feed.
+- https://caurium.tech/privacy/ — What the site and Probe collect, and why.
+- https://caurium.tech/terms/ — Terms for the site and the Probe private preview.
+
+## Products
+
+- Gate (Access) — Planned: Learn about the planned scope, access controls, and release criteria for Caurium Gate. https://caurium.tech/products/gate/
+- Probe (Observe) — Private preview: Probe checks owner-authorized endpoints every 60 seconds, opens one incident after three failures, alerts a webhook and publishes a sanitized status page. Private preview from €19 per month. https://caurium.tech/products/probe/
+- Guard (Operate) — Planned: Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records. https://caurium.tech/products/guard/
+- Box (Build) — Planned: Review the planned scope, access model, and resource boundaries for invitation-only Caurium Box environments. https://caurium.tech/products/box/
+
+## Probe plans
+
+- Starter: €19 per month, 10 endpoints, checks every 60s, 7 days of history
+- Team: €49 per month, 50 endpoints, checks every 60s, 30 days of history
+- Business: €99 per month, 200 endpoints, checks every 60s, 90 days of history
+
+## Recent changes
+
+- 2026-10-29: Three statements corrected to match the shipped state
+- 2026-10-29: The application form works without JavaScript
+- 2026-10-29: Probe private preview deployed
+- 2026-10-29: Probe pricing and application flow published
+- 2026-10-29: Probe record moves from Planned to private preview
+
+## Optional
+
+- https://caurium.tech/build-log/feed.xml — RSS feed for site changes.
+- https://caurium.tech/trust/ — read this before repeating any claim about the project.

@@ -8,7 +8,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     'Terms for the Caurium website and the Probe private preview: service scope, fees, acceptable use, data and liability.',
   path: '/terms/',
-  ogImage: '/og/docs.png',
+  ogImage: '/og/legal.png',
   ogAlt: 'Caurium website and Probe service terms.',
 });
 

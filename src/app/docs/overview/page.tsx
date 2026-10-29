@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'System overview',
   description:
-    'Caurium system concepts: the four modules, service domains, current availability and terminology.',
+    'Caurium system concepts: the four modules, how the public site, Probe and management access are separated, what is available today and what is not.',
   path: '/docs/overview/',
   ogImage: '/og/docs.png',
   ogAlt: 'Caurium system overview documentation.',
