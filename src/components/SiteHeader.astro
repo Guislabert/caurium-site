@@ -2,18 +2,36 @@
 import Logo from '@/components/Logo.astro';
 import MobileNavigation from '@/components/MobileNavigation.astro';
 import PrimaryNavigation from '@/components/PrimaryNavigation.astro';
+import { NAV } from '@/content/site';
 ---
+
+<div class="site-topbar">
+  <div class="container-page site-topbar__inner">
+    <span
+      class="inline-flex items-center border border-white/35 px-1.5 py-0.5 text-[11.5px] tracking-[0.06em] text-white"
+    >
+      New
+    </span>
+    <span class="text-white">Probe is in private preview</span>
+    <span aria-hidden="true" class="hidden text-white/50 sm:inline">·</span>
+    <span class="hidden text-white/85 sm:inline">Free · By application · No SLA</span>
+    <a href="/access/" class="site-topbar__link ml-1">
+      Apply
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="container-page site-header__inner">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-5">
       <a href="/" aria-label="Caurium home" class="shrink-0">
-        <Logo />
+        <Logo inverse />
       </a>
-      <span class="hidden items-center gap-2 border-l border-border pl-4 xl:inline-flex">
+      <span class="hidden items-center gap-2 border-l border-white/20 pl-5 xl:inline-flex">
         <span class="h-1.5 w-1.5 rounded-full bg-lime" aria-hidden="true"></span>
-        <span class="mono text-[10px] uppercase tracking-[0.12em] text-muted">
-          Free private preview · By application
+        <span class="mono text-[11px] uppercase tracking-[0.06em] text-white/70">
+          Probe private preview
         </span>
       </span>
     </div>
@@ -22,9 +40,35 @@ import PrimaryNavigation from '@/components/PrimaryNavigation.astro';
 
     <div class="flex items-center gap-2">
       <div class="hidden md:block">
-        <a href="/access/" class="btn btn-primary">Apply for access</a>
+        <a
+          href="/access/"
+          class="mono inline-flex h-9 shrink-0 items-center whitespace-nowrap bg-white px-3 text-[11.5px] uppercase tracking-[0.06em] text-ink transition-colors hover:bg-white/85 lg:px-4"
+        >
+          Apply for access
+        </a>
       </div>
       <MobileNavigation />
     </div>
   </div>
+
+  {/* The menu button needs JavaScript. Without it, phone-width readers still get
+      the primary navigation as a plain list under the header. */}
+  <noscript>
+    <nav aria-label="Primary" class="border-t border-white/15 md:hidden">
+      <ul class="container-page flex flex-wrap gap-x-4 py-2">
+        {
+          NAV.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="mono inline-flex min-h-11 items-center text-[11px] uppercase tracking-[0.06em] text-white/75"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </noscript>
 </header>
