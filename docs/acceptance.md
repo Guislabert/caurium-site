@@ -74,8 +74,9 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 - [ ] CSP switched from Report-Only to enforcing. `NOT RUN` — the form's endpoint is now allowed,
       but Cloudflare injects `static.cloudflareinsights.com/beacon.min.js` at the edge, which
       `script-src` blocks. One of the two has to change first.
-- [ ] `www` redirects to the apex with path and query preserved. `FAIL` — `www.caurium.tech`
-      answers 404 while the apex serves the site.
+- [x] `www` redirects to the apex with path and query preserved. `www` is bound to the same
+      Worker; `src/worker.ts` answers 301 before assets (`run_worker_first`). Verified:
+      `/pricing/?plan=team` → `301 https://caurium.tech/pricing/?plan=team`.
 - [x] No management database, private node control or shared management cookie.
 - [x] Build and preview require no network credentials.
 
@@ -84,7 +85,8 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 - [ ] Domain ownership, Cloudflare project ownership and deployment permission verified.
 - [ ] Privacy and terms reflect the real entity, purpose and data handling.
 - [x] HTTPS valid on the apex (Google Trust Services WE1). HTTP redirects to HTTPS.
-- [ ] `www` redirects with path and query preserved, no loop. `FAIL` — returns 404.
+- [x] `www` redirects with path and query preserved, no loop. Verified against the deployed
+      Worker.
 - [ ] Pages binding complete; authoritative and recursive DNS verified.
 - [ ] DNS diff limited to this site; existing node and mail records unchanged.
 - [ ] Production spot checks pass.
@@ -92,5 +94,5 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 
 Conclusion: the private preview is deployed and serves the apex domain, with automated content,
 link and status-contract checks passing. Production is blocked on the inputs in
-`docs/deployment.md` §6 — legal entity, support and security channels, the `www` redirect, an
-enforcing CSP and a Lighthouse run.
+`docs/deployment.md` §6 — legal entity, support and security channels, an enforcing CSP and a
+Lighthouse run.

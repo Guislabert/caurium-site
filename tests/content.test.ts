@@ -304,3 +304,18 @@ test('the CSP allows the origin the application form posts to', () => {
   assert.ok(connect.includes(origin), `connect-src must include ${origin}`);
   assert.ok(formAction.includes(origin), `form-action must include ${origin}`);
 });
+
+test('the asset worker redirects www to the apex before serving files', () => {
+  const worker = readFileSync('src/worker.ts', 'utf8');
+  const config = readFileSync('wrangler.jsonc', 'utf8');
+
+  assert.match(worker, /startsWith\('www\.'\)/, 'the entry worker must recognise the www host');
+  assert.match(worker, /,\s*301\)/, 'the redirect must be permanent');
+  assert.match(config, /"main"/, 'wrangler.jsonc must name the entry worker');
+  assert.match(
+    config,
+    /"run_worker_first":\s*true/,
+    'assets would answer before the worker and skip the host check',
+  );
+  assert.match(config, /"binding":\s*"ASSETS"/, 'the worker needs the assets binding to fall through');
+});

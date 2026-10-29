@@ -1,13 +1,18 @@
-// Cloudflare Workers configuration for deploying the static Next.js export.
-// The Worker only serves the `out/` folder as assets; there is no runtime.
+// Cloudflare Workers configuration for the static Next.js export.
+// Static files come from `out/`; src/worker.ts only adds the www -> apex redirect.
 // Docs: https://developers.cloudflare.com/workers/static-assets/
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "caurium-site",
   "compatibility_date": "2026-10-28",
+  "main": "src/worker.ts",
   "assets": {
     "directory": "./out",
-    "not_found_handling": "404-page"
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Run the entry worker before serving assets, so the host check in
+    // src/worker.ts can redirect www. Without this the asset layer answers first.
+    "run_worker_first": true
   },
   "observability": {
     "logs": {

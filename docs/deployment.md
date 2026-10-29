@@ -63,7 +63,10 @@ The first manual deployment, if the project does not exist yet:
 3. Deploy a preview and check every route against `docs/acceptance.md`.
 4. Bind the custom domain through Workers → Settings → Domains & Routes. Use the product flow; do
    not hand-write a CNAME to an unknown target.
-5. Add `www` and configure a 301/308 redirect to the apex, preserving path and query string.
+5. Bind `www` to the same Worker. `src/worker.ts` answers 301 to the apex, preserving path and
+   query string. `run_worker_first` is required, otherwise the asset layer answers before the
+   host check runs. `_redirects` cannot do this: Workers Static Assets only accepts relative
+   targets there.
 6. Verify the certificate chain, canonical URLs, sitemap, robots, security headers, 404 status and
    the status-page fallback.
 7. Record commit, build ID, deployment ID, timestamp, domain and the previous rollback version.
