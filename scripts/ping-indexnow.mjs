@@ -22,6 +22,19 @@ if (urlList.length === 0) {
   process.exit(1);
 }
 
+const payload = {
+  host: new URL(origin).host,
+  key,
+  keyLocation: `${origin}/${key}.txt`,
+  urlList,
+};
+
+const dryRun = process.env.INDEXNOW_DRY_RUN === '1';
+if (dryRun) {
+  console.log(JSON.stringify(payload, null, 2));
+  process.exit(0);
+}
+
 // The key file has to be reachable before the ping, otherwise the engine rejects it.
 const keyFile = `out/${key}.txt`;
 let published = null;
@@ -34,18 +47,6 @@ try {
 if (published !== key) {
   console.error(`${keyFile} does not contain INDEXNOW_KEY.`);
   process.exit(1);
-}
-
-const payload = {
-  host: new URL(origin).host,
-  key,
-  keyLocation: `${origin}/${key}.txt`,
-  urlList,
-};
-
-if (process.env.INDEXNOW_DRY_RUN === '1') {
-  console.log(JSON.stringify(payload, null, 2));
-  process.exit(0);
 }
 
 const response = await fetch('https://api.indexnow.org/indexnow', {

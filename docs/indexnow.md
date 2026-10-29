@@ -32,4 +32,5 @@ The script reads `out/sitemap.xml`, so it never submits a URL the build does not
 It submits the whole list because a static export has no revision history per URL; the
 search engine deduplicates unchanged pages.
 
-Pass `INDEXNOW_DRY_RUN=1` to print the payload without sending it.
+Pass `INDEXNOW_DRY_RUN=1` to print the payload without sending it. The dry run does not need
+the key file, so the payload can be inspected before the key is created.
