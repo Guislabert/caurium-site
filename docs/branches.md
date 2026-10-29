@@ -4,7 +4,7 @@
 
 | 分支 | 角色 | Worker | 地址 | 索引 |
 | --- | --- | --- | --- | --- |
-| `main` | **生产**。官网主展示，对外唯一可信版本 | `caurium-site` | `caurium.tech` | 受 `NEXT_PUBLIC_SITE_ENV` 控制 |
+| `main` | **生产**。官网主展示，对外唯一可信版本 | `caurium-site` | `caurium.tech` | 受 `PUBLIC_SITE_ENV` 控制 |
 | `dev` | **预览**。设计、功能、试验都在这里先跑 | `caurium-site-dev` | `caurium-site-dev.caurium.workers.dev` | 永不索引 |
 
 `dev` 不是"准生产"，也不是"下一个 main"。它是可以随时推翻的工作台。
@@ -29,11 +29,11 @@
 两条分支的差异**只允许**落在这八个文件：
 
 ```
-src/app/globals.css          设计令牌（配色、字号、圆角、阴影）
-src/app/layout.tsx           字体 import
-src/app/page.tsx             首页状态行的呈现
-src/components/SiteHeader.tsx        页头结构
-src/components/MobileNavigation.tsx  移动菜单配色
+src/styles/globals.css        设计令牌（配色、字号、圆角、阴影）
+src/layouts/BaseLayout.astro  字体 import、head 元数据
+src/pages/index.astro         首页状态行的呈现
+src/components/SiteHeader.astro        页头结构
+src/components/MobileNavigation.astro  移动菜单配色
 src/content/site.ts          HERO 字段集合
 package.json                 字体依赖
 pnpm-lock.yaml               随之更新
@@ -86,7 +86,7 @@ git pull origin main
 # 只取要上线的提交
 git cherry-pick <sha1> <sha2>
 # 或只取某个文件
-git checkout dev -- src/components/NewThing.tsx
+git checkout dev -- src/components/NewThing.astro
 
 pnpm check
 git push origin main       # CI 检查后自动部署到 caurium-site
@@ -173,14 +173,14 @@ git worktree list
 # <path>/caurium-site-main   [main]
 ```
 
-`.next` 与 `out/` 都被 gitignore，不会共享。但两者默认都用 3000 端口：
+`.astro` 与 `dist/` 都被 gitignore，不会共享。但两者默认都用 4321 端口：
 
 ```sh
 # 在 main 那个目录
 pnpm dev --port 3001
 ```
 
-构建报"另一个进程持有锁"时，那是**同一目录内**有第二个 `next build`，不是另一个 worktree。清缓存：`rm -rf .next && pnpm build`。
+构建报"另一个进程持有锁"时，那通常是**同一目录内**有第二个 `astro build`，不是另一个 worktree。清缓存：`rm -rf .astro dist && pnpm build`。
 
 ## 9. 新增环境的模板
 
@@ -189,7 +189,7 @@ pnpm dev --port 3001
 1. `wrangler.staging.jsonc`，`name` 唯一，其余与 `wrangler.jsonc` 一致
 2. CI 里加 `deploy-staging` job：锁定 `refs/heads/staging`、`--config wrangler.staging.jsonc`、独立 `concurrency.group`
 3. 不绑自定义域名，除非它要对外
-4. `NEXT_PUBLIC_SITE_ENV=preview`，除非它是生产
+4. `PUBLIC_SITE_ENV=preview`，除非它是生产
 
 ## 10. 版本记录
 

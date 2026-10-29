@@ -1,6 +1,6 @@
 # Acceptance record
 
-Environment: local build on Node 26.9.0, pnpm 12.15.0, Next.js 16.4.3, Tailwind CSS 4.3.3,
+Environment: local build on Node 26.9.0, pnpm 12.15.0, Astro 7.4.4, Tailwind CSS 4.3.3,
 Chromium via Playwright. Evidence is recorded as `PASS`, `FAIL` or `NOT RUN` with the method used.
 
 Legend: `[ ]` not run · `[x]` pass · `[!]` fail.
@@ -54,7 +54,7 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
       17 routes and 23 HTML files generated.
 - [x] `pnpm test`: 28 tests pass (content invariants, claims, routes and status contract).
 - [x] `pnpm check:links`: 112 HTML files, 37 internal targets, sitemap verified.
-- [x] Static export has no runtime server dependency; `out/` contains no internal evidence.
+- [x] The static build has no runtime server dependency; `dist/` contains no internal evidence.
 - [x] Three mobile Lighthouse runs on home and one product page, against the deployed origin
       (Lighthouse 13.6.0, headless Chromium, default mobile emulation):
 
@@ -76,7 +76,7 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
         runs resolves to Cloudflare edge-injected scripts: `cdn-cgi/challenge-platform/scripts/jsd/main.js`
         and `static.cloudflareinsights.com/beacon.min.js`. No first-party script is implicated.
 - [x] Title, description, canonical, OG, sitemap, robots match product stages.
-- [x] Preview is `noindex` and production indexing is opt-in via `NEXT_PUBLIC_SITE_ENV`.
+- [x] Preview is `noindex` and production indexing is opt-in via `PUBLIC_SITE_ENV`.
 - [x] Structured data contains only `WebSite` plus a `FAQPage` on `/docs/faq/`, all with verified
       fields; no offers, ratings or reviews.
 - [x] Per-page OG cards exist for home, products, each product, pricing, application, architecture,

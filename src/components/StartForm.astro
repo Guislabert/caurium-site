@@ -1,0 +1,274 @@
+---
+import { OFFERED_PLANS } from '@/content/plans';
+
+export interface Props {
+  endpoint: string;
+}
+
+const { endpoint } = Astro.props;
+const postUrl = `${endpoint.replace(/\/$/, '')}/api/leads`;
+
+/*
+ * Square like every other control, with a boundary that reaches 3:1 on paper.
+ * Shared by every field so the form is one object, not seven variants.
+ */
+const FIELD =
+  'mt-1.5 w-full rounded-none border border-control-border bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent-ink focus:ring-2 focus:ring-accent-ink/25';
+
+const LABEL = 'mono text-[11px] uppercase tracking-[0.06em] text-muted';
+---
+
+<form
+  method="post"
+  action={postUrl}
+  class="card p-6 md:p-8"
+  data-start-form
+  data-endpoint={endpoint}
+  data-plans={JSON.stringify(OFFERED_PLANS.map((plan) => plan.id))}
+>
+  <p class="note mb-5 text-[12px] leading-5 text-muted">
+    Fields marked <span class="text-accent-ink">*</span> are required. Everything else is optional.
+  </p>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class={LABEL} for="name">
+        Your name<span class="text-accent-ink" aria-hidden="true"> *</span>
+      </label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        required
+        maxlength="120"
+        autocomplete="name"
+        class={FIELD}
+        placeholder="Your name"
+      />
+    </div>
+    <div>
+      <label class={LABEL} for="email">
+        Work email<span class="text-accent-ink" aria-hidden="true"> *</span>
+      </label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        maxlength="254"
+        autocomplete="email"
+        class={FIELD}
+        placeholder="you@company.example"
+      />
+    </div>
+  </div>
+
+  <div class="mt-5 grid gap-5 sm:grid-cols-2">
+    <div>
+      <label class={LABEL} for="company">Company or project</label>
+      <input
+        id="company"
+        name="company"
+        type="text"
+        maxlength="160"
+        autocomplete="organization"
+        class={FIELD}
+        placeholder="Optional"
+      />
+    </div>
+    <div>
+      <label class={LABEL} for="plan">
+        Plan<span class="text-accent-ink" aria-hidden="true"> *</span>
+      </label>
+      {/*
+        No preselected size: before the script runs a `?plan=` link would otherwise
+        submit the default for the wrong size. An empty first option makes the choice
+        explicit and the select fails validation instead.
+      */}
+      <select id="plan" name="plan" required class={FIELD} data-plan-select>
+        <option value="" disabled selected>Choose a size</option>
+        {
+          OFFERED_PLANS.map((plan) => (
+            <option value={plan.id}>
+              {plan.name} — {plan.endpoints} endpoints · free
+            </option>
+          ))
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <label class={LABEL} for="endpoints">
+      Endpoints you own<span class="text-accent-ink" aria-hidden="true"> *</span>
+    </label>
+    <textarea
+      id="endpoints"
+      name="endpoints"
+      required
+      rows="5"
+      maxlength="4000"
+      class={FIELD}
+      placeholder={'https://example.com/health — Checkout API — expect 200\nhttps://example.com/status — Public site — expect 200'}
+    ></textarea>
+    <p class="mt-1.5 text-[12px] leading-5 text-muted">
+      One per line. Include the public URL, the alias for the status page and the expected HTTP
+      status. Private hosts and credentials will be rejected.
+    </p>
+  </div>
+
+  <div class="mt-5">
+    <label class={LABEL} for="message">Anything else</label>
+    <textarea
+      id="message"
+      name="message"
+      rows="3"
+      maxlength="2000"
+      class={FIELD}
+      placeholder="Optional: alert webhook, maintenance window, or a question about the limits."
+    ></textarea>
+  </div>
+
+  <div class="absolute left-[-9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+    <label for="website">Website</label>
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <label class="mt-6 flex items-start gap-3 text-[12.5px] leading-5 text-muted">
+    <input
+      type="checkbox"
+      name="consent"
+      required
+      class="mt-0.5 h-4 w-4 shrink-0 rounded border-border-strong accent-accent"
+    />
+    <span>
+      I have read the <a
+        href="/privacy/"
+        class="underline decoration-border-strong">privacy notice</a
+      > and understand that these details are used to review the application and contact me.
+    </span>
+  </label>
+
+  <p
+    role="alert"
+    class="mt-5 hidden rounded-[10px] border border-danger/30 bg-danger/5 px-3 py-2 text-[13px] leading-5 text-danger"
+    data-form-error
+  ></p>
+
+  <div
+    class="mt-6 flex flex-col items-start gap-4 border-t border-border pt-5 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p class="max-w-sm text-[12px] leading-5 text-muted">
+      No payment is taken now. We reply to the email you provide.
+    </p>
+    <button
+      type="submit"
+      class="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60"
+      data-submit
+    >
+      Send application
+      <span aria-hidden="true">→</span>
+    </button>
+  </div>
+</form>
+
+<div class="card hidden p-6 md:p-8" role="status" data-form-sent>
+  <p class="mono text-[11px] uppercase tracking-[0.06em] text-olive">Request received</p>
+  <h2 class="h3 mt-3">We will check ownership and reply by email.</h2>
+  <p class="mt-3 max-w-xl text-[14px] leading-6 text-muted">
+    Your application is stored by the Probe service. If the endpoints can be verified, we activate
+    the account and send the status page address and a webhook test. If something is missing, we
+    reply with the exact question.
+  </p>
+  <p class="mt-4 max-w-xl text-[13px] leading-5 text-muted">
+    Nothing is monitored until activation, and nothing is charged at any point during the preview.
+  </p>
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a href="/access/" class="btn btn-secondary">Back to access</a>
+    <a href="/products/probe/" class="btn btn-secondary">How Probe works</a>
+  </div>
+</div>
+
+<script>
+  function setupStartForm() {
+    document.querySelectorAll<HTMLFormElement>('[data-start-form]').forEach((form) => {
+      if (form.dataset.bound === 'true') return;
+      form.dataset.bound = 'true';
+
+      const endpoint = (form.dataset.endpoint ?? '').replace(/\/$/, '');
+      const offered: string[] = JSON.parse(form.dataset.plans ?? '[]');
+      const select = form.querySelector<HTMLSelectElement>('[data-plan-select]');
+      const errorBox = form.querySelector<HTMLElement>('[data-form-error]');
+      const submit = form.querySelector<HTMLButtonElement>('[data-submit]');
+      const sent = form.parentElement?.querySelector<HTMLElement>('[data-form-sent]');
+      /* Restored on failure so the button does not stay in its sending state. */
+      const original = submit?.innerHTML ?? '';
+
+      /*
+       * Only sizes that are still offered can be preselected; a retired one leaves the
+       * empty "choose a size" option so the reader makes the choice themselves.
+       */
+      const requested = new URLSearchParams(window.location.search).get('plan');
+      if (requested && offered.includes(requested) && select) select.value = requested;
+
+      function showError(message: string) {
+        if (errorBox) {
+          errorBox.textContent = message;
+          errorBox.classList.remove('hidden');
+        }
+        if (submit) {
+          submit.disabled = false;
+          submit.innerHTML = original;
+        }
+      }
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const data = new FormData(form);
+
+        errorBox?.classList.add('hidden');
+        if (submit) {
+          submit.disabled = true;
+          submit.textContent = 'Sending…';
+        }
+
+        try {
+          const response = await fetch(`${endpoint}/api/leads`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.get('name'),
+              email: data.get('email'),
+              company: data.get('company'),
+              plan: data.get('plan'),
+              endpoints: data.get('endpoints'),
+              message: data.get('message'),
+              website: data.get('website'),
+            }),
+          });
+
+          const result = (await response.json().catch(() => null)) as
+            | { ok?: boolean; error?: string }
+            | null;
+
+          if (!response.ok || !result?.ok) {
+            showError(
+              result?.error ?? 'The request could not be sent. Please try again in a moment.',
+            );
+            return;
+          }
+
+          form.classList.add('hidden');
+          sent?.classList.remove('hidden');
+        } catch {
+          showError(
+            'The request could not reach the Probe service. Check your connection and try again.',
+          );
+        }
+      });
+    });
+  }
+
+  setupStartForm();
+  document.addEventListener('astro:page-load', setupStartForm);
+</script>

@@ -1,0 +1,519 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CauriumMark from '@/components/CauriumMark.astro';
+import ProductCard from '@/components/ProductCard.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import SystemBoard from '@/components/SystemBoard.astro';
+import { PRODUCTS } from '@/content/products';
+import { HERO } from '@/content/site';
+
+const PROBLEMS = [
+  {
+    title: 'A key that cannot be revoked alone.',
+    detail:
+      'One API key is copied into a second service. Revoking it breaks both, so nobody revokes it.',
+    product: 'Gate',
+    href: '/products/gate/',
+  },
+  {
+    title: 'An endpoint that is down while the status page stays green.',
+    detail: 'Someone remembered to deploy. Nobody remembered to update the page.',
+    product: 'Probe',
+    href: '/products/probe/',
+  },
+  {
+    title: 'A backup that has never been restored.',
+    detail: 'The job is green. The restore has never been run.',
+    product: 'Guard',
+    href: '/products/guard/',
+  },
+  {
+    title: 'A dev server that outlives the project.',
+    detail: 'Shared credentials, unclear ownership, no clean way to reclaim it.',
+    product: 'Box',
+    href: '/products/box/',
+  },
+];
+
+const WORKFLOW = [
+  {
+    step: '01',
+    label: 'Connect',
+    title: 'Connect',
+    detail:
+      'A caller presents a Caurium key. Gate checks identity, scope and remaining budget, then forwards to one allow-listed upstream. The caller gets a response or a typed error.',
+  },
+  {
+    step: '02',
+    label: 'Observe',
+    title: 'Observe',
+    detail:
+      'Probe requests a fixed, owner-authorized endpoint on a schedule and records status, latency and the check time. Three consecutive failures open an incident; stale data shows Unknown.',
+  },
+  {
+    step: '03',
+    label: 'Operate',
+    title: 'Operate',
+    detail:
+      'Guard records the asset, encrypts a backup off-site and proves a restore in a clean environment. The result is written down, including failure.',
+  },
+];
+
+const PRINCIPLES = [
+  {
+    title: 'One credential, one caller.',
+    detail: 'Every caller gets its own key and limits. Revoking one does not break another.',
+  },
+  {
+    title: 'A boundary is not a hidden URL.',
+    detail:
+      'Management access is a separate application with its own identity, not a path on the public site.',
+  },
+  {
+    title: 'Unknown is a valid answer.',
+    detail:
+      'Missing, stale or malformed data is shown as Unknown, never carried forward as green.',
+  },
+  {
+    title: 'No capability without a record.',
+    detail:
+      'A feature is called available only after its test is run and written down. A passing build is not evidence.',
+  },
+];
+
+const TRUST_LINKS = [
+  {
+    href: '/architecture/',
+    title: 'How the domains are separated',
+    detail: 'Public site, product services and management access do not share runtime credentials.',
+  },
+  {
+    href: '/trust/#not-claimed',
+    title: 'What we do not claim',
+    detail: 'No certification, SLA, uptime percentage or customer reference.',
+  },
+  {
+    href: '/trust/#gaps',
+    title: 'The reporting gap',
+    detail: 'No public security channel exists yet. This is a release blocker, not a footnote.',
+  },
+];
+
+const DOC_LINKS = [
+  {
+    href: '/docs/overview/',
+    title: 'System overview',
+    detail: 'The concepts, the four modules, and what is outside the public site.',
+  },
+  {
+    href: '/docs/product-stages/',
+    title: 'Product stages',
+    detail: 'What Planned, In development, Internal use and later stages mean.',
+  },
+  {
+    href: '/docs/security/',
+    title: 'Security boundaries',
+    detail: 'How public, product and management domains are separated.',
+  },
+  {
+    href: '/docs/faq/',
+    title: 'FAQ',
+    detail: 'Availability, prices, regions, status and how to report a concern.',
+  },
+];
+
+const STATUS_STRIP = [
+  { label: 'Modules', value: 'One live, three in build' },
+  { label: 'Probe', value: 'Private preview' },
+  { label: 'Activation', value: 'Manual, by hand' },
+  { label: 'Last review', value: '29 Oct 2026' },
+];
+---
+
+<BaseLayout
+  title="Caurium — endpoint monitoring in private preview"
+  description="Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing, Guard, backups whose restore is proven, are in development. Box is planned."
+  path="/"
+  absoluteTitle
+  ogImage="/og/home.png"
+>
+  <section class="section-ink relative overflow-hidden border-b border-border">
+    <div class="hero-glow hero-glow--ink" aria-hidden="true"></div>
+    <div class="container-page relative z-10 pb-14 pt-14 md:pb-20 md:pt-20 lg:pb-24 lg:pt-16">
+      <div class="mx-auto flex max-w-3xl flex-col items-center text-center">
+        {/*
+          The kicker used to sit above the headline as a tracked-caps eyebrow, the
+          default AI-product hero shape. It is the same fact — which product is in
+          preview — so it now sits in the status row below the buttons, next to the
+          stage line where a reader looks for it.
+        */}
+        <h1 class="hero-title text-white">Infrastructure with boundaries you can check.</h1>
+        <p class="lede mt-7 max-w-[38rem] text-white/70">{HERO.description}</p>
+
+        <div class="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <a href={HERO.primaryCta.href} class="btn btn-inverse">
+            {HERO.primaryCta.label}
+            <span aria-hidden="true">→</span>
+          </a>
+          <a href={HERO.secondaryCta.href} class="btn btn-inverse-outline">
+            {HERO.secondaryCta.label}
+          </a>
+        </div>
+
+        <p class="mono mt-8 text-[11px] uppercase leading-5 tracking-[0.06em] text-white/65">
+          {HERO.stage}
+        </p>
+      </div>
+
+      <div class="mx-auto mt-10 max-w-3xl">
+        <SystemBoard />
+      </div>
+    </div>
+
+    <div class="relative z-10 border-t border-white/15">
+      <div
+        class="container-page grid grid-cols-1 divide-y divide-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4"
+      >
+        {
+          STATUS_STRIP.map((item) => (
+            <div class="flex items-baseline justify-between gap-4 py-3.5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0">
+              <p class="mono flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-white/62">
+                <span class="h-1 w-1 rounded-full bg-lime" aria-hidden="true" />
+                {item.label}
+              </p>
+              <p class="text-[13px] text-white/80 sm:mt-1.5">{item.value}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper border-b border-border" aria-labelledby="problem-heading">
+    <div class="container-page">
+      <SectionHeading
+        id="problem-heading"
+        title="The failures we are designing against."
+        intro="None of these is a customer story. They are the failure modes the four modules are meant to make visible."
+      />
+
+      <div
+        class="grid-cells mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2"
+      >
+        {
+          PROBLEMS.map((item) => (
+            <a
+              href={item.href}
+              class="group flex flex-col justify-between gap-8 bg-paper p-6 transition-colors hover:bg-background md:p-8"
+            >
+              <div>
+                <h3 class="max-w-[24ch] text-[22px] leading-[1.2] tracking-[-0.02em]">{item.title}</h3>
+                <p class="mt-3 max-w-md text-[14px] leading-6 text-muted">{item.detail}</p>
+              </div>
+              <span class="link-arrow self-start">
+                {item.product}
+                <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="note mt-5 text-[13px] leading-5 text-muted">
+        Design targets, not observed incidents. Probe is in private preview; Gate and Guard are in
+        development; Box is planned.
+      </p>
+    </div>
+  </section>
+
+  <section class="section border-b border-border" aria-labelledby="products-heading">
+    <div class="container-page">
+      <SectionHeading
+        id="products-heading"
+        title="Four modules. Four narrow jobs."
+        intro="Each module has one job, one boundary and its own acceptance criteria. A release in one does not promote another."
+      />
+
+      <div class="mt-12 grid gap-4 md:grid-cols-2 md:gap-5">
+        {PRODUCTS.map((product, index) => <ProductCard product={product} index={index} />)}
+      </div>
+
+      <div class="mt-5 flex flex-wrap items-center justify-between gap-2">
+        <p class="text-[13px] leading-5 text-muted">
+          Probe is available in private preview. Gate and Guard are in development; Box is planned.
+        </p>
+        <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+          Fig. 02–05 · Module records
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper border-b border-border" aria-labelledby="workflow-heading">
+    <div class="container-page">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <h2 id="workflow-heading" class="h2">Connect. Observe. Operate.</h2>
+        </div>
+        <div class="flex flex-col items-start gap-2 sm:items-end">
+          <span class="badge-stage" data-stage="private-preview">
+            <span class="badge-dot" aria-hidden="true"></span>
+            Observe is live
+          </span>
+          <p class="max-w-xs text-right text-[13px] leading-5 text-muted">
+            Probe handles the Observe step today. Connect and Operate remain designs for Gate and
+            Guard.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-3 md:gap-5">
+        {
+          WORKFLOW.map((item) => (
+            <div class="border-t border-ink pt-5">
+              <span class="mono mb-4 inline-flex h-8 w-8 items-center justify-center bg-ink text-[12.5px] text-paper">
+                {item.step}
+              </span>
+              <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">{item.label}</p>
+              <h3 class="h3 mt-3">{item.title}</h3>
+              <p class="mt-2 max-w-sm text-[14px] leading-6 text-muted">{item.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="note mt-10 text-[13px] leading-5 text-muted">
+        What Probe gives you today: a status page with a timestamp, one webhook message when an
+        incident opens and one when it recovers. A Gate key and a Guard restore record are still
+        designs.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-lav border-b border-border" aria-labelledby="principles-heading">
+    <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
+      <div>
+        <h2 id="principles-heading" class="h2 max-w-[15ch]">
+          What we will and will not <span class="emphasis">claim.</span>
+        </h2>
+        <p class="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
+          These are design constraints, not certifications. They describe how the system must
+          behave once each part exists — and how this site is allowed to describe it.
+        </p>
+        <a href="/docs/product-stages/" class="link-arrow mt-6">
+          How a stage changes
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="grid gap-px border border-border bg-border sm:grid-cols-2">
+        {
+          PRINCIPLES.map((principle) => (
+            <div class="bg-paper p-6">
+              <h3 class="mt-3 text-[16px] leading-6 tracking-[-0.01em]">{principle.title}</h3>
+              <p class="mt-2 text-[14px] leading-6 text-muted">{principle.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-lime border-b border-border" aria-labelledby="trust-heading">
+    <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
+      <div>
+        <h2 id="trust-heading" class="h2 max-w-[14ch]">
+          Trust is a <span class="emphasis">boundary,</span> not a badge.
+        </h2>
+        <p class="mt-6 max-w-sm text-[14px] leading-6 text-ink-2">
+          Caurium has no certifications, customer references or uptime history to publish. What it
+          can show is how the public site, product services and management access are separated —
+          and what is still missing.
+        </p>
+        <a href="/trust/" class="btn btn-secondary mt-7">
+          Open trust &amp; claims
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="border-t border-ink/25">
+        {
+          TRUST_LINKS.map((item, index) => (
+            <a
+              href={item.href}
+              class="group flex items-start justify-between gap-6 border-b border-ink/15 py-5 transition-colors hover:bg-paper/50"
+            >
+              <span class="grid flex-1 gap-1 sm:grid-cols-[36px_1fr] sm:gap-4">
+                <span class="mono pt-0.5 text-[11.5px] text-ink-2">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span>
+                  <span class="block text-[16px] leading-6">{item.title}</span>
+                  <span class="mt-1 block max-w-lg text-[14px] leading-6 text-ink-2">
+                    {item.detail}
+                  </span>
+                </span>
+              </span>
+              <span
+                aria-hidden="true"
+                class="pt-1 text-ink-2 transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-paper border-b border-border" aria-labelledby="docs-heading">
+    <div class="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
+      <div>
+        <h2 id="docs-heading" class="h2 max-w-[15ch]">
+          Read what exists before you rely on it.
+        </h2>
+        <p class="mt-6 max-w-sm text-[14px] leading-6 text-muted">
+          Start with the overview and the stage dictionary. The Probe page documents its live status
+          contract and the limits it does not promise.
+        </p>
+        <a href="/docs/" class="btn btn-secondary mt-7">
+          Open documentation
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="border-t border-border-strong">
+        {
+          DOC_LINKS.map((doc, index) => (
+            <a
+              href={doc.href}
+              class="group flex items-start justify-between gap-6 border-b border-border py-5 transition-colors hover:bg-background"
+            >
+              <span class="grid flex-1 gap-1 sm:grid-cols-[36px_1fr] sm:gap-4">
+                <span class="mono pt-0.5 text-[11.5px] text-muted">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <span>
+                  <span class="block text-[16px] leading-6">{doc.title}</span>
+                  <span class="mt-1 block max-w-lg text-[14px] leading-6 text-muted">
+                    {doc.detail}
+                  </span>
+                </span>
+              </span>
+              <span
+                aria-hidden="true"
+                class="pt-1 text-muted transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-b border-border" aria-labelledby="status-heading">
+    <div
+      class="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-20"
+    >
+      <div>
+        <h2 id="status-heading" class="h2">Service status</h2>
+        <p class="mt-6 max-w-sm text-[14px] leading-6 text-muted">
+          Each Probe account gets a status page built from its own checks. Caurium’s own site-wide
+          feed is not connected yet, so this section reports that instead of a green summary.
+        </p>
+        <a href="/status/" class="link-arrow mt-6">
+          View status page
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div>
+        <div class="status-panel">
+          <div class="status-panel__head">
+            <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              Caurium site feed · Schema v1
+            </p>
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">Not connected</span>
+          </div>
+          <div class="status-panel__body">
+            <p class="text-[15.5px] leading-6">The site-wide feed is not connected.</p>
+            <p class="mt-1.5 max-w-lg text-[14px] leading-6 text-muted">
+              Probe customer pages are live. This page does not claim a Caurium uptime history.
+            </p>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full border border-border-strong" aria-hidden="true"
+              ></span>
+              <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+                No site-wide component is reported as operational
+              </span>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3">
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              Data source: none
+            </span>
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              Last check: none
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+          {
+            ['Operational', 'Degraded', 'Outage', 'Maintenance', 'Unknown'].map((state) => (
+              <span class="mono flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-muted">
+                <span
+                  class={`h-1.5 w-1.5 rounded-full ${
+                    state === 'Unknown' ? 'border border-border-strong' : 'bg-border-strong'
+                  }`}
+                  aria-hidden="true"
+                />
+                {state}
+              </span>
+            ))
+          }
+          <span class="text-[12.5px] leading-5 text-muted">
+            All states are Unknown until a feed is connected.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight border-b border-border" aria-labelledby="closing-heading">
+    <div class="container-page">
+      <div class="cta-card cta-card--ink relative overflow-hidden">
+        <div class="grid-ink pointer-events-none absolute inset-0 opacity-50" aria-hidden="true">
+        </div>
+        <CauriumMark
+          class="pointer-events-none absolute -bottom-20 -right-12 h-72 w-72 text-[#f4f4f4] opacity-[0.08]"
+          mono
+        />
+        <div class="relative px-6 py-14 md:px-14 md:py-20">
+          <p class="mono text-[11px] uppercase tracking-[0.06em] text-white/68">Build log</p>
+          <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <h2 id="closing-heading" class="display max-w-[14ch] text-white">
+                Read the plan. Check the evidence.
+              </h2>
+              <p class="mt-5 max-w-md text-[14px] leading-6 text-white/70">
+                The roadmap is public, every claim is dated, and a stage changes only when its
+                evidence does. The build log records what changed — including what is still missing.
+              </p>
+            </div>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a href="/build-log/" class="btn btn-inverse">
+                Open the build log
+                <span aria-hidden="true">→</span>
+              </a>
+              <a href="/docs/" class="btn btn-inverse-outline">Read the docs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

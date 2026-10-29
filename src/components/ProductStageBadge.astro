@@ -1,0 +1,15 @@
+---
+import { STAGE_LABELS, type ProductStage } from '@/content/products';
+
+export interface Props {
+  stage: ProductStage;
+  class?: string;
+}
+
+const { stage, class: className = '' } = Astro.props;
+---
+
+<span class={`badge-stage ${className}`} data-stage={stage}>
+  <span class="badge-dot" aria-hidden="true"></span>
+  {STAGE_LABELS[stage]}
+</span>

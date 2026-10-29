@@ -1,0 +1,17 @@
+---
+import CauriumMark from '@/components/CauriumMark.astro';
+
+export interface Props {
+  class?: string;
+  inverse?: boolean;
+}
+
+const { class: className = '', inverse = false } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-2.5 ${className}`}>
+  <CauriumMark class="h-7 w-7 shrink-0" inverse={inverse} />
+  <span class={`wordmark text-[18px] leading-none ${inverse ? 'text-white' : 'text-ink'}`}>
+    Caurium
+  </span>
+</span>

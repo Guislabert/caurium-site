@@ -11,24 +11,24 @@
 | Repository | to be confirmed before creation (do not duplicate an existing project) |
 | Production branch | `main` (protected) |
 | Build command | `pnpm build` |
-| Build output directory | `out` |
+| Build output directory | `dist` |
 | Node version | `22.23.4` or newer (verified locally on 26.9.0) |
 | Package manager | `pnpm@12.15.0` (declared in `package.json`) |
 
 Environment variables for preview:
 
 ```text
-NEXT_PUBLIC_SITE_URL=https://<preview-or-production-origin>
-NEXT_PUBLIC_SITE_ENV=preview
-NEXT_PUBLIC_STATUS_URL=
+PUBLIC_SITE_URL=https://<preview-or-production-origin>
+PUBLIC_SITE_ENV=preview
+PUBLIC_STATUS_URL=
 ```
 
 Production:
 
 ```text
-NEXT_PUBLIC_SITE_URL=https://caurium.tech
-NEXT_PUBLIC_SITE_ENV=production
-NEXT_PUBLIC_STATUS_URL=            # only after a sanitized endpoint exists
+PUBLIC_SITE_URL=https://caurium.tech
+PUBLIC_SITE_ENV=production
+PUBLIC_STATUS_URL=            # only after a sanitized endpoint exists
 ```
 
 Preview must stay `preview`: the build emits `noindex` metadata and a disallow-all `robots.txt`.
@@ -54,8 +54,8 @@ Required repository configuration:
 - Variable: `CLOUDFLARE_DEPLOY=enabled`. The job only runs when this is set, so a fork or a
   fresh clone does not attempt a deploy. Once it is enabled, a missing secret fails the job
   instead of silently reporting success without deploying.
-- Variables: `NEXT_PUBLIC_SITE_ENV` (`preview` until release), `NEXT_PUBLIC_PROBE_URL`,
-  optional `NEXT_PUBLIC_STATUS_URL`. The first two are already set on the repository.
+- Variables: `PUBLIC_SITE_ENV` (`preview` until release), `PUBLIC_PROBE_URL`,
+  optional `PUBLIC_STATUS_URL`. The first two are already set on the repository.
 
 Current state: all three are configured, so a push to `main` deploys. `wrangler` is a
 devDependency; the job runs the repository's own binary, not a globally installed one, so the
@@ -91,20 +91,20 @@ status). The generator uses `sharp`; it is a build-time dependency, not a runtim
 
 ## 3. Headers and caching
 
-`public/_headers` is copied into `out/`. It sets:
+`public/_headers` is copied into `dist/`. It sets:
 
 - `X-Content-Type-Options: nosniff`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
 - `X-Frame-Options: DENY`
 - `Content-Security-Policy-Report-Only` with `default-src 'self'`, inline styles/scripts (required by
-  the static Next.js bootstrap), `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`
+  the inline Astro scripts), `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`
 - Long cache for `/_next/static/*`, daily cache for `/og/*` and `/brand/*`, revalidation for HTML.
 
 The policy already names the Probe Worker origin in `connect-src` and `form-action`, because the
-application form posts there. A test fails if those two disagree with `NEXT_PUBLIC_PROBE_URL`.
+application form posts there. A test fails if those two disagree with `PUBLIC_PROBE_URL`.
 
-If `NEXT_PUBLIC_STATUS_URL` is configured, add its origin to `connect-src`.
+If `PUBLIC_STATUS_URL` is configured, add its origin to `connect-src`.
 
 The policy is enforced, not Report-Only. Cloudflare injects
 `https://static.cloudflareinsights.com/beacon.min.js` at the edge, so `script-src` allows that
@@ -119,9 +119,9 @@ HSTS: enable only on a verified host, starting with a short max-age. Do not add
 ## 4. Dynamic pieces
 
 This site has no runtime. The status view is a client-side fetch only when
-`NEXT_PUBLIC_STATUS_URL` is set; it validates schema, component allow-list, timestamps and staleness
+`PUBLIC_STATUS_URL` is set; it validates schema, component allow-list, timestamps and staleness
 (180 seconds). A contact form, Gate API or other dynamic surface must be a separate Worker with its
-own credentials, limits and storage — not a Next.js Route Handler in a static export.
+own credentials, limits and storage — not an endpoint inside this static build.
 
 ## 5. Rollback
 
@@ -135,11 +135,11 @@ own credentials, limits and storage — not a Next.js Route Handler in a static 
 - Verified domain ownership and Cloudflare zone access.
 - Confirmed Workers project ownership and production branch.
 - Real legal entity, privacy contact and security contact.
-- Decision on whether `NEXT_PUBLIC_STATUS_URL` exists.
+- Decision on whether `PUBLIC_STATUS_URL` exists.
 - Lighthouse on the deployed origin: recorded in `docs/acceptance.md`, no longer an open input.
 - Deployed-preview checks for `_headers`, CSP Report-Only and the 404 response.
 
-Until these exist, `NEXT_PUBLIC_SITE_ENV` must stay `preview`; do not point the production domain
+Until these exist, `PUBLIC_SITE_ENV` must stay `preview`; do not point the production domain
 at a build whose legal pages name no entity.
 
 ## 7. Redesign preview (`dev` branch)
@@ -153,7 +153,7 @@ stays on the version that is live on the custom domain.
 | Config | `wrangler.dev.jsonc` (same assets binding and entry worker as production) |
 | Command | `pnpm build && pnpm deploy:dev` |
 | URL | `https://caurium-site-dev.caurium.workers.dev` |
-| Environment | `NEXT_PUBLIC_SITE_ENV=preview`, `NEXT_PUBLIC_SITE_URL=https://caurium-site-dev.caurium.workers.dev` |
+| Environment | `PUBLIC_SITE_ENV=preview`, `PUBLIC_SITE_URL=https://caurium-site-dev.caurium.workers.dev` |
 
 `pnpm deploy:dev` needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment. The
 branch build stays `noindex` because it keeps the preview environment; it is not attached to any

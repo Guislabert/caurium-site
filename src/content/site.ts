@@ -1,14 +1,16 @@
+import { publicEnv } from '@/lib/env';
+
 export const SITE = {
   name: 'Caurium',
   tagline: 'API access, monitoring and recovery.',
   description:
     'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, authenticated routing to one upstream, Guard, encrypted backups with a proven restore, are in development. Box is planned.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
+  url: publicEnv('PUBLIC_SITE_URL') ?? 'https://caurium.tech',
   locale: 'en',
   stageNote:
     'Probe is a free private preview, opened by application. Gate and Guard are in development; Box is planned. None is for sale.',
   reviewedAt: '2026-10-29',
-  indexable: process.env.NEXT_PUBLIC_SITE_ENV === 'production',
+  indexable: publicEnv('PUBLIC_SITE_ENV') === 'production',
 } as const;
 
 /**

@@ -1,0 +1,67 @@
+---
+export interface TocItem {
+  id: string;
+  label: string;
+}
+
+export interface Props {
+  items: TocItem[];
+}
+
+const { items } = Astro.props;
+---
+
+{/* The contents list marks the section the reader is in. Without it the list is
+    decoration: every item looked identical at every scroll position. */}
+<nav
+  aria-label="On this page"
+  class="hidden xl:sticky xl:top-[calc(var(--header)+var(--topbar)+16px)] xl:block xl:self-start"
+  data-toc
+>
+  <p class="eyebrow mb-3">On this page</p>
+  <ul class="border-l border-border">
+    {
+      items.map((item) => (
+        <li>
+          <a href={`#${item.id}`} class="toc-link -ml-px border-l border-transparent hover:border-border-strong" data-toc-link data-toc-id={item.id}>
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  function setupToc() {
+    document.querySelectorAll<HTMLElement>('[data-toc]').forEach((nav) => {
+      if (nav.dataset.bound === 'true') return;
+      nav.dataset.bound = 'true';
+
+      const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+      const headings = links
+        .map((link) => document.getElementById(link.dataset.tocId ?? ''))
+        .filter((element): element is HTMLElement => Boolean(element));
+      if (headings.length === 0) return;
+
+      const update = () => {
+        const line = window.innerHeight * 0.25;
+        let current = headings[0].id;
+        for (const heading of headings) {
+          if (heading.getBoundingClientRect().top <= line) current = heading.id;
+        }
+        for (const link of links) {
+          if (link.dataset.tocId === current) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        }
+      };
+
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    });
+  }
+
+  setupToc();
+  document.addEventListener('astro:page-load', setupToc);
+</script>

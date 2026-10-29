@@ -108,7 +108,7 @@ export const CLAIMS: ClaimRecord[] = [
     page: 'Status',
     href: '/status/',
     stage: 'fact',
-    evidence: 'NEXT_PUBLIC_STATUS_URL is unset; the status validator defaults to Unknown.',
+    evidence: 'PUBLIC_STATUS_URL is unset; the status validator defaults to Unknown.',
   },
   {
     claim: 'No customer, logo or testimonial is published.',

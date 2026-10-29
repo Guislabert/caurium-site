@@ -1,0 +1,38 @@
+---
+import ProductGlyph from '@/components/ProductGlyph.astro';
+import { PRODUCTS, STAGE_LABELS } from '@/content/products';
+
+export interface Props {
+  currentId: string;
+}
+
+const { currentId } = Astro.props;
+const related = PRODUCTS.filter((product) => product.id !== currentId);
+---
+
+<ul class="grid gap-3 md:grid-cols-3">
+  {
+    related.map((product) => (
+      <li>
+        <a
+          href={`/products/${product.slug}/`}
+          class="group flex h-full items-start justify-between gap-4 rounded-[10px] border border-border bg-background p-5 transition-colors hover:border-border-strong"
+        >
+          <span>
+            <ProductGlyph id={product.id} class="h-8 w-8" />
+            <span class="mt-4 block text-[15.5px] font-medium">{product.name}</span>
+            <span class="mt-1 block text-[12px] leading-5 text-muted">
+              {product.role} · {STAGE_LABELS[product.stage]}
+            </span>
+          </span>
+          <span
+            aria-hidden="true"
+            class="pt-1 text-muted transition-transform group-hover:translate-x-0.5"
+          >
+            →
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

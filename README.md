@@ -7,7 +7,7 @@ Guard and Box are `Planned` and are not for sale.
 
 ## What this repository is
 
-- A static Next.js App Router export, deployed to Cloudflare Workers Static Assets.
+- A static Astro build (`output: 'static'`), deployed to Cloudflare Workers Static Assets.
 - The single source of truth for product stages, plan limits, boundaries and the claims
   register.
 - Not the product. Probe runs as a separate Worker with its own database and scheduler. There is
@@ -24,12 +24,13 @@ Guard and Box are `Planned` and are not for sale.
 corepack enable
 pnpm install
 cp .env.example .env.local
-pnpm dev            # http://localhost:3000
+pnpm dev            # http://localhost:4321
 ```
 
 The application form at `/start/` posts to the Probe Worker. Cross-origin requests from
-`http://localhost:3000` are not accepted by the deployed Worker, so submitting locally fails by
-design until the Worker lists that origin. Everything else works offline.
+`http://localhost:4321` are not accepted by the deployed Worker, so submitting locally fails by
+design until the Worker lists that origin. Point `PUBLIC_PROBE_URL` at a local stub to exercise the
+success path. Everything else works offline.
 
 ## Branches, environments and versions
 
@@ -45,21 +46,21 @@ Full process, promotion rules and the version policy: [`docs/branches.md`](docs/
 ## Checks
 
 ```bash
-pnpm typecheck     # TypeScript
-pnpm lint          # ESLint
+pnpm typecheck     # astro check (.astro, .ts, .tsx type checking)
+pnpm lint          # ESLint, including eslint-plugin-astro
 pnpm test          # Content, claims and status-contract tests
-pnpm build         # Static export to out/
-pnpm check:links   # Internal links, sitemap and forbidden strings in out/
+pnpm build         # Static build to dist/
+pnpm check:links   # Internal links, sitemap and forbidden strings in dist/
 pnpm check         # All of the above
 ```
 
-`pnpm build` writes a static site to `out/`. CI runs the same set on every pull request.
+`pnpm build` writes the static site to `dist/`. CI runs the same set on every pull request.
 
 ## Preview the exported site
 
 ```bash
 pnpm build
-pnpm start         # serves out/ with serve
+pnpm start         # serves dist/ with serve
 ```
 
 For the Cloudflare Workers Static Assets path, follow [`docs/deployment.md`](docs/deployment.md).
@@ -68,17 +69,18 @@ For the Cloudflare Workers Static Assets path, follow [`docs/deployment.md`](doc
 
 | Variable | Purpose | Default |
 | --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap, robots and the RSS feed | `https://caurium.tech` |
-| `NEXT_PUBLIC_SITE_ENV` | `preview` emits noindex + disallow-all robots; `production` enables indexing | `preview` |
-| `NEXT_PUBLIC_STATUS_URL` | Optional sanitized read-only status feed | empty (status shows “not connected”) |
-| `NEXT_PUBLIC_PROBE_URL` | Origin of the Probe Worker that receives `/start/` applications | `https://caurium-probe.caurium.workers.dev` |
+| `PUBLIC_SITE_URL` | Canonical origin for metadata, sitemap, robots and the RSS feed | `https://caurium.tech` |
+| `PUBLIC_SITE_ENV` | `preview` emits noindex + disallow-all robots; `production` enables indexing | `preview` |
+| `PUBLIC_STATUS_URL` | Optional sanitized read-only status feed | empty (status shows “not connected”) |
+| `PUBLIC_PROBE_URL` | Origin of the Probe Worker that receives `/start/` applications | `https://caurium-probe.caurium.workers.dev` |
 
-`NEXT_PUBLIC_*` values are embedded in the build. Change one, rebuild, redeploy.
+These values are read at build time by `src/lib/env.ts` and embedded in the output. Change one,
+rebuild, redeploy.
 
-Changing `NEXT_PUBLIC_PROBE_URL` also requires the origin in the `connect-src` and `form-action`
+Changing `PUBLIC_PROBE_URL` also requires the origin in the `connect-src` and `form-action`
 directives of `public/_headers`; `pnpm test` fails if they disagree.
 
-Do not put secrets in `NEXT_PUBLIC_*` or in this repository. The website build needs no product,
+Do not put secrets in `PUBLIC_*` or in this repository. The website build needs no product,
 management or network credentials.
 
 ## Editing content
@@ -89,22 +91,25 @@ management or network credentials.
 | `src/content/products.ts` | Gate, Probe, Guard and Box stages, scope, boundaries, release criteria, exclusions, examples |
 | `src/content/plans.ts` | Probe sizes: endpoint limits, interval, retention. No prices. |
 | `src/content/claims.ts` | The `/trust/` claims register: page, stage, evidence |
-| `src/content/build-log.json` | Dated entries; `pnpm feed` renders them to RSS |
+| `src/content/build-log.json` | Dated entries; `/build-log/feed.xml` renders them to RSS |
 | `docs/content-audit.md` | Claim-to-evidence mapping, updated with any copy change |
 
 Home, product pages, access, docs and metadata all read from these records. A product stage may
 only change when its acceptance evidence is recorded; a shipped feature does not promote its
 siblings or the module.
 
+Routes are declared once in `src/lib/routes.ts`; the sitemap builds from it and `pnpm test` compares
+it to `src/pages/`, so a page cannot ship unlisted.
+
 Internal promotion evidence and the brand plan are kept outside this public repository and are
-never copied to `public/` or `out/`.
+never copied to `public/` or `dist/`.
 
 ## Design and boundaries
 
 - Visual direction: warm paper and off-white surfaces, navy ink, violet as the action colour, lime
   as the evidence marker, mono metadata, and the rounded-square C mark.
 - Type: Roboto Slab for display, Inter for text, JetBrains Mono for metadata; self-hosted through
-  the `@fontsource-variable/*` packages. Tokens live in `src/app/globals.css`; the reasoning is in
+  the `@fontsource-variable/*` packages. Tokens live in `src/styles/globals.css`; the reasoning is in
   [`docs/design-system.md`](docs/design-system.md).
 - No fabricated customers, logos, testimonials, metrics, uptime, SLAs, certifications or live
   consoles.
@@ -115,13 +120,16 @@ never copied to `public/` or `out/`.
 ## Structure
 
 ```text
-src/app/            routes (home, products, access, start, architecture, docs, status, legal, 404)
+src/pages/          routes (home, products, access, start, architecture, docs, status, legal, 404,
+                    plus sitemap.xml, robots.txt, llms.txt and the RSS feed endpoints)
+src/layouts/        the document shell (head, metadata, header and footer)
 src/components/     shell, navigation, diagrams, product records, docs and legal layout
+src/styles/         design tokens and component CSS (Tailwind v4)
 src/content/        site, product, plan, claim and build-log records
-src/lib/            metadata, JSON-LD and status-contract validation
-public/             mark, icons, per-page OG cards, _headers, manifest, RSS feed
+src/lib/            env accessor, routes, JSON-LD and status-contract validation
+public/             mark, icons, per-page OG cards, _headers, manifest
 docs/               design, deployment, content audit, acceptance record
-scripts/            brand generation, RSS generation and build-output checks
+scripts/            brand generation, deployment checks and build-output checks
 tests/              content invariants and status-contract tests
 ```
 

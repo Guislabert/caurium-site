@@ -5,6 +5,7 @@ import test from 'node:test';
 import { FREE_NOTICE, OFFERED_PLANS, PLANS, PRICING_NOTE } from '../src/content/plans';
 import { PRODUCTS, STAGE_LABELS } from '../src/content/products';
 import { CONTACT } from '../src/content/site';
+import { PUBLIC_ROUTES } from '../src/lib/routes';
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((entry) => {
@@ -179,17 +180,20 @@ test('every published price is labelled as not yet charged', () => {
     assert.ok(plan.retentionDays >= 7);
   }
 
-  const access = readFileSync('src/app/access/page.tsx', 'utf8');
+  const access = readFileSync('src/pages/access/index.astro', 'utf8');
   assert.match(access, /\{FREE_NOTICE\}/, 'the cards must carry the free notice');
   assert.match(access, /\{PRICING_NOTE\}/, 'the page must state when prices apply');
 
   // A euro figure outside the access page would be a price without its qualifier.
-  for (const file of walk('src/app')) {
-    if (!file.endsWith('.tsx')) continue;
+  for (const file of walk('src/pages')) {
     const text = readFileSync(file, 'utf8');
     const hasEuro = /[€]\s?\d/.test(text);
     if (hasEuro) {
-      assert.equal(file, 'src/app/access/page.tsx', `${file} shows a price outside the priced page`);
+      assert.equal(
+        file,
+        'src/pages/access/index.astro',
+        `${file} shows a price outside the priced page`,
+      );
       assert.match(text, /FREE_NOTICE|PRICING_NOTE/, `${file} must qualify its price`);
     }
   }
@@ -247,8 +251,8 @@ test('no legacy brand, GitHub links or private node identifiers', () => {
 test('contact details live in the footer, not on a separate contact route', () => {
   // Three verified mailboxes are enough; a page with a form would need its own
   // intake, storage and abuse handling, which the static build does not have.
-  assert.equal(existsSync('src/app/contact'), false);
-  const footer = readFileSync('src/components/SiteFooter.tsx', 'utf8');
+  assert.equal(existsSync('src/pages/contact'), false);
+  const footer = readFileSync('src/components/SiteFooter.astro', 'utf8');
   assert.match(footer, /mailto:/, 'the footer must expose the published addresses');
 });
 
@@ -260,19 +264,15 @@ test('no credentials or secret-shaped strings in source', () => {
 });
 
 test('the sitemap lists every route and nothing else', () => {
-  const declared = new Set(
-    [...readFileSync('src/app/sitemap.ts', 'utf8').matchAll(/'(\/[a-z0-9/-]*\/)'/g)].map(
-      (match) => match[1],
-    ),
-  );
-  for (const product of PRODUCTS) declared.add(`/products/${product.slug}/`);
-
-  declared.add('/');
+  // The sitemap reads PUBLIC_ROUTES; this asserts that list matches the files in
+  // src/pages, so a new page cannot ship unlisted and a deleted one cannot linger.
+  const declared = new Set(PUBLIC_ROUTES);
 
   const routes = new Set<string>(['/']);
-  for (const file of walk('src/app')) {
-    if (!file.endsWith('/page.tsx')) continue;
-    const route = file.replace('src/app', '').replace('/page.tsx', '');
+  for (const file of walk('src/pages')) {
+    if (!file.endsWith('.astro')) continue;
+    if (file.endsWith('src/pages/404.astro')) continue;
+    const route = file.replace('src/pages', '').replace('.astro', '').replace('/index', '');
     if (route.includes('[')) continue;
     routes.add(`${route.replace(/\/$/, '')}/`.replace(/^\/\//, '/'));
   }
@@ -287,33 +287,44 @@ test('every referenced Open Graph card exists and is scoped to one section', () 
   // deliberately share one card each. A card must not cross section boundaries.
   const SECTION_OF: Record<string, string> = { privacy: 'legal', terms: 'legal' };
   function section(path: string): string {
-    const top = path.replace('src/app/', '').split('/')[0];
+    const top = path.replace('src/pages/', '').split('/')[0];
     return SECTION_OF[top] ?? top;
   }
 
   const used = new Map<string, string>();
-  for (const file of walk('src/app')) {
-    if (!file.endsWith('.tsx')) continue;
+  function record(file: string, card: string) {
+    assert.ok(existsSync(`public${card}`), `${file} references missing ${card}`);
+    const previous = used.get(card);
+    if (previous) {
+      assert.equal(
+        section(previous),
+        section(file),
+        `${card} is reused across sections by ${previous} and ${file}`,
+      );
+    }
+    used.set(card, file);
+  }
+
+  for (const file of walk('src/pages')) {
+    if (!file.endsWith('.astro')) continue;
     const text = readFileSync(file, 'utf8');
-    for (const match of text.matchAll(/ogImage:\s*'(\/og\/[a-z-]+\.png)'/g)) {
-      assert.ok(existsSync(`public${match[1]}`), `${file} references missing ${match[1]}`);
-      const previous = used.get(match[1]);
-      if (previous) {
-        assert.equal(
-          section(previous),
-          section(file),
-          `${match[1]} is reused across sections by ${previous} and ${file}`,
-        );
-      }
-      used.set(match[1], file);
+
+    for (const match of text.matchAll(/ogImage\s*[:=]\s*["'](\/og\/[a-z-]+\.png)["']/g)) {
+      record(file, match[1]);
+    }
+
+    // The product pages pass a per-module card through a template literal.
+    if (/ogImage=\{`\/og\/\$\{/.test(text)) {
+      for (const product of PRODUCTS) record(file, `/og/${product.slug}.png`);
     }
   }
+
   assert.ok(used.size >= 10);
 });
 
 test('the access copy does not claim sizes differ in check frequency', () => {
   const intervals = new Set(PLANS.map((plan) => plan.minIntervalSeconds));
-  const access = readFileSync('src/app/access/page.tsx', 'utf8');
+  const access = readFileSync('src/pages/access/index.astro', 'utf8');
   if (intervals.size === 1) {
     assert.equal(
       /how often they are checked|interval differs|different interval/i.test(access),
@@ -324,7 +335,7 @@ test('the access copy does not claim sizes differ in check frequency', () => {
 });
 
 test('no page promises a response time while terms deny one', () => {
-  const terms = readFileSync('src/app/terms/page.tsx', 'utf8');
+  const terms = readFileSync('src/pages/terms/index.astro', 'utf8');
   const deniesCommitment = /No SLA, uptime percentage, response-time guarantee/.test(terms);
   const promising = [
     ...sourceText.matchAll(/[^.\n]*\b(within \w+ (?:business|working) day|respond(?:s)? within|reply within)\b[^.\n]*/gi),
@@ -337,9 +348,9 @@ test('no page promises a response time while terms deny one', () => {
 
 test('the CSP allows the origin the application form posts to', () => {
   const headers = readFileSync('public/_headers', 'utf8');
-  const startPage = readFileSync('src/app/start/page.tsx', 'utf8');
+  const startPage = readFileSync('src/pages/start/index.astro', 'utf8');
   const fallback = startPage.match(/caurium-probe\.[a-z.]+workers\.dev/)?.[0];
-  assert.ok(fallback, 'the Probe Worker origin must be discoverable in src/app/start/page.tsx');
+  assert.ok(fallback, 'the Probe Worker origin must be discoverable in src/pages/start/index.astro');
 
   const origin = new URL(`https://${fallback}`).origin;
   const connect = headers.match(/connect-src ([^;]+);/)?.[1] ?? '';
@@ -367,7 +378,7 @@ test('the asset worker redirects www to the apex before serving files', () => {
 test('retired routes redirect instead of returning 404', () => {
   const worker = readFileSync('src/worker.ts', 'utf8');
   // /pricing/ was removed when the preview became free; old links must not 404.
-  assert.equal(existsSync('src/app/pricing'), false, 'the pricing route must be gone');
+  assert.equal(existsSync('src/pages/pricing'), false, 'the pricing route must be gone');
   for (const path of ['/pricing', '/pricing/']) {
     assert.ok(worker.includes(`'${path}'`), `${path} must be redirected`);
   }

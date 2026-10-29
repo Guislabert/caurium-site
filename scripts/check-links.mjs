@@ -1,7 +1,11 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const OUT = 'out';
+/**
+ * Checks the built site in `dist/`: every internal link resolves to a file, every
+ * sitemap URL exists, and no private identifier or unverified claim reached the output.
+ */
+const OUT = 'dist';
 
 async function walk(dir) {
   const entries = await readdir(dir);
@@ -10,8 +14,7 @@ async function walk(dir) {
     const path = join(dir, entry);
     const info = await stat(path);
     if (info.isDirectory()) files.push(...(await walk(path)));
-    else if (path.endsWith('.html')) files.push(path);
-    else if (/\/__next[\w.$-]*\.txt$/.test(path)) files.push(path); // RSC payloads
+    else files.push(path);
   }
   return files;
 }
@@ -24,11 +27,12 @@ function targetFor(pathname) {
   return `${OUT}${clean}/index.html`;
 }
 
-const files = await walk(OUT);
+const allFiles = await walk(OUT);
+const htmlFiles = allFiles.filter((file) => file.endsWith('.html'));
 const failures = [];
 const checked = new Set();
 
-for (const file of files) {
+for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const value = match[1];
@@ -59,8 +63,8 @@ for (const match of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
 }
 
 // Prose may legitimately name technical terms (e.g. SSRF protection against "localhost"),
-// so scan only script payloads for leaked environment names or host addresses.
-const scriptFiles = files.filter((file) => /\/__next/.test(file) || file.endsWith('.js'));
+// so scan only the generated scripts for leaked environment names or host addresses.
+const scriptFiles = allFiles.filter((file) => file.endsWith('.js'));
 const allText = (await Promise.all(scriptFiles.map((file) => readFile(file, 'utf8')))).join('\n');
 const forbidden = ['localhost:', '127.0.0.1', 'asterlyn', 'Guislabert', 'github.com', 'release-evidence'];
 for (const phrase of forbidden) {
@@ -70,7 +74,7 @@ for (const phrase of forbidden) {
 }
 
 // Public HTML must not carry unverified marketing claims or private identifiers.
-const htmlText = (await Promise.all(files.map((file) => readFile(file, 'utf8')))).join('\n');
+const htmlText = (await Promise.all(htmlFiles.map((file) => readFile(file, 'utf8')))).join('\n');
 const forbiddenClaims = [
   'enterprise-grade',
   'military-grade',
@@ -100,4 +104,6 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Link check passed: ${files.length} HTML files, ${checked.size} internal targets, sitemap verified.`);
+console.log(
+  `Link check passed: ${htmlFiles.length} HTML files, ${checked.size} internal targets, sitemap verified.`,
+);

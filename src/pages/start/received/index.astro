@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+
+<BaseLayout
+  title="Application received"
+  description="Your Probe application reached the Caurium service. We review applications by hand and reply to the email you gave."
+  path="/start/received/"
+  ogImage="/og/start.png"
+  ogAlt="Caurium Probe application received."
+  noindex
+>
+  <PageHero
+    crumbs={[{ label: 'Apply', href: '/start/' }, { label: 'Received' }]}
+    title="Your application reached the service."
+    description="It is stored by the Probe service and reviewed by hand. If the endpoints can be verified, we activate the account and send the status page address and a webhook test. If something is missing, we reply with the exact question."
+  >
+    <Fragment slot="meta">
+      <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+        Manual review · No SLA
+      </span>
+    </Fragment>
+  </PageHero>
+
+  <section class="section border-b border-border">
+    <div class="container-page max-w-2xl">
+      <p class="text-sm leading-7 text-ink-2">
+        Nothing is monitored until activation, and nothing is charged during the preview.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/access/" class="btn btn-secondary">Back to access</a>
+        <a href="/products/probe/" class="btn btn-secondary">How Probe works</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

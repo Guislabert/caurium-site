@@ -1,0 +1,28 @@
+---
+import DocToc, { type TocItem } from '@/components/DocToc.astro';
+import PageHero from '@/components/PageHero.astro';
+import { SITE } from '@/content/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  toc: TocItem[];
+}
+
+const { title, description, toc } = Astro.props;
+---
+
+<PageHero crumbs={[{ label: title }]} title={title} description={description}>
+  <Fragment slot="meta">
+    <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+      Last updated <time datetime={SITE.reviewedAt}>{SITE.reviewedAt}</time>
+    </span>
+  </Fragment>
+</PageHero>
+
+<section class="section">
+  <div class="container-page grid gap-12 lg:grid-cols-[minmax(0,640px)_1fr] lg:gap-20">
+    <article class="doc-prose min-w-0"><slot /></article>
+    <DocToc items={toc} />
+  </div>
+</section>
