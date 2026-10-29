@@ -50,7 +50,7 @@ meant to be found.
 
 Required repository configuration:
 - Secrets: `CLOUDFLARE_API_TOKEN` (a scoped API token, not an OAuth login: Workers Scripts
-  edit on this account only), `CLOUDFLARE_ACCOUNT_ID` (`REDACTED`).
+  edit on this account only), `CLOUDFLARE_ACCOUNT_ID` (from the Cloudflare dashboard sidebar).
 - Variable: `CLOUDFLARE_DEPLOY=enabled`. The job only runs when this is set, so a fork or a
   fresh clone does not attempt a deploy. Once it is enabled, a missing secret fails the job
   instead of silently reporting success without deploying.

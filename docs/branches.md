@@ -169,8 +169,8 @@ npx wrangler deploy --message "$(git rev-parse HEAD) manual"
 
 ```sh
 git worktree list
-# /root/caurium-site-git    [dev]
-# /root/caurium-site-main   [main]
+# <path>/caurium-site-git    [dev]
+# <path>/caurium-site-main   [main]
 ```
 
 `.next` 与 `out/` 都被 gitignore，不会共享。但两者默认都用 3000 端口：
