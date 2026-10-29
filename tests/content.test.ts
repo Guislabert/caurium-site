@@ -28,7 +28,7 @@ test('a stage is only advanced where a deployment exists', () => {
   const EXPECTED: Record<string, string> = {
     probe: 'private-preview',
     gate: 'in-development',
-    guard: 'planned',
+    guard: 'in-development',
     box: 'planned',
   };
 

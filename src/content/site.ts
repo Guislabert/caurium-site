@@ -2,7 +2,7 @@ export const SITE = {
   name: 'Caurium',
   tagline: 'API access, monitoring and recovery.',
   description:
-    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, authenticated routing to one upstream, is in development. Guard and Box are planned.',
+    'Caurium builds narrow infrastructure modules. Probe, endpoint monitoring with webhook alerts and a sanitized status page, runs as a free private preview. Gate, authenticated routing to one upstream, and Guard, encrypted backups with a proven restore, are in development. Box is planned.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://caurium.tech',
   locale: 'en',
   stageNote:

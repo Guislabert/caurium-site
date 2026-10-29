@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Caurium — endpoint monitoring in private preview',
   description:
-    'Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing to one upstream, is in development.',
+    'Probe checks the endpoints you own and publishes a sanitized status page: free private preview, opened by application. Gate, authenticated routing to one upstream, and Guard, backups whose restore is proven, are in development.',
   path: '/',
   absoluteTitle: true,
   ogImage: '/og/home.png',

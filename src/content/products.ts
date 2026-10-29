@@ -539,10 +539,10 @@ export const PRODUCTS: ProductRecord[] = [
     role: 'Operate',
     title: 'Make operational safeguards repeatable.',
     summary:
-      'Planned: configuration backups, recovery procedures, and access records for Caurium operations.',
-    stage: 'planned',
+      'In development: encrypted backups with a restore drill that proves the artifact decrypts to the recorded digest, a documented retention window, and an authenticated admin surface.',
+    stage: 'in-development',
     metaDescription:
-      'Learn about Caurium’s planned approach to configuration backups, recovery procedures, and operational access records.',
+      'Caurium Guard encrypts a backup, stores it, restores it, and records whether the digest matched. In development.',
     audience:
       'Caurium operators first. External teams only after a real permission boundary, interface and support path exist.',
     forLine: 'Operators who need a restore they can prove.',
@@ -567,7 +567,7 @@ export const PRODUCTS: ProductRecord[] = [
     ],
     workflowCaption: 'An asset is inventoried, encrypted off-site, and proven through a restore — not a green checkmark.',
     scopeNote:
-      'Guard starts as an internal operational capability. It is not a public secrets API, customer KMS or compliance certification.',
+      'Guard runs and has completed restore drills against its deployed worker. It is not open to customers, and the drill records its own gaps rather than claiming full coverage.',
     features: [
       {
         id: 'inventory',
@@ -581,35 +581,35 @@ export const PRODUCTS: ProductRecord[] = [
         label: 'Encrypted off-site backups',
         detail:
           'Daily configuration and database backups, with encryption applied before transfer.',
-        stage: 'planned',
+        stage: 'implemented',
       },
       {
         id: 'retention',
         label: 'Documented retention',
         detail:
           'Seven daily and four weekly versions initially, with the actual retention recorded for each asset class.',
-        stage: 'planned',
+        stage: 'implemented',
       },
       {
         id: 'restore',
         label: 'Restore drills with evidence',
         detail:
           'At least one restore in a clean environment, recording scope, elapsed time and any data gap.',
-        stage: 'planned',
+        stage: 'implemented',
       },
       {
         id: 'access',
         label: 'Separated admin access',
         detail:
           'Owner, operator and read-only roles, MFA for administrators, and no shared administrator accounts.',
-        stage: 'planned',
+        stage: 'implemented',
       },
       {
         id: 'keys',
         label: 'Recovery keys kept apart',
         detail:
           'Encryption and recovery credentials are stored separately from the backups they protect.',
-        stage: 'planned',
+        stage: 'implemented',
       },
       {
         id: 'runbooks',
