@@ -1,0 +1,26 @@
+---
+/**
+ * One node in the service-boundary diagram. Current nodes are solid; planned nodes are
+ * dashed, so the state is part of the drawing rather than a separate legend to consult.
+ */
+export interface Props {
+  title: string;
+  detail?: string;
+  state?: 'current' | 'planned';
+  accent?: boolean;
+}
+
+const { title, detail, state = 'planned', accent = false } = Astro.props;
+---
+
+<div
+  class={`rounded-full border bg-background px-3 py-2.5 ${
+    state === 'current' ? 'border-border-strong' : 'border-dashed border-border-strong'
+  }`}
+>
+  <p class="flex items-center gap-2 text-[12.5px] font-medium leading-4">
+    {accent ? <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span> : null}
+    {title}
+  </p>
+  {detail ? <p class="mt-1 text-[12px] leading-4 text-muted">{detail}</p> : null}
+</div>

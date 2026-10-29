@@ -1,0 +1,42 @@
+---
+import type { FeatureStage, ScopeFeature } from '@/content/products';
+
+const FEATURE_LABELS: Record<FeatureStage, string> = {
+  planned: 'Planned',
+  implemented: 'Implemented',
+  verified: 'Verified',
+};
+
+const FEATURE_STAGE: Record<FeatureStage, string> = {
+  planned: 'planned',
+  implemented: 'in-development',
+  verified: 'available',
+};
+
+export interface Props {
+  features: ScopeFeature[];
+  productName: string;
+}
+
+const { features, productName } = Astro.props;
+---
+
+<ul class="border-t border-border" aria-label={`${productName} capability scope`}>
+  {
+    features.map((feature, index) => (
+      <li class="grid gap-3 border-b border-border py-5 md:grid-cols-[42px_1fr_auto] md:gap-5">
+        <span class="mono pt-0.5 text-[11.5px] tracking-[0.06em] text-muted">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+        <div>
+          <h3 class="text-[15.5px] font-medium leading-6">{feature.label}</h3>
+          <p class="mt-1 max-w-2xl text-[14px] leading-6 text-muted">{feature.detail}</p>
+        </div>
+        <span class="badge-stage self-start" data-stage={FEATURE_STAGE[feature.stage]}>
+          <span class="badge-dot" aria-hidden="true" />
+          {FEATURE_LABELS[feature.stage]}
+        </span>
+      </li>
+    ))
+  }
+</ul>

@@ -24,7 +24,7 @@ fails if either phrase returns.
 | --- | --- | --- | --- |
 | Proof strip | One live module, three planned | factual | `PRODUCTS`; stage dictionary. |
 | Proof strip | Probe: private preview, manual activation | factual | `products.ts` Probe record; `/pricing/` activation steps. |
-| Proof strip | Status feeds: Not connected | factual | `NEXT_PUBLIC_STATUS_URL` unset. |
+| Proof strip | Status feeds: Not connected | factual | `PUBLIC_STATUS_URL` unset. |
 | Proof strip | Last review: 29 Oct 2026 | factual | `SITE.reviewedAt`. |
 | 01 Problem | Four failure modes are “design targets, not observed incidents” | intended design | Section states no incident is being described. |
 | 02 Products | Four modules, four narrow jobs | factual | Product records. |
@@ -91,7 +91,7 @@ states that the register wins if it disagrees with any other copy.
 
 | Claim | Stage | Evidence |
 | --- | --- | --- |
-| “Monitoring is not connected yet. No live service status or uptime history is available on this page.” | factual (default) | `NEXT_PUBLIC_STATUS_URL` unset. |
+| “Monitoring is not connected yet. No live service status or uptime history is available on this page.” | factual (default) | `PUBLIC_STATUS_URL` unset. |
 | Component health, timestamps and coverage | only when a sanitized feed is configured | Contract in `src/lib/status.ts`; stale (>180 s), future, malformed or unknown data renders Unknown. |
 | Uptime percentage | deliberately absent | No verified window exists. |
 
@@ -106,7 +106,7 @@ states that the register wins if it disagrees with any other copy.
 | `/docs/glossary/` | Term definitions used across the site | Product, stage and status records |
 | `/trust/` | Claims register, separation model, not-claimed list, known gaps | `src/content/claims.ts`; gaps recorded as production blockers |
 | Contact channels | `security@`, `support@`, `privacy@` on the apex, forwarded by Cloudflare Email Routing | Addresses in `CONTACT`; MX accepts all three (`RCPT 250`), the forwarding rules are enabled, and an external send to `security@` was recorded by Cloudflare as `action=forward, status=delivered` at 2026-10-29T01:53:03Z. `support@` and `privacy@` share the same rule shape and destination but have not had a delivery observed. |
-| `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/app/privacy/page.tsx`, `CONTACT.privacy`; Worker storage. No entity invented. |
+| `/privacy/` | Application form data, account records, check metadata, no first-party analytics or cookies; a published privacy address; no legal entity | `src/pages/privacy/index.astro`, `CONTACT.privacy`; Worker storage. No entity invented. |
 | `/terms/` | Free preview, no prices published; no SLA, uptime percentage or response-time guarantee; liability capped at zero because nothing is paid | Private preview scope; billing would require a published entity and governing law. |
 
 ## docs.caurium.tech (separate repository)
@@ -143,7 +143,7 @@ absolute URLs because it is a separate deployment.
 1. Legal entity, governing law and privacy contact are not established; `/privacy/` and `/terms/`
    say so explicitly.
 2. No security reporting channel is published; `/docs/security/` and `/trust/#gaps` record this gap.
-3. The apex domain is served, but `www.caurium.tech` answers 404 instead of redirecting, and `NEXT_PUBLIC_SITE_ENV` stays `preview` until the entity and support channel are published.
+3. The apex domain is served, but `www.caurium.tech` answers 404 instead of redirecting, and `PUBLIC_SITE_ENV` stays `preview` until the entity and support channel are published.
 4. Lighthouse results for the deployed origin are recorded in `docs/acceptance.md`; browser acceptance runs are recorded in
    `docs/acceptance.md`.
 5. No operating entity is published. Until it is, `/privacy/` and `/terms/` describe a free preview

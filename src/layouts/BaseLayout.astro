@@ -1,0 +1,115 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/roboto-slab';
+import '@fontsource-variable/jetbrains-mono';
+import '@/styles/globals.css';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import { OG_IMAGE, SITE } from '@/content/site';
+import { ORGANIZATION, WEBSITE, jsonLdScript } from '@/lib/jsonld';
+
+export interface Props {
+  /** Full `<title>`. Pages pass their own; the template is applied here. */
+  title: string;
+  description?: string;
+  /** Absolute path of the page, used for the canonical URL. */
+  path: string;
+  /** Skip the "— Caurium" suffix when the title already names the site. */
+  absoluteTitle?: boolean;
+  ogImage?: string;
+  ogAlt?: string;
+  noindex?: boolean;
+  /** Page-level structured data, emitted as an `application/ld+json` script. */
+  structuredData?: unknown;
+}
+
+const {
+  title,
+  description = SITE.description,
+  path,
+  absoluteTitle = false,
+  ogImage = OG_IMAGE,
+  ogAlt = 'Caurium — API access, monitoring and recovery.',
+  noindex = false,
+  structuredData,
+} = Astro.props;
+
+const origin = SITE.url.replace(/\/$/, '');
+const canonical = `${origin}${path.endsWith('/') ? path : `${path}/`}`;
+const image = `${origin}${ogImage}`;
+const documentTitle = absoluteTitle || title.includes('Caurium') ? title : `${title} — Caurium`;
+const indexable = SITE.indexable && !noindex;
+
+const STRUCTURED_DATA = [ORGANIZATION, WEBSITE];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="application-name" content={SITE.name} />
+    <link rel="canonical" href={canonical} />
+    {
+      indexable ? (
+        <meta name="robots" content="index, follow" />
+      ) : (
+        <meta name="robots" content="noindex, nofollow, nocache" />
+      )
+    }
+
+    <link rel="icon" href="/brand/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/brand/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="color-scheme" content="light" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={absoluteTitle ? title : title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <slot name="head" />
+    <script
+      type="application/ld+json"
+      set:html={jsonLdScript(STRUCTURED_DATA)}
+      is:inline
+    />
+    {/*
+      Page-level structured data is appended inside the same document head. It is
+      passed as data, not as an HTML string: an unwrapped JSON object in the head is
+      text the parser relocates into <body>.
+    */}
+    {
+      structuredData ? (
+        <script
+          type="application/ld+json"
+          set:html={jsonLdScript(structuredData)}
+          is:inline
+        />
+      ) : null
+    }
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

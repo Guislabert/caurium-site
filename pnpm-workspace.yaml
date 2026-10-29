@@ -1,8 +1,13 @@
-allowBuilds:
-  esbuild: true
-  unrs-resolver: true
-  sharp: true
-  workerd: true
 minimumReleaseAgeExclude:
+  - '@astrojs/markdown-satteri@0.4.6'
+  - '@astrojs/prism@4.1.2'
+  - '@astrojs/telemetry@3.4.2'
+  - astro@7.4.4
   - miniflare@5.20261023.2-beta
   - wrangler@4.155.0
+
+# esbuild and workerd ship platform binaries built at install time. Both are
+# required: esbuild builds through Vite, workerd runs the wrangler deploy.
+allowBuilds:
+  esbuild: true
+  workerd: true

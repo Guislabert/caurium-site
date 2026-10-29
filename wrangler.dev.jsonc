@@ -7,7 +7,7 @@
   "compatibility_date": "2026-10-28",
   "main": "src/worker.ts",
   "assets": {
-    "directory": "./out",
+    "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "run_worker_first": true

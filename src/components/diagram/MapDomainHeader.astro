@@ -1,0 +1,14 @@
+---
+export interface Props {
+  title: string;
+  state: 'Current' | 'Partial' | 'Planned';
+  id: string;
+}
+
+const { title, state, id } = Astro.props;
+---
+
+<header class="flex items-center justify-between gap-3 border-b border-border pb-3">
+  <h3 id={id} class="mono text-[11px] uppercase tracking-[0.06em] text-muted">{title}</h3>
+  <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">{state}</span>
+</header>

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const LINKS = [
+  { href: '/products/', label: 'Products' },
+  { href: '/architecture/', label: 'Architecture' },
+  { href: '/docs/', label: 'Documentation' },
+  { href: '/status/', label: 'Status' },
+];
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The address you requested does not exist on this site. No product console or private route is hidden behind a different URL."
+  path="/404/"
+  noindex
+>
+  <div class="container-page py-16 md:py-24">
+    <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">Error / 404</p>
+    <div class="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr_auto] lg:items-end lg:gap-16">
+      <div>
+        <h1 class="h1 max-w-[16ch]">Page not found.</h1>
+        <p class="lede mt-5 max-w-lg">
+          The address you requested does not exist on this site. No product console or private route is
+          hidden behind a different URL.
+        </p>
+      </div>
+      <ul class="border-t border-border-strong">
+        {
+          LINKS.map((link) => (
+            <li class="border-b border-border">
+              <a href={link.href} class="group flex items-center justify-between py-3 text-[14px] text-foreground">
+                {link.label}
+                <span
+                  aria-hidden="true"
+                  class="text-muted transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="mt-12">
+      <a href="/" class="btn btn-primary">Return home</a>
+    </div>
+  </div>
+</BaseLayout>

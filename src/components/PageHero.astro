@@ -1,0 +1,67 @@
+---
+import Breadcrumbs, { type Crumb } from '@/components/Breadcrumbs.astro';
+import { breadcrumbJsonLd, jsonLdScript } from '@/lib/jsonld';
+
+export interface Props {
+  crumbs: Crumb[];
+  title: string;
+  description?: string;
+  /** Short meta row under the description, e.g. a stage badge and a review date. */
+  meta?: string;
+  /** Right-hand figure, on wide screens. */
+  aside?: string;
+}
+
+const { crumbs, title, description, meta, aside } = Astro.props;
+/*
+ * Slotted content is not a prop: a page that fills `slot="meta"` passes nothing to
+ * `meta`. Ask the slots, or the badge row and the figure render nowhere.
+ */
+const hasMeta = Boolean(meta) || Astro.slots.has('meta');
+const hasAside = Boolean(aside) || Astro.slots.has('aside');
+---
+
+<section class="relative border-b border-border bg-paper">
+  <div class="container-page relative py-10 md:py-14 lg:py-16">
+    <Breadcrumbs items={crumbs} />
+
+    {/*
+      The tracked-caps kicker above the headline was removed. On every page it
+      repeated what the breadcrumb directly above it already said ("Probe · Access"
+      under "Home / Access"), and the eyebrow-over-huge-headline pairing is the
+      default AI-product hero. The headline now starts the page and carries the
+      product name itself where it matters.
+    */}
+    <div
+      class={`mt-8 grid gap-10 lg:gap-16 ${
+        hasAside ? 'lg:grid-cols-[1fr_300px] lg:items-start' : ''
+      }`}
+    >
+      <div>
+        <h1 class="h1 max-w-[22ch]">{title}</h1>
+        {
+          description ? (
+            <div class="lede mt-6 max-w-[38rem]">
+              <slot name="description">{description}</slot>
+            </div>
+          ) : null
+        }
+        {
+          hasMeta ? (
+            <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+              <slot name="meta">{meta}</slot>
+            </div>
+          ) : null
+        }
+        <slot />
+      </div>
+      {hasAside ? <div class="lg:pt-2"><slot name="aside">{aside}</slot></div> : null}
+    </div>
+  </div>
+
+  <script
+    type="application/ld+json"
+    set:html={jsonLdScript(breadcrumbJsonLd(crumbs))}
+    is:inline
+  />
+</section>

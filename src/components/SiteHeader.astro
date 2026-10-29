@@ -1,0 +1,30 @@
+---
+import Logo from '@/components/Logo.astro';
+import MobileNavigation from '@/components/MobileNavigation.astro';
+import PrimaryNavigation from '@/components/PrimaryNavigation.astro';
+---
+
+<header class="site-header">
+  <div class="container-page site-header__inner">
+    <div class="flex items-center gap-4">
+      <a href="/" aria-label="Caurium home" class="shrink-0">
+        <Logo />
+      </a>
+      <span class="hidden items-center gap-2 border-l border-border pl-4 xl:inline-flex">
+        <span class="h-1.5 w-1.5 rounded-full bg-lime" aria-hidden="true"></span>
+        <span class="mono text-[10px] uppercase tracking-[0.12em] text-muted">
+          Free private preview · By application
+        </span>
+      </span>
+    </div>
+
+    <PrimaryNavigation />
+
+    <div class="flex items-center gap-2">
+      <div class="hidden md:block">
+        <a href="/access/" class="btn btn-primary">Apply for access</a>
+      </div>
+      <MobileNavigation />
+    </div>
+  </div>
+</header>

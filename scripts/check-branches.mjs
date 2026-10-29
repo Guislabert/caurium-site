@@ -12,11 +12,11 @@ import { execFileSync } from 'node:child_process';
 
 /** The complete set of files allowed to differ between main and dev. */
 const VISUAL_LAYER = new Set([
-  'src/app/globals.css',
-  'src/app/layout.tsx',
-  'src/app/page.tsx',
-  'src/components/SiteHeader.tsx',
-  'src/components/MobileNavigation.tsx',
+  'src/styles/globals.css',
+  'src/layouts/BaseLayout.astro',
+  'src/pages/index.astro',
+  'src/components/SiteHeader.astro',
+  'src/components/MobileNavigation.astro',
   'src/content/site.ts',
   'package.json',
   'pnpm-lock.yaml',

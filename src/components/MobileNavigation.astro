@@ -1,0 +1,181 @@
+---
+import { NAV } from '@/content/site';
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/';
+  if (href === '/products/') return pathname.startsWith('/products');
+  if (href === '/docs/') return pathname.startsWith('/docs');
+  return pathname === href || pathname.startsWith(href);
+}
+---
+
+<div class="md:hidden">
+  <button
+    type="button"
+    class="mono inline-flex h-11 items-center gap-2 border border-border-strong px-3 text-[11px] uppercase tracking-[0.06em] text-ink"
+    aria-expanded="false"
+    aria-controls="mobile-navigation"
+    aria-label="Open menu"
+    data-mobile-nav-toggle
+  >
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      class="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      data-mobile-nav-icon="closed"
+    >
+      <path d="M4 8h16M4 16h16" stroke-linecap="round"></path>
+    </svg>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      class="hidden h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      data-mobile-nav-icon="open"
+    >
+      <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
+    </svg>
+    Menu
+  </button>
+
+  <div
+    id="mobile-navigation"
+    class="mobile-nav-panel absolute inset-x-0 top-full z-40 hidden h-[calc(100dvh-var(--header))] overflow-y-auto border-t border-border"
+    data-mobile-nav-panel
+  >
+    <nav aria-label="Mobile" class="container-page py-4">
+      <ul class="border-t border-border">
+        {
+          NAV.map((item, index) => (
+            <li class="border-b border-border">
+              <a
+                href={item.href}
+                class="mobile-nav-link flex min-h-16 items-center justify-between gap-4 py-4"
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                <span>
+                  <span class="flex items-baseline gap-3">
+                    <span class="mono text-[11.5px] text-muted">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span class="text-[17px]">{item.label}</span>
+                  </span>
+                  <span class="mt-1 block pl-8 text-[13.5px] leading-5 text-muted">
+                    {item.description}
+                  </span>
+                </span>
+                <span aria-hidden="true" class="text-muted">
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-6">
+        <a
+          href="/access/"
+          class="mono flex h-12 w-full items-center justify-center bg-ink text-[13px] uppercase tracking-[0.06em] text-paper"
+        >
+          Apply for access
+        </a>
+      </div>
+
+      <p class="mt-6 border-t border-border pt-4 text-[13.5px] leading-5 text-muted">
+        Probe is in private preview. Gate and Guard are in development; Box is planned.
+      </p>
+    </nav>
+  </div>
+</div>
+
+<script>
+  /*
+   * Menu behaviour: Escape closes and returns focus to the button, Tab stays inside
+   * the open panel, and the page behind it cannot scroll. The panel is a full-screen
+   * overlay, so a focus trap is the difference between a menu and a hole in the page.
+   */
+  function setupMobileNavigation() {
+    const toggle = document.querySelector<HTMLButtonElement>('[data-mobile-nav-toggle]');
+    const panel = document.querySelector<HTMLElement>('[data-mobile-nav-panel]');
+    if (!toggle || !panel || toggle.dataset.bound === 'true') return;
+    toggle.dataset.bound = 'true';
+
+    const closedIcon = toggle.querySelector<SVGElement>('[data-mobile-nav-icon="closed"]');
+    const openIcon = toggle.querySelector<SVGElement>('[data-mobile-nav-icon="open"]');
+    let previousOverflow = '';
+
+    const focusable = () =>
+      [
+        toggle,
+        ...Array.from(
+          panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+        ),
+      ].filter((element) => element.offsetParent !== null);
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        close();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+
+      const items = focusable();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+
+    function open() {
+      panel!.classList.remove('hidden');
+      toggle!.setAttribute('aria-expanded', 'true');
+      toggle!.setAttribute('aria-label', 'Close menu');
+      closedIcon?.classList.add('hidden');
+      openIcon?.classList.remove('hidden');
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', onKeyDown);
+      panel!.querySelector<HTMLAnchorElement>('a')?.focus();
+    }
+
+    function close() {
+      panel!.classList.add('hidden');
+      toggle!.setAttribute('aria-expanded', 'false');
+      toggle!.setAttribute('aria-label', 'Open menu');
+      closedIcon?.classList.remove('hidden');
+      openIcon?.classList.add('hidden');
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+      toggle!.focus();
+    }
+
+    toggle.addEventListener('click', () => {
+      if (toggle.getAttribute('aria-expanded') === 'true') close();
+      else open();
+    });
+
+    panel.addEventListener('click', (event) => {
+      if ((event.target as HTMLElement).closest('a')) close();
+    });
+  }
+
+  setupMobileNavigation();
+  document.addEventListener('astro:page-load', setupMobileNavigation);
+</script>

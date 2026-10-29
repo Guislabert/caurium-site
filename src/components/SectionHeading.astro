@@ -1,0 +1,27 @@
+---
+export interface Props {
+  title: string;
+  intro?: string;
+  id?: string;
+  align?: 'bottom' | 'center';
+}
+
+const { title, intro, id, align = 'bottom' } = Astro.props;
+---
+
+<div
+  class={`flex flex-wrap gap-6 ${
+    align === 'bottom' ? 'items-end justify-between' : 'flex-col items-start'
+  }`}
+>
+  <div>
+    <h2 id={id} class="h2 max-w-[20ch]">{title}</h2>
+  </div>
+  {
+    intro ? (
+      <div class="max-w-sm text-[14px] leading-6 text-muted md:pb-1">
+        <slot name="intro">{intro}</slot>
+      </div>
+    ) : null
+  }
+</div>

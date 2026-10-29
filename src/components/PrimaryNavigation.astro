@@ -1,0 +1,31 @@
+---
+import { NAV } from '@/content/site';
+
+/** Astro renders every page at build time, so the current path is known here. */
+const pathname = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/';
+  if (href === '/products/') return pathname.startsWith('/products');
+  if (href === '/docs/') return pathname.startsWith('/docs');
+  return pathname === href || pathname.startsWith(href);
+}
+---
+
+<nav aria-label="Primary" class="hidden md:block">
+  <ul class="flex items-center gap-1">
+    {
+      NAV.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="nav-link"
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

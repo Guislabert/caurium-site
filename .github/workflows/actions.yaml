@@ -48,7 +48,7 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Build static export
+      - name: Build the static site
         run: pnpm build
 
       - name: Check links and build output
@@ -96,13 +96,13 @@ jobs:
             exit 1
           fi
 
-      - name: Build static export
+      - name: Build the static site
         run: pnpm build
         env:
-          NEXT_PUBLIC_SITE_URL: https://caurium.tech
-          NEXT_PUBLIC_SITE_ENV: ${{ vars.NEXT_PUBLIC_SITE_ENV || 'preview' }}
-          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
-          NEXT_PUBLIC_PROBE_URL: ${{ vars.NEXT_PUBLIC_PROBE_URL }}
+          PUBLIC_SITE_URL: https://caurium.tech
+          PUBLIC_SITE_ENV: ${{ vars.PUBLIC_SITE_ENV || 'preview' }}
+          PUBLIC_STATUS_URL: ${{ vars.PUBLIC_STATUS_URL }}
+          PUBLIC_PROBE_URL: ${{ vars.PUBLIC_PROBE_URL }}
 
       - name: Deploy
         run: pnpm exec wrangler deploy --message "$GITHUB_SHA $GITHUB_WORKFLOW_REF"
@@ -153,14 +153,14 @@ jobs:
             exit 1
           fi
 
-      - name: Build static export
+      - name: Build the static site
         run: pnpm build
         env:
-          NEXT_PUBLIC_SITE_URL: https://caurium-site-dev.caurium.workers.dev
+          PUBLIC_SITE_URL: https://caurium-site-dev.caurium.workers.dev
           # A preview must never be indexable, whatever the variable says.
-          NEXT_PUBLIC_SITE_ENV: preview
-          NEXT_PUBLIC_STATUS_URL: ${{ vars.NEXT_PUBLIC_STATUS_URL }}
-          NEXT_PUBLIC_PROBE_URL: ${{ vars.NEXT_PUBLIC_PROBE_URL }}
+          PUBLIC_SITE_ENV: preview
+          PUBLIC_STATUS_URL: ${{ vars.PUBLIC_STATUS_URL }}
+          PUBLIC_PROBE_URL: ${{ vars.PUBLIC_PROBE_URL }}
 
       - name: Deploy
         run: pnpm exec wrangler deploy --config wrangler.dev.jsonc --message "dev $GITHUB_SHA $GITHUB_WORKFLOW_REF"

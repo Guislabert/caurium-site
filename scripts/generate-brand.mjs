@@ -5,15 +5,15 @@ import sharp from 'sharp';
 /**
  * Brand asset generator.
  *
- * The mark is the v1 rounded-square C used by src/components/Logo.tsx.
+ * The mark is the v1 rounded-square C used by src/components/CauriumMark.astro.
  * Keep the geometry here in sync with that component if the mark changes.
  */
 
-// Read from src/app/globals.css. The generator used to carry its own copy of the v1
+// Read from src/styles/globals.css. The generator used to carry its own copy of the v1
 // navy/paper palette, so a reskin left the mark, favicons and OG cards on the old
 // colours while every page had moved on. One source now.
 const TOKENS = Object.fromEntries(
-  [...readFileSync('src/app/globals.css', 'utf8').matchAll(/(--[a-z0-9-]+):\s*(#[0-9a-fA-F]{6})/g)]
+  [...readFileSync('src/styles/globals.css', 'utf8').matchAll(/(--[a-z0-9-]+):\s*(#[0-9a-fA-F]{6})/g)]
     .map((m) => [m[1], m[2]]),
 );
 

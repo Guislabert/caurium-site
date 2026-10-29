@@ -1,0 +1,56 @@
+---
+export interface Props {
+  code: string;
+  language: string;
+  title: string;
+  note?: string;
+}
+
+const { code, language, title, note } = Astro.props;
+---
+
+<figure class="min-w-0 max-w-full">
+  <div class="code-shell" data-language={language} data-code-block>
+    <div class="code-shell__head">
+      <p class="code-shell__title">{title} <span class="text-[#9a9a9a]">/ {language}</span></p>
+      <button type="button" class="copy-button" data-copy>Copy</button>
+    </div>
+    <pre tabindex="0" aria-label={`${title} code`}><code>{code}</code></pre>
+  </div>
+  <span aria-live="polite" class="sr-only" data-copy-status></span>
+  {note ? <p class="note mt-2 text-[13px] leading-5 text-muted">{note}</p> : null}
+</figure>
+
+<script>
+  function setupCopyButtons() {
+    document.querySelectorAll<HTMLElement>('[data-code-block]').forEach((shell) => {
+      if (shell.dataset.bound === 'true') return;
+      shell.dataset.bound = 'true';
+
+      const button = shell.querySelector<HTMLButtonElement>('[data-copy]');
+      const code = shell.querySelector('pre code')?.textContent ?? '';
+      const status = shell.parentElement?.querySelector<HTMLElement>('[data-copy-status]');
+      let timer: ReturnType<typeof setTimeout> | undefined;
+
+      button?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = 'Copied';
+          if (status) status.textContent = 'Code copied to clipboard.';
+        } catch {
+          button.textContent = 'Copy failed';
+          if (status) status.textContent = 'Copy failed.';
+        }
+
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          button.textContent = 'Copy';
+          if (status) status.textContent = '';
+        }, 2000);
+      });
+    });
+  }
+
+  setupCopyButtons();
+  document.addEventListener('astro:page-load', setupCopyButtons);
+</script>

@@ -1,0 +1,1223 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design language: graphite hairlines, white panels, one blue accent.
+   Structure follows the reference surface: a bordered content rail,
+   mono uppercase labels, large regular-weight sans headlines, square
+   controls. Caurium's mark, palette accents and copy are unchanged.
+   ------------------------------------------------------------------ */
+
+:root {
+  --background: #f6f4ee;
+  --paper: #fffdf8;
+  --surface: #f1eee4;
+  --surface-2: #ece7fd;
+  --surface-3: #e8f2cf;
+  --foreground: #0b1b3f;
+  --ink: #0b1b3f;
+  --ink-2: #26365f;
+  --muted: #5c6784;
+  --border: rgba(11, 27, 63, 0.14);
+  --border-strong: rgba(11, 27, 63, 0.28);
+  /* Control boundaries need 3:1 against paper; --border-strong is decorative only. */
+  --control-border: #6b6480;
+  --accent: #6c4cf1;
+  --accent-dark: #5433d4;
+  /* Readable accent ink on paper (7.4:1) and the focus ring on light surfaces. */
+  --accent-ink: #4b2fd0;
+  --accent-soft: #ece7fd;
+  --lime: #c9e265;
+  --lime-soft: #e8f2cf;
+  --olive: #5e7a1f;
+  --success: #3f6212;
+  --warning: #92400e;
+  --danger: #b91c1c;
+  --container: 1180px;
+  --radius-card: 22px;
+  --radius-control: 999px;
+  --shadow-card: 0 30px 70px -42px rgba(11, 27, 63, 0.45);
+  --shadow-float: 0 24px 60px -28px rgba(11, 27, 63, 0.4);
+  --header: 72px;
+  /* No announcement bar in this visual system; the token stays defined because
+     scroll padding and the sticky offsets are written in terms of it. */
+  --topbar: 0px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-control-border: var(--control-border);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-lime: var(--lime);
+  --color-lime-soft: var(--lime-soft);
+  --color-olive: var(--olive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Roboto Slab Variable', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-wordmark: 'Roboto Slab Variable', ui-serif, Georgia, serif;
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header) + var(--topbar) + 16px);
+}
+
+body {
+  background: var(--background);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: 'ss01', 'cv01';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-ink);
+  color: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  text-wrap: balance;
+  letter-spacing: -0.028em;
+  line-height: 1.06;
+  font-weight: 400;
+}
+
+p,
+dd,
+li {
+  text-wrap: pretty;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+/* 3:1 non-text contrast against paper and against ink. #51a2ff reaches only
+   2.4:1 on the light ground, so the ring uses the readable blue there and the
+   bright blue only where the surface is dark. */
+:focus-visible {
+  outline: 2px solid var(--accent-ink);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.section-ink :focus-visible,
+.site-header :focus-visible,
+.cta-card--ink :focus-visible {
+  outline-color: var(--accent);
+}
+
+/* ---------- Layout ---------- */
+
+.container-page {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 40px;
+  }
+}
+
+/* The vertical hairlines that frame the content column on wide screens. */
+@media (min-width: 1320px) {
+  .container-page {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+}
+
+.section {
+  padding-block: 64px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 88px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 104px;
+  }
+}
+
+.section-tight {
+  padding-block: 44px;
+}
+
+@media (min-width: 1024px) {
+  .section-tight {
+    padding-block: 64px;
+  }
+}
+
+.section-paper {
+  background: var(--paper);
+}
+
+.section-lav {
+  background: var(--surface-2);
+}
+
+.section-lime {
+  background: var(--surface-3);
+}
+
+/* Tinted bands tint the text too; muted grey alone falls under 4.5:1 there. */
+.section-lav .eyebrow,
+.section-lime .eyebrow {
+  color: var(--ink-2);
+}
+
+.section-ink {
+  background: var(--ink);
+  color: #f4f4f4;
+}
+
+.section-ink h1,
+.section-ink h2,
+.section-ink h3,
+.section-ink h4 {
+  color: #ffffff;
+}
+
+.section-ink .container-page {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.section-ink ::selection {
+  background: var(--accent);
+  color: #0f0f0f;
+}
+
+.section-ink .eyebrow {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* Light cards keep light-surface text even when they sit on a dark band. */
+.section-ink .figure,
+.section-ink .card,
+.section-ink .panel,
+.section-ink .status-panel,
+.section-ink .product-card {
+  color: var(--ink-2);
+}
+
+.section-ink .figure h1,
+.section-ink .figure h2,
+.section-ink .figure h3,
+.section-ink .figure h4,
+.section-ink .card h1,
+.section-ink .card h2,
+.section-ink .card h3,
+.section-ink .card h4,
+.section-ink .status-panel h1,
+.section-ink .status-panel h2,
+.section-ink .status-panel h3,
+.section-ink .status-panel h4 {
+  color: var(--ink);
+}
+
+.section-ink .figure .badge-stage,
+.section-ink .card .badge-stage,
+.section-ink .status-panel .badge-stage {
+  color: var(--accent-ink);
+  border-color: rgba(0, 7, 205, 0.28);
+  background: var(--accent-soft);
+}
+
+.section-ink .figure .eyebrow,
+.section-ink .card .eyebrow,
+.section-ink .status-panel .eyebrow {
+  color: var(--muted);
+}
+
+/* ---------- Type ---------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  flex: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* The Caurium wordmark keeps its original slab setting. */
+.wordmark {
+  font-family: var(--font-wordmark);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.display {
+  font-size: clamp(2.75rem, 5.6vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  font-weight: 400;
+}
+
+/* The home headline is a full sentence and needs a tighter measure. */
+.hero-title {
+  font-size: clamp(2.6rem, 5vw, 3.9rem);
+  line-height: 1.05;
+}
+
+.h1 {
+  font-size: clamp(2.3rem, 4.6vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  font-weight: 400;
+}
+
+.h2 {
+  font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+.h3 {
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.lede {
+  font-size: clamp(1.02rem, 1.3vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--ink-2);
+  /* Comfortable measure in rem: ch resolves against the parent font, not this one. */
+  max-width: 38rem;
+}
+
+.section-ink .lede {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+
+
+
+.section-ink 
+/* Accent fragment inside a headline, as the reference does for key phrases. */
+.emphasis {
+  color: var(--accent-ink);
+}
+
+.section-ink .emphasis {
+  color: #8ec4ff;
+}
+
+/* ---------- Controls ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border-radius: var(--radius-control);
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+
+.btn-primary {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: #2b2b2b;
+  border-color: #2b2b2b;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--control-border);
+}
+
+.btn-secondary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #ffffff;
+}
+
+.btn-inverse {
+  background: #ffffff;
+  color: var(--ink);
+  border-color: #ffffff;
+}
+
+.btn-inverse:hover {
+  background: #e9e9e9;
+  border-color: #e9e9e9;
+}
+
+.btn-inverse-outline {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.btn-inverse-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.section-ink .btn-primary {
+  background: #ffffff;
+  color: var(--ink);
+  border-color: #ffffff;
+}
+
+.section-ink .btn-primary:hover {
+  background: #e6e6e6;
+  border-color: #e6e6e6;
+}
+
+.section-ink .btn-secondary {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.section-ink .btn-secondary:hover {
+  background: #ffffff;
+  color: var(--ink);
+  border-color: #ffffff;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border-strong);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.link-arrow span[aria-hidden] {
+  transition: transform 160ms ease;
+}
+
+.link-arrow:hover,
+.group:hover .link-arrow {
+  color: var(--accent-ink);
+  border-color: var(--accent-ink);
+}
+
+.link-arrow:hover span[aria-hidden],
+.group:hover .link-arrow span[aria-hidden] {
+  transform: translateX(3px);
+}
+
+.text-link {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.text-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Supporting copy one step below body must not run to 110+ characters just
+   because the column is wide; 68ch keeps the same rhythm as .doc-prose. */
+.note {
+  /* em-based so the character count stays constant when the size changes. */
+  max-width: 34em;
+}
+
+/* Grid children default to min-width:auto, so a long unbroken row can push a
+   track past the viewport. Every split section allows the text to wrap. */
+.split > * {
+  min-width: 0;
+}
+
+/* Cells inside a 1px gap-grid are clipped by `overflow: hidden`, which cuts the
+   focus ring off. Draw those rings inside the cell so the boundary stays visible. */
+.grid-cells a:focus-visible,
+.grid-cells button:focus-visible {
+  outline-offset: -3px;
+}
+
+/* ---------- Surfaces ---------- */
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.grid-paper {
+  background-image:
+    linear-gradient(to right, rgba(15, 15, 15, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 15, 15, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.grid-ink {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ---------- Badges ---------- */
+
+.badge-stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  padding: 3px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  /* Functional text carries the product stage, so it sits on the 11px floor. */
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+  background: transparent;
+}
+
+.badge-stage[data-stage='in-development'],
+.badge-stage[data-stage='internal'] {
+  color: var(--olive);
+  border-color: rgba(75, 107, 47, 0.4);
+  background: var(--lime-soft);
+}
+
+.badge-stage[data-stage='private-preview'],
+.badge-stage[data-stage='public-beta'] {
+  color: var(--accent-ink);
+  border-color: rgba(0, 7, 205, 0.28);
+  background: var(--accent-soft);
+}
+
+.badge-stage[data-stage='available'] {
+  color: var(--success);
+  border-color: rgba(23, 121, 78, 0.35);
+  background: var(--surface-3);
+}
+
+.badge-stage[data-stage='planned'] {
+  color: var(--muted);
+  border-color: var(--border-strong);
+  background: transparent;
+}
+
+.section-ink .badge-stage {
+  color: rgba(255, 255, 255, 0.82);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: currentColor;
+  flex: none;
+}
+
+.badge-stage[data-stage='planned'] .badge-dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--border);
+  background: rgba(246, 244, 238, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-header__inner {
+  height: var(--header);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding-inline: 14px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+  transition: color 140ms ease, background-color 140ms ease;
+}
+
+.nav-link:hover {
+  color: var(--ink);
+  background: rgba(11, 27, 63, 0.06);
+}
+
+.nav-link[aria-current='page'] {
+  color: var(--ink);
+  background: rgba(11, 27, 63, 0.07);
+}
+
+.mobile-nav-panel {
+  background: var(--background);
+  color: var(--ink);
+}
+
+.mobile-nav-link {
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.mobile-nav-link:hover {
+  background: rgba(11, 27, 63, 0.05);
+}
+
+.cta-card--ink h1,
+.cta-card--ink h2,
+.cta-card--ink h3,
+.cta-card--ink h4 {
+  color: #ffffff;
+}
+
+/* ---------- Product card ---------- */
+
+.product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.product-card:hover {
+  border-color: var(--ink);
+}
+
+.product-card__cover {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.product-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card .glyph-line {
+  color: var(--ink);
+  transition: color 160ms ease;
+}
+
+.product-card:hover .glyph-line {
+  color: var(--accent-ink);
+}
+
+@media (min-width: 768px) {
+  .product-card {
+    padding: 28px;
+  }
+}
+
+/* ---------- Figures ---------- */
+
+.figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.figure__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.figure__body {
+  position: relative;
+  padding: 18px 16px;
+}
+
+@media (min-width: 768px) {
+  .figure__body {
+    padding: 24px;
+  }
+}
+
+.figure-caption {
+  margin-top: 12px;
+  max-width: 68ch;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.figure__foot {
+  padding: 12px 18px;
+  border-top: 1px solid var(--border);
+}
+
+
+/* ---------- Code ---------- */
+
+.code-shell {
+  min-width: 0;
+  max-width: 100%;
+  background: #171717;
+  color: #e8e8e8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.code-shell__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1f1f1f;
+}
+
+.code-shell__title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(232, 232, 232, 0.6);
+}
+
+.code-shell pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  tab-size: 2;
+}
+
+.code-shell code {
+  font-family: inherit;
+}
+
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(232, 232, 232, 0.75);
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.copy-button:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Prose ---------- */
+
+.doc-prose {
+  /* 720px ran ~96 characters at this type size; 34em lands near 75. */
+  max-width: 34em;
+  color: var(--ink-2);
+}
+
+.doc-prose > * + * {
+  margin-top: 1rem;
+}
+
+.doc-prose h2 {
+  margin-top: 2.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  scroll-margin-top: calc(var(--header) + var(--topbar) + 16px);
+}
+
+.doc-prose h3 {
+  margin-top: 1.9rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  font-weight: 500;
+  scroll-margin-top: calc(var(--header) + var(--topbar) + 16px);
+}
+
+.doc-prose p,
+.doc-prose li {
+  color: var(--ink-2);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.doc-prose ul,
+.doc-prose ol {
+  padding-left: 1.3rem;
+  list-style: disc;
+}
+
+.doc-prose ol {
+  list-style: decimal;
+}
+
+.doc-prose li + li {
+  margin-top: 0.4rem;
+}
+
+.doc-prose strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.doc-prose a {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+.doc-prose a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* A link that is the whole cell or list item is a target, not prose: it needs a
+   full 24px row. Inline links inside a sentence keep their text flow (and are
+   exempt under WCAG 2.2 SC 2.5.8). */
+.doc-prose td a,
+.doc-prose th a,
+.doc-prose li > a:only-child,
+.doc-prose dd > a:only-child {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+}
+
+.doc-prose a:not(.text-link):not(.doc-row) {
+  text-underline-offset: 3px;
+}
+
+/* Row links inside docs must not inherit prose link treatment. */
+.doc-prose .doc-row,
+.doc-prose .doc-row a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.doc-prose .doc-row:hover .doc-row-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.doc-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.1em 0.35em;
+}
+
+.doc-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.doc-prose th,
+.doc-prose td {
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-prose th {
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+
+.table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* A wide table inside a narrow column has to say it scrolls and has to be
+   reachable by keyboard; the wrapper carries tabindex/role in markup. */
+.table-scroll:focus-visible {
+  outline-offset: -2px;
+}
+
+.table-scroll--hint {
+  mask-image: linear-gradient(to right, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 86%, transparent 100%);
+}
+
+/* ---------- Docs ---------- */
+
+.docs-nav-link {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  margin-left: -1px;
+  border-left: 1px solid transparent;
+  padding-left: 14px;
+  font-size: 13.5px;
+  color: var(--muted);
+  transition: color 140ms ease, border-color 140ms ease;
+}
+
+.docs-nav-link:hover {
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.docs-nav-link[aria-current='page'] {
+  color: var(--ink);
+  border-color: var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 1023px) {
+  .docs-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 4px;
+    overflow: visible;
+    border-left: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs-nav-list > li {
+    flex: 0 1 auto;
+  }
+
+  .docs-nav-list .docs-nav-link {
+    min-height: 36px;
+    margin-left: 0;
+    border-left: 0;
+    border-bottom: 1px solid transparent;
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+
+  .docs-nav-list .docs-nav-link:hover {
+    border-bottom-color: var(--border-strong);
+  }
+
+  .docs-nav-list .docs-nav-link[aria-current='page'] {
+    border-bottom-color: var(--ink);
+  }
+}
+
+.toc-link {
+  display: block;
+  padding: 6px 0 6px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.toc-link:hover {
+  color: var(--ink);
+}
+
+.toc-link[aria-current='true'] {
+  color: var(--ink);
+  border-color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- Status ---------- */
+
+.status-panel {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.status-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.status-panel__body {
+  padding: 22px 20px;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--paper);
+}
+
+.site-footer .eyebrow {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.site-footer .eyebrow::before {
+  display: none;
+}
+
+/* The footer is the site's secondary navigation on phones; give each link a
+   44px row instead of a bare text line. */
+.site-footer nav a {
+  display: inline-flex;
+  min-height: 44px;
+  min-width: 24px;
+  align-items: center;
+}
+
+
+/* ---------- Misc ---------- */
+
+/*
+  The first viewport used a radial spotlight wash behind the headline. That shape is
+  the default AI-product hero, and a light haze adds nothing a reader can use. This
+  site is a measurements-and-boundaries product, so the hero carries a rule instead:
+  one hairline that fades out, aligned to the content rail. Structure over glow.
+*/
+.hero-glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 100%;
+  pointer-events: none;
+  background:
+    linear-gradient(
+        to right,
+        transparent 0,
+        var(--border-strong) 12%,
+        var(--accent) 50%,
+        var(--border-strong) 88%,
+        transparent 100%
+      )
+      top / 100% 1px no-repeat,
+    linear-gradient(to bottom, rgba(81, 162, 255, 0.05), transparent 240px);
+  z-index: 0;
+}
+
+.hero-glow--ink {
+  background:
+    linear-gradient(
+        to right,
+        transparent 0,
+        rgba(255, 255, 255, 0.18) 12%,
+        var(--accent) 50%,
+        rgba(255, 255, 255, 0.18) 88%,
+        transparent 100%
+      )
+      top / 100% 1px no-repeat;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  z-index: 100;
+  transform: translateY(-150%);
+  background: var(--ink);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+/* Gradient closing card, echoing the reference's closing panel. */
+.cta-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background:
+    radial-gradient(60% 90% at 8% 0%, #a8c8ff 0%, transparent 62%),
+    radial-gradient(70% 80% at 92% 100%, #b6f2ef 0%, transparent 60%),
+    radial-gradient(50% 60% at 50% 50%, #ffffff 0%, #eef4ff 100%);
+}
+
+.cta-card--ink {
+  background:
+    radial-gradient(60% 80% at 10% 0%, rgba(31, 43, 214, 0.5), transparent 62%),
+    radial-gradient(60% 80% at 90% 100%, rgba(56, 189, 248, 0.32), transparent 60%),
+    #0f0f0f;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.cta-card--ink h1,
+.cta-card--ink h2,
+.cta-card--ink h3,
+.cta-card--ink h4 {
+  color: #ffffff;
+}
+
+/*
+  Reduced motion shortens motion and keeps state feedback.
+
+  The previous rule forced every transition to 0.01ms, which also erased colour and
+  opacity changes — the cues that tell a reader something happened (a nav item
+  becoming current, a form entering its sending state). Motion is what causes
+  discomfort, so motion is shortened while colour and opacity survive.
+
+  No transform is reset here: .skip-link and the mobile navigation use translate to
+  place themselves, so stripping transforms would strand them off-screen.
+*/
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition: color 80ms linear, background-color 80ms linear,
+      border-color 80ms linear, opacity 80ms linear !important;
+    scroll-behavior: auto !important;
+  }
+
+  .skip-link,
+  .skip-link:focus {
+    transition: transform 80ms linear !important;
+  }
+}

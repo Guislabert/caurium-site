@@ -1,5 +1,5 @@
 // Cloudflare Workers configuration for the static Next.js export.
-// Static files come from `out/`; src/worker.ts only adds the www -> apex redirect.
+// Static files come from `dist/`; src/worker.ts only adds the www -> apex redirect.
 // Docs: https://developers.cloudflare.com/workers/static-assets/
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
@@ -7,7 +7,7 @@
   "compatibility_date": "2026-10-28",
   "main": "src/worker.ts",
   "assets": {
-    "directory": "./out",
+    "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     // Run the entry worker before serving assets, so the host check in

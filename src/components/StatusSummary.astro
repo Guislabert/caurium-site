@@ -1,0 +1,239 @@
+---
+export interface Props {
+  /** Sanitized status endpoint. Absent means the feed is not connected. */
+  endpoint?: string;
+  compact?: boolean;
+}
+
+const { endpoint, compact = false } = Astro.props;
+---
+
+<div
+  class="status-mount"
+  data-status-endpoint={endpoint}
+  data-status-compact={compact ? 'true' : 'false'}
+>
+  {
+    /* Server-rendered state. The script replaces this once a valid feed answers;
+       until then the page says the feed is not connected, which is true. */
+    endpoint ? (
+      <div class="status-panel" role="status">
+        <div class="status-panel__head">
+          <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+            Public status · Schema v1
+          </p>
+          <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">Checking</span>
+        </div>
+        <div class="status-panel__body">
+          <p class="text-[15.5px] font-medium leading-6">Reading status data…</p>
+          <p class="mt-1.5 text-[14px] leading-6 text-muted">
+            Until a valid response arrives, no component is reported as operational.
+          </p>
+        </div>
+      </div>
+    ) : (
+      <div class="status-panel" role="status">
+        <div class="status-panel__head">
+          <p class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+            Public status · Schema v1
+          </p>
+          <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">Not connected</span>
+        </div>
+        <div class="status-panel__body">
+          <p class="text-[15.5px] font-medium leading-6">Monitoring is not connected yet.</p>
+          <p class="mt-1.5 max-w-lg text-[14px] leading-6 text-muted">
+            No live service status or uptime history is available on this page.
+          </p>
+          <div class="mt-4 flex items-center gap-2">
+            <span
+              class="h-2 w-2 rounded-full border border-border-strong"
+              aria-hidden="true"></span>
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              No live component is reported as operational
+            </span>
+          </div>
+        </div>
+        <div class="border-t border-border px-4 py-3 md:px-5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              Data source: none
+            </span>
+            <span class="mono text-[11px] uppercase tracking-[0.06em] text-muted">
+              Last check: none
+            </span>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  import { validatePublicStatus, type Health, type PublicStatus } from '@/lib/status';
+
+  const HEALTH_LABEL: Record<Health, string> = {
+    operational: 'Operational',
+    degraded: 'Degraded',
+    outage: 'Outage',
+    maintenance: 'Maintenance',
+    unknown: 'Unknown',
+  };
+
+  const HEALTH_CLASS: Record<Health, string> = {
+    operational: 'text-success',
+    degraded: 'text-warning',
+    outage: 'text-danger',
+    maintenance: 'text-warning',
+    unknown: 'text-muted',
+  };
+
+  const MONO_LABEL = 'mono text-[11px] uppercase tracking-[0.06em] text-muted';
+
+  /**
+   * The feed is remote data rendered as HTML. React escaped it implicitly; innerHTML
+   * does not, so every field is escaped before it reaches the DOM.
+   */
+  function escapeHtml(value: string) {
+    return value
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  function formatTime(value: string) {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+      ? 'invalid time'
+      : `${date.toISOString().replace('T', ' ').slice(0, 19)} UTC`;
+  }
+
+  function panel(stateLabel: string, tone: 'neutral' | 'warning', body: string, footer?: string) {
+    return `<div class="status-panel" role="status">
+      <div class="status-panel__head">
+        <p class="${MONO_LABEL}">Public status · Schema v1</p>
+        <span class="mono text-[11px] uppercase tracking-[0.06em] ${tone === 'warning' ? 'text-warning' : 'text-muted'}">${stateLabel}</span>
+      </div>
+      <div class="status-panel__body">${body}</div>
+      ${footer ? `<div class="border-t border-border px-4 py-3 md:px-5">${footer}</div>` : ''}
+    </div>`;
+  }
+
+  function heading(text: string) {
+    return `<p class="text-[15.5px] font-medium leading-6">${text}</p>`;
+  }
+
+  function muted(text: string, extra = '') {
+    return `<p class="mt-1.5 text-[14px] leading-6 text-muted ${extra}">${text}</p>`;
+  }
+
+  function renderConnected(status: PublicStatus, compact: boolean) {
+    const rows = status.components
+      .map(
+        (component) => `<li class="grid gap-1 py-3 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-4">
+          <div>
+            <p class="text-[13.5px] font-medium capitalize">${escapeHtml(component.id)}</p>
+            <p class="mt-0.5 text-[12px] leading-5 text-muted">${escapeHtml(component.coverageNote)}</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 sm:justify-end">
+            <span class="inline-flex items-center gap-1.5 text-[11.5px] font-medium ${HEALTH_CLASS[component.health]}">
+              <span class="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true"></span>
+              ${HEALTH_LABEL[component.health]}
+            </span>
+            <span class="mono text-[11px] text-muted">${
+              component.checkedAt ? `Checked ${formatTime(component.checkedAt)}` : 'No check time'
+            }</span>
+          </div>
+        </li>`,
+      )
+      .join('');
+
+    const head = compact
+      ? ''
+      : `<div class="flex flex-wrap items-center justify-between gap-2">
+          <p class="text-[13.5px] font-medium">Published components</p>
+          <p class="${MONO_LABEL}">Generated ${formatTime(status.generatedAt)}</p>
+        </div>`;
+
+    const body = `${head}<ul class="divide-y divide-border ${compact ? '' : 'mt-3 border-t border-border'}">${rows}</ul>`;
+
+    const footer = compact
+      ? undefined
+      : `<p class="text-[12px] leading-5 text-muted">A component marked Unknown has missing, stale or invalid data. It is not treated as operational. Availability percentages are not shown unless a complete, labelled window is published.</p>`;
+
+    return panel('Connected', 'neutral', body, footer);
+  }
+
+  function renderState(mount: HTMLElement, html: string) {
+    mount.innerHTML = html;
+  }
+
+  async function load(mount: HTMLElement) {
+    const endpoint = mount.dataset.statusEndpoint;
+    if (!endpoint) return;
+    const compact = mount.dataset.statusCompact === 'true';
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+
+    try {
+      const response = await fetch(endpoint, { signal: controller.signal, cache: 'no-store' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const payload: unknown = await response.json();
+      const result = validatePublicStatus(payload, Date.now());
+
+      if (!result.ok) {
+        renderState(
+          mount,
+          panel(
+            'Data unavailable',
+            'warning',
+            `${heading('Status data is unavailable.')}${muted(`No service is reported as operational. Last attempt: ${escapeHtml(result.reason)}`)}`,
+          ),
+        );
+        return;
+      }
+
+      if (result.status.components.length === 0) {
+        renderState(
+          mount,
+          panel(
+            'No components',
+            'neutral',
+            `${heading('No public components are published yet.')}${muted(
+              'The status endpoint is reachable, but it contains no component records.',
+            )}`,
+          ),
+        );
+        return;
+      }
+
+      renderState(mount, renderConnected(result.status, compact));
+    } catch (error: unknown) {
+      renderState(
+        mount,
+        panel(
+          'Data unavailable',
+          'warning',
+          `${heading('Status data is unavailable.')}${muted(
+            `No service is reported as operational. Last attempt: ${escapeHtml(
+              error instanceof Error ? error.message : 'The status endpoint could not be read.',
+            )}`,
+          )}`,
+        ),
+      );
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function init() {
+    document
+      .querySelectorAll<HTMLElement>('[data-status-endpoint]')
+      .forEach((mount) => void load(mount));
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

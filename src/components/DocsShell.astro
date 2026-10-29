@@ -1,0 +1,57 @@
+---
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import DocsNavigation from '@/components/DocsNavigation.astro';
+import DocToc, { type TocItem } from '@/components/DocToc.astro';
+import { SITE } from '@/content/site';
+
+export interface Props {
+  current: string;
+  title: string;
+  description: string;
+  toc?: TocItem[];
+}
+
+const { current, title, description, toc } = Astro.props;
+const crumbs =
+  current === '/docs/'
+    ? [{ label: 'Docs', href: '/docs/' }]
+    : [{ label: 'Docs', href: '/docs/' }, { label: title }];
+---
+
+<div class="container-page py-8 md:py-12">
+  <Breadcrumbs items={crumbs} />
+
+  <div
+    class="mt-8 grid gap-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[168px_minmax(0,640px)_176px] xl:justify-between xl:gap-10"
+  >
+    <DocsNavigation current={current} />
+
+    <article class="min-w-0">
+      <header class="border-b border-border pb-7">
+        {/* The "Documentation" kicker repeated the section the nav already shows. */}
+        <h1 class="h1 max-w-[20ch] text-[clamp(2.1rem,4vw,3.5rem)]">{title}</h1>
+        <p class="lede mt-4 max-w-[38rem]">{description}</p>
+        <p class="mono mt-5 text-[11px] uppercase tracking-[0.06em] text-muted">
+          Last reviewed{' '}
+          <time datetime={SITE.reviewedAt}>{SITE.reviewedAt}</time> · Applies to the public site
+        </p>
+      </header>
+
+      <div class="doc-prose pt-7">
+        <slot />
+      </div>
+
+      <footer class="mt-12 border-t border-border pt-6">
+        <p class="note text-[13px] leading-5 text-muted">
+          This document describes the current public site and the intended boundaries of planned
+          products. It is not a certificate, an SLA or a release announcement. See the <a
+            href="/docs/product-stages/"
+            class="text-link">stage dictionary</a
+          > before interpreting any product label.
+        </p>
+      </footer>
+    </article>
+
+    {toc && toc.length > 0 ? <DocToc items={toc} /> : <div class="hidden xl:block" />}
+  </div>
+</div>

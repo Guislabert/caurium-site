@@ -1,0 +1,44 @@
+---
+/**
+ * The Caurium mark.
+ *
+ * It reads the design tokens instead of repeating the palette: the mark used to
+ * hard-code the v1 navy and stayed behind when the site was reskinned.
+ */
+export interface Props {
+  class?: string;
+  inverse?: boolean;
+  mono?: boolean;
+}
+
+const { class: className = 'h-6 w-6', inverse = false, mono = false } = Astro.props;
+
+const background = inverse ? 'var(--paper)' : 'var(--ink)';
+const arc = inverse ? 'var(--ink)' : 'var(--paper)';
+---
+
+<svg
+  aria-hidden="true"
+  viewBox="0 0 32 32"
+  class={className}
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    x="1"
+    y="1"
+    width="30"
+    height="30"
+    rx="9"
+    fill={mono ? 'none' : background}
+    stroke={mono ? 'currentColor' : 'none'}
+    stroke-width={mono ? 1.5 : 0}
+  />
+  <path
+    d="M21.4 9.9a8.2 8.2 0 1 0 0 12.2"
+    stroke={mono ? 'currentColor' : arc}
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+  <circle cx="23.6" cy="16" r="2.2" fill={mono ? 'currentColor' : 'var(--accent)'} />
+</svg>
