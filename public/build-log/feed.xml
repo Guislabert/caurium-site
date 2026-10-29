@@ -2,83 +2,83 @@
 <rss version="2.0">
   <channel>
     <title>Caurium build log</title>
-    <link>https://caurium-site-dev.caurium.workers.dev/build-log/</link>
+    <link>https://caurium.tech/build-log/</link>
     <description>A dated record of changes to the Caurium public site. Probe is in private preview; Gate, Guard and Box are planned.</description>
     <language>en</language>
     <lastBuildDate>Thu, 29 Oct 2026 00:00:00 GMT</lastBuildDate>
     <item>
       <title>Three statements corrected to match the shipped state</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/trust/</link>
+      <link>https://caurium.tech/trust/</link>
       <guid isPermaLink="false">2026-10-29-Three statements corrected to match the shipped state</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
       <description>The trust page no longer says the apex domain is unresolved; the application page no longer states a reply deadline the terms contradict; the pricing intro no longer says check frequency varies by plan.</description>
     </item>
     <item>
       <title>The application form works without JavaScript</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/start/</link>
+      <link>https://caurium.tech/start/</link>
       <guid isPermaLink="false">2026-10-29-The application form works without JavaScript</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
       <description>The form is now part of the static HTML and posts natively to the Probe service, which redirects to a confirmation page. Structured data, llms.txt and a per-page sitemap lastmod date were added.</description>
     </item>
     <item>
       <title>Probe private preview deployed</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/products/probe/</link>
+      <link>https://caurium.tech/products/probe/</link>
       <guid isPermaLink="false">2026-10-29-Probe private preview deployed</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
       <description>A Cloudflare Worker with D1 now runs scheduled HTTP checks, opens one incident after three consecutive failures, posts to one HTTPS webhook and publishes a sanitized status page per account. Manual activation only.</description>
     </item>
     <item>
       <title>Probe access page and application flow published</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/access/</link>
+      <link>https://caurium.tech/access/</link>
       <guid isPermaLink="false">2026-10-29-Probe access page and application flow published</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
       <description>Three fixed sizes with endpoint and retention limits. The application form posts to the Probe service; nothing is charged during the preview and no payment is taken on this site.</description>
     </item>
     <item>
       <title>Probe record moves from Planned to private preview</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/products/probe/</link>
+      <link>https://caurium.tech/products/probe/</link>
       <guid isPermaLink="false">2026-10-29-Probe record moves from Planned to private preview</guid>
       <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
       <description>Implemented checks, incident rule, webhook, SSRF rejection and stale-state handling are now listed as implemented. TLS expiry and the split between collector and publisher remain planned.</description>
     </item>
     <item>
       <title>Public copy rewritten around reader questions</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/products/</link>
+      <link>https://caurium.tech/products/</link>
       <guid isPermaLink="false">2026-10-28-Public copy rewritten around reader questions</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>The home page now starts with the failure modes the modules are designed for, then states what each module would do. All four remain Planned.</description>
     </item>
     <item>
       <title>Claims register published</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/trust/</link>
+      <link>https://caurium.tech/trust/</link>
       <guid isPermaLink="false">2026-10-28-Claims register published</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>Every public claim now has a page, a stage and an evidence status. Claims without evidence are marked as such.</description>
     </item>
     <item>
       <title>Documentation aligned with the public stage model</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/docs/</link>
+      <link>https://caurium.tech/docs/</link>
       <guid isPermaLink="false">2026-10-28-Documentation aligned with the public stage model</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>Region, price, SLA and contact claims were removed pending evidence. The documentation now describes intended design only.</description>
     </item>
     <item>
       <title>Product pages add use cases, design decisions and open questions</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/products/gate/</link>
+      <link>https://caurium.tech/products/gate/</link>
       <guid isPermaLink="false">2026-10-28-Product pages add use cases, design decisions and open questions</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>Each module page now records why its boundary is drawn where it is, and what is still undecided.</description>
     </item>
     <item>
       <title>Five production blockers recorded</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/trust/</link>
+      <link>https://caurium.tech/trust/</link>
       <guid isPermaLink="false">2026-10-28-Five production blockers recorded</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>Legal entity, security reporting channel, domain verification, Lighthouse results and the operating entity are still open.</description>
     </item>
     <item>
       <title>Public site rebuilt around product stages and boundaries</title>
-      <link>https://caurium-site-dev.caurium.workers.dev/architecture/</link>
+      <link>https://caurium.tech/architecture/</link>
       <guid isPermaLink="false">2026-10-28-Public site rebuilt around product stages and boundaries</guid>
       <pubDate>Wed, 28 Oct 2026 00:00:00 GMT</pubDate>
       <description>The site is a static export. It has no account, API key, payment flow or live product endpoint.</description>
