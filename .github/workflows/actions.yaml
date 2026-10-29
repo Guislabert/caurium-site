@@ -107,6 +107,7 @@ jobs:
 
       - name: Submit changed URLs to IndexNow
         if: steps.credentials.outputs.present == 'true' && vars.INDEXNOW_KEY != ''
+        run: pnpm indexnow
         env:
           INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
           NEXT_PUBLIC_SITE_URL: https://caurium.tech
