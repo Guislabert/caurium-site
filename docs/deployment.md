@@ -102,11 +102,12 @@ application form posts there. A test fails if those two disagree with `NEXT_PUBL
 
 If `NEXT_PUBLIC_STATUS_URL` is configured, add its origin to `connect-src`.
 
-Before switching the policy from Report-Only to enforcing, two known violations must clear:
-- Cloudflare injects `https://static.cloudflareinsights.com/beacon.min.js` at the edge, which
-  `script-src 'self' 'unsafe-inline'` blocks. Either allow that origin or disable the automatic
-  Web Analytics injection for this Worker.
-- Do not add a fixed CSP nonce without a runtime that can generate it.
+The policy is enforced, not Report-Only. Cloudflare injects
+`https://static.cloudflareinsights.com/beacon.min.js` at the edge, so `script-src` allows that
+origin and `connect-src` allows `https://cloudflareinsights.com`; without both, every page reports a
+violation. If Web Analytics is ever disabled for this Worker, those two entries can be dropped.
+
+Do not add a fixed CSP nonce without a runtime that can generate it: the export has none.
 
 HSTS: enable only on a verified host, starting with a short max-age. Do not add
 `includeSubDomains` or `preload` while unverified subdomains exist.

@@ -94,9 +94,10 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 - [x] The application form works with JavaScript disabled: Playwright with JS off fills and
       submits `/start/`, the browser posts natively to the Probe Worker, and lands on
       `/start/received/` with a 303. Verified against the deployed Worker.
-- [ ] CSP switched from Report-Only to enforcing. `NOT RUN` — the form's endpoint is now allowed,
-      but Cloudflare injects `static.cloudflareinsights.com/beacon.min.js` at the edge, which
-      `script-src` blocks. One of the two has to change first.
+- [x] CSP switched from Report-Only to enforcing. Nine routes were scanned under Report-Only with
+      the beacon origin allowed; the run reported zero violations, so the header is now
+      `Content-Security-Policy`. The textarea and the `/start/` fetch were re-tested after the
+      switch.
 - [x] `www` redirects to the apex with path and query preserved. `www` is bound to the same
       Worker; `src/worker.ts` answers 301 before assets (`run_worker_first`). Verified:
       `/pricing/?plan=team` → `301 https://caurium.tech/pricing/?plan=team`.
