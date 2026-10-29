@@ -20,7 +20,7 @@ export function ProductSpecPanel({
   figureNumber: number;
 }) {
   return (
-    <aside className="figure corner-marks">
+    <aside className="figure">
       <div className="figure__head">
         <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
           Fig. {String(figureNumber).padStart(2, '0')} — Module record

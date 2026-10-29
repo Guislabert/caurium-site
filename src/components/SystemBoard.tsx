@@ -12,7 +12,7 @@ const DESTINATIONS: Record<string, string> = {
 
 export function SystemBoard() {
   return (
-    <figure className="figure corner-marks">
+    <figure className="figure">
       <div className="figure__head">
         <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
           Fig. 01 — Module map

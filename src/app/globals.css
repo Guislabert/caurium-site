@@ -330,11 +330,6 @@ a {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.small {
-  font-size: 13.5px;
-  line-height: 1.65;
-  color: var(--muted);
-}
 
 .section-index {
   display: inline-flex;
@@ -538,55 +533,6 @@ a {
     linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
   background-size: 64px 64px;
-}
-
-.rule {
-  border-top: 1px solid var(--border);
-}
-
-.rule-ruler {
-  position: relative;
-  border-top: 1px solid var(--border);
-}
-
-.rule-ruler::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 5px;
-  background-image: repeating-linear-gradient(
-    to right,
-    var(--border-strong) 0 1px,
-    transparent 1px 32px
-  );
-  pointer-events: none;
-}
-
-.corner-marks {
-  position: relative;
-}
-
-.corner-marks::before,
-.corner-marks::after {
-  content: '';
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  border-color: var(--border-strong);
-  border-style: solid;
-  pointer-events: none;
-}
-
-.corner-marks::before {
-  top: 10px;
-  left: 10px;
-  border-width: 1px 0 0 1px;
-}
-
-.corner-marks::after {
-  right: 10px;
-  bottom: 10px;
-  border-width: 0 1px 1px 0;
 }
 
 /* ---------- Badges ---------- */
@@ -840,12 +786,6 @@ a {
   border-top: 1px solid var(--border);
 }
 
-.figure-caption {
-  margin-top: 8px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--muted);
-}
 
 /* ---------- Code ---------- */
 
@@ -1147,14 +1087,6 @@ a {
   display: none;
 }
 
-.site-footer__word {
-  font-family: var(--font-wordmark);
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--ink);
-  font-weight: 400;
-}
 
 /* ---------- Misc ---------- */
 
@@ -1197,30 +1129,6 @@ a {
   transform: translateY(0);
 }
 
-.sr-only-focusable:not(:focus) {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.tick-list {
-  border-top: 1px solid var(--border);
-}
-
-.tick-list > li {
-  border-bottom: 1px solid var(--border);
-  padding-block: 14px;
-}
-
-.inverse-rule {
-  border-color: rgba(255, 255, 255, 0.16);
-}
 
 /* Gradient closing card, echoing the reference's closing panel. */
 .cta-card {
