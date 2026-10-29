@@ -40,9 +40,9 @@ const GAPS = [
       'Applications are answered from an operator mailbox that is not yet published. A dedicated address is required before public launch.',
   },
   {
-    title: 'Apex domain is not serving the site',
+    title: 'The site is not indexable, and www does not redirect',
     detail:
-      'The public build is deployed on workers.dev while caurium.tech is unresolved. The site stays in preview mode until the domain is verified.',
+      'The apex domain serves this site over HTTPS, but the build stays in preview mode with noindex until the operating entity and a support channel are published. www.caurium.tech answers 404 instead of redirecting to the apex.',
   },
   {
     title: 'Payment and activation are manual',
