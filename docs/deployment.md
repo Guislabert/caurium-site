@@ -67,7 +67,7 @@ the moment it is rolled in the account.
 The first manual deployment, if the project does not exist yet:
 
 1. Verify repository ownership and whether a Cloudflare project already exists.
-2. Create or confirm the Workers project from the repository. Build with `pnpm build`; `wrangler.jsonc` serves `./out`.
+2. Create or confirm the Workers project from the repository. Build with `pnpm build`; `wrangler.jsonc` serves `./dist`.
 3. Deploy a preview and check every route against `docs/acceptance.md`.
 4. Bind the custom domain through Workers → Settings → Domains & Routes. Use the product flow; do
    not hand-write a CNAME to an unknown target.
@@ -81,6 +81,32 @@ The first manual deployment, if the project does not exist yet:
 
 Do not change existing DNS records for separately operated services. Export the zone read-only
 first, diff the intended change set, and apply only the records required for this site.
+
+## 2a. Workers Builds Git integration (blocked, dashboard only)
+
+The `caurium-site` Worker also has a Cloudflare Git integration (Workers Builds) attached to
+`main`. It runs on every push alongside the GitHub Actions deploy, and it fails: build
+`0c32a0c9-bc68-4857-b358-bb26c709dd5c` (commit `efb3163`) reported `Detected the following tools
+from environment: nodejs@22.22.3` and stopped at
+`Node.js v22.22.3 is not supported by Astro!`. The repository pins `22.23.4` in both `.nvmrc` and
+`.node-version`, and the Actions job honours it, so the build image is reading a `NODE_VERSION`
+build variable instead of the version files.
+
+The result is a failed `Workers Builds: caurium-site` check on every `main` commit, next to the
+successful Actions deploy. Branch protection only requires `Check and build`, so merges are not
+blocked, but two build chains produce a duplicate deployment path and one of them is always red.
+
+Fix it in the dashboard, because the API needs a user token with **Workers Builds Configuration:
+Edit**, which this host does not hold (`GET /builds/...` returns `Authentication error`):
+
+- Either set build variable `NODE_VERSION=22.23.4` on the production trigger
+  (Worker → Settings → Build → Build variables and secrets), or
+- Disconnect the Git integration entirely (Settings → Build → disconnect), leaving
+  `.github/workflows/actions.yaml` as the only deploy path.
+
+Disconnecting is the smaller surface: the Actions job already builds with `.nvmrc`, gates on the
+full check suite, and records the commit in the deployment message. After either change, the next
+push to `main` should show a single green deployment for the commit.
 
 ## 2b. Build assets
 
@@ -97,19 +123,20 @@ status). The generator uses `sharp`; it is a build-time dependency, not a runtim
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy: camera=(), microphone=(), geolocation=()`
 - `X-Frame-Options: DENY`
-- `Content-Security-Policy-Report-Only` with `default-src 'self'`, inline styles/scripts (required by
-  the inline Astro scripts), `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`
-- Long cache for `/_next/static/*`, daily cache for `/og/*` and `/brand/*`, revalidation for HTML.
+- `Content-Security-Policy` (enforced, not Report-Only) with `default-src 'self'`, inline
+  styles/scripts (required by the inline Astro scripts), `frame-ancestors 'none'`,
+  `object-src 'none'`, `base-uri 'self'`
+- Long cache for `/_astro/*`, daily cache for `/og/*` and `/brand/*`, revalidation for HTML.
 
 The policy already names the Probe Worker origin in `connect-src` and `form-action`, because the
 application form posts there. A test fails if those two disagree with `PUBLIC_PROBE_URL`.
 
 If `PUBLIC_STATUS_URL` is configured, add its origin to `connect-src`.
 
-The policy is enforced, not Report-Only. Cloudflare injects
-`https://static.cloudflareinsights.com/beacon.min.js` at the edge, so `script-src` allows that
-origin and `connect-src` allows `https://cloudflareinsights.com`; without both, every page reports a
-violation. If Web Analytics is ever disabled for this Worker, those two entries can be dropped.
+Cloudflare injects `https://static.cloudflareinsights.com/beacon.min.js` into HTML at the edge, so
+`script-src` allows that origin and `connect-src` allows `https://cloudflareinsights.com`; without
+both, every page reports a violation. If Web Analytics is ever disabled for this Worker, those two
+entries can be dropped.
 
 Do not add a fixed CSP nonce without a runtime that can generate it: the export has none.
 
@@ -137,7 +164,7 @@ own credentials, limits and storage — not an endpoint inside this static build
 - Real legal entity, privacy contact and security contact.
 - Decision on whether `PUBLIC_STATUS_URL` exists.
 - Lighthouse on the deployed origin: recorded in `docs/acceptance.md`, no longer an open input.
-- Deployed-preview checks for `_headers`, CSP Report-Only and the 404 response.
+- Deployed-preview checks for `_headers`, the enforcing CSP and the 404 response.
 
 Until these exist, `PUBLIC_SITE_ENV` must stay `preview`; do not point the production domain
 at a build whose legal pages name no entity.
