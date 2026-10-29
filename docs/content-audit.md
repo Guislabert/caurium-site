@@ -144,7 +144,7 @@ absolute URLs because it is a separate deployment.
    say so explicitly.
 2. No security reporting channel is published; `/docs/security/` and `/trust/#gaps` record this gap.
 3. The apex domain is served, but `www.caurium.tech` answers 404 instead of redirecting, and `NEXT_PUBLIC_SITE_ENV` stays `preview` until the entity and support channel are published.
-4. Lighthouse results are not yet recorded; browser acceptance runs are recorded in
+4. Lighthouse results for the deployed origin are recorded in `docs/acceptance.md`; browser acceptance runs are recorded in
    `docs/acceptance.md`.
 5. No operating entity is published. Until it is, `/privacy/` and `/terms/` describe a free preview
    rather than a contract of sale, and no payment is accepted.

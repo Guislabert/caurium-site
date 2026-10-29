@@ -131,7 +131,7 @@ own credentials, limits and storage — not a Next.js Route Handler in a static 
 - Confirmed Workers project ownership and production branch.
 - Real legal entity, privacy contact and security contact.
 - Decision on whether `NEXT_PUBLIC_STATUS_URL` exists.
-- Lighthouse runs in the target environment (see `docs/acceptance.md`).
+- Lighthouse on the deployed origin: recorded in `docs/acceptance.md`, no longer an open input.
 - Deployed-preview checks for `_headers`, CSP Report-Only and the 404 response.
 
 Until these exist, `NEXT_PUBLIC_SITE_ENV` must stay `preview`; do not point the production domain

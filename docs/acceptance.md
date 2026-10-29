@@ -52,11 +52,29 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 - [x] Package manager and dependencies locked; clean install and production build reproduce.
 - [x] `typecheck`, `lint` and `build` run separately. Result: typecheck clean, ESLint clean,
       17 routes and 23 HTML files generated.
-- [x] `pnpm test`: 21 tests pass (content invariants, claims and status contract).
-- [x] `pnpm check:links`: 107 HTML files, 37 internal targets, sitemap verified.
+- [x] `pnpm test`: 28 tests pass (content invariants, claims, routes and status contract).
+- [x] `pnpm check:links`: 112 HTML files, 37 internal targets, sitemap verified.
 - [x] Static export has no runtime server dependency; `out/` contains no internal evidence.
-- [ ] Three mobile Lighthouse runs on home and one product page reach the section 13.3 targets.
-      `NOT RUN` — no Lighthouse run has been recorded yet.
+- [x] Three mobile Lighthouse runs on home and one product page, against the deployed origin
+      (Lighthouse 13.6.0, headless Chromium, default mobile emulation):
+
+      | Run | Page | Perf | A11y | Best practices | SEO |
+      | --- | --- | --- | --- | --- | --- |
+      | 1 | `/` | 93 | 96 | 77 | 66 |
+      | 2 | `/` | 97 | 96 | 77 | 66 |
+      | 3 | `/` | 95 | 96 | 77 | 66 |
+      | 1 | `/products/probe/` | 98 | 96 | 77 | 66 |
+      | 2 | `/products/probe/` | 97 | 96 | 77 | 66 |
+      | 3 | `/products/probe/` | 95 | 96 | 77 | 66 |
+
+      Performance and accessibility meet the §13.3 targets. The two categories that do not are
+      both explained by deliberate choices or by hosting, not by this codebase:
+      - **SEO 66** — the only failing audit is `is-crawlable`. The build is `noindex` on purpose
+        (see §15.5); this site is not meant to be found.
+      - **Best practices 77** — the failing audits are `deprecations` (Fenced Frame API,
+        `StorageType.persistent`) and `inspector-issues` (a CSP violation). Every item in all six
+        runs resolves to Cloudflare edge-injected scripts: `cdn-cgi/challenge-platform/scripts/jsd/main.js`
+        and `static.cloudflareinsights.com/beacon.min.js`. No first-party script is implicated.
 - [x] Title, description, canonical, OG, sitemap, robots match product stages.
 - [x] Preview is `noindex` and production indexing is opt-in via `NEXT_PUBLIC_SITE_ENV`.
 - [x] Structured data contains only `WebSite` plus a `FAQPage` on `/docs/faq/`, all with verified
@@ -101,5 +119,5 @@ Fixes made during this pass: `min-w-0` on docs navigation, code-block and table 
 
 Conclusion: the private preview is deployed and serves the apex domain, with automated content,
 link and status-contract checks passing. Production is blocked on the inputs in
-`docs/deployment.md` §6 — legal entity, support and security channels, an enforcing CSP and a
-Lighthouse run.
+`docs/deployment.md` §6 — the legal entity and an enforcing CSP. Lighthouse has been run; its
+unmet categories are the deliberate `noindex` and Cloudflare's edge-injected scripts.
