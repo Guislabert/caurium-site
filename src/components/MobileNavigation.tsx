@@ -24,10 +24,33 @@ export function MobileNavigation() {
     const firstLink = panelRef.current?.querySelector<HTMLAnchorElement>('a');
     firstLink?.focus();
 
+    const panel = panelRef.current;
+
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         setOpen(false);
         buttonRef.current?.focus();
+        return;
+      }
+
+      // The panel covers the page, so Tab must not reach the content behind it.
+      if (event.key !== 'Tab' || !panel) return;
+      const focusable = [
+        buttonRef.current,
+        ...Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')),
+      ].filter((element): element is HTMLElement => Boolean(element));
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
       }
     }
 
@@ -47,7 +70,7 @@ export function MobileNavigation() {
       <button
         ref={buttonRef}
         type="button"
-        className="mono inline-flex h-9 items-center gap-2 border border-white/30 px-3 text-[11.5px] uppercase tracking-[0.06em] text-white"
+        className="mono inline-flex h-11 items-center gap-2 border border-white/30 px-3 text-[11px] uppercase tracking-[0.06em] text-white"
         aria-expanded={open}
         aria-controls="mobile-navigation"
         aria-label={open ? 'Close menu' : 'Open menu'}

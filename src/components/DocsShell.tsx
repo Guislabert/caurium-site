@@ -27,7 +27,7 @@ export function DocsShell({
         ]}
       />
 
-      <div className="mt-8 grid gap-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[168px_minmax(0,720px)_176px] xl:justify-between xl:gap-10">
+      <div className="mt-8 grid gap-10 lg:grid-cols-[200px_minmax(0,1fr)] xl:grid-cols-[168px_minmax(0,640px)_176px] xl:justify-between xl:gap-10">
         <DocsNavigation current={current} />
 
         <article className="min-w-0">
@@ -45,7 +45,7 @@ export function DocsShell({
           <div className="doc-prose pt-7">{children}</div>
 
           <footer className="mt-12 border-t border-border pt-6">
-            <p className="text-xs leading-5 text-muted">
+            <p className="note text-[13px] leading-5 text-muted">
               This document describes the current public site and the intended boundaries of
               planned products. It is not a certificate, an SLA or a release announcement. See the{' '}
               <Link href="/docs/product-stages/" className="text-link">

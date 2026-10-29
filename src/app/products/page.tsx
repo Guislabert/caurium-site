@@ -44,7 +44,6 @@ export default function ProductsPage() {
 
       <section className="section border-b border-border" aria-labelledby="modules-heading">
         <div className="container-page">
-          <p className="section-index">01 / Module records</p>
           <h2 id="modules-heading" className="sr-only">
             The four Caurium modules
           </h2>
@@ -55,7 +54,7 @@ export default function ProductsPage() {
             ))}
           </div>
 
-          <p className="mt-5 text-xs leading-5 text-muted">
+          <p className="note mt-5 text-[13px] leading-5 text-muted">
             Probe is in private preview. Gate, Guard and Box are in development and not for sale.
           </p>
         </div>
@@ -65,9 +64,8 @@ export default function ProductsPage() {
         className="section border-b border-border bg-paper"
         aria-labelledby="choose-heading"
       >
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">02 / Choose by problem</p>
             <h2 id="choose-heading" className="h2 mt-4 max-w-[15ch]">
               Start from the failure, not the product name.
             </h2>
@@ -123,9 +121,8 @@ export default function ProductsPage() {
 
       <section className="section border-b border-border" aria-labelledby="stages-heading">
         <div className="container-page">
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
             <div>
-              <p className="section-index">03 / Stages</p>
               <h2 id="stages-heading" className="h2 mt-4 max-w-[14ch]">
                 A label is a statement of evidence.
               </h2>
@@ -208,9 +205,8 @@ export default function ProductsPage() {
       </section>
 
       <section className="section bg-paper" aria-labelledby="not-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Boundaries</p>
             <h2 id="not-heading" className="h2 mt-4 max-w-[14ch]">
               What this roadmap is not.
             </h2>

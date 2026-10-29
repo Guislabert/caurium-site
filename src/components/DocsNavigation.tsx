@@ -11,7 +11,7 @@ export const DOC_NAV = [
 
 export function DocsNavigation({ current }: { current: string }) {
   return (
-    <nav aria-label="Documentation" className="min-w-0 max-w-full lg:sticky lg:top-24 lg:self-start">
+    <nav aria-label="Documentation" className="min-w-0 max-w-full lg:sticky lg:top-[calc(var(--header)+var(--topbar)+16px)] lg:self-start">
       <p className="eyebrow mb-3">Docs</p>
       <ul className="docs-nav-list max-w-full border-l border-border">
         {DOC_NAV.map((item) => {

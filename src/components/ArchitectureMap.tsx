@@ -154,7 +154,7 @@ export function ArchitectureMap() {
           </div>
 
           <div className="mt-4 flex flex-col gap-2 rounded-[10px] border border-dashed border-border-strong bg-background/70 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[12px] leading-5 text-muted">
+            <p className="note text-[12px] leading-5 text-muted">
               <span className="mono uppercase tracking-[0.06em]">Outside this diagram:</span>{' '}
               separately operated networks. No topology, addresses, ports or credentials are
               published.
@@ -166,7 +166,7 @@ export function ArchitectureMap() {
         </div>
 
         <div className="figure__foot">
-          <p className="text-[12px] leading-5 text-muted">
+          <p className="note text-[12px] leading-5 text-muted">
             Reference architecture. Probe runs on the product side today; the dashed boxes and the
             management domain remain planned.
           </p>

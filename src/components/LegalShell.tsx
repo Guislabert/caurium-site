@@ -28,7 +28,7 @@ export function LegalShell({
       />
 
       <section className="section">
-        <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,720px)_1fr] lg:gap-20">
+        <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,640px)_1fr] lg:gap-20">
           <article className="doc-prose min-w-0">{children}</article>
           <DocToc items={toc} />
         </div>

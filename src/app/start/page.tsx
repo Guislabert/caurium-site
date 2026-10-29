@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { StartForm } from '@/components/StartForm';
-import { PLANS } from '@/content/plans';
+import { OFFERED_PLANS } from '@/content/plans';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -51,12 +51,12 @@ export default function StartPage() {
       />
 
       <section className="section border-b border-border" aria-labelledby="apply-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[1.32fr_0.68fr] lg:gap-16">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,1.32fr)_minmax(0,0.68fr)] lg:gap-16">
           <div>
             <h2 id="apply-heading" className="h2 max-w-[24ch]">
               What we need to review the application.
             </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-muted">
+            <p className="note mt-4 text-[14px] leading-6 text-muted">
               The form sends your details to the Probe service. We use them to confirm ownership,
               choose the plan limits and reply. Do not include API keys, passwords or private
               hostnames.
@@ -73,7 +73,7 @@ export default function StartPage() {
                 Plans
               </p>
               <ul className="mt-4 border-t border-border">
-                {PLANS.map((plan) => (
+                {OFFERED_PLANS.map((plan) => (
                   <li
                     key={plan.id}
                     className="flex items-baseline justify-between gap-4 border-b border-border py-3"
@@ -119,7 +119,7 @@ export default function StartPage() {
               </ul>
             </div>
 
-            <p className="mt-6 text-[12px] leading-5 text-muted">
+            <p className="note mt-6 text-[12px] leading-5 text-muted">
               Applying does not create an account, reserve capacity or start a subscription.
             </p>
           </aside>
@@ -127,9 +127,8 @@ export default function StartPage() {
       </section>
 
       <section className="section section-paper" aria-labelledby="after-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-16">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-16">
           <div>
-            <p className="section-index">After the form</p>
             <h2 id="after-heading" className="h2 mt-4 max-w-[16ch]">
               What happens next.
             </h2>

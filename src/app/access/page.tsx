@@ -48,7 +48,7 @@ export default function AccessPage() {
     <>
       <PageHero
         crumbs={[{ label: 'Access' }]}
-        title="Three sizes. Free, by application."
+        title="Two sizes. Free, by application."
         description={
           <>
             Probe runs as a free private preview. Accounts are reviewed and activated by hand, which
@@ -73,7 +73,6 @@ export default function AccessPage() {
       <section className="section border-b border-border" aria-labelledby="sizes-heading">
         <div className="container-page">
           <SectionHeading
-            index="01 / Sizes"
             id="sizes-heading"
             title="Pick the size that fits the endpoints you have."
             intro="Every size includes the same checks at the same one-minute interval, the incident rule, the webhook and the status page. The differences are how many endpoints you can add and how long check history is kept."
@@ -150,7 +149,7 @@ export default function AccessPage() {
             ))}
           </div>
 
-          <p className="mt-6 max-w-[34rem] text-xs leading-5 text-muted">
+          <p className="note mt-6 text-[13px] leading-5 text-muted">
             {PRICING_NOTE} There is no checkout and no invoice. When paid activation opens it will be
             announced in the build log, and no existing account will be charged without notice.
             Questions about access go to{' '}
@@ -163,9 +162,8 @@ export default function AccessPage() {
       </section>
 
       <section className="section section-paper border-b border-border" aria-labelledby="included-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <p className="section-index">02 / Included</p>
             <h2 id="included-heading" className="h2 mt-4 max-w-[15ch]">
               The same product on every size.
             </h2>
@@ -194,7 +192,6 @@ export default function AccessPage() {
       <section className="section border-b border-border" aria-labelledby="steps-heading">
         <div className="container-page">
           <SectionHeading
-            index="03 / How access works"
             id="steps-heading"
             title="Open a ticket, verify, activate."
             intro="There is no sign-up and no self-service console during the preview. Ownership checks and activation are done by hand, so intake is limited by operator time rather than by demand. That is why a ticket is the only way in — and it is also why most requests are answered in order, not instantly."
@@ -217,16 +214,20 @@ export default function AccessPage() {
       <section className="section border-b border-border" aria-labelledby="compare-heading">
         <div className="container-page">
           <SectionHeading
-            index="04 / Compare"
             id="compare-heading"
-            title="The three sizes side by side."
+            title="Both sizes side by side."
           />
 
-          <div className="mt-10 overflow-x-auto">
+          <div
+            className="table-scroll table-scroll--hint mt-10"
+            tabIndex={0}
+            role="region"
+            aria-label="Plan limits compared"
+          >
             <table className="w-full min-w-[620px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-border-strong">
-                  <th scope="col" className="py-3 pr-4 text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                  <th scope="col" className="py-3 pr-4 text-[11px] uppercase tracking-[0.06em] text-muted">
                     Limit
                   </th>
                   {OFFERED_PLANS.map((plan) => (
@@ -314,9 +315,8 @@ export default function AccessPage() {
       </section>
 
       <section className="section border-b border-border" aria-labelledby="faq-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <p className="section-index">05 / Questions</p>
             <h2 id="faq-heading" className="h2 mt-4 max-w-[14ch]">
               What access does and does not include.
             </h2>
@@ -345,7 +345,6 @@ export default function AccessPage() {
       <section className="section section-paper" aria-labelledby="boundary-heading">
         <div className="container-page flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <p className="section-index">06 / Boundary</p>
             <h2 id="boundary-heading" className="h2 mt-4 max-w-[22ch]">
               What access does not buy.
             </h2>

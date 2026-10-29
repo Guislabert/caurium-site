@@ -14,7 +14,7 @@ export function SystemBoard() {
   return (
     <figure className="figure">
       <div className="figure__head">
-        <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+        <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
           Fig. 01 — Module map
         </p>
         <ProductStageBadge stage="private-preview" />
@@ -23,10 +23,10 @@ export function SystemBoard() {
       <div className="figure__body grid-paper">
         <div className="relative">
           <div className="flex items-center justify-between gap-4 pb-3">
-            <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Caurium modules
             </span>
-            <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+            <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Service boundary
             </span>
           </div>
@@ -72,7 +72,7 @@ export function SystemBoard() {
         <p className="text-[12px] leading-5 text-muted">
           Probe is live in private preview. The other three boxes are illustrative.
         </p>
-        <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">Rev. 2026-10-29</p>
+        <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">Rev. 2026-10-29</p>
       </div>
     </figure>
   );

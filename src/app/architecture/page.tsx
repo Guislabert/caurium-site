@@ -93,7 +93,6 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="section-index">01 / Why it matters</p>
               <h2 id="why-heading" className="h2 mt-4 max-w-[18ch]">
                 Three consequences of the separation.
               </h2>
@@ -122,7 +121,6 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="section-index">02 / Diagram</p>
               <h2 id="diagram-heading" className="h2 mt-4">
                 Four responsibilities, three visible domains.
               </h2>
@@ -140,9 +138,8 @@ export default function ArchitecturePage() {
       </section>
 
       <section className="section border-b border-border" aria-labelledby="current-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">03 / Current</p>
             <h2 id="current-heading" className="h2 mt-4">
               What exists today.
             </h2>
@@ -160,7 +157,7 @@ export default function ArchitecturePage() {
                     {fact.label}
                   </dt>
                   <dd className="mono mt-2 text-3xl leading-none tracking-[-0.03em]">{fact.value}</dd>
-                  <dd className="mt-2 text-[12px] leading-5 text-muted">{fact.detail}</dd>
+                  <dd className="note mt-2 text-[13px] leading-5 text-muted">{fact.detail}</dd>
                 </div>
               ))}
             </dl>
@@ -181,9 +178,8 @@ export default function ArchitecturePage() {
       </section>
 
       <section className="section border-b border-border bg-paper" aria-labelledby="planned-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Live and planned</p>
             <h2 id="planned-heading" className="h2 mt-4">
               What runs, and what is designed.
             </h2>
@@ -200,7 +196,7 @@ export default function ArchitecturePage() {
               allow-listed upstream. Guard takes encrypted backups and records whether a restore was
               proved. Box runs invitation-only containers with documented limits.
             </p>
-            <p className="text-[14px] leading-7 text-muted">
+            <p className="note text-[14px] leading-7 text-muted">
               Each module has its own release criteria. Passing one criterion does not promote the
               others, and a planned capability is never described as available because a related
               feature shipped.
@@ -213,7 +209,6 @@ export default function ArchitecturePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="section-index">05 / Invariants</p>
               <h2 id="invariants-heading" className="h2 mt-4 max-w-[18ch]">
                 Separation that can be checked.
               </h2>
@@ -243,9 +238,8 @@ export default function ArchitecturePage() {
       </section>
 
       <section className="section" aria-labelledby="not-public-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">06 / Not public</p>
             <h2 id="not-public-heading" className="h2 mt-4">
               What this page will not show.
             </h2>

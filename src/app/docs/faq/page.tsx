@@ -44,8 +44,8 @@ export default function FaqPage() {
 
         <div className="mt-8 border-t border-border-strong">
           {FAQ.map((item, index) => (
-            <details key={item.question} className="group border-b border-border py-4">
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
+            <details key={item.question} className="group border-b border-border">
+              <summary className="flex min-h-14 cursor-pointer list-none items-start justify-between gap-4 py-4 text-[15px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
                 <span className="grid flex-1 grid-cols-[28px_1fr] gap-2">
                   <span className="mono pt-0.5 text-[11px] tracking-[0.06em] text-muted">
                     {String(index + 1).padStart(2, '0')}

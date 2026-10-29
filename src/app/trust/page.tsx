@@ -91,7 +91,6 @@ export default function TrustPage() {
 
       <section className="section border-b border-border" aria-labelledby="state-heading">
         <div className="container-page">
-          <p className="section-index">01 / Current state</p>
           <h2 id="state-heading" className="h2 mt-4 max-w-[18ch]">
             What exists, in four lines.
           </h2>
@@ -108,7 +107,7 @@ export default function TrustPage() {
                   {fact.label}
                 </dt>
                 <dd className="mono mt-2 text-3xl leading-none tracking-[-0.03em]">{fact.value}</dd>
-                <dd className="mt-2 text-[12px] leading-5 text-muted">{fact.detail}</dd>
+                <dd className="note mt-2 text-[12px] leading-5 text-muted">{fact.detail}</dd>
               </div>
             ))}
           </dl>
@@ -119,7 +118,6 @@ export default function TrustPage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="section-index">02 / Claims register</p>
               <h2 id="claims-heading" className="h2 mt-4 max-w-[18ch]">
                 Every public claim, with its evidence.
               </h2>
@@ -177,9 +175,8 @@ export default function TrustPage() {
       </section>
 
       <section className="section border-b border-border" aria-labelledby="separation-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">03 / Separation</p>
             <h2 id="separation-heading" className="h2 mt-4 max-w-[15ch]">
               What is kept apart.
             </h2>
@@ -193,14 +190,11 @@ export default function TrustPage() {
             </Link>
           </div>
           <div className="border-t border-border-strong">
-            {SEPARATION.map((item, index) => (
-              <div key={item.title} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5">
-                <span className="mono pt-1 text-[11px] tracking-[0.06em] text-muted">
-                  S.{String(index + 1).padStart(2, '0')}
-                </span>
+            {SEPARATION.map((item) => (
+              <div key={item.title} className="border-b border-border py-5">
                 <div>
                   <h3 className="text-[16px] font-medium leading-6">{item.title}</h3>
-                  <p className="mt-1.5 max-w-[34rem] text-[14px] leading-6 text-muted">{item.detail}</p>
+                  <p className="note mt-1.5 text-[14px] leading-6 text-muted">{item.detail}</p>
                 </div>
               </div>
             ))}
@@ -209,20 +203,16 @@ export default function TrustPage() {
       </section>
 
       <section className="section border-b border-border bg-paper" id="not-claimed" aria-labelledby="not-claimed-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Not claimed</p>
             <h2 id="not-claimed-heading" className="h2 mt-4 max-w-[14ch]">
               What this page will not say.
             </h2>
           </div>
           <ul className="border-t border-border-strong">
-            {NOT_CLAIMED.map((item, index) => (
-              <li key={item} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-4">
-                <span className="mono text-[11px] tracking-[0.06em] text-muted">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="text-[14px] leading-6 text-ink-2">{item}</span>
+            {NOT_CLAIMED.map((item) => (
+              <li key={item} className="border-b border-border py-4">
+                <span className="block text-[14px] leading-6 text-ink-2">{item}</span>
               </li>
             ))}
           </ul>
@@ -230,9 +220,8 @@ export default function TrustPage() {
       </section>
 
       <section className="section border-b border-border" id="gaps" aria-labelledby="gaps-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">05 / Known gaps</p>
             <h2 id="gaps-heading" className="h2 mt-4 max-w-[15ch]">
               What is still missing.
             </h2>
@@ -242,14 +231,11 @@ export default function TrustPage() {
             </p>
           </div>
           <div className="border-t border-border-strong">
-            {GAPS.map((gap, index) => (
-              <div key={gap.title} className="grid grid-cols-[36px_1fr] gap-4 border-b border-border py-5">
-                <span className="mono pt-1 text-[11px] tracking-[0.06em] text-warning">
-                  G.{String(index + 1).padStart(2, '0')}
-                </span>
+            {GAPS.map((gap) => (
+              <div key={gap.title} className="border-b border-border py-5">
                 <div>
                   <h3 className="text-[15.5px] font-medium leading-6">{gap.title}</h3>
-                  <p className="mt-1.5 max-w-[34rem] text-[13.5px] leading-6 text-muted">{gap.detail}</p>
+                  <p className="note mt-1.5 text-[14px] leading-6 text-muted">{gap.detail}</p>
                 </div>
               </div>
             ))}
@@ -258,15 +244,14 @@ export default function TrustPage() {
       </section>
 
       <section className="section" aria-labelledby="history-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">06 / Change history</p>
             <h2 id="history-heading" className="h2 mt-4">
               What changed, and when.
             </h2>
           </div>
           <div className="space-y-5">
-            <p className="text-[14px] leading-7 text-muted">
+            <p className="note text-[14px] leading-7 text-muted">
               The claims register is reviewed with the site content. The build log records each
               review, including corrections and removals. There is no newsletter; the RSS feed is
               the notification channel.

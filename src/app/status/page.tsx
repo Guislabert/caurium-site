@@ -71,9 +71,8 @@ export default function StatusPage() {
       />
 
       <section className="section border-b border-border bg-paper" aria-labelledby="current-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">01 / Current</p>
             <h2 id="current-heading" className="h2 mt-4 max-w-[14ch]">
               What the feed reports.
             </h2>
@@ -94,7 +93,6 @@ export default function StatusPage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="section-index">02 / Coverage</p>
               <h2 id="coverage-heading" className="h2 mt-4 max-w-[20ch]">
                 What would be published, and from where.
               </h2>
@@ -130,9 +128,8 @@ export default function StatusPage() {
       </section>
 
       <section className="section border-b border-border bg-paper" aria-labelledby="rules-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">03 / Rules</p>
             <h2 id="rules-heading" className="h2 mt-4">
               How a state is decided.
             </h2>
@@ -151,9 +148,8 @@ export default function StatusPage() {
       </section>
 
       <section className="section border-b border-border" aria-labelledby="contract-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Contract</p>
             <h2 id="contract-heading" className="h2 mt-4">
               The published shape.
             </h2>
@@ -169,7 +165,7 @@ export default function StatusPage() {
               title="public-status.json"
               note="Illustrative example — not a live service."
             />
-            <p className="mt-4 text-xs leading-5 text-muted">
+            <p className="note mt-4 text-[13px] leading-5 text-muted">
               Schema version 1. Required fields: <code className="mono">schemaVersion</code>,{' '}
               <code className="mono">generatedAt</code>, <code className="mono">components</code> with
               alias, region, state and checkedAt. Unknown fields are ignored; unknown states render as
@@ -180,9 +176,8 @@ export default function StatusPage() {
       </section>
 
       <section className="section" aria-labelledby="not-shown-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">05 / Not shown</p>
             <h2 id="not-shown-heading" className="h2 mt-4">
               What status never exposes.
             </h2>

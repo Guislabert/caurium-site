@@ -43,9 +43,8 @@ export default function BuildLogPage() {
       />
 
       <section className="section border-b border-border" aria-labelledby="entries-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">01 / Entries</p>
             <h2 id="entries-heading" className="h2 mt-4 max-w-[14ch]">
               Newest first.
             </h2>
@@ -71,7 +70,7 @@ export default function BuildLogPage() {
                   </span>
                 </div>
                 <h3 className="mt-3 text-[16px] font-medium leading-6">{entry.title}</h3>
-                <p className="mt-1.5 max-w-xl text-[14px] leading-6 text-muted">{entry.detail}</p>
+                <p className="note mt-1.5 text-[14px] leading-6 text-muted">{entry.detail}</p>
                 {entry.href && entry.linkLabel ? (
                   <Link href={entry.href} className="link-arrow mt-4">
                     {entry.linkLabel}
@@ -85,9 +84,8 @@ export default function BuildLogPage() {
       </section>
 
       <section className="section" aria-labelledby="not-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">02 / What this is not</p>
             <h2 id="not-heading" className="h2 mt-4 max-w-[14ch]">
               Not a roadmap with dates.
             </h2>

@@ -26,7 +26,7 @@ export function ReleaseCriteria({
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-xs leading-5 text-muted">
+      <p className="note mt-4 text-[13px] leading-5 text-muted">
         These are conditions to meet before the stage changes, not a schedule or a completed
         checklist. Each item requires recorded evidence.
       </p>

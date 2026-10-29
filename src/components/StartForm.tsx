@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { PLANS, getPlan } from '@/content/plans';
+import { OFFERED_PLANS, getPlan } from '@/content/plans';
 
 type SubmitState =
   | { kind: 'idle' }
@@ -10,10 +10,21 @@ type SubmitState =
   | { kind: 'sent' }
   | { kind: 'error'; message: string };
 
+/* Square like every other control, with a boundary that reaches 3:1 on paper. */
 const FIELD =
-  'mt-1.5 w-full rounded-[10px] border border-border-strong bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/25';
+  'mt-1.5 w-full rounded-none border border-control-border bg-paper px-3 py-2.5 text-[14px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent-ink focus:ring-2 focus:ring-accent-ink/25';
 
 const LABEL = 'mono text-[11px] uppercase tracking-[0.06em] text-muted';
+
+/* Five fields are required; say so once instead of repeating it per label. */
+function Required() {
+  return (
+    <span className="text-accent-ink" aria-hidden="true">
+      {' '}
+      *
+    </span>
+  );
+}
 
 export function StartForm({ endpoint }: { endpoint: string }) {
   const planSelect = useRef<HTMLSelectElement>(null);
@@ -21,10 +32,13 @@ export function StartForm({ endpoint }: { endpoint: string }) {
 
   // The access page links here with ?plan=. Reading the query string during render
   // would force the form behind a Suspense boundary and drop it from the static
-  // export, so the select starts on the default plan and is corrected after mount.
+  // export, so the select starts empty and is corrected after mount. Only sizes
+  // that are still offered can be preselected; a retired one leaves the empty
+  // "choose a size" option so the reader makes the choice themselves.
   useEffect(() => {
     const requested = getPlan(new URLSearchParams(window.location.search).get('plan'));
-    if (requested && planSelect.current) planSelect.current.value = requested.id;
+    const offered = requested && OFFERED_PLANS.some((plan) => plan.id === requested.id);
+    if (offered && planSelect.current) planSelect.current.value = requested.id;
   }, []);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -108,10 +122,16 @@ export function StartForm({ endpoint }: { endpoint: string }) {
       className="card p-6 md:p-8"
       noValidate={false}
     >
+      <p className="note mb-5 text-[12px] leading-5 text-muted">
+        Fields marked <span className="text-accent-ink">*</span> are required. Everything else is
+        optional.
+      </p>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={LABEL} htmlFor="name">
             Your name
+            <Required />
           </label>
           <input
             id="name"
@@ -127,6 +147,7 @@ export function StartForm({ endpoint }: { endpoint: string }) {
         <div>
           <label className={LABEL} htmlFor="email">
             Work email
+            <Required />
           </label>
           <input
             id="email"
@@ -159,16 +180,23 @@ export function StartForm({ endpoint }: { endpoint: string }) {
         <div>
           <label className={LABEL} htmlFor="plan">
             Plan
+            <Required />
           </label>
+          {/* No preselected size: before hydration a `?plan=` link would otherwise
+              submit the default for the wrong size. An empty first option makes
+              the choice explicit and the select fails validation instead. */}
           <select
             ref={planSelect}
             id="plan"
             name="plan"
             required
-            defaultValue="team"
+            defaultValue=""
             className={FIELD}
           >
-            {PLANS.map((item) => (
+            <option value="" disabled>
+              Choose a size
+            </option>
+            {OFFERED_PLANS.map((item) => (
               <option key={item.id} value={item.id}>
                 {item.name} — {item.endpoints} endpoints · free
               </option>
@@ -180,6 +208,7 @@ export function StartForm({ endpoint }: { endpoint: string }) {
       <div className="mt-5">
         <label className={LABEL} htmlFor="endpoints">
           Endpoints you own
+          <Required />
         </label>
         <textarea
           id="endpoints"

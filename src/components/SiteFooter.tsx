@@ -25,7 +25,7 @@ export function SiteFooter() {
             {FOOTER_LINKS.map((group) => (
               <nav key={group.title} aria-label={group.title}>
                 <p className="eyebrow mb-4">{group.title}</p>
-                <ul className="space-y-2.5">
+                <ul>
                   {group.links.map((link) => (
                     <li key={link.href}>
                       <Link
@@ -45,18 +45,18 @@ export function SiteFooter() {
         <div className="mt-14 border-t border-border pt-6">
           <div className="flex flex-col gap-3 text-[13px] text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Caurium. All rights reserved.</p>
-            <p className="mono text-[11.5px] uppercase tracking-[0.06em]">
+            <p className="mono text-[11px] uppercase tracking-[0.06em]">
               Static site · Free preview · No first-party tracking
             </p>
           </div>
-          <p className="mt-4 max-w-2xl text-[13px] leading-5 text-muted">
+          <p className="note mt-4 text-[13px] leading-5 text-muted">
             Product availability is listed per product. Nothing on this site is a live service
             unless a product page says so.
           </p>
           <ul className="mt-5 flex flex-col gap-2 text-[13px] text-muted sm:flex-row sm:flex-wrap sm:gap-x-6">
             {CONTACT_LINKS.map((item) => (
               <li key={item.address}>
-                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {item.label}
                 </span>{' '}
                 <a
@@ -69,7 +69,7 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <p className="mono mt-3 text-[11.5px] uppercase tracking-[0.06em] text-muted">
+          <p className="mono mt-3 text-[11px] uppercase tracking-[0.06em] text-muted">
             Content reviewed 29 Oct 2026 ·{' '}
             <Link
               href="/build-log/"

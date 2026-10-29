@@ -19,7 +19,6 @@ export const metadata: Metadata = pageMetadata({
 
 const PROBLEMS = [
   {
-    code: '01',
     title: 'A key that cannot be revoked alone.',
     detail:
       'One API key is copied into a second service. Revoking it breaks both, so nobody revokes it.',
@@ -27,21 +26,18 @@ const PROBLEMS = [
     href: '/products/gate/',
   },
   {
-    code: '02',
     title: 'An endpoint that is down while the status page stays green.',
     detail: 'Someone remembered to deploy. Nobody remembered to update the page.',
     product: 'Probe',
     href: '/products/probe/',
   },
   {
-    code: '03',
     title: 'A backup that has never been restored.',
     detail: 'The job is green. The restore has never been run.',
     product: 'Guard',
     href: '/products/guard/',
   },
   {
-    code: '04',
     title: 'A dev server that outlives the project.',
     detail: 'Shared credentials, unclear ownership, no clean way to reclaim it.',
     product: 'Box',
@@ -75,25 +71,21 @@ const WORKFLOW = [
 
 const PRINCIPLES = [
   {
-    code: 'P.01',
     title: 'One credential, one caller.',
     detail:
       'Every caller gets its own key and limits. Revoking one does not break another.',
   },
   {
-    code: 'P.02',
     title: 'A boundary is not a hidden URL.',
     detail:
       'Management access is a separate application with its own identity, not a path on the public site.',
   },
   {
-    code: 'P.03',
     title: 'Unknown is a valid answer.',
     detail:
       'Missing, stale or malformed data is shown as Unknown, never carried forward as green.',
   },
   {
-    code: 'P.04',
     title: 'No capability without a record.',
     detail:
       'A feature is called available only after its test is run and written down. A passing build is not evidence.',
@@ -153,7 +145,7 @@ export default function HomePage() {
     <>
       <section className="section-ink relative overflow-hidden border-b border-border">
         <div className="hero-glow hero-glow--ink" aria-hidden="true" />
-        <div className="container-page relative z-10 py-16 md:py-24 lg:py-28">
+        <div className="container-page relative z-10 pb-14 pt-14 md:pb-20 md:pt-20 lg:pb-24 lg:pt-16">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
             {/*
               The kicker used to sit above the headline as a tracked-caps eyebrow, the
@@ -181,7 +173,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="mx-auto mt-14 max-w-3xl">
+          <div className="mx-auto mt-10 max-w-3xl">
             <SystemBoard />
           </div>
         </div>
@@ -193,7 +185,7 @@ export default function HomePage() {
                 key={item.label}
                 className="flex items-baseline justify-between gap-4 py-3.5 sm:block sm:px-5 sm:first:pl-0 sm:last:pr-0"
               >
-                <p className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-white/62">
+                <p className="mono flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-white/62">
                   <span className="h-1 w-1 rounded-full bg-lime" aria-hidden="true" />
                   {item.label}
                 </p>
@@ -207,24 +199,20 @@ export default function HomePage() {
       <section className="section section-paper border-b border-border" aria-labelledby="problem-heading">
         <div className="container-page">
           <SectionHeading
-            index="01 / The problem"
             id="problem-heading"
             title="The failures we are designing against."
             intro="None of these is a customer story. They are the failure modes the four modules are meant to make visible."
           />
 
-          <div className="mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
+          <div className="grid-cells mt-12 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
             {PROBLEMS.map((item) => (
               <Link
-                key={item.code}
+                key={item.href}
                 href={item.href}
                 className="group flex flex-col justify-between gap-8 bg-paper p-6 transition-colors hover:bg-background md:p-8"
               >
                 <div>
-                  <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
-                    {item.code} / Design target
-                  </p>
-                  <h3 className="mt-4 max-w-[24ch] text-[22px] leading-[1.2] tracking-[-0.02em]">
+                  <h3 className="max-w-[24ch] text-[22px] leading-[1.2] tracking-[-0.02em]">
                     {item.title}
                   </h3>
                   <p className="mt-3 max-w-md text-[14px] leading-6 text-muted">{item.detail}</p>
@@ -237,7 +225,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <p className="mt-5 text-[13px] leading-5 text-muted">
+          <p className="note mt-5 text-[13px] leading-5 text-muted">
             Design targets, not observed incidents. Probe is in private preview; Gate, Guard and
             Box are in development.
           </p>
@@ -247,7 +235,6 @@ export default function HomePage() {
       <section className="section border-b border-border" aria-labelledby="products-heading">
         <div className="container-page">
           <SectionHeading
-            index="02 / Products"
             id="products-heading"
             title="Four modules. Four narrow jobs."
             intro="Each module has one job, one boundary and its own acceptance criteria. A release in one does not promote another."
@@ -263,7 +250,7 @@ export default function HomePage() {
             <p className="text-[13px] leading-5 text-muted">
               Probe is available in private preview. Gate, Guard and Box are in development.
             </p>
-            <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+            <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
               Fig. 02–05 · Module records
             </p>
           </div>
@@ -277,7 +264,6 @@ export default function HomePage() {
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="section-index">03 / Workflow</p>
               <h2 id="workflow-heading" className="h2 mt-4">
                 Connect. Observe. Operate.
               </h2>
@@ -300,7 +286,7 @@ export default function HomePage() {
                 <span className="mono mb-4 inline-flex h-8 w-8 items-center justify-center bg-ink text-[12.5px] text-paper">
                   {item.step}
                 </span>
-                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   {item.label}
                 </p>
                 <h3 className="h3 mt-3">{item.title}</h3>
@@ -309,7 +295,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <p className="mt-10 max-w-2xl text-[13px] leading-5 text-muted">
+          <p className="note mt-10 text-[13px] leading-5 text-muted">
             What Probe gives you today: a status page with a timestamp, one webhook message when an
             incident opens and one when it recovers. A Gate key and a Guard restore record are still
             designs.
@@ -318,9 +304,8 @@ export default function HomePage() {
       </section>
 
       <section className="section section-lav border-b border-border" aria-labelledby="principles-heading">
-        <div className="container-page grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+        <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Principles</p>
             <h2 id="principles-heading" className="h2 mt-4 max-w-[15ch]">
               What we will and will not <span className="emphasis">claim.</span>
             </h2>
@@ -336,10 +321,7 @@ export default function HomePage() {
 
           <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
             {PRINCIPLES.map((principle) => (
-              <div key={principle.code} className="bg-paper p-6">
-                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
-                  {principle.code}
-                </p>
+              <div key={principle.title} className="bg-paper p-6">
                 <h3 className="mt-3 text-[16px] leading-6 tracking-[-0.01em]">{principle.title}</h3>
                 <p className="mt-2 text-[14px] leading-6 text-muted">{principle.detail}</p>
               </div>
@@ -349,9 +331,8 @@ export default function HomePage() {
       </section>
 
       <section className="section section-lime border-b border-border" aria-labelledby="trust-heading">
-        <div className="container-page grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+        <div className="container-page grid gap-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-20">
           <div>
-            <p className="section-index">05 / Boundaries</p>
             <h2 id="trust-heading" className="h2 mt-4 max-w-[14ch]">
               Trust is a <span className="emphasis">boundary,</span> not a badge.
             </h2>
@@ -397,9 +378,8 @@ export default function HomePage() {
       </section>
 
       <section className="section section-paper border-b border-border" aria-labelledby="docs-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20">
           <div>
-            <p className="section-index">06 / Documentation</p>
             <h2 id="docs-heading" className="h2 mt-4 max-w-[15ch]">
               Read what exists before you rely on it.
             </h2>
@@ -444,9 +424,8 @@ export default function HomePage() {
       </section>
 
       <section className="section border-b border-border" aria-labelledby="status-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-20">
           <div>
-            <p className="section-index">07 / Status</p>
             <h2 id="status-heading" className="h2 mt-4">
               Service status
             </h2>
@@ -464,10 +443,10 @@ export default function HomePage() {
           <div>
             <div className="status-panel">
               <div className="status-panel__head">
-                <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <p className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Caurium site feed · Schema v1
                 </p>
-                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Not connected
                 </span>
               </div>
@@ -481,16 +460,16 @@ export default function HomePage() {
                     className="h-2 w-2 rounded-full border border-border-strong"
                     aria-hidden="true"
                   />
-                  <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                  <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                     No site-wide component is reported as operational
                   </span>
                 </div>
               </div>
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3">
-                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Data source: none
                 </span>
-                <span className="mono text-[11.5px] uppercase tracking-[0.06em] text-muted">
+                <span className="mono text-[11px] uppercase tracking-[0.06em] text-muted">
                   Last check: none
                 </span>
               </div>
@@ -500,7 +479,7 @@ export default function HomePage() {
               {['Operational', 'Degraded', 'Outage', 'Maintenance', 'Unknown'].map((state) => (
                 <span
                   key={state}
-                  className="mono flex items-center gap-1.5 text-[11.5px] uppercase tracking-[0.06em] text-muted"
+                  className="mono flex items-center gap-1.5 text-[11px] uppercase tracking-[0.06em] text-muted"
                 >
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
@@ -531,8 +510,8 @@ export default function HomePage() {
               mono
             />
             <div className="relative px-6 py-14 md:px-14 md:py-20">
-              <p className="mono text-[11.5px] uppercase tracking-[0.06em] text-white/68">
-                08 / Build log
+              <p className="mono text-[11px] uppercase tracking-[0.06em] text-white/68">
+                Build log
               </p>
               <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
                 <div>

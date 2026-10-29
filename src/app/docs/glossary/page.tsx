@@ -27,7 +27,7 @@ export default function GlossaryPage() {
             className="grid gap-2 border-b border-border py-5 sm:grid-cols-[180px_1fr] sm:gap-6"
           >
             <dt className="text-[15.5px] font-medium text-ink">{entry.term}</dt>
-            <dd className="max-w-2xl text-[14px] leading-6 text-muted">
+            <dd className="note text-[14px] leading-6 text-muted">
               {entry.definition}
               {entry.href && entry.linkLabel ? (
                 <>

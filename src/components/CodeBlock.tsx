@@ -50,7 +50,7 @@ export function CodeBlock({
             ? 'Copy failed.'
             : ''}
       </span>
-      {note ? <p className="mt-2 text-xs leading-5 text-muted">{note}</p> : null}
+      {note ? <p className="note mt-2 text-[13px] leading-5 text-muted">{note}</p> : null}
     </figure>
   );
 }

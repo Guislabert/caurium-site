@@ -121,7 +121,7 @@ export default function DocsPage() {
           >
             <p className="text-[15px] font-medium leading-5">{path.title}</p>
             <p className="mt-2 text-[12.5px] leading-5 text-muted">{path.detail}</p>
-            <span className="mono mt-4 inline-block text-[11.5px] uppercase tracking-[0.06em] text-accent-ink">
+            <span className="mono mt-4 inline-block text-[11px] uppercase tracking-[0.06em] text-accent-ink">
               Start →
             </span>
           </Link>

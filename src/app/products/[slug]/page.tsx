@@ -108,7 +108,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       <section className="section border-b border-border" aria-labelledby="context-heading">
         <div className="container-page">
-          <p className="section-index">01 / Context</p>
           <h2 id="context-heading" className="sr-only">
             Who {product.name} is for and the problem it addresses
           </h2>
@@ -132,7 +131,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="container-page">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="section-index">02 / Workflow</p>
               <h2 id="workflow-heading" className="h2 mt-4">
                 Input, handling, output.
               </h2>
@@ -156,16 +154,15 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             ))}
           </ol>
 
-          <p className="mt-10 max-w-2xl text-xs leading-5 text-muted">
+          <p className="note mt-10 text-[13px] leading-5 text-muted">
             {product.workflowCaption}
           </p>
         </div>
       </section>
 
       <section className="section border-b border-border" aria-labelledby="scope-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">03 / Scope</p>
             <h2 id="scope-heading" className="h2 mt-4 max-w-[16ch]">
               What is intended, and what is verified.
             </h2>
@@ -197,9 +194,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         className="section border-b border-border bg-paper"
         aria-labelledby="decisions-heading"
       >
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">04 / Design decisions</p>
             <h2 id="decisions-heading" className="h2 mt-4 max-w-[15ch]">
               Why the boundary sits here.
             </h2>
@@ -230,9 +226,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="section border-b border-border" aria-labelledby="criteria-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">05 / Release criteria</p>
             <h2 id="criteria-heading" className="h2 mt-4 max-w-[15ch]">
               What must be true before this changes.
             </h2>
@@ -249,9 +244,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         className="section border-b border-border bg-paper"
         aria-labelledby="example-heading"
       >
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">06 / Example</p>
             <h2 id="example-heading" className="h2 mt-4 max-w-[14ch]">
               The shape of the contract.
             </h2>
@@ -270,9 +264,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="section border-b border-border" aria-labelledby="limits-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">07 / Limits and boundaries</p>
             <h2 id="limits-heading" className="h2 mt-4 max-w-[16ch]">
               Written down before they matter.
             </h2>
@@ -289,9 +282,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         className="section border-b border-border bg-paper"
         aria-labelledby="questions-heading"
       >
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">08 / Open questions</p>
             <h2 id="questions-heading" className="h2 mt-4 max-w-[15ch]">
               What is still undecided.
             </h2>
@@ -317,9 +309,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="section border-b border-border" aria-labelledby="faq-heading">
-        <div className="container-page grid gap-10 lg:grid-cols-[0.68fr_1.32fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] lg:gap-20">
           <div>
-            <p className="section-index">09 / FAQ</p>
             <h2 id="faq-heading" className="h2 mt-4 max-w-[14ch]">
               Questions a reader should ask.
             </h2>
@@ -334,8 +325,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
           <div className="border-t border-border-strong">
             {product.faq.map((item) => (
-              <details key={item.question} className="group border-b border-border py-4">
-                <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-[15px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
+              <details key={item.question} className="group border-b border-border">
+                <summary className="flex min-h-14 cursor-pointer list-none items-start justify-between gap-4 py-4 text-[15px] font-medium leading-6 text-ink [&::-webkit-details-marker]:hidden">
                   {item.question}
                   <span
                     aria-hidden="true"
@@ -344,7 +335,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                     +
                   </span>
                 </summary>
-                <p className="mt-3 max-w-2xl text-[14px] leading-6 text-muted">{item.answer}</p>
+                <p className="note mt-3 text-[14px] leading-6 text-muted">{item.answer}</p>
               </details>
             ))}
           </div>
@@ -355,9 +346,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         className="section border-b border-border bg-paper"
         aria-labelledby="availability-heading"
       >
-        <div className="container-page grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="container-page grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
           <div>
-            <p className="section-index">10 / Availability</p>
             <h2 id="availability-heading" className="h2 mt-4">
               {STAGE_LABELS[product.stage]}.
             </h2>
@@ -398,7 +388,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
       <section className="section" aria-labelledby="related-heading">
         <div className="container-page">
-          <p className="section-index">11 / Other modules</p>
           <h2 id="related-heading" className="h2 mt-4">
             The rest of the roadmap.
           </h2>

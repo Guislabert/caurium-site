@@ -1,13 +1,11 @@
 import type { ReactNode } from 'react';
 
 export function SectionHeading({
-  index,
   title,
   intro,
   id,
   align = 'bottom',
 }: {
-  index: string;
   title: string;
   intro?: ReactNode;
   id?: string;
@@ -20,8 +18,7 @@ export function SectionHeading({
       }`}
     >
       <div>
-        <p className="section-index">{index}</p>
-        <h2 id={id} className="h2 mt-4 max-w-[20ch]">
+        <h2 id={id} className="h2 max-w-[20ch]">
           {title}
         </h2>
       </div>
