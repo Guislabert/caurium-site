@@ -65,7 +65,7 @@ export function SiteFooter() {
                 >
                   {item.address}
                 </a>{' '}
-                <span className="text-muted/80">— {item.note}</span>
+                <span className="text-muted">— {item.note}</span>
               </li>
             ))}
           </ul>
